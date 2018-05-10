@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>It stores all settings for Sprinklr integration</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Brand__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Leave empty if Unknown</inlineHelpText>
+        <label>Brand</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Leave empty if unknown</inlineHelpText>
+        <label>Country</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Language Code</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language__c</fullName>
+        <externalId>false</externalId>
+        <label>Language</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Queue_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Queue Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Queue_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Queue Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SN_Type__c</fullName>
+        <description>Social network Name</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Social Network. Ex: Facebook, Twitter,...</inlineHelpText>
+        <label>SN Type</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SN_Unique_Id__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Unique identifier of the Social Network</inlineHelpText>
+        <label>SN Unique Id</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SN_Unique_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>SN Unique Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>SocialMediaSettings</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Id__c</columns>
+        <columns>Country__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>SN_Type__c</columns>
+        <columns>SN_Unique_Id__c</columns>
+        <columns>SN_Unique_Name__c</columns>
+        <columns>Language__c</columns>
+        <columns>Language_Code__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Pampers_Facebook</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Id__c</columns>
+        <columns>Country__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>SN_Type__c</columns>
+        <columns>SN_Unique_Id__c</columns>
+        <columns>SN_Unique_Name__c</columns>
+        <columns>Language__c</columns>
+        <columns>Language_Code__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand__c</field>
+            <operation>equals</operation>
+            <value>Pampers</value>
+        </filters>
+        <filters>
+            <field>SN_Type__c</field>
+            <operation>equals</operation>
+            <value>Facebook</value>
+        </filters>
+        <label>Pampers Facebook</label>
+        <language>en_US</language>
+    </listViews>
+    <visibility>Public</visibility>
+</CustomObject>

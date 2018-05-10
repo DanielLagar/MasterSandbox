@@ -1,0 +1,759 @@
+<!--
+#    
+#    This page is placed as a top section on the case instead of highlights panel. It also controlls subtabs on the case
+#    
+#    @param: Id - The Salesforce Id of the existing Case record
+#    @author: Oleg Rikkers
+#    @date: 7/21/2014
+#
+-->
+
+<apex:page showHeader="false" sidebar="false" standardController="Case" extensions="sf_CaseSASQuestionsExt,sf_DAMImageProxyCtrl" id="page">
+	<!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery1_10_4_CSS)}"/> 
+    <apex:stylesheet value="{!URLFOR($Page.sf_SurveyPagesCSS)}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    
+    <!-- For Streaming API to refresh page when new Case Products are found for the current case -->
+    <apex:includeScript value="{!$Resource.cometd}"/>
+    <apex:includeScript value="{!$Resource.jquery151}"/>
+    <apex:includeScript value="{!$Resource.json2}"/>
+    <apex:includeScript value="{!$Resource.jquery_cometd}"/>
+    
+    <script type="text/javascript">
+    	var imageLoadingGif = '{!URLFOR($Resource.sf_loading_image)}';
+
+   		if (!window.console) {console={log: function () {}}; }
+   		
+		var j$ = jQuery.noConflict();
+		var caseId = '{!case.Id}';
+		var sfPrimaryTabId = null;
+		var ignoreRefreshMessage = false;
+		var probingQuestionsSaved = true;
+		var sasQuestionsSaved = true;
+
+		
+		$(document).ready(function (){
+      		$('#dialog-refresh').hide();
+      		$('#surveysAvailable').hide();
+      		initPQChangesTracking();
+      		initSasChangesTracking();
+
+
+      		initMainTabsNavigation();
+      		initSubtabsNavigation();
+      		$('#dialog-refresh').hide();
+      		$('#surveysAvailable').hide();
+      		if('{!pqSize}' == 0){
+      			$('.sasTab').click();
+      		}
+
+      		getBrandstoreImages ();
+      	});
+
+      	function getBrandstoreImages () {
+      		var imageUrl = imageLoadingGif;
+       		
+	        var prodIds = [];
+
+	        $('img.productThumbnail').each (function (index, item){
+				//console.log(item);
+				prodIds.push($(item).attr('img-id'));
+			});
+	        sf_DAMImageProxyCtrl.getDamImageThumbnailUrlInBulk(prodIds, function (result, event) {
+	            
+	            if (event.status) {
+	                for (i = 0; i < result.length; i++) {
+	                	$('.img' + result[i].Id).attr('src', result[i].Image_Url_Thumb__c);
+	                	console.log(result[i].Id);
+	                }
+	            } else {
+	                console.log(event);
+	            }
+	        },{escape: false});
+
+      	}
+
+      	function initPQChangesTracking () {
+            
+      		$('[id$=probingQuestions] :input').change(function() {
+      			sforce.console.setTabUnsavedChanges(true, function () {
+                    console.log ('initPQChangesTracking - false');
+      				probingQuestionsSaved = false;
+      			});
+      			
+      			
+      		});
+      	}
+
+      	function initSasChangesTracking () {
+      		$('[id$=sasSurveyContentBlock] :input').change(function() {
+      			sforce.console.setTabUnsavedChanges(true, function() {
+      				sasQuestionsSaved = false;	
+      			});
+      			
+      		});
+      	}
+
+      	function trackSasSavedChanges () {
+      		sasQuestionsSaved=true;
+            
+ 			trackSavedChanges();
+ 			initSasChangesTracking();
+      	}
+
+      	function trackPQSavedChanges () {
+      		probingQuestionsSaved=true;
+            
+ 			trackSavedChanges();
+ 			initPQChangesTracking();
+      	}
+
+      	function trackSavedChanges () {
+      		if (probingQuestionsSaved && sasQuestionsSaved)
+      			sforce.console.setTabUnsavedChanges(false, null);
+      	}
+		
+		sforce.console.getEnclosingPrimaryTabId (function (result) {
+			sfPrimaryTabId = result.id;
+		});
+		
+		//refresh the primary subtab
+		function refreshSelectedCaseTab(){
+		    //orikkers
+		    sforce.console.getSubtabIds(sfPrimaryTabId, function(result){ 
+		        //console.log('getSubtabIds ', result);
+		        sforce.console.refreshSubtabById(result.ids[0], false, function (){
+		          //  console.log ('refreshSubtabById', result);
+		        }); //assuming first one is always details
+		    });
+		}
+		
+		(function(j$){
+			j$(document).ready(function() {
+				// Connect to the CometD endpoint
+				j$.cometd.init({
+					url: window.location.protocol+'//'+window.location.hostname+'/cometd/30.0/',
+					requestHeaders: { Authorization: 'OAuth {!$Api.Session_ID}'}, appendMessageTypeToURL : false
+				});
+           
+				// Subscribe to a topic. JSON-encoded update will be returned
+				// in the callback
+				j$.cometd.subscribe('/topic/AllSurveyRecords', function(message) {
+					var messageType = message.data.event.type;
+					var messageCaseId = message.data.sobject.Case__c;
+					var messageCpId = message.data.sobject.Id;
+					//console.log('message type: ' + messageType);
+					//console.log('message case: ' + messageCaseId); 
+					//console.log('message cpId: ' + messageCpId); 
+					if (messageType == 'created' && messageCaseId == caseId && ignoreRefreshMessage == false){
+						$('#dialog-refresh').show();
+      					$('#surveysAvailable').show();
+					//	console.log('Survey Record Refresh: ' + messageType);
+					}
+				});
+				j$.cometd.subscribe('/topic/AllSafetySurveyRecords', function(message) {
+					var messageType = message.data.event.type;
+					var messageCaseId = message.data.sobject.Case__c;
+					var messageCpId = message.data.sobject.Id;
+					//console.log('message type: ' + messageType);
+					//console.log('message case: ' + messageCaseId); 
+					//console.log('message cpId: ' + messageCpId); 
+					if (messageType == 'created' && messageCaseId == caseId && ignoreRefreshMessage == false){
+						$('#dialog-refresh').show();
+      					$('#surveysAvailable').show();
+					//	console.log('Safety Survey Record Refresh: ' + messageType);
+					}
+				});
+				j$.cometd.subscribe('/topic/AllSurveyCommentProduct', function(message) {
+					var messageType = message.data.event.type;
+					var messageCaseId = message.data.sobject.Case__c;
+					var messageCpId = message.data.sobject.Id;
+					//console.log('message type: ' + messageType);
+					//console.log('message case: ' + messageCaseId); 
+					//console.log('message cpId: ' + messageCpId); 
+					if (messageType == 'created' && messageCaseId == caseId && ignoreRefreshMessage == false){
+						$('#dialog-refresh').show();
+      					$('#surveysAvailable').show();
+					//	console.log('Survey Comment Product Record Refresh: ' + messageType);
+					}
+				});
+				ignoreRefreshMessage == false;
+			});
+		})(jQuery)
+		
+		function refreshPage(){
+			window.location.reload();
+		}
+		
+		function refreshChecklist(){
+	        //console.log('fired checklist refresh event');
+	        sforce.console.fireEvent('sf_RefreshChecklistEvent', caseId);
+		}
+		
+
+        var initMainTabsNavigation = function () {
+            $('.pqTab').bind ('click', function (){
+                $(this).addClass('activeTab');
+                $(this).siblings().removeClass('activeTab');
+
+                $('.mainContent').hide();
+                $('.probingQuestions').show();
+            });
+
+            $.each($('.sasTab'), function (index, value) {
+        		$(value).html('{!$Label.RequiredInfo_SurveyGroup}' + ' ' + (index+1));
+        	});
+
+            $('.sasTab').bind ('click', function (){
+                $(this).addClass('activeTab');
+                $(this).siblings().removeClass('activeTab');
+                $('.mainContent').hide();
+
+                var anchor = '.' + $(this).attr('anchor');
+                //console.log(anchor);
+                $(anchor).show();
+
+
+                //make first subtab active right away
+                $($(anchor).find('.sasSubtab')[0]).trigger("click");
+            });
+        };
+
+        var initSubtabsNavigation = function () {
+        	$.each($('.sasSubtab'), function (index, value) {
+        		$(value).html('{!$Label.RequiredInfo_Survey}' + ' ' + (index+1));
+        	});
+
+            $('.sasSubtab').bind('click', function(){
+                
+                $('.sasSubtab').removeClass('activeTab')
+                $(this).addClass('activeTab');
+                
+                $('.sasContent').hide();
+                $('.' + $(this).attr('anchor')).show();
+            });
+
+            initMisc();
+            
+        };
+
+        var initMisc = function () {
+            $('.dateFormat').hide();
+            $('.productBlock').hover(function () {
+                $(this).toggleClass ('activeTab');
+            });
+
+            $('.rowLabel').parent().addClass('rowLabelTd');
+            getBrandstoreImages ();
+        };
+
+        var jumpToLast = function () {
+            var subTab = '.' + $('.mainNav').find('.activeTab').attr('anchor');
+            $(subTab).last().trigger("click");
+        };
+
+        var jumpToLastSymptomCell = function (elName) {
+        	$('[elname='+ elName +']').parent().prev().find('tr').last().find('textarea').first().focus();
+        };
+
+        var clearSymptoms = function (elName) {
+        	
+        	var textAreas = $('[elname='+ elName +']').parent().prev().find('tr').last().find('textarea');
+        	$.each(textAreas, function(i, el){
+        		$(el).val('');
+        	});
+
+        	$('[elname='+ elName +']').parent().prev().find('tr').last().find('select').val('');
+        };
+				
+	</script>
+	
+	<style type="text/css">
+		.screen_overlay_show{
+	        position: fixed;
+	        top: 0%;
+	        left: 0%;
+	        width: 100%;
+	        height: 100%;
+	        background-color: rgba(255,255,255,0.8);
+	        z-index:1001;
+	    }
+	    .white_content_show {
+	        position: fixed;
+	        top: 50%;
+	        left: 50%;
+	        font-family: "Arial";
+	        background-color: white;
+	        z-index:5002;
+	        overflow: auto;
+	        width: 550px;
+	        height: 225px;
+	        margin-left: -275px;
+	        margin-top: -112px;
+	        box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.196);
+	    }
+	    .popupHeader {
+	        padding-top: 17px;
+	        padding-bottom: 19px;
+	        padding-left: 19px;
+	        padding-right: 18%;
+	        font-size: 20px;
+	        color: white;
+	        font-family: "Arial";
+	        font-weight: bold;
+	        letter-spacing: 0em;
+	        background-color: #165FAB;
+	    }
+	    
+	    .dialog-button-container{
+	    	width: 100%;
+	    	position: absolute;
+	    	bottom: 0px;
+	    	overflow: auto;
+	    	height: 75px;
+	    }
+	    
+	    .dialog-button{
+	    	float: right;
+	    	right: 30px;
+	    	margin-right: 30px;
+	    	margin-top: 15px;
+	    	min-width: 100px;
+	    }
+	    
+	    .refresh-text{
+	    	margin-left: 31px;
+	    	margin-right: 30px;
+	        font-family: "Arial";
+	        font-size: 12px;
+	        text-align: left;
+	        line-height: 12px;
+	    }
+	    
+       	.dialog-hr { 
+	        color: rgb(22, 95, 171);
+	    }
+	    
+	    .inactiveNotification{
+	    	float: left;
+	    	margin-top: 6px;
+	    	margin-right: 6px;
+	    	color: red;
+	    }
+	    
+	    .sasSavedTime{
+	    	float: right;
+	    	margin-top: 5px;
+	    	margin-right: 5px;
+	    }
+	    
+	    .lastSavedText{
+	    	color: green;
+	    }
+	    
+    </style> 
+
+    <apex:pageMessages id="errorMessages"/>
+
+    <div id="top">
+		<div id="dialog-refresh" style="display: none;">
+			<div id="dialog-refresh-overlay" class="screen_overlay_show"/>
+			<div id="dialog-refresh-whitecontent" class="white_content_show">
+				<div id="dialog-refresh-header" class="popupHeader">{!$Label.RefreshSubtab_DialogHeader}</div>
+			  	<p class="refresh-text">{!$Label.RefreshSubtab_DialogText}</p>
+				<div class="dialog-button-container">
+					<hr class="dialog-hr"/>
+					<button type="button" class="dialog-button" onclick="$('#dialog-refresh').hide();">{!$Label.RefreshSubtab_CloseDialog}</button>
+					<button type="button" class="dialog-button" onclick="refreshPage();">{!$Label.RefreshSubtab_RefreshNow}</button>
+				</div>
+			</div>
+		</div>
+
+      	<apex:outputPanel layout="block" styleClass="tabs" id="mainTabsContent">
+      		<apex:outputPanel layout="block" style="width:100%; height: 35px; overflow:auto;" styleClass="mainRefreshButton">
+      			<button type="button" id="surveyRefreshButton" style="float: left; margin-right: 0px;" onclick="refreshPage();">{!$Label.RefreshSurvey_ButtonText}</button>
+      			<div id="surveysAvailable" style="float: left;color:red;margin-left: 5px;margin-top:5px; display:none;">{!$Label.RefreshSurvey_AlertText}</div>
+      		</apex:outputPanel>
+      		<apex:outputPanel layout="block" styleClass="nav mainNav" id="mainNavTabs">
+      			<apex:outputPanel layout="block" styleClass="pqTab tab {!IF(pqSize > 0, 'activeTab', '')} mainTab">Probing Questions</apex:outputPanel>
+      			<apex:repeat value="{!sasMstMap}" var="sasList">
+                    <apex:outputPanel layout="block" styleClass="sasTab tab {!IF(pqSize > 0, '', 'activeTab')} mainTab" html-anchor="{!sasList}"></apex:outputPanel>
+                </apex:repeat>
+      		</apex:outputPanel>
+        	
+      		<apex:outputPanel layout="block" id="probingQuestions" styleClass="probingQuestions content mainContent">
+      			<apex:include pageName="sf_CaseSurveyProbingQuestions"/>
+      		</apex:outputPanel>
+
+
+            <!-- SAS Questions Subtabs -->
+            <apex:form id="form">
+                <apex:repeat value="{!sasMstMap}" var="sasList">
+                    <apex:outputPanel layout="block" styleClass="content {!sasList} mainContent " style="display:none">
+                        
+                        <!-- NAV SUBTABS -->
+                        <apex:outputPanel layout="block" styleClass="nav" id="sasSubtabNav">
+                            <apex:repeat value="{!sasMstMap[sasList]}" var="sas">
+                                <apex:outputPanel layout="block" styleClass="tab sasSubtab {!sasList}" html-anchor="{!sas.Name}">
+                                 
+                                </apex:outputPanel>
+                            </apex:repeat>
+                        </apex:outputPanel>
+                        <!-- END NAV SUBATABS -->
+
+                        
+                        <!-- SUBTABS CONTENT -->
+                        <apex:outputPanel layout="block" id="sasSubtabContent" styleClass="sasSubtabContent">
+                            <apex:repeat value="{!sasMstMap[sasList]}" var="sas">
+
+                                <apex:outputPanel layout="block" styleClass="sasContentBlock content sasContent {!sas.Name}" style="display:none; background: #f8f8f8">
+                                   
+                                    <!-- BUTTONS -->
+                                    <apex:outputPanel layout="block" styleClass="buttons" id="sasButtons">
+
+                                    	<apex:commandButton value="{!$Label.RequiredInfo_Delete}" action="{!deleteSAS}" status="sf_ProgressStatus" onclick="ignoreRefreshMessage=true;" oncomplete="refreshPage();" rendered="{!Case.Sent_to_CCM__c=false}">
+                                            <apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+                                            <apex:param value="{!sasList}" assignTo="{!mstId}" name="mstId"/>
+                                        </apex:commandButton>
+
+                                        <apex:commandButton value="{!$Label.RequiredInfo_Save}" action="{!saveAllSas}" reRender="sasButtons, sasSurveyContentBlock, saslastSavedTimeTop, saslastSavedTimeBottom, errorMessages" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" status="sf_ProgressStatus" oncomplete="initMisc();refreshSelectedCaseTab();refreshChecklist(); trackSasSavedChanges();">
+                                            <apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+                                            <apex:param value="{!sasList}" assignTo="{!mstId}" name="mstId"/>
+                                        </apex:commandButton>
+
+                                        <apex:commandButton value="{!$Label.RequiredInfo_Clone}" action="{!cloneSAS}" reRender="sasButtons, sasSurveyContentBlock, sasSubtabNav, sasSubtabContent, errorMessages" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" status="sf_ProgressStatus" onclick="ignoreRefreshMessage=true;" oncomplete="initSubtabsNavigation(); jumpToLast();refreshSelectedCaseTab();refreshChecklist();">
+                                            <apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+                                            <apex:param value="{!sasList}" assignTo="{!mstId}" name="mstId"/>
+                                        </apex:commandButton>
+                                         
+                                        <apex:commandButton value="{!$Label.RequiredInfo_New}" action="{!createNewSas}" reRender="sasButtons, sasSurveyContentBlock, errorMessages, sasSubtabNav, sasSubtabContent" status="sf_ProgressStatus" onclick="ignoreRefreshMessage=true;" oncomplete="initSubtabsNavigation(); jumpToLast();refreshSelectedCaseTab();refreshChecklist();">
+                                            <apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+                                            <apex:param value="{!sasList}" assignTo="{!mstId}" name="mstId"/>
+                                        </apex:commandButton>
+                                        
+                                       	<apex:outputPanel id="saslastSavedTimeTop" styleClass="sasSavedTime">
+											<apex:outputPanel rendered="{!sasSavedTime[sas.Id] != 'None'}">
+												<apex:outputText styleClass="lastSavedText" value="{!$Label.AgentConsole_Saved_As_Of} {!sasSavedTime[sas.Id]}"/>
+											</apex:outputPanel>
+										</apex:outputPanel>
+                                        
+                                        <apex:outputPanel layout="block" styleClass="inactiveNotification" rendered="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}">
+	                                       	<apex:outputLabel value="{!$ObjectType.Safety_Assessment_Survey__c.fields.Status__c.Label}"/>:&nbsp;
+					                   		<apex:outputField value="{!sas.Status__c}"/>
+  								            <!-- ALM 123
+  								            <br/>
+											<apex:outputLabel value="{!$ObjectType.Safety_Assessment_Survey__c.fields.Changed_By__c.Label}" styleClass="inactiveFieldLabel"/>:&nbsp;
+               								<apex:outputField value="{!sas.Changed_By__c}"/>
+               								<br/>
+               								<apex:outputLabel value="{!$ObjectType.Safety_Assessment_Survey__c.fields.Change_Reason__c.Label}" styleClass="inactiveFieldLabel"/>:&nbsp;
+               								<apex:outputField value="{!sas.Change_Reason__c}"/> -->
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                    <!-- END BUTTONS -->
+                                    
+                                    <div class="clearFix mb10"></div>
+
+                                    <apex:outputPanel layout="block" id="sasSurveyContentBlock" styleClass="surveyContainer mt10">
+                                    	<table width="100%">
+                                    		<tr>
+                                    			<td class="mainTableTd">
+                                    				<!-- FIELDSETS -->
+		                                            <apex:outputPanel layout="block" styleClass="fieldSetSection">
+		                                                <apex:repeat value="{!fieldSetNamesSASIdMap[sas.Id]}" var="fielSetName">
+		                                                    <apex:repeat value="{!fieldSetMap[fielSetName]}" var="fieldSet">
+		                                                        <!-- FIELD SET DESCRIPTION HEADER -->
+		                                                        <apex:outputPanel layout="block" styleClass="section">
+			                                                        <apex:outputPanel layout="block" styleClass="sectionHeader">
+			                                                            <apex:outputText value="{!$Label[fieldSet.Description]}"/>
+			                                                        </apex:outputPanel>
+			                                                        <!-- end .sectionHeader -->
+			                                                        
+			                                                        <apex:outputPanel layout="block" styleClass="sectionContent">
+				                                                        <apex:repeat value="{!fieldSet.fields}" var="sasField">
+				                                                        	<div class="question">
+				                                                                <!-- <apex:outputLabel styleClass="inlineLabel" value="{!$ObjectType.Safety_Assessment_Survey__c.fields[sasField].Label}"></apex:outputLabel> -->
+				                                                                <apex:outputLabel styleClass="inlineLabel" value="{!$ObjectType.Safety_Assessment_Survey__c.fields[sasField].inlineHelpText}"></apex:outputLabel>
+				                                                                <!-- <apex:image value="/s.gif" title="{!$ObjectType.Safety_Assessment_Survey__c.fields[sasField].inlineHelpText}" alt="{!$ObjectType.Safety_Assessment_Survey__c.fields[sasField].inlineHelpText}" styleClass="helpOrb" rendered="{!$ObjectType.Safety_Assessment_Survey__c.fields[sasField].inlineHelpText != null}"/> -->
+				                                                        	</div>
+				                                                        	<div class="answer">
+				                                                        		<apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked')}">
+				                                                        			<apex:inputField value="{!sas[sasField]}"/>
+				                                                        		</apex:outputPanel>
+				                                                        		<apex:outputPanel rendered="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}">
+				                                                        			<apex:outputField value="{!sas[sasField]}"/><br/>
+				                                                        		</apex:outputPanel>
+				                                                        	</div>
+				                                                        </apex:repeat>
+				                                                	</apex:outputPanel>
+				                                                	<!-- end .sectionContent -->
+		                                                        </apex:outputPanel>
+		                                                        <!-- end .section -->
+		                                                        
+		                                                    </apex:repeat>
+		                                                </apex:repeat>
+		                                            </apex:outputPanel>
+		                                            <!-- END FIELDSETS -->
+                                    			</td>
+                                    			<td class="mainTableTd2">
+                                    				<!-- ASSOCIATED PRODUCTS -->
+		                                            <apex:outputPanel layout="block" styleClass="products">
+		                                                <apex:outputPanel layout="block" style="padding-bottom:5px">
+		                                                    <apex:outputText value="{!$Label.SAS_ProductsAssociated}"/>
+		                                                </apex:outputPanel>
+		                                                <apex:outputPanel layout="block">
+		                                                    <apex:repeat value="{!surveyProducts[sas.Id]}" var="sp">
+	                                                            <apex:outputPanel layout="block" styleClass="productBlock">
+	                                                                <apex:panelGrid columns="3" styleClass="productsSelectedTable">
+	                                                                    <input type="checkbox" checked="1" disabled="true"/>
+	                                                               
+	                                                                    <apex:image html-img-id="{!sp.Case_Product__r.Local_Product__c}" styleClass="productThumbnail img{!sp.Case_Product__r.Local_Product__c}" width="80px" height="80px" value="{!URLFOR($Resource.sf_loading_image)}"/>
+
+		                                                                <apex:outputPanel layout="block" style="padding:10px">
+		                                                                    <apex:outputText value="{!sp.Translated_Path__c}" style="font-weight:bold;"/> <p/>
+
+		                                                                    <apex:outputText value="{!sp.Case_Product__r.Local_Product__r.GTIN_Number__c}"/><br/>
+		                                                                    <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.productstatus__c.label}"/>:&nbsp;
+		                                                                    <apex:outputText value="{!sp.Case_Product__r.ProductStatus__c}"/> <p/>
+		                                                                    <apex:commandLink action="{!deleteScp}" styleClass="btn btn-primary" style="text-decoration:none" rendered="{!AND(Case.Sent_to_CCM__c=false, surveyProducts[sas.Id][0].Id != sp.Id)}" value="{!$Label.SAS_Unlink}"  status="sf_ProgressStatus" oncomplete="refreshPage();">
+		                                                                    	<apex:param name="scpIdToDelete" assignTo="{!scpIdToDelete}" value="{!sp.Id}"/>
+		                                                                    </apex:commandLink>
+		                                                                </apex:outputPanel>
+	                                                                </apex:panelGrid>
+	                                                            </apex:outputPanel>
+		                                                    </apex:repeat>
+		                                                </apex:outputPanel>
+		                                            </apex:outputPanel>
+		                                            <!-- END ASSOCIATED PRODUCTS -->
+                                    			</td>
+                                    		</tr>
+                                    	</table>
+                                        <apex:panelGrid columns="2" columnClasses="mainTableTd, maintableTd2" width="100%">
+                                            
+                                    
+                                            
+                                        </apex:panelGrid>
+                                    </apex:outputPanel>
+
+                                    <!-- ADD FIXED SYMTOM INFO -->
+                                    <apex:outputPanel layout="block" style="background: white;">
+                                        <apex:outputPanel layout="block" styleClass="sectionHeader">
+                                            <apex:outputText value="{!$Label.SAS_SymptomInfoHeader}"/>
+                                        </apex:outputPanel>
+
+                                        <apex:outputPanel layout="block" styleClass="sectionContent" id="symptomGrid"> 
+                                                <apex:panelGrid columns="5" width="100%" columnClasses="symptomCell">
+                                                    <apex:outputLabel value=""/>
+                                                    <apex:outputLabel >
+                                                        <!-- <apex:image value="/s.gif" title="{!$Label.SAS_SymptomBodyPartHelp}" styleClass="helpOrb"/> -->
+                                                        {!$Label.SAS_SymptomBodyPart}
+                                                    </apex:outputLabel>
+
+                                                    <apex:outputLabel >
+                                                        <!-- <apex:image value="/s.gif" title="{!$Label.SAS_SymptomStartHelp}" styleClass="helpOrb"/> -->
+                                                        {!$Label.SAS_SymptomStart}
+                                                    </apex:outputLabel>
+
+                                                    <apex:outputLabel >
+                                                        <!-- <apex:image value="/s.gif" title="{!$Label.SAS_SymptomPresentHelp}" styleClass="helpOrb"/> -->
+                                                        {!$Label.SAS_SymptomPresent}
+                                                    </apex:outputLabel>
+
+                                                    <apex:outputLabel >
+                                                        <!-- <apex:image value="/s.gif" title="{!$Label.SAS_SymptomStopHelp}" styleClass="helpOrb"/> -->
+                                                        {!$Label.SAS_SymptomStop}
+                                                    </apex:outputLabel>
+
+	                                                <apex:outputLabel value="1" styleClass="rowLabel"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.Symptom_1_Body_Part_Affected__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_the_symptom_1_appear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}"/>
+	                                                <apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked')}">
+	                                                	<apex:inputField value="{!sas.Is_Symptom_1_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:outputPanel rendered="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}">
+		                                                <apex:outputField value="{!sas.Is_Symptom_1_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_symptom_1_disappear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}"/>
+	
+	                                                <apex:outputLabel value="2" styleClass="rowLabel"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.Symptom_2_Body_Part_Affected__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_the_symptom_2_appear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}"/>
+	                                                <apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked')}">
+	                                                	<apex:inputField value="{!sas.Is_Symptom_2_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:outputPanel rendered="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}">
+		                                                <apex:outputField value="{!sas.Is_Symptom_2_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_symptom_2_disappear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}"/>
+	
+	                                                <apex:outputLabel value="3" styleClass="rowLabel" rendered="{!(sas.Number_of_Symptoms__c > 2)}" />
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.Symptom_3_Body_Part_Affected__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 2)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_the_symptom_3_appear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 2)}"/>
+	                                                <apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked', sas.Number_of_Symptoms__c > 2)}">
+	                                                	<apex:inputField value="{!sas.Is_Symptom_3_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:outputPanel rendered="{!AND(OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked'), sas.Number_of_Symptoms__c > 2)}">
+		                                                <apex:outputField value="{!sas.Is_Symptom_3_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_symptom_3_disappear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 2)}"/>
+	
+	                                                <apex:outputLabel value="4" styleClass="rowLabel" rendered="{!(sas.Number_of_Symptoms__c > 3)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.Symptom_4_Body_Part_Affected__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 3)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_the_symptom_4_appear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 3)}"/>
+	                                                <apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked', sas.Number_of_Symptoms__c > 3)}">
+	                                                	<apex:inputField value="{!sas.Is_Symptom_4_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:outputPanel rendered="{!AND(OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked'), sas.Number_of_Symptoms__c > 3)}">
+		                                                <apex:outputField value="{!sas.Is_Symptom_4_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_symptom_4_disappear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 3)}"/>
+	
+	                                                <apex:outputLabel value="5" styleClass="rowLabel" rendered="{!(sas.Number_of_Symptoms__c > 4)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.Symptom_5_Body_Part_Affected__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 4)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_the_symptom_5_appear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 4)}"/>
+	                                                <apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked', sas.Number_of_Symptoms__c > 4)}">
+	                                                	<apex:inputField value="{!sas.Is_Symptom_5_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:outputPanel rendered="{!AND(OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked'), sas.Number_of_Symptoms__c > 4)}">
+		                                                <apex:outputField value="{!sas.Is_Symptom_5_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_symptom_5_disappear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 4)}"/>
+	
+	                                                <apex:outputLabel value="6" styleClass="rowLabel" rendered="{!(sas.Number_of_Symptoms__c > 5)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.Symptom_6_Body_Part_Affected__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 5)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_the_symptom_6_appear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 5)}"/>
+	                                                <apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked', sas.Number_of_Symptoms__c > 5)}">
+	                                                	<apex:inputField value="{!sas.Is_Symptom_6_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:outputPanel rendered="{!AND(OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked'), sas.Number_of_Symptoms__c > 5)}">
+		                                                <apex:outputField value="{!sas.Is_Symptom_6_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_symptom_6_disappear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 5)}"/>
+	
+	                                                <apex:outputLabel value="7" styleClass="rowLabel" rendered="{!(sas.Number_of_Symptoms__c > 6)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.Symptom_7_Body_Part_Affected__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 6)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_the_symptom_7_appear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 6)}"/>
+	                                                <apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked', sas.Number_of_Symptoms__c > 6)}">
+	                                                	<apex:inputField value="{!sas.Is_Symptom_7_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:outputPanel rendered="{!AND(OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked'), sas.Number_of_Symptoms__c > 6)}">
+		                                                <apex:outputField value="{!sas.Is_Symptom_7_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_symptom_7_disappear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 6)}"/>
+	
+	                                                <apex:outputLabel value="8" styleClass="rowLabel" rendered="{!(sas.Number_of_Symptoms__c > 7)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.Symptom_8_Body_Part_Affected__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 7)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_the_symptom_8_appear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 7)}"/>
+	                                                <apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked', sas.Number_of_Symptoms__c > 7)}">
+	                                                	<apex:inputField value="{!sas.Is_Symptom_8_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:outputPanel rendered="{!AND(OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked'), sas.Number_of_Symptoms__c > 7)}">
+		                                                <apex:outputField value="{!sas.Is_Symptom_8_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_symptom_8_disappear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 7)}"/>
+	
+	                                                <apex:outputLabel value="9" styleClass="rowLabel" rendered="{!(sas.Number_of_Symptoms__c > 8)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.Symptom_9_Body_Part_Affected__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 8)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_the_symptom_9_appear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 8)}"/>
+	                                                <apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked', sas.Number_of_Symptoms__c > 8)}">
+	                                                	<apex:inputField value="{!sas.Is_Symptom_9_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:outputPanel rendered="{!AND(OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked'), sas.Number_of_Symptoms__c > 8)}">
+		                                                <apex:outputField value="{!sas.Is_Symptom_9_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_symptom_9_disappear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 8)}"/>
+	
+	                                                <apex:outputLabel value="10" styleClass="rowLabel" rendered="{!(sas.Number_of_Symptoms__c > 9)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.Symptom_10_Body_Part_Affected__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 9)}"/>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_the_symptom_10_appear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 9)}"/>
+	                                                <apex:outputPanel rendered="{!AND(sas.Status__c != 'Cancelled', sas.Status__c != 'Locked', sas.Number_of_Symptoms__c > 9)}">
+	                                                	<apex:inputField value="{!sas.Is_Symptom_10_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:outputPanel rendered="{!AND(OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked'), sas.Number_of_Symptoms__c > 9)}">
+		                                                <apex:outputField value="{!sas.Is_Symptom_10_still_present__c}"/>
+	                                                </apex:outputPanel>
+	                                                <apex:inputTextarea html-maxlength="254" rows="3" value="{!sas.When_did_symptom_10_disappear__c}" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" rendered="{!(sas.Number_of_Symptoms__c > 9)}"/>
+                                                </apex:panelGrid>
+                                        </apex:outputPanel>
+                                        <!-- end .sectionContent -->
+                                                                            
+                                        <apex:outputPanel layout="block" styleClass="buttons mt10" id="addRemoveButtons">
+    	                                    <apex:commandButton value="{!$Label.SAS_RemoveSymptom}" action="{!removeSymptom}" reRender="symptomGrid, addRemoveButtons" disabled="{!(sas.Number_of_Symptoms__c<3) || sas.Status__c == 'Locked'}" html-elName="{!sas.name}" onclick="clearSymptoms($(this).attr('elName'))" oncomplete="jumpToLastSymptomCell($(this).attr('elName'))" tabindex="1">
+    	                                    	<apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+    	                                    	<apex:param value="{!sasList}" assignTo="{!mstId}" name="mstId"/>
+    	                                    </apex:commandButton>
+    	                                    <apex:commandButton value="{!$Label.SAS_AddSymptom}" action="{!addSymptom}" reRender="symptomGrid, addRemoveButtons" disabled="{!(sas.Number_of_Symptoms__c>9)|| sas.Status__c == 'Locked'}" oncomplete="jumpToLastSymptomCell($(this).attr('elName'))" html-elName="{!sas.name}" tabindex="0">
+    	                                    	<apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+    	                                    	<apex:param value="{!sasList}" assignTo="{!mstId}" name="mstId"/>
+    	                                    </apex:commandButton>
+	                                    </apex:outputPanel>
+                                    </apex:outputPanel>
+                                    <!-- END SYMPTOM -->
+
+                                    
+                                    <div class="clearFix"></div>
+
+                                    <!-- BUTTONS -->
+                                    <apex:outputPanel layout="block" styleClass="buttons mt10">
+                                    	<apex:commandButton value="Delete" action="{!deleteSAS}" status="sf_ProgressStatus" onclick="ignoreRefreshMessage=true;" oncomplete="refreshPage();" rendered="{!Case.Sent_to_CCM__c=false}">
+                                            <apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+                                            <apex:param value="{!sasList}" assignTo="{!mstId}" name="mstId"/>
+                                        </apex:commandButton>
+
+                                        <apex:commandButton value="{!$Label.SAS_ButtonSave}" action="{!saveAllSas}" reRender="sasSurveyContentBlock, saslastSavedTimeTop, saslastSavedTimeBottom, errorMessages" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" status="sf_ProgressStatus" oncomplete="initMisc();refreshSelectedCaseTab();refreshChecklist(); trackSasSavedChanges();">
+                                            <apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+                                            <apex:param value="{!sasList}" assignTo="{!mstId}" name="mstId"/>
+                                        </apex:commandButton>
+
+                                        <apex:commandButton value="{!$Label.SAS_ButtonClone}" action="{!cloneSAS}" reRender="sasSurveyContentBlock, sasSubtabNav, sasSubtabContent, errorMessages" disabled="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}" status="sf_ProgressStatus" onclick="ignoreRefreshMessage=true;" oncomplete="initSubtabsNavigation(); jumpToLast();refreshSelectedCaseTab();refreshChecklist();">
+                                            <apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+                                            <apex:param value="{!sasList}" assignTo="{!mstId}" name="mstId"/>
+                                        </apex:commandButton>
+                                         
+                                        <apex:commandButton value="{!$Label.SAS_ButtonNew}" action="{!createNewSas}" reRender="sasSurveyContentBlock, errorMessages, sasSubtabNav, sasSubtabContent" status="sf_ProgressStatus" onclick="ignoreRefreshMessage=true;" oncomplete="initSubtabsNavigation(); jumpToLast();refreshSelectedCaseTab();refreshChecklist();">
+                                            <apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+                                            <apex:param value="{!sasList}" assignTo="{!mstId}" name="mstId"/>
+                                        </apex:commandButton>
+                                        
+                                        <apex:outputPanel id="saslastSavedTimeBottom" styleClass="sasSavedTime">
+											<apex:outputPanel rendered="{!sasSavedTime[sas.Id] != 'None'}">
+												<apex:outputText styleClass="lastSavedText" value="{!$Label.AgentConsole_Saved_As_Of} {!sasSavedTime[sas.Id]}"/>
+											</apex:outputPanel>
+										</apex:outputPanel>
+                                        
+                                        <apex:outputPanel layout="block" styleClass="inactiveNotification" rendered="{!OR(sas.Status__c == 'Cancelled', sas.Status__c == 'Locked')}">
+	                                       	<apex:outputLabel value="{!$ObjectType.Safety_Assessment_Survey__c.fields.Status__c.Label}"/>:&nbsp;
+					                   		<apex:outputField value="{!sas.Status__c}"/>
+  								        <!-- ALM123    <br/>
+											<apex:outputLabel value="{!$ObjectType.Safety_Assessment_Survey__c.fields.Changed_By__c.Label}" styleClass="inactiveFieldLabel"/>:&nbsp;
+               								<apex:outputField value="{!sas.Changed_By__c}"/>
+               								<br/>
+               								<apex:outputLabel value="{!$ObjectType.Safety_Assessment_Survey__c.fields.Change_Reason__c.Label}" styleClass="inactiveFieldLabel"/>:&nbsp;
+               								<apex:outputField value="{!sas.Change_Reason__c}"/> -->
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                    <!-- END BUTTONS -->
+                                    
+                                    <div class="clearFix"></div>
+
+                                </apex:outputPanel>
+                            </apex:repeat> 
+                            <!-- END SAS REPEATER -->
+
+                        </apex:outputPanel>
+                    </apex:outputPanel>   
+                </apex:repeat> 
+                <!-- END MST REPEATER -->
+
+                <a href="#top" style="padding: 15px; display: inline-block; text-decoration: none;">{!$Label.Back_To_Top}</a>
+
+            </apex:form>
+      	</apex:outputPanel>
+    </div>
+    <c:sf_ProgressStatus labelText="Loading..."/> 
+
+    
+</apex:page>

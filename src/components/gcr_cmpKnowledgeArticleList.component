@@ -1,0 +1,31 @@
+<!-- 
+#   Component for Knowledge Article view
+#    
+#   @param:  
+#   @author: 	ACCENTURE
+#   @date:   	08/11/2016
+#	DATE				NAME				CHANGE DESCRIPTION
+#	08/11/2016			Accenture			Initial Draft
+# -->
+<apex:component layout="block">
+    <apex:attribute name="kaList" type="KnowledgeArticleVersion[]" description="List of object list to be displayed" />
+    <apex:attribute name="isLanding" type="Boolean" default="false" description="Identifier to determine if article list is for landing page" />
+	<apex:attribute name="lastArticleId" type="String" description="Last article number in the passed list" />
+    <apex:attribute name="isLanding" type="Boolean" description="param to identify landing page for the article list view" />
+    <apex:attribute name="strFaqUrl" type="String" description="FAQ redirect url required for ga" />
+
+    <!-- DECEMBER CHANGE NEW DIV -->
+    <apex:outputPanel layout="block" styleClass="{!IF(isLanding, 'articleListIsLanding', 'articleListIsNotLanding')}">
+        <apex:repeat var="article" value="{!kaList}">
+            <apex:outputPanel layout="block" styleClass="featuredArticleContainers">
+                <!-- ACTION FOR EVENT IS IMPLEMENTED AT PARENT COMPONENT -->
+                <apex:outputLink styleClass="articleLink"
+                                 onclick="trackPageData('{!article.UrlName}', '{!$Site.Name}'+'{!strFaqUrl}'+'{!article.UrlName}');
+                                          getArticleDetails('{!article.KnowledgeArticleId}'); return false;">
+                    {!IF(AND(LEN(article.title) > 90, isLanding), LEFT(article.title, 86) + '...', article.title)}
+                </apex:outputLink>
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" styleClass="articleDivider seperatorDiv" rendered="{!article.KnowledgeArticleId != lastArticleId}" />
+        </apex:repeat>
+    </apex:outputPanel>
+</apex:component>

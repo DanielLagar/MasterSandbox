@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Charket__Key__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The key used to match a WeChat message.</inlineHelpText>
+        <label>Key</label>
+        <length>128</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__LongUrl__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Long URL</label>
+        <length>5000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Charket__Order__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Order</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__ParentMenuItem__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Parent Menu Item</label>
+        <referenceTo>Charket__WeChatMenuItem__c</referenceTo>
+        <relationshipLabel>WeChat Child Menu Items</relationshipLabel>
+        <relationshipName>ChildMenuItems</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Charket__Skill__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Skill</label>
+        <referenceTo>Charket__Skill__c</referenceTo>
+        <relationshipLabel>WeChat Menu Items</relationshipLabel>
+        <relationshipName>WeChatMenuItems</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Charket__Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(AND(RecordType.Name = &apos;Action Menu Item&apos;, NOT(ISBLANK(TEXT (Charket__WeChatAction__c)))), TEXT (Charket__WeChatAction__c), LOWER(RecordType.Name))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__UniqueUrl__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Unique URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__Url__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Please make sure the &quot;URL&quot; start with &quot;http://&quot;.</inlineHelpText>
+        <label>URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__WeChatAction__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WeChat Action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Scan</fullName>
+                    <default>false</default>
+                    <label>Scan</label>
+                </value>
+                <value>
+                    <fullName>Camera</fullName>
+                    <default>false</default>
+                    <label>Camera</label>
+                </value>
+                <value>
+                    <fullName>Photo Library</fullName>
+                    <default>false</default>
+                    <label>Photo Library</label>
+                </value>
+                <value>
+                    <fullName>Camera or Photo Library</fullName>
+                    <default>false</default>
+                    <label>Camera or Photo Library</label>
+                </value>
+                <value>
+                    <fullName>Location</fullName>
+                    <default>false</default>
+                    <label>Location</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Charket__WeChatMenu__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WeChat Menu</label>
+        <referenceTo>Charket__WeChatMenu__c</referenceTo>
+        <relationshipLabel>WeChat Menu Items</relationshipLabel>
+        <relationshipName>WeChatMenuItems</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Charket__WeChatMessage__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WeChat Message</label>
+        <referenceTo>Charket__WeChatMessage__c</referenceTo>
+        <relationshipLabel>WeChat Menu Items</relationshipLabel>
+        <relationshipName>WeChatMenuItems</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>WeChat Menu Item</label>
+    <nameField>
+        <label>Item Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>WeChat Menu Items</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Charket__ActionMenuItem</fullName>
+        <active>true</active>
+        <description>An action menu item triggers an action</description>
+        <label>Action Menu Item</label>
+        <picklistValues>
+            <picklist>Charket__WeChatAction__c</picklist>
+            <values>
+                <fullName>Camera</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Camera or Photo Library</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Location</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Photo Library</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Charket__LinkMenuItem</fullName>
+        <active>true</active>
+        <description>A link menu item opens a URL</description>
+        <label>Link Menu Item</label>
+        <picklistValues>
+            <picklist>Charket__WeChatAction__c</picklist>
+            <values>
+                <fullName>Camera</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Camera or Photo Library</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Location</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Photo Library</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scan</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Charket__WeChatMenu__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>RECORDTYPE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Charket__ParentMenuItem__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Charket__Order__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Charket__Key__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Charket__Url__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Charket__WeChatMessage__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CREATEDBY_USER</lookupDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Charket__Http_Required</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT(BEGINS(Charket__Url__c, &apos;http&apos;)) &amp;&amp; Charket__Type__c == &apos;link menu item&apos;</errorConditionFormula>
+        <errorDisplayField>Charket__Url__c</errorDisplayField>
+        <errorMessage>The URL should start with &quot;http://&quot; or &quot;https://&quot;.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Key_Length_Not_Greater_Than_128</fullName>
+        <active>true</active>
+        <errorConditionFormula>LEN( Charket__Key__c )  &gt; 128</errorConditionFormula>
+        <errorDisplayField>Charket__Key__c</errorDisplayField>
+        <errorMessage>The menu&apos;s key value can contain 128 characters at most</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

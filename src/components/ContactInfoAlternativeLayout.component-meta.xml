@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>38.0</apiVersion>
+    <description>This Contact info page layout will mostly be used by Asia to display a few fields in different orders</description>
+    <label>ContactInfoAlternativeLayout</label>
+</ApexComponent>

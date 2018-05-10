@@ -1,0 +1,128 @@
+<!--
+#    
+#    This page is placed as a top section on the case instead of highlights panel.
+#    
+#    @param: Id - The Salesforce Id of the existing Case record
+#    @author: Oleg Rikkers
+#    @date: 7/10/2014
+#
+-->
+
+<apex:page standardController="Case" standardStylesheets="false" extensions="sf_CaseHighlightsPanelExt">
+	<apex:includeScript value="/support/console/30.0/integration.js"/>
+
+	<apex:outputPanel layout="block" styleClass="container">
+
+		<!-- orikkers 3/20/15 added visual message when case is closed -->
+		<apex:outputPanel layout="block" styleClass="row closedCaseMessage" rendered="{!Case.Status='Closed'}">
+			<apex:outputPanel layout="block">
+				<apex:outputText value="{!$Label.Case_Closed_Message}"/>
+			</apex:outputPanel>
+		</apex:outputPanel>
+
+		<apex:outputPanel layout="block" styleClass="row ownerAssignmentMessage" rendered="{!Case.Status!='Closed' && showMakeMeCaseOwner}">
+			<apex:outputPanel layout="block">
+				<apex:outputField value="{!Case.OwnerId}" rendered="false"/>
+				<apex:outputText value="{!$Label.Take_Case_Ownership_Message}"/>
+			</apex:outputPanel>
+		</apex:outputPanel>
+
+		<apex:outputPanel layout="block" styleClass="row">
+			<apex:outputPanel layout="block" styleClass="col">
+				<apex:outputLabel value="{!$Label.Case_Caller}:"/>
+				<apex:outputField value="{!Case.Contact.Name}"/>
+			</apex:outputPanel>
+
+			<apex:outputPanel layout="block" styleClass="col">
+				<apex:outputLabel value="{!$Label.Case_Brands}:"/>
+				<apex:outputtext value="{!brands}"/>
+			</apex:outputPanel>
+
+			<apex:outputPanel layout="block" styleClass="col">
+				<apex:outputLabel value="{!$Label.Case_Comments}:"/>
+				<apex:outputtext value="{!comments}"/>
+			</apex:outputPanel>
+
+			<apex:outputPanel layout="block" styleClass="col">
+				<apex:outputLabel value="{!$Label.Case_Date_Received}:"/>
+				<apex:outputField value="{!Case.Received_Date__c}"/>
+				<!-- <apex:outputText value="{0, date, E', ' MMMM' 'd', 'yyyy}">
+				    <apex:param value="{!DATEVALUE(TEXT(Case.Received_Date__c))}" /> 
+				</apex:outputText> -->
+			</apex:outputPanel>
+
+		</apex:outputPanel>
+
+		<apex:outputPanel layout="block" styleClass="row">
+			<apex:outputPanel layout="block" styleClass="col">
+				<apex:outputLabel value="{!$ObjectType.Case.fields.Origin.Label}:"/>
+				<apex:outputField value="{!Case.Origin}"/>
+			</apex:outputPanel>
+
+			
+
+			<apex:outputPanel layout="block" styleClass="col">
+			<!-- ALM276 -->
+				<!-- <apex:outputLabel value="{!$Label.Case_Products}:"/>
+				<apex:outputtext value="{!products}"/> -->
+			</apex:outputPanel>
+			
+			<apex:outputPanel layout="block" styleClass="col">
+				<!-- EMPTY -->
+			</apex:outputPanel>
+
+			<apex:outputPanel layout="block" styleClass="col">
+				<input type="button" onclick="openArticles();" value="{!$Label.Case_Search_Articles_Button_Label}"/>
+			</apex:outputPanel>
+			
+		</apex:outputPanel>
+
+
+
+	</apex:outputPanel>
+	<script type="text/javascript">
+	var openArticles = function () {
+		var articlesUrl = "/_ui/knowledge/ui/KnowledgeHome?id={!Case.Id}&objectType=Article&ct_Region={!SUBSTITUTE(if (Case.Country__c = 'United States of America', 'United States', Case.Country__c), ' ', '_')}";
+
+		sforce.console.getEnclosingPrimaryTabId(function (result){
+			sforce.console.openSubtab(result.id, articlesUrl, true, 'Knowledge Articles', null, null);
+		});
+
+		
+	};
+	</script>
+
+	<style type="text/css">
+
+	.closedCaseMessage, .ownerAssignmentMessage {
+		background: yellow;
+		height: 25px;
+		line-height: 25px;
+		text-align: center;
+		font-family: Arial;
+  		font-size: 13.25pt;
+  		font-weight: bold;
+	}
+
+	.container {
+		padding: 5px;
+	}
+
+	.row {
+		clear: both;
+	}
+
+	.col {
+		margin: 5px;
+		float: left;
+		width: 23%;
+	}
+
+	.col label {
+		margin-right: 15px;
+		font-weight: bold;
+	}
+
+	</style>
+	
+</apex:page>

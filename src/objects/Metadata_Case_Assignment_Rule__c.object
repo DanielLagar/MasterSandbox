@@ -1,0 +1,3972 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This is a new version metadata table for sites page for case queue assignments.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Account_Record_Type_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Record Type Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Activity_Record_Type_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Activity Record Type Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Brand__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Leave field empty to work with ALL brands</inlineHelpText>
+        <label>Brand</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>353</fullName>
+                    <default>false</default>
+                    <label>353</label>
+                </value>
+                <value>
+                    <fullName>365</fullName>
+                    <default>false</default>
+                    <label>365</label>
+                </value>
+                <value>
+                    <fullName>7 OClock</fullName>
+                    <default>false</default>
+                    <label>7 OClock</label>
+                </value>
+                <value>
+                    <fullName>7th Stage</fullName>
+                    <default>false</default>
+                    <label>7th Stage</label>
+                </value>
+                <value>
+                    <fullName>Ace</fullName>
+                    <default>false</default>
+                    <label>Ace</label>
+                </value>
+                <value>
+                    <fullName>Agilite3</fullName>
+                    <default>false</default>
+                    <label>Agilite3</label>
+                </value>
+                <value>
+                    <fullName>Agility</fullName>
+                    <default>false</default>
+                    <label>Agility</label>
+                </value>
+                <value>
+                    <fullName>Ajax</fullName>
+                    <default>false</default>
+                    <label>Ajax</label>
+                </value>
+                <value>
+                    <fullName>Align</fullName>
+                    <default>false</default>
+                    <label>Align</label>
+                </value>
+                <value>
+                    <fullName>Alldays</fullName>
+                    <default>false</default>
+                    <label>Alldays</label>
+                </value>
+                <value>
+                    <fullName>Always</fullName>
+                    <default>false</default>
+                    <label>Always</label>
+                </value>
+                <value>
+                    <fullName>Always Discreet</fullName>
+                    <default>false</default>
+                    <label>Always Discreet</label>
+                </value>
+                <value>
+                    <fullName>Ambi Pur</fullName>
+                    <default>false</default>
+                    <label>Ambi Pur</label>
+                </value>
+                <value>
+                    <fullName>Anna Sui</fullName>
+                    <default>false</default>
+                    <label>Anna Sui</label>
+                </value>
+                <value>
+                    <fullName>Antikal</fullName>
+                    <default>false</default>
+                    <label>Antikal</label>
+                </value>
+                <value>
+                    <fullName>Ariel</fullName>
+                    <default>false</default>
+                    <label>Ariel</label>
+                </value>
+                <value>
+                    <fullName>Atra</fullName>
+                    <default>false</default>
+                    <label>Atra</label>
+                </value>
+                <value>
+                    <fullName>Aussie</fullName>
+                    <default>false</default>
+                    <label>Aussie</label>
+                </value>
+                <value>
+                    <fullName>Avril Lavigne</fullName>
+                    <default>false</default>
+                    <label>Avril Lavigne</label>
+                </value>
+                <value>
+                    <fullName>Baldessarini</fullName>
+                    <default>false</default>
+                    <label>Baldessarini</label>
+                </value>
+                <value>
+                    <fullName>Basic White</fullName>
+                    <default>false</default>
+                    <label>Basic White</label>
+                </value>
+                <value>
+                    <fullName>Beautiful Collection</fullName>
+                    <default>false</default>
+                    <label>Beautiful Collection</label>
+                </value>
+                <value>
+                    <fullName>Bellady</fullName>
+                    <default>false</default>
+                    <label>Bellady</label>
+                </value>
+                <value>
+                    <fullName>Blend-A-Dent</fullName>
+                    <default>false</default>
+                    <label>Blend-A-Dent</label>
+                </value>
+                <value>
+                    <fullName>Blend-A-Med</fullName>
+                    <default>false</default>
+                    <label>Blend-A-Med</label>
+                </value>
+                <value>
+                    <fullName>Blend-A-Med Oral-B</fullName>
+                    <default>false</default>
+                    <label>Blend-A-Med Oral-B</label>
+                </value>
+                <value>
+                    <fullName>Blendax</fullName>
+                    <default>false</default>
+                    <label>Blendax</label>
+                </value>
+                <value>
+                    <fullName>Blue 3</fullName>
+                    <default>false</default>
+                    <label>Blue 3</label>
+                </value>
+                <value>
+                    <fullName>Blue II</fullName>
+                    <default>false</default>
+                    <label>Blue II</label>
+                </value>
+                <value>
+                    <fullName>Bogner</fullName>
+                    <default>false</default>
+                    <label>Bogner</label>
+                </value>
+                <value>
+                    <fullName>Bold</fullName>
+                    <default>false</default>
+                    <label>Bold</label>
+                </value>
+                <value>
+                    <fullName>Born Blonde</fullName>
+                    <default>false</default>
+                    <label>Born Blonde</label>
+                </value>
+                <value>
+                    <fullName>Boss</fullName>
+                    <default>false</default>
+                    <label>Boss</label>
+                </value>
+                <value>
+                    <fullName>Boss Orange</fullName>
+                    <default>false</default>
+                    <label>Boss Orange</label>
+                </value>
+                <value>
+                    <fullName>Boss Skin</fullName>
+                    <default>false</default>
+                    <label>Boss Skin</label>
+                </value>
+                <value>
+                    <fullName>Bounce</fullName>
+                    <default>false</default>
+                    <label>Bounce</label>
+                </value>
+                <value>
+                    <fullName>Bounty</fullName>
+                    <default>false</default>
+                    <label>Bounty</label>
+                </value>
+                <value>
+                    <fullName>Braun</fullName>
+                    <default>false</default>
+                    <label>Braun</label>
+                </value>
+                <value>
+                    <fullName>Bruno Banani</fullName>
+                    <default>false</default>
+                    <label>Bruno Banani</label>
+                </value>
+                <value>
+                    <fullName>Camay</fullName>
+                    <default>false</default>
+                    <label>Camay</label>
+                </value>
+                <value>
+                    <fullName>Cascade</fullName>
+                    <default>false</default>
+                    <label>Cascade</label>
+                </value>
+                <value>
+                    <fullName>Charmin</fullName>
+                    <default>false</default>
+                    <label>Charmin</label>
+                </value>
+                <value>
+                    <fullName>Cheer</fullName>
+                    <default>false</default>
+                    <label>Cheer</label>
+                </value>
+                <value>
+                    <fullName>Christina Aguilera</fullName>
+                    <default>false</default>
+                    <label>Christina Aguilera</label>
+                </value>
+                <value>
+                    <fullName>Clairol</fullName>
+                    <default>false</default>
+                    <label>Clairol</label>
+                </value>
+                <value>
+                    <fullName>Clairol Pro Crème</fullName>
+                    <default>false</default>
+                    <label>Clairol Pro Crème</label>
+                </value>
+                <value>
+                    <fullName>Clairol Professional</fullName>
+                    <default>false</default>
+                    <label>Clairol Professional</label>
+                </value>
+                <value>
+                    <fullName>Clairol Pro liquiclr</fullName>
+                    <default>false</default>
+                    <label>Clairol Pro liquiclr</label>
+                </value>
+                <value>
+                    <fullName>Clairoxide</fullName>
+                    <default>false</default>
+                    <label>Clairoxide</label>
+                </value>
+                <value>
+                    <fullName>Color Charm</fullName>
+                    <default>false</default>
+                    <label>Color Charm</label>
+                </value>
+                <value>
+                    <fullName>Color Up</fullName>
+                    <default>false</default>
+                    <label>Color Up</label>
+                </value>
+                <value>
+                    <fullName>Colour Set</fullName>
+                    <default>false</default>
+                    <label>Colour Set</label>
+                </value>
+                <value>
+                    <fullName>Complete Skin Care</fullName>
+                    <default>false</default>
+                    <label>Complete Skin Care</label>
+                </value>
+                <value>
+                    <fullName>Contour</fullName>
+                    <default>false</default>
+                    <label>Contour</label>
+                </value>
+                <value>
+                    <fullName>CoverGirl</fullName>
+                    <default>false</default>
+                    <label>CoverGirl</label>
+                </value>
+                <value>
+                    <fullName>CPI</fullName>
+                    <default>false</default>
+                    <label>CPI</label>
+                </value>
+                <value>
+                    <fullName>Crest</fullName>
+                    <default>false</default>
+                    <label>Crest</label>
+                </value>
+                <value>
+                    <fullName>Crest Glide</fullName>
+                    <default>false</default>
+                    <label>Crest Glide</label>
+                </value>
+                <value>
+                    <fullName>Custom Plus</fullName>
+                    <default>false</default>
+                    <label>Custom Plus</label>
+                </value>
+                <value>
+                    <fullName>CustomPlus3</fullName>
+                    <default>false</default>
+                    <label>CustomPlus3</label>
+                </value>
+                <value>
+                    <fullName>Custom Plus 3</fullName>
+                    <default>false</default>
+                    <label>Custom Plus 3</label>
+                </value>
+                <value>
+                    <fullName>D&amp;G</fullName>
+                    <default>false</default>
+                    <label>D&amp;G</label>
+                </value>
+                <value>
+                    <fullName>Daily Defense</fullName>
+                    <default>false</default>
+                    <label>Daily Defense</label>
+                </value>
+                <value>
+                    <fullName>Daimon</fullName>
+                    <default>false</default>
+                    <label>Daimon</label>
+                </value>
+                <value>
+                    <fullName>Daisy</fullName>
+                    <default>false</default>
+                    <label>Daisy</label>
+                </value>
+                <value>
+                    <fullName>Daisy3</fullName>
+                    <default>false</default>
+                    <label>Daisy3</label>
+                </value>
+                <value>
+                    <fullName>Daniel Galvin</fullName>
+                    <default>false</default>
+                    <label>Daniel Galvin</label>
+                </value>
+                <value>
+                    <fullName>Dash</fullName>
+                    <default>false</default>
+                    <label>Dash</label>
+                </value>
+                <value>
+                    <fullName>Dash 2 in 1</fullName>
+                    <default>false</default>
+                    <label>Dash 2 in 1</label>
+                </value>
+                <value>
+                    <fullName>Dawn</fullName>
+                    <default>false</default>
+                    <label>Dawn</label>
+                </value>
+                <value>
+                    <fullName>Daz</fullName>
+                    <default>false</default>
+                    <label>Daz</label>
+                </value>
+                <value>
+                    <fullName>Decore</fullName>
+                    <default>false</default>
+                    <label>Decore</label>
+                </value>
+                <value>
+                    <fullName>Dentril</fullName>
+                    <default>false</default>
+                    <label>Dentril</label>
+                </value>
+                <value>
+                    <fullName>Desconhecido</fullName>
+                    <default>false</default>
+                    <label>Desconhecido</label>
+                </value>
+                <value>
+                    <fullName>Desconocido</fullName>
+                    <default>false</default>
+                    <label>Desconocido</label>
+                </value>
+                <value>
+                    <fullName>Desideri</fullName>
+                    <default>false</default>
+                    <label>Desideri</label>
+                </value>
+                <value>
+                    <fullName>Design</fullName>
+                    <default>false</default>
+                    <label>Design</label>
+                </value>
+                <value>
+                    <fullName>Dinamo-Dynamo</fullName>
+                    <default>false</default>
+                    <label>Dinamo-Dynamo</label>
+                </value>
+                <value>
+                    <fullName>Dodot</fullName>
+                    <default>false</default>
+                    <label>Dodot</label>
+                </value>
+                <value>
+                    <fullName>Dolce &amp; Gabbana</fullName>
+                    <default>false</default>
+                    <label>Dolce &amp; Gabbana</label>
+                </value>
+                <value>
+                    <fullName>Downy</fullName>
+                    <default>false</default>
+                    <label>Downy</label>
+                </value>
+                <value>
+                    <fullName>Dreft</fullName>
+                    <default>false</default>
+                    <label>Dreft</label>
+                </value>
+                <value>
+                    <fullName>Dunhill</fullName>
+                    <default>false</default>
+                    <label>Dunhill</label>
+                </value>
+                <value>
+                    <fullName>Duracell</fullName>
+                    <default>false</default>
+                    <label>Duracell</label>
+                </value>
+                <value>
+                    <fullName>Duracell Industrial</fullName>
+                    <default>false</default>
+                    <label>Duracell Industrial</label>
+                </value>
+                <value>
+                    <fullName>Duracell Procell</fullName>
+                    <default>false</default>
+                    <label>Duracell Procell</label>
+                </value>
+                <value>
+                    <fullName>Duracell Rechargeable</fullName>
+                    <default>false</default>
+                    <label>Duracell Rechargeable</label>
+                </value>
+                <value>
+                    <fullName>Envive</fullName>
+                    <default>false</default>
+                    <label>Envive</label>
+                </value>
+                <value>
+                    <fullName>Envive de Plus</fullName>
+                    <default>false</default>
+                    <label>Envive de Plus</label>
+                </value>
+                <value>
+                    <fullName>Era</fullName>
+                    <default>false</default>
+                    <label>Era</label>
+                </value>
+                <value>
+                    <fullName>Escada</fullName>
+                    <default>false</default>
+                    <label>Escada</label>
+                </value>
+                <value>
+                    <fullName>Everydayme</fullName>
+                    <default>false</default>
+                    <label>Everydayme</label>
+                </value>
+                <value>
+                    <fullName>Exquisit</fullName>
+                    <default>false</default>
+                    <label>Exquisit</label>
+                </value>
+                <value>
+                    <fullName>Fab</fullName>
+                    <default>false</default>
+                    <label>Fab</label>
+                </value>
+                <value>
+                    <fullName>Fairy</fullName>
+                    <default>false</default>
+                    <label>Fairy</label>
+                </value>
+                <value>
+                    <fullName>Fashion Frost</fullName>
+                    <default>false</default>
+                    <label>Fashion Frost</label>
+                </value>
+                <value>
+                    <fullName>Febreze</fullName>
+                    <default>false</default>
+                    <label>Febreze</label>
+                </value>
+                <value>
+                    <fullName>Fekkai</fullName>
+                    <default>false</default>
+                    <label>Fekkai</label>
+                </value>
+                <value>
+                    <fullName>Fibresure</fullName>
+                    <default>false</default>
+                    <label>Fibresure</label>
+                </value>
+                <value>
+                    <fullName>Fixodent</fullName>
+                    <default>false</default>
+                    <label>Fixodent</label>
+                </value>
+                <value>
+                    <fullName>Flash</fullName>
+                    <default>false</default>
+                    <label>Flash</label>
+                </value>
+                <value>
+                    <fullName>Foamy</fullName>
+                    <default>false</default>
+                    <label>Foamy</label>
+                </value>
+                <value>
+                    <fullName>For Me</fullName>
+                    <default>false</default>
+                    <label>For Me</label>
+                </value>
+                <value>
+                    <fullName>Fragrances</fullName>
+                    <default>false</default>
+                    <label>Fragrances</label>
+                </value>
+                <value>
+                    <fullName>Free &amp; Lovely</fullName>
+                    <default>false</default>
+                    <label>Free &amp; Lovely</label>
+                </value>
+                <value>
+                    <fullName>Fusion</fullName>
+                    <default>false</default>
+                    <label>Fusion</label>
+                </value>
+                <value>
+                    <fullName>Fusion Power</fullName>
+                    <default>false</default>
+                    <label>Fusion Power</label>
+                </value>
+                <value>
+                    <fullName>Fusion ProGlide</fullName>
+                    <default>false</default>
+                    <label>Fusion ProGlide</label>
+                </value>
+                <value>
+                    <fullName>Fusion ProGlide Power</fullName>
+                    <default>false</default>
+                    <label>Fusion ProGlide Power</label>
+                </value>
+                <value>
+                    <fullName>Fusion ProShield</fullName>
+                    <default>false</default>
+                    <label>Fusion ProShield</label>
+                </value>
+                <value>
+                    <fullName>Gabriela Sabatini</fullName>
+                    <default>false</default>
+                    <label>Gabriela Sabatini</label>
+                </value>
+                <value>
+                    <fullName>Gain</fullName>
+                    <default>false</default>
+                    <label>Gain</label>
+                </value>
+                <value>
+                    <fullName>Gentle Blonding</fullName>
+                    <default>false</default>
+                    <label>Gentle Blonding</label>
+                </value>
+                <value>
+                    <fullName>Gerry Weber</fullName>
+                    <default>false</default>
+                    <label>Gerry Weber</label>
+                </value>
+                <value>
+                    <fullName>Ghost</fullName>
+                    <default>false</default>
+                    <label>Ghost</label>
+                </value>
+                <value>
+                    <fullName>GII</fullName>
+                    <default>false</default>
+                    <label>GII</label>
+                </value>
+                <value>
+                    <fullName>Gillette</fullName>
+                    <default>false</default>
+                    <label>Gillette</label>
+                </value>
+                <value>
+                    <fullName>Gillette Body</fullName>
+                    <default>false</default>
+                    <label>Gillette Body</label>
+                </value>
+                <value>
+                    <fullName>Gillette Sensor3</fullName>
+                    <default>false</default>
+                    <label>Gillette Sensor3</label>
+                </value>
+                <value>
+                    <fullName>Gillette Series</fullName>
+                    <default>false</default>
+                    <label>Gillette Series</label>
+                </value>
+                <value>
+                    <fullName>Gleem</fullName>
+                    <default>false</default>
+                    <label>Gleem</label>
+                </value>
+                <value>
+                    <fullName>Glide</fullName>
+                    <default>false</default>
+                    <label>Glide</label>
+                </value>
+                <value>
+                    <fullName>Goal</fullName>
+                    <default>false</default>
+                    <label>Goal</label>
+                </value>
+                <value>
+                    <fullName>Good News</fullName>
+                    <default>false</default>
+                    <label>Good News</label>
+                </value>
+                <value>
+                    <fullName>Guard</fullName>
+                    <default>false</default>
+                    <label>Guard</label>
+                </value>
+                <value>
+                    <fullName>Gucci</fullName>
+                    <default>false</default>
+                    <label>Gucci</label>
+                </value>
+                <value>
+                    <fullName>Hair Food</fullName>
+                    <default>false</default>
+                    <label>Hair Food</label>
+                </value>
+                <value>
+                    <fullName>Head</fullName>
+                    <default>false</default>
+                    <label>Head</label>
+                </value>
+                <value>
+                    <fullName>Head &amp; Shoulders</fullName>
+                    <default>false</default>
+                    <label>Head &amp; Shoulders</label>
+                </value>
+                <value>
+                    <fullName>Herbal Essences</fullName>
+                    <default>false</default>
+                    <label>Herbal Essences</label>
+                </value>
+                <value>
+                    <fullName>Hipoglos</fullName>
+                    <default>false</default>
+                    <label>Hipoglos</label>
+                </value>
+                <value>
+                    <fullName>Hugo</fullName>
+                    <default>false</default>
+                    <label>Hugo</label>
+                </value>
+                <value>
+                    <fullName>Hugo Boss</fullName>
+                    <default>false</default>
+                    <label>Hugo Boss</label>
+                </value>
+                <value>
+                    <fullName>Hydrience</fullName>
+                    <default>false</default>
+                    <label>Hydrience</label>
+                </value>
+                <value>
+                    <fullName>Illume</fullName>
+                    <default>false</default>
+                    <label>Illume</label>
+                </value>
+                <value>
+                    <fullName>Infacare</fullName>
+                    <default>false</default>
+                    <label>Infacare</label>
+                </value>
+                <value>
+                    <fullName>Infusium 23</fullName>
+                    <default>false</default>
+                    <label>Infusium 23</label>
+                </value>
+                <value>
+                    <fullName>Instant Whip</fullName>
+                    <default>false</default>
+                    <label>Instant Whip</label>
+                </value>
+                <value>
+                    <fullName>Ivory</fullName>
+                    <default>false</default>
+                    <label>Ivory</label>
+                </value>
+                <value>
+                    <fullName>Ivory Snow</fullName>
+                    <default>false</default>
+                    <label>Ivory Snow</label>
+                </value>
+                <value>
+                    <fullName>James Bond</fullName>
+                    <default>false</default>
+                    <label>James Bond</label>
+                </value>
+                <value>
+                    <fullName>Jazzing</fullName>
+                    <default>false</default>
+                    <label>Jazzing</label>
+                </value>
+                <value>
+                    <fullName>Ji</fullName>
+                    <default>false</default>
+                    <label>Ji</label>
+                </value>
+                <value>
+                    <fullName>Joy</fullName>
+                    <default>false</default>
+                    <label>Joy</label>
+                </value>
+                <value>
+                    <fullName>Kadinlar Bilir</fullName>
+                    <default>false</default>
+                    <label>Kadinlar Bilir</label>
+                </value>
+                <value>
+                    <fullName>KaleidoColor</fullName>
+                    <default>false</default>
+                    <label>KaleidoColor</label>
+                </value>
+                <value>
+                    <fullName>Kandoo</fullName>
+                    <default>false</default>
+                    <label>Kandoo</label>
+                </value>
+                <value>
+                    <fullName>Karma</fullName>
+                    <default>false</default>
+                    <label>Karma</label>
+                </value>
+                <value>
+                    <fullName>Kolestint</fullName>
+                    <default>false</default>
+                    <label>Kolestint</label>
+                </value>
+                <value>
+                    <fullName>Koleston</fullName>
+                    <default>false</default>
+                    <label>Koleston</label>
+                </value>
+                <value>
+                    <fullName>Kolestral</fullName>
+                    <default>false</default>
+                    <label>Kolestral</label>
+                </value>
+                <value>
+                    <fullName>Kukident</fullName>
+                    <default>false</default>
+                    <label>Kukident</label>
+                </value>
+                <value>
+                    <fullName>Kukis</fullName>
+                    <default>false</default>
+                    <label>Kukis</label>
+                </value>
+                <value>
+                    <fullName>L&apos;Image</fullName>
+                    <default>false</default>
+                    <label>L&apos;Image</label>
+                </value>
+                <value>
+                    <fullName>Lacoste</fullName>
+                    <default>false</default>
+                    <label>Lacoste</label>
+                </value>
+                <value>
+                    <fullName>Lasting Colour</fullName>
+                    <default>false</default>
+                    <label>Lasting Colour</label>
+                </value>
+                <value>
+                    <fullName>Laura Biagiotti</fullName>
+                    <default>false</default>
+                    <label>Laura Biagiotti</label>
+                </value>
+                <value>
+                    <fullName>Lekker in het Leven</fullName>
+                    <default>false</default>
+                    <label>Lekker in het Leven</label>
+                </value>
+                <value>
+                    <fullName>Lenor</fullName>
+                    <default>false</default>
+                    <label>Lenor</label>
+                </value>
+                <value>
+                    <fullName>Living Artist</fullName>
+                    <default>false</default>
+                    <label>Living Artist</label>
+                </value>
+                <value>
+                    <fullName>Londacolor</fullName>
+                    <default>false</default>
+                    <label>Londacolor</label>
+                </value>
+                <value>
+                    <fullName>London Bridge</fullName>
+                    <default>false</default>
+                    <label>London Bridge</label>
+                </value>
+                <value>
+                    <fullName>Loving Care</fullName>
+                    <default>false</default>
+                    <label>Loving Care</label>
+                </value>
+                <value>
+                    <fullName>Luminize</fullName>
+                    <default>false</default>
+                    <label>Luminize</label>
+                </value>
+                <value>
+                    <fullName>M3 Power</fullName>
+                    <default>false</default>
+                    <label>M3 Power</label>
+                </value>
+                <value>
+                    <fullName>Mach3</fullName>
+                    <default>false</default>
+                    <label>Mach3</label>
+                </value>
+                <value>
+                    <fullName>Mach3 Power</fullName>
+                    <default>false</default>
+                    <label>Mach3 Power</label>
+                </value>
+                <value>
+                    <fullName>Mach3 Sensitive</fullName>
+                    <default>false</default>
+                    <label>Mach3 Sensitive</label>
+                </value>
+                <value>
+                    <fullName>Mach3 Turbo</fullName>
+                    <default>false</default>
+                    <label>Mach3 Turbo</label>
+                </value>
+                <value>
+                    <fullName>Mallory</fullName>
+                    <default>false</default>
+                    <label>Mallory</label>
+                </value>
+                <value>
+                    <fullName>Max Factor</fullName>
+                    <default>false</default>
+                    <label>Max Factor</label>
+                </value>
+                <value>
+                    <fullName>Max Factor Gold</fullName>
+                    <default>false</default>
+                    <label>Max Factor Gold</label>
+                </value>
+                <value>
+                    <fullName>Max Mara</fullName>
+                    <default>false</default>
+                    <label>Max Mara</label>
+                </value>
+                <value>
+                    <fullName>Meister Proper</fullName>
+                    <default>false</default>
+                    <label>Meister Proper</label>
+                </value>
+                <value>
+                    <fullName>Meta</fullName>
+                    <default>false</default>
+                    <label>Meta</label>
+                </value>
+                <value>
+                    <fullName>MetaBiotic</fullName>
+                    <default>false</default>
+                    <label>MetaBiotic</label>
+                </value>
+                <value>
+                    <fullName>Metamucil</fullName>
+                    <default>false</default>
+                    <label>Metamucil</label>
+                </value>
+                <value>
+                    <fullName>Mexx</fullName>
+                    <default>false</default>
+                    <label>Mexx</label>
+                </value>
+                <value>
+                    <fullName>Mont</fullName>
+                    <default>false</default>
+                    <label>Mont</label>
+                </value>
+                <value>
+                    <fullName>Mr Clean</fullName>
+                    <default>false</default>
+                    <label>Mr Clean</label>
+                </value>
+                <value>
+                    <fullName>Mum</fullName>
+                    <default>false</default>
+                    <label>Mum</label>
+                </value>
+                <value>
+                    <fullName>Naomi Campbell</fullName>
+                    <default>false</default>
+                    <label>Naomi Campbell</label>
+                </value>
+                <value>
+                    <fullName>Natural Instincts</fullName>
+                    <default>false</default>
+                    <label>Natural Instincts</label>
+                </value>
+                <value>
+                    <fullName>Naturella</fullName>
+                    <default>false</default>
+                    <label>Naturella</label>
+                </value>
+                <value>
+                    <fullName>New Life</fullName>
+                    <default>false</default>
+                    <label>New Life</label>
+                </value>
+                <value>
+                    <fullName>New Wave</fullName>
+                    <default>false</default>
+                    <label>New Wave</label>
+                </value>
+                <value>
+                    <fullName>Nice n Easy</fullName>
+                    <default>false</default>
+                    <label>Nice n Easy</label>
+                </value>
+                <value>
+                    <fullName>Nice n Easy Expert Collection</fullName>
+                    <default>false</default>
+                    <label>Nice n Easy Expert Collection</label>
+                </value>
+                <value>
+                    <fullName>Nioxin</fullName>
+                    <default>false</default>
+                    <label>Nioxin</label>
+                </value>
+                <value>
+                    <fullName>Noxzema</fullName>
+                    <default>false</default>
+                    <label>Noxzema</label>
+                </value>
+                <value>
+                    <fullName>Oceana</fullName>
+                    <default>false</default>
+                    <label>Oceana</label>
+                </value>
+                <value>
+                    <fullName>Olay</fullName>
+                    <default>false</default>
+                    <label>Olay</label>
+                </value>
+                <value>
+                    <fullName>Olaz</fullName>
+                    <default>false</default>
+                    <label>Olaz</label>
+                </value>
+                <value>
+                    <fullName>Old Spice</fullName>
+                    <default>false</default>
+                    <label>Old Spice</label>
+                </value>
+                <value>
+                    <fullName>Oral-B</fullName>
+                    <default>false</default>
+                    <label>Oral-B</label>
+                </value>
+                <value>
+                    <fullName>Oral-­‐B</fullName>
+                    <default>false</default>
+                    <label>Oral-­‐B</label>
+                </value>
+                <value>
+                    <fullName>Oral-B Elétrico</fullName>
+                    <default>false</default>
+                    <label>Oral-B Elétrico</label>
+                </value>
+                <value>
+                    <fullName>Oral-B Manual</fullName>
+                    <default>false</default>
+                    <label>Oral-B Manual</label>
+                </value>
+                <value>
+                    <fullName>Oral-B Power</fullName>
+                    <default>false</default>
+                    <label>Oral-B Power</label>
+                </value>
+                <value>
+                    <fullName>P</fullName>
+                    <default>false</default>
+                    <label>P</label>
+                </value>
+                <value>
+                    <fullName>P&amp;G</fullName>
+                    <default>false</default>
+                    <label>P&amp;G</label>
+                </value>
+                <value>
+                    <fullName>P&amp;G Being Girl</fullName>
+                    <default>false</default>
+                    <label>P&amp;G Being Girl</label>
+                </value>
+                <value>
+                    <fullName>Pampers</fullName>
+                    <default>false</default>
+                    <label>Pampers</label>
+                </value>
+                <value>
+                    <fullName>PampersClub</fullName>
+                    <default>false</default>
+                    <label>PampersClub</label>
+                </value>
+                <value>
+                    <fullName>Pampers Kandoo</fullName>
+                    <default>false</default>
+                    <label>Pampers Kandoo</label>
+                </value>
+                <value>
+                    <fullName>Pantene</fullName>
+                    <default>false</default>
+                    <label>Pantene</label>
+                </value>
+                <value>
+                    <fullName>Pepto</fullName>
+                    <default>false</default>
+                    <label>Pepto</label>
+                </value>
+                <value>
+                    <fullName>Peptobismol</fullName>
+                    <default>false</default>
+                    <label>Peptobismol</label>
+                </value>
+                <value>
+                    <fullName>Perfectone</fullName>
+                    <default>false</default>
+                    <label>Perfectone</label>
+                </value>
+                <value>
+                    <fullName>Perla</fullName>
+                    <default>false</default>
+                    <label>Perla</label>
+                </value>
+                <value>
+                    <fullName>Perma Sharp</fullName>
+                    <default>false</default>
+                    <label>Perma Sharp</label>
+                </value>
+                <value>
+                    <fullName>Pert</fullName>
+                    <default>false</default>
+                    <label>Pert</label>
+                </value>
+                <value>
+                    <fullName>PG Everyday</fullName>
+                    <default>false</default>
+                    <label>PG Everyday</label>
+                </value>
+                <value>
+                    <fullName>Platinum</fullName>
+                    <default>false</default>
+                    <label>Platinum</label>
+                </value>
+                <value>
+                    <fullName>PL Carrefour Number 1</fullName>
+                    <default>false</default>
+                    <label>PL Carrefour Number 1</label>
+                </value>
+                <value>
+                    <fullName>PL NewLec</fullName>
+                    <default>false</default>
+                    <label>PL NewLec</label>
+                </value>
+                <value>
+                    <fullName>PL Spicers</fullName>
+                    <default>false</default>
+                    <label>PL Spicers</label>
+                </value>
+                <value>
+                    <fullName>PL Tip</fullName>
+                    <default>false</default>
+                    <label>PL Tip</label>
+                </value>
+                <value>
+                    <fullName>PL Watson</fullName>
+                    <default>false</default>
+                    <label>PL Watson</label>
+                </value>
+                <value>
+                    <fullName>Presto</fullName>
+                    <default>false</default>
+                    <label>Presto</label>
+                </value>
+                <value>
+                    <fullName>Prestobarba</fullName>
+                    <default>false</default>
+                    <label>Prestobarba</label>
+                </value>
+                <value>
+                    <fullName>Prilosec OTC</fullName>
+                    <default>false</default>
+                    <label>Prilosec OTC</label>
+                </value>
+                <value>
+                    <fullName>Probak</fullName>
+                    <default>false</default>
+                    <label>Probak</label>
+                </value>
+                <value>
+                    <fullName>Proglide</fullName>
+                    <default>false</default>
+                    <label>Proglide</label>
+                </value>
+                <value>
+                    <fullName>Pro Hair</fullName>
+                    <default>false</default>
+                    <label>Pro Hair</label>
+                </value>
+                <value>
+                    <fullName>Puffs</fullName>
+                    <default>false</default>
+                    <label>Puffs</label>
+                </value>
+                <value>
+                    <fullName>Puma</fullName>
+                    <default>false</default>
+                    <label>Puma</label>
+                </value>
+                <value>
+                    <fullName>Pure White</fullName>
+                    <default>false</default>
+                    <label>Pure White</label>
+                </value>
+                <value>
+                    <fullName>QlearQuil</fullName>
+                    <default>false</default>
+                    <label>QlearQuil</label>
+                </value>
+                <value>
+                    <fullName>Radiance</fullName>
+                    <default>false</default>
+                    <label>Radiance</label>
+                </value>
+                <value>
+                    <fullName>Regulan</fullName>
+                    <default>false</default>
+                    <label>Regulan</label>
+                </value>
+                <value>
+                    <fullName>Rejoice</fullName>
+                    <default>false</default>
+                    <label>Rejoice</label>
+                </value>
+                <value>
+                    <fullName>Replay</fullName>
+                    <default>false</default>
+                    <label>Replay</label>
+                </value>
+                <value>
+                    <fullName>RewardMe</fullName>
+                    <default>false</default>
+                    <label>RewardMe</label>
+                </value>
+                <value>
+                    <fullName>Rochas</fullName>
+                    <default>false</default>
+                    <label>Rochas</label>
+                </value>
+                <value>
+                    <fullName>Safeguard</fullName>
+                    <default>false</default>
+                    <label>Safeguard</label>
+                </value>
+                <value>
+                    <fullName>Sahara</fullName>
+                    <default>false</default>
+                    <label>Sahara</label>
+                </value>
+                <value>
+                    <fullName>Salvo</fullName>
+                    <default>false</default>
+                    <label>Salvo</label>
+                </value>
+                <value>
+                    <fullName>Satin Care</fullName>
+                    <default>false</default>
+                    <label>Satin Care</label>
+                </value>
+                <value>
+                    <fullName>Satin Care Touch of Olay</fullName>
+                    <default>false</default>
+                    <label>Satin Care Touch of Olay</label>
+                </value>
+                <value>
+                    <fullName>Scope</fullName>
+                    <default>false</default>
+                    <label>Scope</label>
+                </value>
+                <value>
+                    <fullName>Second Nature</fullName>
+                    <default>false</default>
+                    <label>Second Nature</label>
+                </value>
+                <value>
+                    <fullName>Secret</fullName>
+                    <default>false</default>
+                    <label>Secret</label>
+                </value>
+                <value>
+                    <fullName>Sensor</fullName>
+                    <default>false</default>
+                    <label>Sensor</label>
+                </value>
+                <value>
+                    <fullName>Sensor 2</fullName>
+                    <default>false</default>
+                    <label>Sensor 2</label>
+                </value>
+                <value>
+                    <fullName>Sensor 2 Plus</fullName>
+                    <default>false</default>
+                    <label>Sensor 2 Plus</label>
+                </value>
+                <value>
+                    <fullName>Sensor3</fullName>
+                    <default>false</default>
+                    <label>Sensor3</label>
+                </value>
+                <value>
+                    <fullName>Shimmer lights</fullName>
+                    <default>false</default>
+                    <label>Shimmer lights</label>
+                </value>
+                <value>
+                    <fullName>Shock Waves</fullName>
+                    <default>false</default>
+                    <label>Shock Waves</label>
+                </value>
+                <value>
+                    <fullName>Silvikrin</fullName>
+                    <default>false</default>
+                    <label>Silvikrin</label>
+                </value>
+                <value>
+                    <fullName>Simply Venus</fullName>
+                    <default>false</default>
+                    <label>Simply Venus</label>
+                </value>
+                <value>
+                    <fullName>Simply Venus 2</fullName>
+                    <default>false</default>
+                    <label>Simply Venus 2</label>
+                </value>
+                <value>
+                    <fullName>Simply Venus 3</fullName>
+                    <default>false</default>
+                    <label>Simply Venus 3</label>
+                </value>
+                <value>
+                    <fullName>SKII</fullName>
+                    <default>false</default>
+                    <label>SKII</label>
+                </value>
+                <value>
+                    <fullName>SK II</fullName>
+                    <default>false</default>
+                    <label>SK II</label>
+                </value>
+                <value>
+                    <fullName>SK-II</fullName>
+                    <default>false</default>
+                    <label>SK-II</label>
+                </value>
+                <value>
+                    <fullName>Soft Color</fullName>
+                    <default>false</default>
+                    <label>Soft Color</label>
+                </value>
+                <value>
+                    <fullName>StellaMcCartney</fullName>
+                    <default>false</default>
+                    <label>StellaMcCartney</label>
+                </value>
+                <value>
+                    <fullName>StyleMe</fullName>
+                    <default>false</default>
+                    <label>StyleMe</label>
+                </value>
+                <value>
+                    <fullName>supersavvyme</fullName>
+                    <default>false</default>
+                    <label>supersavvyme</label>
+                </value>
+                <value>
+                    <fullName>Super Stainless</fullName>
+                    <default>false</default>
+                    <label>Super Stainless</label>
+                </value>
+                <value>
+                    <fullName>Super Thin</fullName>
+                    <default>false</default>
+                    <label>Super Thin</label>
+                </value>
+                <value>
+                    <fullName>Swash</fullName>
+                    <default>false</default>
+                    <label>Swash</label>
+                </value>
+                <value>
+                    <fullName>Swiffer</fullName>
+                    <default>false</default>
+                    <label>Swiffer</label>
+                </value>
+                <value>
+                    <fullName>Swiffer Bissell</fullName>
+                    <default>false</default>
+                    <label>Swiffer Bissell</label>
+                </value>
+                <value>
+                    <fullName>Tag</fullName>
+                    <default>false</default>
+                    <label>Tag</label>
+                </value>
+                <value>
+                    <fullName>Tampax</fullName>
+                    <default>false</default>
+                    <label>Tampax</label>
+                </value>
+                <value>
+                    <fullName>Tempo</fullName>
+                    <default>false</default>
+                    <label>Tempo</label>
+                </value>
+                <value>
+                    <fullName>Textures &amp; Tones</fullName>
+                    <default>false</default>
+                    <label>Textures &amp; Tones</label>
+                </value>
+                <value>
+                    <fullName>The Art of Shaving</fullName>
+                    <default>false</default>
+                    <label>The Art of Shaving</label>
+                </value>
+                <value>
+                    <fullName>Tide</fullName>
+                    <default>false</default>
+                    <label>Tide</label>
+                </value>
+                <value>
+                    <fullName>Tom Tailor</fullName>
+                    <default>false</default>
+                    <label>Tom Tailor</label>
+                </value>
+                <value>
+                    <fullName>Torrids</fullName>
+                    <default>false</default>
+                    <label>Torrids</label>
+                </value>
+                <value>
+                    <fullName>Trac II</fullName>
+                    <default>false</default>
+                    <label>Trac II</label>
+                </value>
+                <value>
+                    <fullName>Trend</fullName>
+                    <default>false</default>
+                    <label>Trend</label>
+                </value>
+                <value>
+                    <fullName>Twin II</fullName>
+                    <default>false</default>
+                    <label>Twin II</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+                <value>
+                    <fullName>Unknown Clairol</fullName>
+                    <default>false</default>
+                    <label>Unknown Clairol</label>
+                </value>
+                <value>
+                    <fullName>Valentino</fullName>
+                    <default>false</default>
+                    <label>Valentino</label>
+                </value>
+                <value>
+                    <fullName>V BabyBalsam</fullName>
+                    <default>false</default>
+                    <label>V BabyBalsam</label>
+                </value>
+                <value>
+                    <fullName>V Cough Remedy</fullName>
+                    <default>false</default>
+                    <label>V Cough Remedy</label>
+                </value>
+                <value>
+                    <fullName>Vector</fullName>
+                    <default>false</default>
+                    <label>Vector</label>
+                </value>
+                <value>
+                    <fullName>Venus</fullName>
+                    <default>false</default>
+                    <label>Venus</label>
+                </value>
+                <value>
+                    <fullName>Venus &amp; Olay</fullName>
+                    <default>false</default>
+                    <label>Venus &amp; Olay</label>
+                </value>
+                <value>
+                    <fullName>Venus Breeze</fullName>
+                    <default>false</default>
+                    <label>Venus Breeze</label>
+                </value>
+                <value>
+                    <fullName>Venus Embrace</fullName>
+                    <default>false</default>
+                    <label>Venus Embrace</label>
+                </value>
+                <value>
+                    <fullName>Venus ProSkin</fullName>
+                    <default>false</default>
+                    <label>Venus ProSkin</label>
+                </value>
+                <value>
+                    <fullName>Venus Swirl</fullName>
+                    <default>false</default>
+                    <label>Venus Swirl</label>
+                </value>
+                <value>
+                    <fullName>Venus Vibrance</fullName>
+                    <default>false</default>
+                    <label>Venus Vibrance</label>
+                </value>
+                <value>
+                    <fullName>Viakal</fullName>
+                    <default>false</default>
+                    <label>Viakal</label>
+                </value>
+                <value>
+                    <fullName>Vick</fullName>
+                    <default>false</default>
+                    <label>Vick</label>
+                </value>
+                <value>
+                    <fullName>Vicks</fullName>
+                    <default>false</default>
+                    <label>Vicks</label>
+                </value>
+                <value>
+                    <fullName>Vicks 44</fullName>
+                    <default>false</default>
+                    <label>Vicks 44</label>
+                </value>
+                <value>
+                    <fullName>Vicks BabyBalsam</fullName>
+                    <default>false</default>
+                    <label>Vicks BabyBalsam</label>
+                </value>
+                <value>
+                    <fullName>Vicks Babyrub</fullName>
+                    <default>false</default>
+                    <label>Vicks Babyrub</label>
+                </value>
+                <value>
+                    <fullName>Vicks Casero</fullName>
+                    <default>false</default>
+                    <label>Vicks Casero</label>
+                </value>
+                <value>
+                    <fullName>Vicks Cold &amp; Flu Care</fullName>
+                    <default>false</default>
+                    <label>Vicks Cold &amp; Flu Care</label>
+                </value>
+                <value>
+                    <fullName>Vicks Cough</fullName>
+                    <default>false</default>
+                    <label>Vicks Cough</label>
+                </value>
+                <value>
+                    <fullName>Vicks Cough Lozenges &amp; Syrup</fullName>
+                    <default>false</default>
+                    <label>Vicks Cough Lozenges &amp; Syrup</label>
+                </value>
+                <value>
+                    <fullName>Vicks Custom Care</fullName>
+                    <default>false</default>
+                    <label>Vicks Custom Care</label>
+                </value>
+                <value>
+                    <fullName>Vicks Dayquil</fullName>
+                    <default>false</default>
+                    <label>Vicks Dayquil</label>
+                </value>
+                <value>
+                    <fullName>Vicks Early Defense</fullName>
+                    <default>false</default>
+                    <label>Vicks Early Defense</label>
+                </value>
+                <value>
+                    <fullName>Vicks First Defense</fullName>
+                    <default>false</default>
+                    <label>Vicks First Defense</label>
+                </value>
+                <value>
+                    <fullName>Vicks Health Gum</fullName>
+                    <default>false</default>
+                    <label>Vicks Health Gum</label>
+                </value>
+                <value>
+                    <fullName>Vicks Inhaler</fullName>
+                    <default>false</default>
+                    <label>Vicks Inhaler</label>
+                </value>
+                <value>
+                    <fullName>Vicks Medinait</fullName>
+                    <default>false</default>
+                    <label>Vicks Medinait</label>
+                </value>
+                <value>
+                    <fullName>Vicks Medinite</fullName>
+                    <default>false</default>
+                    <label>Vicks Medinite</label>
+                </value>
+                <value>
+                    <fullName>Vicks Nature Fusion</fullName>
+                    <default>false</default>
+                    <label>Vicks Nature Fusion</label>
+                </value>
+                <value>
+                    <fullName>Vicks NyQuil</fullName>
+                    <default>false</default>
+                    <label>Vicks NyQuil</label>
+                </value>
+                <value>
+                    <fullName>Vicks Sinex</fullName>
+                    <default>false</default>
+                    <label>Vicks Sinex</label>
+                </value>
+                <value>
+                    <fullName>Vicks Throat Drops</fullName>
+                    <default>false</default>
+                    <label>Vicks Throat Drops</label>
+                </value>
+                <value>
+                    <fullName>Vicks Vapobath</fullName>
+                    <default>false</default>
+                    <label>Vicks Vapobath</label>
+                </value>
+                <value>
+                    <fullName>Vicks Vaporub</fullName>
+                    <default>false</default>
+                    <label>Vicks Vaporub</label>
+                </value>
+                <value>
+                    <fullName>Vicks VapoSteam</fullName>
+                    <default>false</default>
+                    <label>Vicks VapoSteam</label>
+                </value>
+                <value>
+                    <fullName>Vicks VapoSyrup</fullName>
+                    <default>false</default>
+                    <label>Vicks VapoSyrup</label>
+                </value>
+                <value>
+                    <fullName>Victoria</fullName>
+                    <default>false</default>
+                    <label>Victoria</label>
+                </value>
+                <value>
+                    <fullName>Vidal Sassoon</fullName>
+                    <default>false</default>
+                    <label>Vidal Sassoon</label>
+                </value>
+                <value>
+                    <fullName>Viva</fullName>
+                    <default>false</default>
+                    <label>Viva</label>
+                </value>
+                <value>
+                    <fullName>Vizir</fullName>
+                    <default>false</default>
+                    <label>Vizir</label>
+                </value>
+                <value>
+                    <fullName>V NyQuil Professional</fullName>
+                    <default>false</default>
+                    <label>V NyQuil Professional</label>
+                </value>
+                <value>
+                    <fullName>Vortex</fullName>
+                    <default>false</default>
+                    <label>Vortex</label>
+                </value>
+                <value>
+                    <fullName>Wash N Go</fullName>
+                    <default>false</default>
+                    <label>Wash N Go</label>
+                </value>
+                <value>
+                    <fullName>Wella</fullName>
+                    <default>false</default>
+                    <label>Wella</label>
+                </value>
+                <value>
+                    <fullName>Wella Balsam</fullName>
+                    <default>false</default>
+                    <label>Wella Balsam</label>
+                </value>
+                <value>
+                    <fullName>Wellaflex</fullName>
+                    <default>false</default>
+                    <label>Wellaflex</label>
+                </value>
+                <value>
+                    <fullName>Wella Professional</fullName>
+                    <default>false</default>
+                    <label>Wella Professional</label>
+                </value>
+                <value>
+                    <fullName>Wella Professionals</fullName>
+                    <default>false</default>
+                    <label>Wella Professionals</label>
+                </value>
+                <value>
+                    <fullName>Wella Profissional</fullName>
+                    <default>false</default>
+                    <label>Wella Profissional</label>
+                </value>
+                <value>
+                    <fullName>Wella Pro Series</fullName>
+                    <default>false</default>
+                    <label>Wella Pro Series</label>
+                </value>
+                <value>
+                    <fullName>Wellaton</fullName>
+                    <default>false</default>
+                    <label>Wellaton</label>
+                </value>
+                <value>
+                    <fullName>Whisper</fullName>
+                    <default>false</default>
+                    <label>Whisper</label>
+                </value>
+                <value>
+                    <fullName>Wick 44</fullName>
+                    <default>false</default>
+                    <label>Wick 44</label>
+                </value>
+                <value>
+                    <fullName>Wick Cold &amp; Flu Care</fullName>
+                    <default>false</default>
+                    <label>Wick Cold &amp; Flu Care</label>
+                </value>
+                <value>
+                    <fullName>Wick Day Med</fullName>
+                    <default>false</default>
+                    <label>Wick Day Med</label>
+                </value>
+                <value>
+                    <fullName>Wick First Defense</fullName>
+                    <default>false</default>
+                    <label>Wick First Defense</label>
+                </value>
+                <value>
+                    <fullName>Wick Health Gum</fullName>
+                    <default>false</default>
+                    <label>Wick Health Gum</label>
+                </value>
+                <value>
+                    <fullName>Wick Inhaler</fullName>
+                    <default>false</default>
+                    <label>Wick Inhaler</label>
+                </value>
+                <value>
+                    <fullName>Wick Medinait</fullName>
+                    <default>false</default>
+                    <label>Wick Medinait</label>
+                </value>
+                <value>
+                    <fullName>Wick Sinex</fullName>
+                    <default>false</default>
+                    <label>Wick Sinex</label>
+                </value>
+                <value>
+                    <fullName>Wick Soulagyl</fullName>
+                    <default>false</default>
+                    <label>Wick Soulagyl</label>
+                </value>
+                <value>
+                    <fullName>Wick Throat Drops</fullName>
+                    <default>false</default>
+                    <label>Wick Throat Drops</label>
+                </value>
+                <value>
+                    <fullName>Wick Vaporub</fullName>
+                    <default>false</default>
+                    <label>Wick Vaporub</label>
+                </value>
+                <value>
+                    <fullName>Wick VapoSyrup</fullName>
+                    <default>false</default>
+                    <label>Wick VapoSyrup</label>
+                </value>
+                <value>
+                    <fullName>Wilkinson</fullName>
+                    <default>false</default>
+                    <label>Wilkinson</label>
+                </value>
+                <value>
+                    <fullName>Yamamoto</fullName>
+                    <default>false</default>
+                    <label>Yamamoto</label>
+                </value>
+                <value>
+                    <fullName>Zest</fullName>
+                    <default>false</default>
+                    <label>Zest</label>
+                </value>
+                <value>
+                    <fullName>Zin in Meer</fullName>
+                    <default>false</default>
+                    <label>Zin in Meer</label>
+                </value>
+                <value>
+                    <fullName>Zooth</fullName>
+                    <default>false</default>
+                    <label>Zooth</label>
+                </value>
+                <value>
+                    <fullName>ZzzQuil</fullName>
+                    <default>false</default>
+                    <label>ZzzQuil</label>
+                </value>
+                <value>
+                    <fullName>ジレットシリーズ</fullName>
+                    <default>false</default>
+                    <label>ジレットシリーズ</label>
+                </value>
+                <value>
+                    <fullName>センサー3</fullName>
+                    <default>false</default>
+                    <label>センサー3</label>
+                </value>
+                <value>
+                    <fullName>パンテーン</fullName>
+                    <default>false</default>
+                    <label>パンテーン</label>
+                </value>
+                <value>
+                    <fullName>フュージョン5+1</fullName>
+                    <default>false</default>
+                    <label>フュージョン5+1</label>
+                </value>
+                <value>
+                    <fullName>フュージョン　プログライド</fullName>
+                    <default>false</default>
+                    <label>フュージョン　プログライド</label>
+                </value>
+                <value>
+                    <fullName>フュージョン　プログライド　パワー</fullName>
+                    <default>false</default>
+                    <label>フュージョン　プログライド　パワー</label>
+                </value>
+                <value>
+                    <fullName>ヘアレシピ</fullName>
+                    <default>false</default>
+                    <label>ヘアレシピ</label>
+                </value>
+                <value>
+                    <fullName>マッハシンスリーターボ</fullName>
+                    <default>false</default>
+                    <label>マッハシンスリーターボ</label>
+                </value>
+                <value>
+                    <fullName>ヴィーナス</fullName>
+                    <default>false</default>
+                    <label>ヴィーナス</label>
+                </value>
+                <value>
+                    <fullName>东方季道</fullName>
+                    <default>false</default>
+                    <label>东方季道</label>
+                </value>
+                <value>
+                    <fullName>伊卡露</fullName>
+                    <default>false</default>
+                    <label>伊卡露</label>
+                </value>
+                <value>
+                    <fullName>博斯</fullName>
+                    <default>false</default>
+                    <label>博斯</label>
+                </value>
+                <value>
+                    <fullName>古驰</fullName>
+                    <default>false</default>
+                    <label>古驰</label>
+                </value>
+                <value>
+                    <fullName>威娜</fullName>
+                    <default>false</default>
+                    <label>威娜</label>
+                </value>
+                <value>
+                    <fullName>帮宝适</fullName>
+                    <default>false</default>
+                    <label>帮宝适</label>
+                </value>
+                <value>
+                    <fullName>护舒宝</fullName>
+                    <default>false</default>
+                    <label>护舒宝</label>
+                </value>
+                <value>
+                    <fullName>朵朵</fullName>
+                    <default>false</default>
+                    <label>朵朵</label>
+                </value>
+                <value>
+                    <fullName>杜嘉班纳</fullName>
+                    <default>false</default>
+                    <label>杜嘉班纳</label>
+                </value>
+                <value>
+                    <fullName>来格仕</fullName>
+                    <default>false</default>
+                    <label>来格仕</label>
+                </value>
+                <value>
+                    <fullName>沙宣</fullName>
+                    <default>false</default>
+                    <label>沙宣</label>
+                </value>
+                <value>
+                    <fullName>海肌源</fullName>
+                    <default>false</default>
+                    <label>海肌源</label>
+                </value>
+                <value>
+                    <fullName>海飞丝</fullName>
+                    <default>false</default>
+                    <label>海飞丝</label>
+                </value>
+                <value>
+                    <fullName>潘婷</fullName>
+                    <default>false</default>
+                    <label>潘婷</label>
+                </value>
+                <value>
+                    <fullName>爱斯卡达</fullName>
+                    <default>false</default>
+                    <label>爱斯卡达</label>
+                </value>
+                <value>
+                    <fullName>玉兰油</fullName>
+                    <default>false</default>
+                    <label>玉兰油</label>
+                </value>
+                <value>
+                    <fullName>飘柔</fullName>
+                    <default>false</default>
+                    <label>飘柔</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Case_Origin__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Leave field empty to work with ALL Case Origins</inlineHelpText>
+        <label>Case Origin</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Phone</fullName>
+                    <default>false</default>
+                    <label>Phone</label>
+                </value>
+                <value>
+                    <fullName>Web</fullName>
+                    <default>false</default>
+                    <label>Web</label>
+                </value>
+                <value>
+                    <fullName>Chat</fullName>
+                    <default>false</default>
+                    <label>Chat</label>
+                </value>
+                <value>
+                    <fullName>Fax</fullName>
+                    <default>false</default>
+                    <label>Fax</label>
+                </value>
+                <value>
+                    <fullName>Letter</fullName>
+                    <default>false</default>
+                    <label>Letter</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Visit</fullName>
+                    <default>false</default>
+                    <label>Visit</label>
+                </value>
+                <value>
+                    <fullName>Social Media</fullName>
+                    <default>false</default>
+                    <label>Social Media</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Case_Record_Type_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Case Record Type Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Case Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Open</fullName>
+                    <default>false</default>
+                    <label>Open</label>
+                </value>
+                <value>
+                    <fullName>Saved</fullName>
+                    <default>false</default>
+                    <label>Saved</label>
+                </value>
+                <value>
+                    <fullName>Closed</fullName>
+                    <default>false</default>
+                    <label>Closed</label>
+                </value>
+                <value>
+                    <fullName>Closed and Locked</fullName>
+                    <default>false</default>
+                    <label>Closed and Locked</label>
+                </value>
+                <value>
+                    <fullName>Reopened by Consumer</fullName>
+                    <default>false</default>
+                    <label>Reopened by Consumer</label>
+                </value>
+                <value>
+                    <fullName>Reopened by CCM</fullName>
+                    <default>false</default>
+                    <label>Reopened by CCM</label>
+                </value>
+                <value>
+                    <fullName>Reopened by CCM - Supervisor</fullName>
+                    <default>false</default>
+                    <label>Reopened by CCM - Supervisor</label>
+                </value>
+                <value>
+                    <fullName>Reopened by Social</fullName>
+                    <default>false</default>
+                    <label>Reopened by Social</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Argentina</fullName>
+                    <default>false</default>
+                    <label>Argentina</label>
+                </value>
+                <value>
+                    <fullName>Australia</fullName>
+                    <default>false</default>
+                    <label>Australia</label>
+                </value>
+                <value>
+                    <fullName>Austria</fullName>
+                    <default>false</default>
+                    <label>Austria</label>
+                </value>
+                <value>
+                    <fullName>Bahrain</fullName>
+                    <default>false</default>
+                    <label>Bahrain</label>
+                </value>
+                <value>
+                    <fullName>Belarus</fullName>
+                    <default>false</default>
+                    <label>Belarus</label>
+                </value>
+                <value>
+                    <fullName>Belgium</fullName>
+                    <default>false</default>
+                    <label>Belgium</label>
+                </value>
+                <value>
+                    <fullName>Belize</fullName>
+                    <default>false</default>
+                    <label>Belize</label>
+                </value>
+                <value>
+                    <fullName>Bolivia</fullName>
+                    <default>false</default>
+                    <label>Bolivia</label>
+                </value>
+                <value>
+                    <fullName>Brazil</fullName>
+                    <default>false</default>
+                    <label>Brazil</label>
+                </value>
+                <value>
+                    <fullName>Canada</fullName>
+                    <default>false</default>
+                    <label>Canada</label>
+                </value>
+                <value>
+                    <fullName>Chile</fullName>
+                    <default>false</default>
+                    <label>Chile</label>
+                </value>
+                <value>
+                    <fullName>China</fullName>
+                    <default>false</default>
+                    <label>China</label>
+                </value>
+                <value>
+                    <fullName>Colombia</fullName>
+                    <default>false</default>
+                    <label>Colombia</label>
+                </value>
+                <value>
+                    <fullName>Costa Rica</fullName>
+                    <default>false</default>
+                    <label>Costa Rica</label>
+                </value>
+                <value>
+                    <fullName>Croatia</fullName>
+                    <default>false</default>
+                    <label>Croatia</label>
+                </value>
+                <value>
+                    <fullName>Cyprus</fullName>
+                    <default>false</default>
+                    <label>Cyprus</label>
+                </value>
+                <value>
+                    <fullName>Czech Republic</fullName>
+                    <default>false</default>
+                    <label>Czech Republic</label>
+                </value>
+                <value>
+                    <fullName>Denmark</fullName>
+                    <default>false</default>
+                    <label>Denmark</label>
+                </value>
+                <value>
+                    <fullName>Dominican Republic</fullName>
+                    <default>false</default>
+                    <label>Dominican Republic</label>
+                </value>
+                <value>
+                    <fullName>Ecuador</fullName>
+                    <default>false</default>
+                    <label>Ecuador</label>
+                </value>
+                <value>
+                    <fullName>Egypt</fullName>
+                    <default>false</default>
+                    <label>Egypt</label>
+                </value>
+                <value>
+                    <fullName>El Salvador</fullName>
+                    <default>false</default>
+                    <label>El Salvador</label>
+                </value>
+                <value>
+                    <fullName>Estonia</fullName>
+                    <default>false</default>
+                    <label>Estonia</label>
+                </value>
+                <value>
+                    <fullName>Finland</fullName>
+                    <default>false</default>
+                    <label>Finland</label>
+                </value>
+                <value>
+                    <fullName>France</fullName>
+                    <default>false</default>
+                    <label>France</label>
+                </value>
+                <value>
+                    <fullName>Germany</fullName>
+                    <default>false</default>
+                    <label>Germany</label>
+                </value>
+                <value>
+                    <fullName>Greece</fullName>
+                    <default>false</default>
+                    <label>Greece</label>
+                </value>
+                <value>
+                    <fullName>Guatemala</fullName>
+                    <default>false</default>
+                    <label>Guatemala</label>
+                </value>
+                <value>
+                    <fullName>Honduras</fullName>
+                    <default>false</default>
+                    <label>Honduras</label>
+                </value>
+                <value>
+                    <fullName>Hong Kong</fullName>
+                    <default>false</default>
+                    <label>Hong Kong</label>
+                </value>
+                <value>
+                    <fullName>Hungary</fullName>
+                    <default>false</default>
+                    <label>Hungary</label>
+                </value>
+                <value>
+                    <fullName>Iceland</fullName>
+                    <default>false</default>
+                    <label>Iceland</label>
+                </value>
+                <value>
+                    <fullName>India</fullName>
+                    <default>false</default>
+                    <label>India</label>
+                </value>
+                <value>
+                    <fullName>Indonesia</fullName>
+                    <default>false</default>
+                    <label>Indonesia</label>
+                </value>
+                <value>
+                    <fullName>Ireland</fullName>
+                    <default>false</default>
+                    <label>Ireland</label>
+                </value>
+                <value>
+                    <fullName>Israel</fullName>
+                    <default>false</default>
+                    <label>Israel</label>
+                </value>
+                <value>
+                    <fullName>Italy</fullName>
+                    <default>false</default>
+                    <label>Italy</label>
+                </value>
+                <value>
+                    <fullName>Japan</fullName>
+                    <default>false</default>
+                    <label>Japan</label>
+                </value>
+                <value>
+                    <fullName>Kazakhstan</fullName>
+                    <default>false</default>
+                    <label>Kazakhstan</label>
+                </value>
+                <value>
+                    <fullName>Kenya</fullName>
+                    <default>false</default>
+                    <label>Kenya</label>
+                </value>
+                <value>
+                    <fullName>Korea</fullName>
+                    <default>false</default>
+                    <label>Korea</label>
+                </value>
+                <value>
+                    <fullName>Kuwait</fullName>
+                    <default>false</default>
+                    <label>Kuwait</label>
+                </value>
+                <value>
+                    <fullName>Latvia</fullName>
+                    <default>false</default>
+                    <label>Latvia</label>
+                </value>
+                <value>
+                    <fullName>Lebanon</fullName>
+                    <default>false</default>
+                    <label>Lebanon</label>
+                </value>
+                <value>
+                    <fullName>Libya</fullName>
+                    <default>false</default>
+                    <label>Libya</label>
+                </value>
+                <value>
+                    <fullName>Lithuania</fullName>
+                    <default>false</default>
+                    <label>Lithuania</label>
+                </value>
+                <value>
+                    <fullName>Luxembourg</fullName>
+                    <default>false</default>
+                    <label>Luxembourg</label>
+                </value>
+                <value>
+                    <fullName>Malaysia</fullName>
+                    <default>false</default>
+                    <label>Malaysia</label>
+                </value>
+                <value>
+                    <fullName>Malta</fullName>
+                    <default>false</default>
+                    <label>Malta</label>
+                </value>
+                <value>
+                    <fullName>Mexico</fullName>
+                    <default>false</default>
+                    <label>Mexico</label>
+                </value>
+                <value>
+                    <fullName>Morocco</fullName>
+                    <default>false</default>
+                    <label>Morocco</label>
+                </value>
+                <value>
+                    <fullName>Netherlands</fullName>
+                    <default>false</default>
+                    <label>Netherlands</label>
+                </value>
+                <value>
+                    <fullName>New Zealand</fullName>
+                    <default>false</default>
+                    <label>New Zealand</label>
+                </value>
+                <value>
+                    <fullName>Nicaragua</fullName>
+                    <default>false</default>
+                    <label>Nicaragua</label>
+                </value>
+                <value>
+                    <fullName>Nigeria</fullName>
+                    <default>false</default>
+                    <label>Nigeria</label>
+                </value>
+                <value>
+                    <fullName>Norway</fullName>
+                    <default>false</default>
+                    <label>Norway</label>
+                </value>
+                <value>
+                    <fullName>Oman</fullName>
+                    <default>false</default>
+                    <label>Oman</label>
+                </value>
+                <value>
+                    <fullName>Pakistan</fullName>
+                    <default>false</default>
+                    <label>Pakistan</label>
+                </value>
+                <value>
+                    <fullName>Panama</fullName>
+                    <default>false</default>
+                    <label>Panama</label>
+                </value>
+                <value>
+                    <fullName>Paraguay</fullName>
+                    <default>false</default>
+                    <label>Paraguay</label>
+                </value>
+                <value>
+                    <fullName>Parthia</fullName>
+                    <default>false</default>
+                    <label>Parthia</label>
+                </value>
+                <value>
+                    <fullName>Peru</fullName>
+                    <default>false</default>
+                    <label>Peru</label>
+                </value>
+                <value>
+                    <fullName>Philippines</fullName>
+                    <default>false</default>
+                    <label>Philippines</label>
+                </value>
+                <value>
+                    <fullName>Poland</fullName>
+                    <default>false</default>
+                    <label>Poland</label>
+                </value>
+                <value>
+                    <fullName>Portugal</fullName>
+                    <default>false</default>
+                    <label>Portugal</label>
+                </value>
+                <value>
+                    <fullName>Qatar</fullName>
+                    <default>false</default>
+                    <label>Qatar</label>
+                </value>
+                <value>
+                    <fullName>Romania</fullName>
+                    <default>false</default>
+                    <label>Romania</label>
+                </value>
+                <value>
+                    <fullName>Russia</fullName>
+                    <default>false</default>
+                    <label>Russia</label>
+                </value>
+                <value>
+                    <fullName>Saudi Arabia</fullName>
+                    <default>false</default>
+                    <label>Saudi Arabia</label>
+                </value>
+                <value>
+                    <fullName>Singapore</fullName>
+                    <default>false</default>
+                    <label>Singapore</label>
+                </value>
+                <value>
+                    <fullName>Slovakia</fullName>
+                    <default>false</default>
+                    <label>Slovakia</label>
+                </value>
+                <value>
+                    <fullName>Slovak Republic</fullName>
+                    <default>false</default>
+                    <label>Slovak Republic</label>
+                </value>
+                <value>
+                    <fullName>Slovenia</fullName>
+                    <default>false</default>
+                    <label>Slovenia</label>
+                </value>
+                <value>
+                    <fullName>South Africa</fullName>
+                    <default>false</default>
+                    <label>South Africa</label>
+                </value>
+                <value>
+                    <fullName>Spain</fullName>
+                    <default>false</default>
+                    <label>Spain</label>
+                </value>
+                <value>
+                    <fullName>Sweden</fullName>
+                    <default>false</default>
+                    <label>Sweden</label>
+                </value>
+                <value>
+                    <fullName>Switzerland</fullName>
+                    <default>false</default>
+                    <label>Switzerland</label>
+                </value>
+                <value>
+                    <fullName>Taiwan</fullName>
+                    <default>false</default>
+                    <label>Taiwan</label>
+                </value>
+                <value>
+                    <fullName>Thailand</fullName>
+                    <default>false</default>
+                    <label>Thailand</label>
+                </value>
+                <value>
+                    <fullName>Tunisia</fullName>
+                    <default>false</default>
+                    <label>Tunisia</label>
+                </value>
+                <value>
+                    <fullName>Turkey</fullName>
+                    <default>false</default>
+                    <label>Turkey</label>
+                </value>
+                <value>
+                    <fullName>UAE</fullName>
+                    <default>false</default>
+                    <label>UAE</label>
+                </value>
+                <value>
+                    <fullName>Ukraine</fullName>
+                    <default>false</default>
+                    <label>Ukraine</label>
+                </value>
+                <value>
+                    <fullName>United Kingdom</fullName>
+                    <default>false</default>
+                    <label>United Kingdom</label>
+                </value>
+                <value>
+                    <fullName>United States of A</fullName>
+                    <default>false</default>
+                    <label>United States of A</label>
+                </value>
+                <value>
+                    <fullName>United States of Am</fullName>
+                    <default>false</default>
+                    <label>United States of Am</label>
+                </value>
+                <value>
+                    <fullName>United States of Ame</fullName>
+                    <default>false</default>
+                    <label>United States of Ame</label>
+                </value>
+                <value>
+                    <fullName>United States of America</fullName>
+                    <default>false</default>
+                    <label>United States of America</label>
+                </value>
+                <value>
+                    <fullName>Uruguay</fullName>
+                    <default>false</default>
+                    <label>Uruguay</label>
+                </value>
+                <value>
+                    <fullName>Venezuela</fullName>
+                    <default>false</default>
+                    <label>Venezuela</label>
+                </value>
+                <value>
+                    <fullName>Vietnam</fullName>
+                    <default>false</default>
+                    <label>Vietnam</label>
+                </value>
+                <value>
+                    <fullName>Yemen</fullName>
+                    <default>false</default>
+                    <label>Yemen</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If you have this field populated, then no other fields should be populated. The rule looks at email OR country/language/priority/reason for writing/brand/case status.</inlineHelpText>
+        <label>Email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language__c</fullName>
+        <externalId>false</externalId>
+        <label>Language</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Arabic</fullName>
+                    <default>false</default>
+                    <label>Arabic</label>
+                </value>
+                <value>
+                    <fullName>Chinese</fullName>
+                    <default>false</default>
+                    <label>Chinese</label>
+                </value>
+                <value>
+                    <fullName>Chinese-T</fullName>
+                    <default>false</default>
+                    <label>Chinese-T</label>
+                </value>
+                <value>
+                    <fullName>Croatian</fullName>
+                    <default>false</default>
+                    <label>Croatian</label>
+                </value>
+                <value>
+                    <fullName>Czech</fullName>
+                    <default>false</default>
+                    <label>Czech</label>
+                </value>
+                <value>
+                    <fullName>Danish</fullName>
+                    <default>false</default>
+                    <label>Danish</label>
+                </value>
+                <value>
+                    <fullName>Dutch</fullName>
+                    <default>false</default>
+                    <label>Dutch</label>
+                </value>
+                <value>
+                    <fullName>English-GB</fullName>
+                    <default>false</default>
+                    <label>English-GB</label>
+                </value>
+                <value>
+                    <fullName>English-US</fullName>
+                    <default>false</default>
+                    <label>English-US</label>
+                </value>
+                <value>
+                    <fullName>Estonian</fullName>
+                    <default>false</default>
+                    <label>Estonian</label>
+                </value>
+                <value>
+                    <fullName>Farsi</fullName>
+                    <default>false</default>
+                    <label>Farsi</label>
+                </value>
+                <value>
+                    <fullName>Finnish</fullName>
+                    <default>false</default>
+                    <label>Finnish</label>
+                </value>
+                <value>
+                    <fullName>Flemish</fullName>
+                    <default>false</default>
+                    <label>Flemish</label>
+                </value>
+                <value>
+                    <fullName>French</fullName>
+                    <default>false</default>
+                    <label>French</label>
+                </value>
+                <value>
+                    <fullName>German</fullName>
+                    <default>false</default>
+                    <label>German</label>
+                </value>
+                <value>
+                    <fullName>Greek</fullName>
+                    <default>false</default>
+                    <label>Greek</label>
+                </value>
+                <value>
+                    <fullName>Hebrew</fullName>
+                    <default>false</default>
+                    <label>Hebrew</label>
+                </value>
+                <value>
+                    <fullName>Hindi</fullName>
+                    <default>false</default>
+                    <label>Hindi</label>
+                </value>
+                <value>
+                    <fullName>Hungarian</fullName>
+                    <default>false</default>
+                    <label>Hungarian</label>
+                </value>
+                <value>
+                    <fullName>Indonesian</fullName>
+                    <default>false</default>
+                    <label>Indonesian</label>
+                </value>
+                <value>
+                    <fullName>Italian</fullName>
+                    <default>false</default>
+                    <label>Italian</label>
+                </value>
+                <value>
+                    <fullName>Japanese</fullName>
+                    <default>false</default>
+                    <label>Japanese</label>
+                </value>
+                <value>
+                    <fullName>Kazakh</fullName>
+                    <default>false</default>
+                    <label>Kazakh</label>
+                </value>
+                <value>
+                    <fullName>Korean</fullName>
+                    <default>false</default>
+                    <label>Korean</label>
+                </value>
+                <value>
+                    <fullName>Latvian</fullName>
+                    <default>false</default>
+                    <label>Latvian</label>
+                </value>
+                <value>
+                    <fullName>Lithuanian</fullName>
+                    <default>false</default>
+                    <label>Lithuanian</label>
+                </value>
+                <value>
+                    <fullName>Malay</fullName>
+                    <default>false</default>
+                    <label>Malay</label>
+                </value>
+                <value>
+                    <fullName>Maltese</fullName>
+                    <default>false</default>
+                    <label>Maltese</label>
+                </value>
+                <value>
+                    <fullName>Norwegian</fullName>
+                    <default>false</default>
+                    <label>Norwegian</label>
+                </value>
+                <value>
+                    <fullName>Polish</fullName>
+                    <default>false</default>
+                    <label>Polish</label>
+                </value>
+                <value>
+                    <fullName>Portuguese</fullName>
+                    <default>false</default>
+                    <label>Portuguese</label>
+                </value>
+                <value>
+                    <fullName>Romanian</fullName>
+                    <default>false</default>
+                    <label>Romanian</label>
+                </value>
+                <value>
+                    <fullName>Russian</fullName>
+                    <default>false</default>
+                    <label>Russian</label>
+                </value>
+                <value>
+                    <fullName>Slovakian</fullName>
+                    <default>false</default>
+                    <label>Slovakian</label>
+                </value>
+                <value>
+                    <fullName>Slovenian</fullName>
+                    <default>false</default>
+                    <label>Slovenian</label>
+                </value>
+                <value>
+                    <fullName>Spanish</fullName>
+                    <default>false</default>
+                    <label>Spanish</label>
+                </value>
+                <value>
+                    <fullName>Swedish</fullName>
+                    <default>false</default>
+                    <label>Swedish</label>
+                </value>
+                <value>
+                    <fullName>Tagalog</fullName>
+                    <default>false</default>
+                    <label>Tagalog</label>
+                </value>
+                <value>
+                    <fullName>Thai</fullName>
+                    <default>false</default>
+                    <label>Thai</label>
+                </value>
+                <value>
+                    <fullName>Turkish</fullName>
+                    <default>false</default>
+                    <label>Turkish</label>
+                </value>
+                <value>
+                    <fullName>Ukrainian</fullName>
+                    <default>false</default>
+                    <label>Ukrainian</label>
+                </value>
+                <value>
+                    <fullName>Vietnamese</fullName>
+                    <default>false</default>
+                    <label>Vietnamese</label>
+                </value>
+                <value>
+                    <fullName>English-</fullName>
+                    <default>false</default>
+                    <label>English-</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Priority__c</fullName>
+        <externalId>false</externalId>
+        <label>Priority</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1</fullName>
+                    <default>false</default>
+                    <label>1</label>
+                </value>
+                <value>
+                    <fullName>2</fullName>
+                    <default>false</default>
+                    <label>2</label>
+                </value>
+                <value>
+                    <fullName>3</fullName>
+                    <default>false</default>
+                    <label>3</label>
+                </value>
+                <value>
+                    <fullName>4</fullName>
+                    <default>false</default>
+                    <label>4</label>
+                </value>
+                <value>
+                    <fullName>5</fullName>
+                    <default>false</default>
+                    <label>5</label>
+                </value>
+                <value>
+                    <fullName>6</fullName>
+                    <default>false</default>
+                    <label>6</label>
+                </value>
+                <value>
+                    <fullName>7</fullName>
+                    <default>false</default>
+                    <label>7</label>
+                </value>
+                <value>
+                    <fullName>8</fullName>
+                    <default>false</default>
+                    <label>8</label>
+                </value>
+                <value>
+                    <fullName>9</fullName>
+                    <default>false</default>
+                    <label>9</label>
+                </value>
+                <value>
+                    <fullName>10</fullName>
+                    <default>false</default>
+                    <label>10</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Queue_Name__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Queue name. Not label. The one that has underscores.</inlineHelpText>
+        <label>Queue Name</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rank__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to determine rule priority over other rule if multiple rules found for the same condition.</inlineHelpText>
+        <label>Rank</label>
+        <precision>4</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Writing__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>0 - Any case created outside of ContactUs form (CCM and Agent Console)
+1 - Send a testimonial
+2 - Ask a question
+3 - Product availability / Where to buy
+4 - Report a problem
+5 - Coupons, Samples, Sponsorship
+6 - Promotions</inlineHelpText>
+        <label>Reason for Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>1</fullName>
+                    <default>false</default>
+                    <label>1</label>
+                </value>
+                <value>
+                    <fullName>2</fullName>
+                    <default>false</default>
+                    <label>2</label>
+                </value>
+                <value>
+                    <fullName>3</fullName>
+                    <default>false</default>
+                    <label>3</label>
+                </value>
+                <value>
+                    <fullName>4</fullName>
+                    <default>false</default>
+                    <label>4</label>
+                </value>
+                <value>
+                    <fullName>5</fullName>
+                    <default>false</default>
+                    <label>5</label>
+                </value>
+                <value>
+                    <fullName>6</fullName>
+                    <default>false</default>
+                    <label>6</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <label>Metadata Case Assignment Rule</label>
+    <listViews>
+        <fullName>AA_countries</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Country__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Rank__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Queue_Name__c</field>
+            <operation>startsWith</operation>
+            <value>AA</value>
+        </filters>
+        <label>AA countries</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Africa</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>South Africa</value>
+        </filters>
+        <label>Africa</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Case_Origin__c</columns>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Reason_for_Writing__c</columns>
+        <columns>Rank__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Case_Status__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>Case_Record_Type_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Australia</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Australia</value>
+        </filters>
+        <label>Australia</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>BR_Queues</fullName>
+        <columns>Brand__c</columns>
+        <columns>NAME</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Queue_Name__c</field>
+            <operation>startsWith</operation>
+            <value>BR</value>
+        </filters>
+        <label>BR Queues</label>
+        <language>en_US</language>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Brand_Specific_edit_view</fullName>
+        <columns>NAME</columns>
+        <columns>Rank__c</columns>
+        <columns>Brand__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Language__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Language__c</field>
+            <operation>equals</operation>
+            <value>Dutch,Flemish</value>
+        </filters>
+        <label>Brand Specific *edit view*</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Brazil</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Brazil</value>
+        </filters>
+        <label>Brazil</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>China_HK_TW</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>China,Hong Kong,Taiwan</value>
+        </filters>
+        <label>China HK TW</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Croatia</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Croatia</value>
+        </filters>
+        <label>Croatia</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>EU_Czech</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Czech Republic</value>
+        </filters>
+        <label>EU Czech</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Egypt</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Egypt</value>
+        </filters>
+        <label>Egypt</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Email_Only</fullName>
+        <columns>NAME</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Email__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Email__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>Email Only</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Email_specific</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Email__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Email__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>Email specific</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>France</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>France</value>
+        </filters>
+        <label>France</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>GDM</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Country__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Rank__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Queue_Name__c</field>
+            <operation>contains</operation>
+            <value>gdm</value>
+        </filters>
+        <label>GDM</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Germany</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Case_Record_Type_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Germany</value>
+        </filters>
+        <label>Germany</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Greece</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Greece</value>
+        </filters>
+        <label>Greece</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Hungary</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Email__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Hungary</value>
+        </filters>
+        <label>Hungary</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>IMEA</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Queue_Name__c</field>
+            <operation>contains</operation>
+            <value>imea</value>
+        </filters>
+        <label>IMEA</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>India</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>India</value>
+        </filters>
+        <label>India</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Italy</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Italy</value>
+        </filters>
+        <label>Italy</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Japan</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Japan</value>
+        </filters>
+        <label>Japan</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Korea</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Korea</value>
+        </filters>
+        <label>Korea</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>LA_Queues</fullName>
+        <columns>Brand__c</columns>
+        <columns>NAME</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Case_Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Queue_Name__c</field>
+            <operation>startsWith</operation>
+            <value>LA</value>
+        </filters>
+        <label>LA Queues</label>
+        <language>en_US</language>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NA_Queues</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Queue_Name__c</field>
+            <operation>startsWith</operation>
+            <value>NA</value>
+        </filters>
+        <label>NA Queues</label>
+        <language>en_US</language>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Netherlands</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Netherlands</value>
+        </filters>
+        <label>Netherlands</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>North_America</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Canada,United States of America</value>
+        </filters>
+        <label>North America</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Norway</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Norway</value>
+        </filters>
+        <label>Norway</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>P_G_Being_Girl</fullName>
+        <columns>NAME</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Brand__c</columns>
+        <columns>Reason_for_Writing__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand__c</field>
+            <operation>equals</operation>
+            <value>P&amp;G Being Girl</value>
+        </filters>
+        <label>P&amp;G Being Girl</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Poland</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Poland</value>
+        </filters>
+        <label>Poland</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Priority_2</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Reason_for_Writing__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Priority__c</field>
+            <operation>equals</operation>
+            <value>2</value>
+        </filters>
+        <label>Priority 2</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Priority_3</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Reason_for_Writing__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Priority__c</field>
+            <operation>includes</operation>
+            <value>3</value>
+        </filters>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>United States of America</value>
+        </filters>
+        <label>Priority 3</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Priority_4</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Reason_for_Writing__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Priority__c</field>
+            <operation>includes</operation>
+            <value>4</value>
+        </filters>
+        <label>Priority 4</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Priority_5</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Reason_for_Writing__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Priority__c</field>
+            <operation>includes</operation>
+            <value>5</value>
+        </filters>
+        <label>Priority 5</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Queue_Specific</fullName>
+        <columns>NAME</columns>
+        <columns>Rank__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Brand__c</columns>
+        <columns>Reason_for_Writing__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Priority__c</field>
+            <operation>equals</operation>
+            <value>3</value>
+        </filters>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>United Kingdom</value>
+        </filters>
+        <label>Queue Specific</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Reopened_by_CCM</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Reason_for_Writing__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Case_Status__c</field>
+            <operation>includes</operation>
+            <value>Reopened by CCM</value>
+        </filters>
+        <filters>
+            <field>Queue_Name__c</field>
+            <operation>contains</operation>
+            <value>Reopened_by_CCM</value>
+        </filters>
+        <label>Reopened by CCM</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Romania</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Romania</value>
+        </filters>
+        <label>Romania</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Russia</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Russia</value>
+        </filters>
+        <label>Russia</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Slovakia</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Slovakia</value>
+        </filters>
+        <label>Slovakia</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>South_Africa</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>South Africa</value>
+        </filters>
+        <label>South Africa</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Spain</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Spain</value>
+        </filters>
+        <label>Spain</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Specific_Queues</fullName>
+        <columns>Brand__c</columns>
+        <columns>NAME</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Queue_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Queue_Name__c</field>
+            <operation>contains</operation>
+            <value>beauty</value>
+        </filters>
+        <filters>
+            <field>Priority__c</field>
+            <operation>notEqual</operation>
+            <value>1</value>
+        </filters>
+        <label>Specific Queues</label>
+        <language>en_US</language>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Switzerland</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Switzerland</value>
+        </filters>
+        <label>Switzerland</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Turkey</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Turkey</value>
+        </filters>
+        <label>Turkey</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>UK</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Rank__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>United Kingdom</value>
+        </filters>
+        <label>UK</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>UK_PampersClub</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Reason_for_Writing__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Rank__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>United Kingdom</value>
+        </filters>
+        <filters>
+            <field>Brand__c</field>
+            <operation>equals</operation>
+            <value>PampersClub,Pampers</value>
+        </filters>
+        <label>UK PampersClub</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>USA</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>United States of America</value>
+        </filters>
+        <label>USA</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Ukraine</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>Ukraine</value>
+        </filters>
+        <label>Ukraine</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>belgium</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Belgium</value>
+        </filters>
+        <label>belgium</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>israel</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Israel</value>
+        </filters>
+        <label>israel</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>sweden</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>Queue_Name__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Case_Status__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>includes</operation>
+            <value>Sweden</value>
+        </filters>
+        <label>sweden</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>MCAR-{00000}</displayFormat>
+        <label>Metadata Case Assignment Rules Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Metadata Case Assignment Rules</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Brand__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Country__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Language__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Priority__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Reason_for_Writing__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

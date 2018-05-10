@@ -1,0 +1,35 @@
+<!-- For use with generating French numbers in specific format legally required by:
+http://www.svaplus.fr/actualites-et-travaux/la-charte-signaletique-des-numeros-sva-8493689-1049.html
+-->
+<apex:component >
+	<apex:attribute name="TelNumber" type="String" required="true" description="Phone number" />
+	<apex:attribute name="TelCharge" type="String" required="true" description="Phone Charge Type" />
+    <apex:attribute name="TelColour" type="String" required="true" description="Phone number colour - formula field telephony__c.Phone_Colour__c" />
+    <apex:attribute name="TelLabel" type="String" required="true" description="Phone label" />
+    
+	<style>
+	.fimg{
+		position: relative;
+		left: 0px;
+		top: 0px;
+		z-index: -1;
+	}
+	.fPhone{
+        Position: absolute;
+        padding-left: 3px;
+        padding-top: 1px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 16px;
+		font-weight: bold;
+		}   
+	</style>
+    
+	<apex:outputPanel styleClass="pull-right">
+        &nbsp;<apex:outputPanel styleClass="phone-number">{!TelLabel} ☎</apex:outputPanel>&nbsp;
+        <apex:outputPanel styleClass="fPhone" style="color: {!TelColour};">
+            <apex:outputText >{!TelNumber}</apex:outputText>
+        </apex:outputPanel>
+        <apex:image value="{!Case(TelCharge,'Free',$Resource.cu_tollFree,'Local',$Resource.cu_localCost,'Premium',$Resource.cu_PriemiumCost_15c,'')}" styleClass="fimg" />
+	</apex:outputPanel>
+
+</apex:component>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <articleTypeChannelDisplay>
+        <articleTypeTemplates>
+            <channel>App</channel>
+            <template>Toc</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Prm</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Csp</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Pkb</channel>
+            <template>Toc</template>
+        </articleTypeTemplates>
+    </articleTypeChannelDisplay>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <fields>
+        <fullName>AAI_Guidelines__c</fullName>
+        <externalId>false</externalId>
+        <label>AA Guidelines</label>
+        <length>40000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>AMR_Guidelines__c</fullName>
+        <externalId>false</externalId>
+        <label>AMR Guidelines</label>
+        <length>40000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Approval_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Never reviewed by Communications</fullName>
+                    <default>false</default>
+                    <label>Never reviewed by Communications</label>
+                </value>
+                <value>
+                    <fullName>Being reviewed by Communications</fullName>
+                    <default>false</default>
+                    <label>Being reviewed by Communications</label>
+                </value>
+                <value>
+                    <fullName>Approved &amp; Updated by Communications</fullName>
+                    <default>false</default>
+                    <label>Approved &amp; Updated by Communications</label>
+                </value>
+                <value>
+                    <fullName>Approved &amp; Updated by GCR (no Communications)</fullName>
+                    <default>false</default>
+                    <label>Approved &amp; Updated by GCR (no Communications)</label>
+                </value>
+                <value>
+                    <fullName>Rejected by Communications</fullName>
+                    <default>false</default>
+                    <label>Rejected by Communications</label>
+                </value>
+                <value>
+                    <fullName>For internal use - Do Not Delete</fullName>
+                    <default>false</default>
+                    <label>For internal use - Do Not Delete</label>
+                </value>
+                <value>
+                    <fullName>Hidden field only visible to GCM &amp; Admin Only</fullName>
+                    <default>false</default>
+                    <label>Hidden field only visible to GCM &amp; Admin Only</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Article_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Article Notes</label>
+        <length>50000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Attachment__c</fullName>
+        <externalId>false</externalId>
+        <label>Attachment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>File</type>
+    </fields>
+    <fields>
+        <fullName>BR_Guidelines__c</fullName>
+        <externalId>false</externalId>
+        <label>BR Guidelines</label>
+        <length>40000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Europe_Guidelines__c</fullName>
+        <externalId>false</externalId>
+        <label>Europe Guidelines</label>
+        <length>40000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>GC_Guidelines__c</fullName>
+        <externalId>false</externalId>
+        <label>GC Guidelines</label>
+        <length>40000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Helpful_Articles__c</fullName>
+        <externalId>false</externalId>
+        <label>Helpful Articles</label>
+        <length>10000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Helpful_Links__c</fullName>
+        <externalId>false</externalId>
+        <label>Helpful Links</label>
+        <length>10000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IMEA_Guidelines__c</fullName>
+        <externalId>false</externalId>
+        <label>IMEA Guidelines</label>
+        <length>40000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>JP_Guidelines__c</fullName>
+        <externalId>false</externalId>
+        <label>JP Guidelines</label>
+        <length>40000</length>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>KO_Guidelines__c</fullName>
+        <externalId>false</externalId>
+        <label>KO Guidelines</label>
+        <length>40000</length>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>LA_Guidelines__c</fullName>
+        <externalId>false</externalId>
+        <label>LA Guidelines</label>
+        <length>40000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Legacy_ArticleNumber__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy ArticleNumber</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Legacy_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Legacy_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy Status</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pictorial_s__c</fullName>
+        <externalId>false</externalId>
+        <label>Pictorial(s)</label>
+        <length>1000</length>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <length>20000</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Reference__c</fullName>
+        <description>this is for the reference material to be shown on the page</description>
+        <externalId>false</externalId>
+        <label>Reference</label>
+        <length>131072</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>35</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Review_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Review Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <label>Reference</label>
+    <pluralLabel>References</pluralLabel>
+</CustomObject>

@@ -1,0 +1,137 @@
+<!-- 
+#    Component for Knowledge Article Search
+#    
+#    @param:  
+#    @author: ACCENTURE
+#    @date:   15/06/2016
+# -->
+<apex:component id="idArticleFeedbackCmp" controller="gcr_knowledgeArticleController" layout="block" allowDml="true">
+    <apex:outputPanel rendered="{!NOT(isRightToLeft)}">
+    <style>
+        /***************************
+        ****************************
+        LEFT TO RIGHT STYLING
+        ****************************
+        ***************************/
+    	.feedbackImage {
+        	height: 20px;
+        	width: 20px;
+        }
+        
+        [id*=iconContainer] {
+            display: inline-block;
+        }
+        
+        .tickIcon{
+            color:green;
+            margin-left: 30px;
+            margin-right: 15px;
+            font-size: 1.3em;
+        }
+        
+        .crossIcon {
+            color: #d61515;
+            margin-left: 15px;
+            margin-right: 15px;
+            font-size: 1.3em;
+        }
+        
+        [id*=idFeedbackCmp] {
+            margin-top:1em;
+        }
+        
+        .feedbackResponse {
+            margin-top: 10px;
+        }
+        
+        @media screen and (min-width: 768px) {
+        .tickIcon {
+            margin-right: 10px;
+            margin-left: 20px;
+        }
+        
+        .crossIcon {
+            margin-left: 10px;
+        }
+                 
+    </style>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!isRightToLeft}">
+    <style>
+        /***************************
+        ****************************
+        RIGHT TO LEFT STYLING
+        ****************************
+        ***************************/
+    	.feedbackImage {
+        	height: 20px;
+        	width: 20px;
+        }
+        
+        [id*=iconContainer] {
+            display: inline-block;
+        }
+        
+        .tickIcon{
+            color:green;
+            margin-right: 30px;
+            margin-left: 15px;
+            font-size: 1.3em;
+        }
+        
+        .crossIcon {
+            color: #d61515;
+            margin-left: 15px;
+            margin-right: 15px;
+            font-size: 1.3em;
+        }
+        
+        [id*=idFeedbackCmp] {
+            margin-top:1em;
+        }
+        
+        .feedbackResponse {
+            margin-top: 10px;
+        }
+        
+        @media screen and (min-width: 768px) {
+        .tickIcon {
+            margin-left: 10px;
+        }
+        
+        .crossIcon {
+            margin-right: 10px;
+        }
+                 
+    </style>
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!blnTempFeedback}" />
+    <apex:attribute name="channelContentId" assignTo="{!chlContentId}" description="Channel Content Id" type="String" required="true" />
+    <apex:attribute name="knowledgeArticle" assignTo="{!kArticleView}" description="Searched Article data" type="FAQ__kav" />
+    <apex:attribute name="searchString" assignTo="{!strSearch}" description="Search String" type="String" />
+    <apex:attribute name="rightToLeft" assignTo="{!isRightToLeft}" description="Email us channel content" type="Boolean" />
+
+	<apex:outputPanel rendered="{!AND(NOT(feedbackProvided), NOT(feedbackInit))}">
+        <apex:outputText value="{!chlContentRec.ArticleFeedbackLabel__c}" style="display:inline-block;"/>
+        <apex:outputPanel id="iconContainer" layout="block">
+        <apex:commandLink action="{!positiveFeedback}" reRender="idFeedbackCmp">
+            <!--<apex:image url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/thumb-up.svg')}" styleClass="feedbackImage" />-->
+            <apex:outputText styleClass="fa fa-smile-o tickIcon"></apex:outputText>
+        </apex:commandLink>
+        <apex:commandLink action="{!negativeFeedback}" reRender="idFeedbackCmp">
+            <!--<apex:image url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/thumb-down.svg')}" styleClass="feedbackImage" style="margin-left: 20px;" />-->
+            <apex:outputText styleClass="fa fa-frown-o crossIcon"></apex:outputText>
+        </apex:commandLink>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!AND(feedbackProvided, feedbackInit)}">
+        <apex:outputText value="{!chlContentRec.ArticlePostFBMsg__c}" />
+    </apex:outputPanel><BR/>
+    <apex:outputPanel layout="block" rendered="{!AND(NOT(feedbackProvided), feedbackInit)}">
+        <!--<apex:outputText value="{!chlContentRec.ArticleNotHelpfulLabel__c}" /><BR/>-->
+        <apex:inputTextarea style="resize:none; width:50%;" value="{!strComments}" html-placeholder="{!chlContentRec.ArticleNotHelpfulLabel__c}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{!chlContentRec.ArticleNotHelpfulLabel__c}'" html-maxlength="255" /><BR/>
+        <apex:commandButton value="Submit" action="{!submitNegativeFeedback}" reRender="idFeedbackCmp" styleClass="btnStyling"/>
+        <apex:commandButton value="Cancel" action="{!cancelFeedback}" reRender="idFeedbackCmp" styleClass="btnStyling" style="margin-left:10px;"/>
+    </apex:outputPanel>
+</apex:component>

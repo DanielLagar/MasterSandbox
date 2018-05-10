@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Custom setting to hold chat page name to determine which chat page to use for care hub, proactive and standalone chats</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>CareHubChat__c</fullName>
+        <description>Field to hold carehub chat page name</description>
+        <externalId>false</externalId>
+        <label>Care Hub Chat Page</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProactiveChat__c</fullName>
+        <description>Field to hold proactive chat page name</description>
+        <externalId>false</externalId>
+        <label>Proactive Chat Page</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProactivePrechat__c</fullName>
+        <description>Field to hold proactive pre-chat page name</description>
+        <externalId>false</externalId>
+        <label>Proactive Prechat Page</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StandaloneChat__c</fullName>
+        <description>Field to hold standalone chat page name</description>
+        <externalId>false</externalId>
+        <label>Standalone Chat Page</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StandalonePreChat__c</fullName>
+        <description>Field to hold standalone pre-chat page name</description>
+        <externalId>false</externalId>
+        <label>Standalone Prechat Page</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Care Hub Chat Page</label>
+    <visibility>Public</visibility>
+</CustomObject>

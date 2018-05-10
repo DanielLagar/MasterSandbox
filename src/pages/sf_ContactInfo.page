@@ -1,0 +1,354 @@
+<apex:page standardController="Case" extensions="sf_ContactInfoController" id="sfContactInfo" showHeader="false" sidebar="false" docType="html-5.0">
+    <!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+    <apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <apex:includeScript value="{!$Resource.sf_jquery_masked_input}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <apex:stylesheet value="{!URLFOR ($Resource.ContactInfoCSS)}"/>
+    <apex:includeScript value="{!URLFOR ($Resource.ContactInfoJS)}"/>
+
+    <script type="text/javascript">{
+        //Rerender/recalculate return type on tab focus
+        sforce.console.getEnclosingTabId(function(result3){
+            pageId = result3.id;
+        });
+        
+        var reloadFulfillments = function (result) {
+            if(result.id==pageId){
+                getReturnOptions();
+            }
+        };
+        sforce.console.onFocusedSubtab(reloadFulfillments);
+    }
+        
+    </script>
+    
+    <apex:form id="sfContactForm">
+        <div id="top"></div>
+        <apex:pageMessages id="apexMessagesId" escape="false" showDetail="true"></apex:pageMessages>
+
+        <!--If consumer wants follow up or high priority is ticked check return types-->
+        <apex:actionFunction name="checkReturnTypes" action="{!checkReturnTypes}" status="status" reRender="sfContactForm,apexMessagesId"/>
+        <!--check return types on tab focus-->
+        <apex:actionFunction name="getReturnOptions" action="{!jsSetReturnOptions}" status="status" reRender="contactInfoDetail,apexMessagesId"/>
+        
+        <table class="mainContainer">
+            <tr>
+                <td>
+                    <div class="topButtonSection">
+                        
+                        <apex:outputPanel layout="block" id="theButtons">
+                            <apex:commandButton value="{!$Label.Contact_Info_Save}" action="{!saveContact}" styleClass="savebtn"
+                                                rerender="LowerDeletePanel,OuterDeletePanel,DeleteContactPanel,contactInfoDetail,apexMessagesId,lastSavedTimeTop,lastSavedTimeBottom,theButtons"
+                                                oncomplete="preventEnterPress();refreshSelectedCaseTab();refreshChecklist();" status="status" tabindex="29" disabled="{!caseClosed}" />
+                            <apex:commandButton value="{!$Label.Delete_Contact}" action="{!removeCaseContact}" styleClass="savebtn" rerender="sfContactForm,apexMessagesId"
+                                                oncomplete="preventEnterPress();refreshSelectedCaseTab();refreshChecklist();" status="status" tabindex="37" disabled="{!IF(caseClosed || canRemoveContact,true,false)}"/>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel id="lastSavedTimeTop" styleClass="savedTime">
+                            <apex:outputPanel rendered="{!lastSavedTime != ''}">
+                                <apex:outputText styleClass="lastSavedText" value="{!$Label.AgentConsole_Saved_As_Of} {!lastSavedTime}">
+                                </apex:outputText> 
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+   
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <apex:outputPanel layout="block" styleClass="section sectionColor topPage">
+                        <apex:outputPanel layout="block" styleClass="insideSection" id="contactInfoDetail">
+                                <apex:pageBlock mode="maindetail">
+                                    <apex:pageBlockSection columns="2">
+
+                                        <apex:pageBlockSectionItem >
+                                            <apex:outputLabel value="{!$Label.Is_Primary}" for="isPrimary"/>
+                                            <apex:inputCheckbox value="{!isPrimary}" id="isPrimary" disabled="{!currentCase.Closed_Date__c != null}" tabindex="35"/>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <apex:pageBlockSectionItem >
+                                                <apex:outputLabel value="{!$Label.Return_Type}" for="returnList" rendered="{!showReturnOptions}" />
+                                                <apex:selectList id="returnList" label="" value="{!SelectedReturnType}" multiselect="false" size="1" rendered="{!showReturnOptions}">
+                                                    <apex:selectOptions value="{!returnOptions}" />
+                                                </apex:selectList>                                                  
+                                        </apex:pageBlockSectionItem>
+
+                                        <apex:pageBlockSectionItem >
+                                            <apex:outputLabel value="Contact Record Type" for="recordTypeList"/>
+                                            <apex:inputField id="recordTypeList" value="{!contactInfo.RecordTypeId}" html-tabindex="30">
+                                                <apex:actionSupport event="onchange" action="{!onContactTypeChange}" reRender="sfContactForm" status="status" />
+                                            </apex:inputField>                                             
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <apex:inputField value="{!currentCase.Consumer_Wants_Follow_Up__c}" onchange="checkReturnTypes();" html-tabindex="33" />
+
+                                        <apex:pageBlockSectionItem >
+											<apex:outputLabel value="Case Contacts" for="contactList"/>
+											<apex:selectList id="contactList" label="" value="{!selectedConId}" multiselect="false" size="1" tabindex="31">
+												<apex:selectOptions value="{!contactOptions}" />
+												<apex:actionSupport event="onchange" action="{!setContactId}" reRender="sfContactForm" status="status"/>
+											</apex:selectList>   
+                                        </apex:pageBlockSectionItem>
+
+                                        <apex:inputField value="{!currentCase.High_Priority__c}" onchange="checkReturnTypes();" html-tabindex="34" />
+                                        
+                                        <apex:inputField value="{!contactInfo.AccountId}" rendered="{!isBusinessContact}" html-tabindex="1"/>
+                                        <apex:inputField value="{!contactInfo.Is_Regulatory_Authority__c}" rendered="{!isBusinessContact}" html-index="32"/>
+
+                                        <apex:pageBlockSectionItem >
+                                            <apex:outputLabel />
+                                            <apex:commandButton value="New Business Account" rendered="{!isBusinessContact}" onclick="newBusAccountOpenSubtab()" tabindex="2"
+                                                disabled="{!caseClosed}"/>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <script type="text/javascript">
+                                            function newBusAccountOpenSubtab() {
+                                                //First find the ID of the primary tab to put the new subtab in
+                                                sforce.console.getEnclosingPrimaryTabId(openSubtabNewBusAccount);
+                                            }
+                                            
+                                            var openSubtabNewBusAccount = function openSubtab(result) {
+                                                //Now that we have the primary tab ID, we can open a new subtab in it
+                                                var primaryTabId = result.id;
+                                                sforce.console.openSubtab(primaryTabId , '{!URLFOR($Action.Account.New)}', true, 
+                                                    'Business Account', null, openSuccess, 'newAccountTab');
+                                            };
+                                            
+                                            var openSuccess = function openSuccess(result) {
+                                                //Report whether we succeeded in opening the subtab
+                                                if (result.success == true) {
+                                                //    alert('subtab successfully opened');
+                                                } else {
+                                                  //  alert('subtab cannot be opened');
+                                                }
+                                            };
+                                        </script>
+
+                                    </apex:pageBlockSection>
+
+                                    <!--WR370 CDOY Display Firstname Lastname-->
+                                    <apex:pageBlockSection columns="2" rendered="{!IF(altlayout != true , 'true', 'flase')}">
+                                    
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.FirstName.Label}" for="firstNameText"/>
+                                            
+                                            <apex:inputField value="{!contactInfo.FirstName}" id="firstNameText" styleClass="sectionFields" html-tabindex="3"/>
+                                        </apex:pageBlockSectionItem>
+                    
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.LastName.Label}" for="lastNameText"/>
+                                            <apex:inputText value="{!contactInfo.LastName}" id="lastNameText" styleClass="sectionFields" tabindex="4"/> 
+                                        </apex:pageBlockSectionItem>
+
+                                        <!-- CDOY WR362 Add Pronunciation to Contact Info Tab Start -->
+                                        <apex:inputField value="{!contactInfo.Name_Pronunciation__c}" id="Pronunciation" styleClass="sectionFields" html-tabindex="5" rendered="{!!isBusinessContact}"/>
+                                        <!-- CDOY WR362 Add Pronunciation to Contact Info Tab END -->
+
+                                    </apex:pageBlockSection>  
+                                    
+                                    <!--WR370 CDOY Display Lastname Firstname-->
+                                    <apex:pageBlockSection columns="2" rendered="{!IF(altlayout == true, 'true', 'false')}">
+                                        
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.LastName.Label}" for="lastNameText"/>
+                                            <apex:inputText value="{!contactInfo.LastName}" id="lastNameText" styleClass="sectionFields" tabindex="3"/> 
+                                        </apex:pageBlockSectionItem>
+                                    
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.FirstName.Label}" for="firstNameText"/>
+                                            
+                                            <apex:inputField value="{!contactInfo.FirstName}" id="firstNameText" styleClass="sectionFields" html-tabindex="4"/>
+                                        </apex:pageBlockSectionItem>
+
+                                        <!-- CDOY WR362 Add Pronunciation to Contact Info Tab Start -->
+                                        <apex:inputField value="{!contactInfo.Name_Pronunciation__c}" id="Pronunciation" styleClass="sectionFields" taborderhint="3" rendered="{!!isBusinessContact}"/>
+                                        <!-- CDOY WR362 Add Pronunciation to Contact Info Tab END -->
+
+                                    </apex:pageBlockSection>  
+
+                                    <apex:pageBlockSection columns="2">
+                                        
+                                        <!-- CDOY SALUTATION/ TITLE -->
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$Label.Contact_Info_Title}"></apex:outputLabel>
+                                            <apex:selectList label="title" value="{!contactInfo.Salutation}" multiselect="false" size="1" tabindex="6">
+                                                <apex:selectOptions value="{!Salutations}" />
+                                            </apex:selectList> 
+                                        </apex:pageBlockSectionItem>
+
+                                        <!-- EMAIL -->
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.Email.Label}"/>
+                                            <apex:actionRegion >
+                                                <apex:outputPanel id="emailAddressField">
+                                                    <apex:inputText value="{!contactInfo.Email}" styleClass="sectionFields {!IF(isEmailAddressValid == 'Invalid', 'invalidField', IF(isEmailAddressValid == 'Valid', 'validField', ''))}" tabindex="7">
+                                                        <apex:actionSupport event="onchange" oncomplete="preventEnterPress();" action="{!validateEmailAddress}" status="status" reRender="emailAddressField, apexMessagesId"/>
+                                                    </apex:inputText>
+                                                    <img src="{!URLFOR($Resource.sf_ContactInfoValidAddress)}" class="{!IF(isEmailAddressValid == 'Valid', 'validIcon', 'hideAddressIcon')}"/>
+                                                    
+                                                    <apex:outputText value="{!$Label.Contact_Info_Invalid_Email_Address}" rendered="{!IF(isEmailAddressValid == 'Invalid', 'true', 'false')}" styleClass="invalidFieldText"/>
+                                                </apex:outputPanel>
+                                            </apex:actionRegion>
+                                        </apex:pageBlockSectionItem>
+                                        
+                                        <!-- PHONE -->
+                                        <apex:inputField value="{!contactInfo.Phone}" id="phone" styleClass="sectionFields phoneField" html-tabindex="8"/>
+
+                                        <!-- MOBILE/SECONDARY -->
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.MobilePhone.Label}" for="mobilePhone"/>
+                                            <apex:inputField value="{!contactInfo.MobilePhone}" id="mobilePhone" styleClass="sectionFields phoneField" html-tabindex="9"/>
+                                        </apex:pageBlockSectionItem>
+
+                                        <!-- FAX -->
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$Label.Contact_Info_Fax_Other_Phone}" for="faxOtherPhone"/>
+                                            <apex:inputField value="{!contactInfo.OtherPhone}" id="faxOtherPhone" styleClass="sectionFields phoneField" html-tabindex="10"/>
+                                        </apex:pageBlockSectionItem>
+
+                                        <!-- REPORTER TYPE -->
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.Reporter_Type__c.Label}" for="reporterType"/>
+                                            <apex:inputField value="{!contactInfo.Reporter_Type__c}" id="reporterType" styleClass="sectionFields" html-tabindex="11"/>
+                                        </apex:pageBlockSectionItem>
+
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.Preferred_Contact_Method__c.Label}" for="preferredContactMethod"/>
+                                            <apex:inputField value="{!contactInfo.Preferred_Contact_Method__c}" id="preferredContactMethod" styleClass="sectionFields" html-tabindex="12"/>
+                                        </apex:pageBlockSectionItem>
+
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.Preferred_Contact_Time__c.Label}" for="preferredContactTime"/>
+                                            <apex:inputField value="{!contactInfo.Preferred_Contact_Time__c}" id="preferredContactTime" styleClass="sectionFields" html-tabindex="13"/>
+                                        </apex:pageBlockSectionItem>
+
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.Delete_PII__c.Label}" for="deletePII"/>
+                                            <apex:inputField value="{!contactInfo.Delete_PII__c}" id="deletePII" taborderhint="16"/>
+                                        </apex:pageBlockSectionItem>
+
+                                        <!-- SOCIAL MEDIA -->
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;" rendered="{!!isBusinessContact}">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.Facebook_Name__c.Label}" for="facebook"/>
+                                            <apex:inputField value="{!contactInfo.Facebook_Name__c}" id="facebook" styleClass="sectionFields" html-tabindex="14"/>
+                                        </apex:pageBlockSectionItem>
+
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;" rendered="{!!isBusinessContact}">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.Twitter_Name__c.Label}" for="twitter"/>
+                                            <apex:inputField value="{!contactInfo.Twitter_Name__c}" id="twitter" styleClass="sectionFields" html-tabindex="15"/>
+                                        </apex:pageBlockSectionItem>
+
+                                        <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;" rendered="{!!isBusinessContact}">
+                                            <apex:outputLabel value="{!$ObjectType.Contact.fields.Other_Social_Media_Name__c.Label}" for="otherSocialMedia"/>
+                                            <apex:inputField value="{!contactInfo.Other_Social_Media_Name__c}" id="otherSocialMedia" styleClass="sectionFields" html-tabindex="16"/>
+                                        </apex:pageBlockSectionItem>
+                                         <!-- END SOCIAL MEDIA -->
+                                          
+                                        <!--CDOY WR364 Birthdate and Gender Fields for Asia START. These fields are Controlled by FLS -->
+                                        <apex:inputField value="{!contactInfo.birthdate}" id="birthdate" styleClass="sectionFields" html-tabindex="17" rendered="{!!isBusinessContact}"/>
+                                       
+                                        <apex:inputField value="{!contactInfo.Gender__c}" id="gender" styleClass="sectionFields" html-tabindex="18" rendered="{!!isBusinessContact}"/>
+                                        <!-- CDOY WR364 Birthdate and Gender Fields for Asia END -->
+
+                                    </apex:pageBlockSection> 
+
+                                </apex:pageBlock>
+                        </apex:outputPanel>
+                        
+                    </apex:outputPanel>
+
+                    <!-- WR370 CDOY Added 2 Components to display the Address info START -->
+                    <c:ContactInfoStandardLayout handshake="{!controller}" rendered="{!!altlayout}"/>
+                    <c:ContactInfoAlternativeLayout handshake="{!controller}" rendered="{!altlayout}"/>
+                    <!-- WR370 CDOY Added 2 Components to display the Address info END -->
+                    
+                    <apex:outputPanel layout="block" styleClass="sectionExistingContacts">
+                            <div class="existContactSection">
+            
+                                <div class="subSectionHeader">
+                                    {!$Label.Contact_Info_Existing_Contacts}                        
+                                </div>
+                                <div class="existingContactHeader">
+                                    <apex:commandButton tabindex="27" value="{!$Label.Contact_Info_Find_Existing_Contacts}" action="{!checkExistingContact}" status="status" styleClass="existContactbtn" reRender="sfContactForm" disabled="{!caseClosed}" />
+                                </div>
+                            </div>
+                        <br />
+            
+                        <apex:pageBlock mode="mainDetail">
+                            <apex:outputPanel layout="block" styleClass="insideSection" rendered="{!AND(existingContactList != null,existingContactList.size == 0)}">
+                                {!$Label.Contact_Info_No_Existing_Contact_Found}<br /><br/>
+                            </apex:outputPanel>
+                            
+                            <apex:pageBlockTable value="{!existingContactList}" var="exist" rendered="{!AND(existingContactList != null,existingContactList.size > 0)}" columnsWidth="15%,25%,10%,30%,10%,5%,5%">
+                                <apex:column headerValue="{!$ObjectType.Contact.fields.Name.Label}"><apex:outputField value="{!exist.objectData['Name']}"/></apex:column>
+                                <apex:column headerValue="{!$ObjectType.Contact.fields.Email.Label}"><apex:outputField value="{!exist.objectData['Email']}"/></apex:column>
+                                <apex:column value="{!exist.objectData['Phone']}"/>
+                                
+                                <apex:column headerValue="{!$Label.Contact_Info_Location}">
+                                   <apex:outputText value="{!exist.objectData['Primary_Address_Line_1__c']}, " rendered="{!NOT(ISBLANK(exist.objectData['Primary_Address_Line_1__c']))}"/>
+                                   <apex:outputText value="{!exist.objectData['Primary_Address_Line_2__c']}, " rendered="{!NOT(ISBLANK(exist.objectData['Primary_Address_Line_2__c']))}"/>
+                                   <apex:outputText value="{!exist.objectData['Primary_Address_Line_3__c']}, " rendered="{!NOT(ISBLANK(exist.objectData['Primary_Address_Line_3__c']))}"/>
+                                   <apex:outputText value="{!exist.objectData['Primary_City__c']}, " rendered="{!NOT(ISBLANK(exist.objectData['Primary_City__c']))}"/>
+                                   <apex:outputText value="{!exist.objectData['Primary_State_Province__c']}, " rendered="{!NOT(ISBLANK(exist.objectData['Primary_State_Province__c']))}"/>
+                                   <apex:outputText value="{!exist.objectData['Primary_Postal_Code__c']}, " rendered="{!NOT(ISBLANK(exist.objectData['Primary_Postal_Code__c']))}"/>
+                                   <apex:outputText value="{!exist.objectData['Primary_Country__c']}" rendered="{!NOT(ISBLANK(exist.objectData['Primary_Country__c']))}"/>                     
+                                </apex:column>
+
+                                <!-- old % column -->
+                                <apex:column headerValue="{!$Label.Contact_Info_Score}" rendered="{!$Profile.Name == 'System Administrator'}" ><apex:outputText value="{!exist.score}"/>%</apex:column>
+                                
+                                <!--WR261 replacing % with images -->
+                                <apex:column headerValue="{!$Label.Contact_Info_Score}">
+                                    <apex:outputPanel rendered="{!exist.score >= green}">
+                                        <apex:image id="greenFlag" value="{!$Resource.greenFlag}" alt="Green Flag" />
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!exist.score >= amber && exist.score < green}">
+                                        <apex:image id="amberFlag" value="{!$Resource.amberFlag}" alt="Amber Flag" />
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!exist.score < amber }">
+                                        <apex:image id="redFlag" value="{!$Resource.redFlag}" alt="Red Flag" />
+                                    </apex:outputPanel>
+                                </apex:column>
+                                <!--WR261 end-->                                
+
+                                <apex:column headerValue="{!$Label.Contact_Info_Action}">
+                                    <apex:commandButton value="{!$Label.Contact_Info_Select}" action="{!selectExistingContact}" status="status" oncomplete="refreshSelectedCaseTab();refreshChecklist();" reRender="sfContactForm" disabled="{!caseClosed}" >
+                                        <apex:param name="selectedContact" value="{!exist.objectData.Id}" assignTo="{!selectedExistingContact}"/> 
+                                    </apex:commandButton>
+                                </apex:column>
+                            </apex:pageBlockTable>
+                        </apex:pageBlock>          
+                    </apex:outputPanel>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="bottomButtonSection">
+                        <apex:commandButton tabindex="28" value="{!$Label.Contact_Info_Save}" action="{!saveContact}" styleClass="savebtn" rerender="LowerDeletePanel,OuterDeletePanel,lastSavedTimeTop, lastSavedTimeBottom, contactInfoDetail,apexMessagesId" oncomplete="preventEnterPress();refreshSelectedCaseTab();refreshChecklist();" status="status" disabled="{!caseClosed}" />
+                        <apex:outputPanel id="lastSavedTimeBottom" styleClass="savedTime">
+                            <apex:outputPanel rendered="{!lastSavedTime != ''}">
+                                <apex:outputText styleClass="lastSavedText" value="{!$Label.AgentConsole_Saved_As_Of} {!lastSavedTime}">
+                                </apex:outputText>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        <a href="#top" style="padding-top: 3px; padding-left: 3px; display: inline-block; text-decoration: none;">^ Back To Top</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        <apex:actionStatus id="status" onstop="preventEnterPress();">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                               height: 200%;opacity:0.65;width:100%;"> 
+                    <div class="waitingHolder" style="position:fixed; top: 50%; left: 48%; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="{!$Label.Contact_Info_Please_Wait}" />
+                        <span class="waitingDescription">{!$Label.Contact_Info_Loading}</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+</apex:page>

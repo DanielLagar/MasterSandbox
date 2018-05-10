@@ -1,0 +1,256 @@
+<!-- 
+#    Component for sidebar of GCR Widget
+#    
+#    @param:  iHandshake
+#    @author: ACCENTURE
+#    @date:   19/05/2016
+#
+-->
+<apex:component id="idEmailUsPrbCmp" controller="gcr_emailUsPrbController" layout="none">
+    <style>
+        .noProductImage {
+        	height: 60%;
+        	width: 60%;
+        	capacity: 0.2;
+        }
+    </style>
+    <apex:outputPanel rendered="{!NOT(isRightToLeft)}">
+		<apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubEmailUsPrbCmpStyling.css')}" />
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!isRightToLeft}">
+		<apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubEmailUsPrbCmpStyling_rtl.css')}" />
+    </apex:outputPanel>
+    <!-- ATTRIBUTES FOR COMPONENT -->
+    <apex:attribute name="handshake" assignTo="{!iHandshake}" description="Handshaks Instance" type="gcr_WidgetHandshake" required="true" />
+    <apex:attribute name="channelContent" assignTo="{!chlContentRec}" description="Email us channel content" type="GCRChannelContent__c" required="true" />
+    <apex:attribute name="rightToLeft" assignTo="{!isRightToLeft}" description="Email us channel content" type="Boolean" />
+
+    <!-- ACTION FUNCTIONS FOR THIS COMPONENT ACTIONS -->
+    <!-- ACTION FUNCTION FOR PRODUCT LIST TO SELECT PRODUCTS -->
+    <apex:actionRegion >
+        <apex:actionFunction name="acnSelectedProd" action="{!actionSelectProduct}" reRender="opProductList,opSelectedProdList">
+            <apex:param name="paramProduct" assignTo="{!selectedProduct}" value="" />
+        </apex:actionFunction>
+    </apex:actionRegion>
+    <!-- ACTION FUNCTION FOR PRODUCT LIST TO DESELECT PRODUCTS -->
+    <apex:actionRegion >
+        <apex:actionFunction name="acnRemoveProd" action="{!actionRemoveProduct}" reRender="opSelectedProdList">
+            <apex:param name="paramProduct" assignTo="{!selectedProduct}" value="" />
+        </apex:actionFunction>
+    </apex:actionRegion>
+    <apex:outputText value="{!chlContentRec.EmailAdditionalDetails__c}" />
+    <!-- WR467 - REPEAT FOR DYNAMIC FIELD SEQUENCE -->
+    <apex:outputPanel layout="block" id="RepeatPanel">
+        <apex:repeat var="eachField" id="fsRepeat"
+                     value="{!$ObjectType.Contact.FieldSets[IF(chlContentRec.AddressFieldSet__c != null, chlContentRec.AddressFieldSet__c, 'CareHubAddressDefault')]}">
+            <apex:outputPanel layout="block" styleClass="inputOptional cmpInputStyle" rendered="{!eachField.FieldPath == 'Phone'}">
+                <apex:inputText id="idPhone" styleClass="cmpInputheight cmpInputWidthEmail" value="{!iHandshake.newContact.Phone}"
+                                onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus Phone');"
+                                html-placeholder=" {!chlContentRec.EmailPhoneLabel__c}" html-autocomplete="tel"
+                                style="{!IF(iHandshake.mValidationMap['contactPhone'], 'border: 1px solid red;', '')}" />
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" styleClass="inputRequired cmpInputStyle" rendered="{!eachField.FieldPath == 'Primary_Address_Line_1__c'}">
+                <apex:inputText id="idAddLine1" value="{!iHandshake.newContact.Primary_Address_Line_1__c}" html-placeholder=" {!chlContentRec.EmailAddLine1Label__c}"
+                                onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus AddressLine1');"
+                                onchange="onChangeFieldCheck('{!$Component.idProblemCmp:idEmailUsPrbCmp:fsRepeat:idAddLine1}', '');" styleClass="cmpInputheight cmpInputWidthEmail"
+                                style="{!IF(iHandshake.mValidationMap['contactAddressLine1'], 'border: 1px solid red;', '')}" html-autocomplete="address-line1" />
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" styleClass="cmpInputStyle inputOptional" rendered="{!eachField.FieldPath == 'Primary_Address_Line_2__c'}">
+                <apex:inputText id="idAddLine2" value="{!iHandshake.newContact.Primary_Address_Line_2__c}" html-placeholder=" {!chlContentRec.EmailAddLine2Label__c}"
+                                onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus AddressLine2');"
+                                styleClass="cmpInputheight cmpInputWidthEmail" html-autocomplete="address-line2" />
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" styleClass="{!IF(iHandshake.isZipMandatory, 'inputRequired', 'inputOptional')} cmpInputStyle"
+                              rendered="{!eachField.FieldPath == 'Primary_Postal_Code__c'}">
+                <apex:inputText id="idAddLineZip" value="{!iHandshake.newContact.Primary_Postal_Code__c}" html-autocomplete="postal-code"
+                                html-placeholder=" {!chlContentRec.EmailZipLabel__c}" styleClass="cmpInputheight cmpInputWidthEmail"
+                                onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus PostCode');"
+                                onchange="onChangeFieldCheck('{!$Component.idProblemCmp:idEmailUsPrbCmp:fsRepeat:idAddLineZip}', '');"
+                                style="{!IF(iHandshake.mValidationMap['contactAddressZipCode'], 'border: 1px solid red;', '')}"  />
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" styleClass="inputRequired cmpInputStyle" rendered="{!eachField.FieldPath == 'Primary_City__c'}">
+                <apex:inputText id="idAddLineCity" value="{!iHandshake.newContact.Primary_City__c}"  html-placeholder=" {!chlContentRec.EmailCityLabel__c}"
+                                onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus City');"
+                                onchange="onChangeFieldCheck('{!$Component.idProblemCmp:idEmailUsPrbCmp:fsRepeat:idAddLineCity}', '');" html-autocomplete="address-level2"
+                                styleClass="cmpInputheight cmpInputWidthEmail" style="{!IF(iHandshake.mValidationMap['contactAddressCity'], 'border: 1px solid red;', '')}" />
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" styleClass="{!IF(iHandshake.isStateMandatory, 'inputRequired', 'inputOptional')} cmpInputStyle"
+                              rendered="{!eachField.FieldPath == 'Primary_State_Province__c'}">
+                <apex:inputText id="idAddLineCounty" value="{!iHandshake.newContact.Primary_State_Province__c}" html-placeholder=" {!chlContentRec.EmailCountyLabel__c}"
+                                onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus State/Province');"
+                                onchange="onChangeFieldCheck('{!$Component.idProblemCmp:idEmailUsPrbCmp:fsRepeat:idAddLineCounty}', '');" html-autocomplete="address-level1"
+                                styleClass="cmpInputheight cmpInputWidthEmail" style="{!IF(iHandshake.mValidationMap['contactAddressCounty'], 'border: 1px solid red;', '')}" />
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" styleClass="inputRequired cmpInputStyle" rendered="{!eachField.FieldPath == 'Primary_Country__c'}">
+                <apex:inputField id="idAddLineCountry" styleClass="cmpInputheight cmpInputWidthEmail cmpPicklist"
+                                 onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus Country');"
+                                 style="{!IF(iHandshake.mValidationMap['contactAddressCountry'], 'border: 1px solid red;', '')}"
+                                 value="{!chlContentRec.Country__c}">
+                    <apex:actionSupport event="onchange" action="{!changeCountry}" reRender="idJsPanel,opRepAPrb" />
+                </apex:inputField>
+            </apex:outputPanel>
+        </apex:repeat>
+    </apex:outputPanel>
+    <apex:outputPanel layout="block" id="searchProductText">
+        <apex:actionRegion >
+            <apex:inputCheckbox id="idProductInput" value="{!iHandshake.isProductSearch}" styleClass="ch" style="display: inline-flex;">
+                <apex:actionSupport action="{!isActionMethod}" event="onclick" reRender="idProductSearch, searchProductText" status="idProductSelectCheck"
+                                    onsubmit="if(document.getElementById('{!$Component.idProductInput}').checked)
+                                              ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus SelectProduct');" />
+            </apex:inputCheckbox>
+            <apex:outputLabel styleClass="specificProductText" for="idProductInput" value="{!chlContentRec.EmailShowProdSearch__c}" />
+            <apex:actionStatus id="idProductSelectCheck">
+            	<apex:facet name="start">
+                    <apex:outputPanel styleClass="fa fa-cog fa-spin fa-2x progressSpinner" />
+                </apex:facet>
+            </apex:actionStatus>
+        </apex:actionRegion>
+    </apex:outputPanel>
+    <!-- COMPONENTS FOR SELECTED PRODUCTS -->
+    <apex:outputPanel id="idProductSearch" layout="none">
+        <apex:outputPanel layout="block" id="opSelectedProdList">
+    	<apex:outputPanel layout="block" rendered="{!AND(iHandshake.lCaseProduct != null, iHandshake.lCaseProduct.size > 0)}">
+            <apex:outputText value="{!chlContentRec.ProductLimitMessage__c}" rendered="{!isProdLimit}" style="color:red;" /><BR/>
+            <apex:outputText value="{!chlContentRec.SelectedProductLabel__c}" />
+			<apex:outputPanel layout="block" id="idDateFormatMsg" style="display:none;color:red;">{!chlContentRec.DateFormatError__c}</apex:outputPanel>
+            <apex:outputPanel layout="block" styleClass="addedProductListContainer">
+                <apex:repeat var="eachProd" value="{!iHandshake.lCaseProduct}">
+                	<apex:outputPanel layout="block" styleClass="addedProductRow">
+                        <apex:outputPanel layout="block" styleClass="addedProductImage">
+                            <apex:image id="idAddedProductImage" styleClass="{!IF(OR(ISNULL(eachProd.imageUrl), eachProd.imageUrl == ''), 'noProductImage', '')}"
+                                        url="{!IF(OR(ISNULL(eachProd.imageUrl), eachProd.imageUrl == ''), URLFOR($Resource.GCRWidgetContent, 'contacts/svg/no-product-image.svg'), eachProd.imageUrl)}"/>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block" styleClass="opDivCell" id="idAddedProductText">
+                            <apex:outputText id="opPrdName" value="{!eachProd.productName}" />
+                            <apex:inputText id="idProdCode" styleClass="cmpInputheight cmpInputWidthEmail" maxlength="10"
+                                            onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus ProductionCode');"
+                                            html-placeholder=" {!chlContentRec.EmailProdCodeLabel__c}" value="{!eachProd.productionCode}" />
+                            <apex:outputPanel layout="block" styleClass="addedProductPicklistContainer">
+                            <apex:inputText id="idExpDate" styleClass="cmpInputheight cmpInputWidthEmail" maxlength="10"
+                                            onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus Expiry Date');"
+                                            style="{!IF(iHandshake.mValidationMap['expiryDate' + TEXT(eachProd.uniqueId)], 'border: 1px solid red;', '')}"
+                                            html-placeholder=" {!chlContentRec.EmailExpDateLabel__c}" value="{!eachProd.expiryDate}" />
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="block" styleClass="addedProductPicklistContainerRight">
+                                <apex:selectList id="idNumProd" value="{!eachProd.numberProd}" size="1" styleClass="cmpPicklist addedProductPicklist"
+                                                 onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus NumberofProd');">
+                                    <apex:selectOptions value="{!lNumProdOption}" />
+                                </apex:selectList>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="block" styleClass="addedProductPicklistContainer">
+                                <apex:selectList id="idStillHave" value="{!eachProd.stillHaveProd}" size="1" styleClass="cmpPicklist addedProductPicklist"
+                                                 onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus StillHaveProd');"
+                                                 style="{!IF(iHandshake.mValidationMap['stillHave' + TEXT(eachProd.uniqueId)], 'border: 1px solid red;', '')}">
+                                    <apex:selectOptions value="{!lStillHaveProd}" />
+                                </apex:selectList>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="block" styleClass="addedProductPicklistContainerRight">
+                                <apex:selectList id="idUsedBefore" value="{!eachProd.usedBefore}" size="1" styleClass="cmpPicklist addedProductPicklist"
+                                                 onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus UsedBefore');"
+                                                 style="{!IF(iHandshake.mValidationMap['prodUse' + TEXT(eachProd.uniqueId)], 'border: 1px solid red;', '')}">
+                                    <apex:selectOptions value="{!lProdUsed}" />
+                                </apex:selectList>
+                        	</apex:outputPanel>
+                        </apex:outputPanel>
+                        <!-- COLUMN FOR REMOVE ICON -->
+                        <apex:outputPanel layout="block" styleClass="productRemove">
+                            <apex:commandLink styleClass="productRemove" onclick="acnRemoveProd('{!eachProd.uniqueId}'); return false;">
+                                <apex:image url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/Remove_Product.svg')}" />
+                            </apex:commandLink>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:repeat>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:outputPanel layout="block" styleClass="cmpInputStyle inputOptional" id="rerenderComponent" rendered="{!iHandshake.isProductSearch}">
+            <apex:outputPanel layout="block" styleClass="searchBarContainer">
+                <!-- ACTION FUNCATION FOR PRODUCT SEARCH -->
+                <apex:actionRegion >
+                    <apex:actionFunction name="searchProduct" action="{!searchProducts}" reRender="opProductList,idSearchError" status="idSearchProd" />
+                    <apex:inputText id="txtInputProdSearch" styleClass="cmpInputheight" value="{!strProdSearch}"
+                                    html-placeholder=" {!chlContentRec.EmailProdSearchLabel__c}" />
+                    <button type="submit" id="searchButton"
+                            onclick="searchProduct();
+                                     ga('send', 'pageview', '/{!$Site.Name}/{!chlContentRec.RecordType.Name}?q=' + document.getElementById('{!$Component.txtInputProdSearch}').value);
+                                     return false;">
+                        <apex:actionStatus id="idSearchProd">
+                            <apex:facet name="stop">
+                                <span class="fa fa-search" />
+                            </apex:facet>
+                            <apex:facet name="start">
+                                <span class="fa fa-cog fa-spin fa-2x progressSpinner" />
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </button>
+                </apex:actionRegion>
+                <apex:outputPanel id="idSearchError">
+				<apex:outputText rendered="{!isMinCharError}" value="{!chlContentRec.CareHub__r.SearchMinCharMsg__c}" style="color:red;" />
+            </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:outputPanel layout="block" id="opProductList" rendered="{!iHandshake.isProductSearch}">
+            <!-- PRODUCT LIST FOR PRODUCT SEARCH RESULTS -->
+            <c:gcr_cmpProductList productList="{!lProduct}" fieldSetName="ProductSearchResults"
+                                  actionJs="acnSelectedProd('[param1]'); return false;"
+                                  rendered="{!AND(NOT(ISBLANK(strProdSearch)), NOT(ISNULL(lProduct)), lProduct.size > 0)}"
+                                  sObjectName="Local_Product__c" iconType="add" />
+            <!-- MESSAGE WHEN NO SEARCH RESULTS OR NOT ENOUGH CHARACTERS FOR SEARCH -->
+            <apex:outputText value="{!chlContentRec.SearchResultMessage__c} '{!strProdSearch}'"
+                             rendered="{!AND(NOT(ISBLANK(strProdSearch)), isSearch, OR(ISNULL(lProduct), lProduct.size <= 0))}" />
+            <!-- PAGINATION RELATED COMPONENTS -->
+            <apex:actionRegion >
+                <apex:panelGrid style="margin-left: auto; margin-right: auto; max-width: 100%;" columns="7" rendered="{!intTotalPages > 1}" id="thePanelGrid">
+                    <!-- COMMAND LINK FOR FIRST PAGE -->
+                    <apex:commandLink action="{!firstPage}" rendered="{!intCurrentPage > 1}" reRender="opProductList">
+                    	<apex:image styleClass="page paginationIcon pageEnable"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationFPageIcon.svg')}" />
+                    </apex:commandLink>
+                    <!-- OUTPUT PANEL FOR FIRST PAGE DISPLAYED WHEN ON FIRST PAGE -->
+                    <apex:outputPanel rendered="{!NOT(intCurrentPage > 1)}">
+                    	<apex:image styleClass="page paginationIcon pageDisable"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationFPageIcon.svg')}" />
+                    </apex:outputPanel>
+                    <!-- COMMAND LINK FOR PREVIOUS PAGE -->
+                    <apex:commandLink action="{!previous}" rendered="{!intCurrentPage > 1}" reRender="opProductList">
+						<apex:image styleClass="page paginationIcon pageEnable)}"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationPrvIcon.svg')}" />
+                    </apex:commandLink>
+					<!-- OUTPUT PANEL FOR PREVIOUS PAGE DISPLAYED WHEN ON FIRST PAGE -->
+                    <apex:outputPanel rendered="{!NOT(intCurrentPage > 1)}">
+						<apex:image styleClass="page paginationIcon pageDisable"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationPrvIcon.svg')}" />
+                    </apex:outputPanel>
+                    <!-- COMMAND LINKS FOR VISIBLE PAGES -->
+                    <apex:repeat var="eachPage" value="{!lPageNumbers}">
+                        <apex:commandLink rendered="{!eachPage != intCurrentPage}" action="{!displaySelectedPage}"
+                                          value="{!eachPage}" reRender="opProductList" styleClass="page">
+                            <apex:param name="paramVal" value="{!eachPage}" assignTo="{!intCurrentPage}" />
+                        </apex:commandLink>
+                        <apex:outputPanel styleClass="pageDisable" rendered="{!eachPage == intCurrentPage}">{!eachPage}</apex:outputPanel>
+                    </apex:repeat>
+                    <!-- COMMAND LINK FOR NEXT PAGE -->
+                    <apex:commandLink rendered="{!intCurrentPage < intTotalPages}" action="{!next}" reRender="opProductList">
+                    	<apex:image styleClass="page paginationIcon pageEnable}"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationNextIcon.svg')}" />
+                    </apex:commandLink>
+                    <!-- OUTPUT PANEL FOR NEXT PAGE DISPLAYED WHEN ON LAST PAGE -->
+                    <apex:outputPanel rendered="{!NOT(intCurrentPage < intTotalPages)}">
+                    	<apex:image styleClass="page paginationIcon pageDisable"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationNextIcon.svg')}" />
+                    </apex:outputPanel>
+                    <!-- COMMAND LINK FOR LAST PAGE -->
+                    <apex:commandLink rendered="{!intCurrentPage < intTotalPages}" action="{!lastPage}" reRender="opProductList">
+                    	<apex:image styleClass="page paginationIcon pageEnable)}"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationLPageIcon.svg')}" />
+                    </apex:commandLink>
+                    <!-- OUTPUT PANEL FOR LAST PAGE DISPLAYED WHEN ON LAST PAGE -->
+                    <apex:outputPanel rendered="{!NOT(intCurrentPage < intTotalPages)}">
+                    	<apex:image styleClass="page paginationIcon pageDisable"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationLPageIcon.svg')}" />
+                    </apex:outputPanel>
+                </apex:panelGrid>
+            </apex:actionRegion>
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:component>

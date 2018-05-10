@@ -1,0 +1,34 @@
+<apex:page standardController="One_Stop__c" extensions="onestopNewCon">
+        <apex:sectionHeader title="{!$ObjectType.One_Stop__c.label} New" subtitle="{!One_Stop__c.name}"/>
+        <apex:form >
+        <apex:pageBlock title="{!$ObjectType.One_Stop__c.label} New" mode="edit">
+                <apex:pageMessages ></apex:pageMessages>
+                <apex:pageBlockButtons >
+                        <apex:commandButton action="{!save}" value="Submit"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection showHeader="true" title="Information" columns="1">
+                        <apex:inputField value="{!One_Stop__c.Subject__c}" style="width:450px;"/>
+                        <apex:inputField required="true" value="{!One_Stop__c.Request_Category__c}"/>
+                        <apex:inputField required="true" value="{!One_Stop__c.Request_Subcategory__c}"/>
+                        <apex:inputField required="false" value="{!One_Stop__c.Case__c}"/>
+                        <apex:inputField required="true" value="{!One_Stop__c.Request_Description__c}" style="width:450px;height:160px;"/>
+                        <apex:inputField value="{!One_Stop__c.Requested_Due_Date__c}"/>
+                        <apex:inputField value="{!One_Stop__c.Due_Date_Comments__c}" style="width:450px;"/>                        
+                </apex:pageBlockSection>
+                <apex:pageBlockSection showHeader="true" title="Requestor Details" columns="1">
+                        <apex:inputField required="true" value="{!One_Stop__c.Requestor_Name__c}"/>
+                        <apex:inputField required="true" value="{!One_Stop__c.Requestor_Email__c}"/>
+                        <apex:inputField value="{!One_Stop__c.Requestor_Telephone_Number__c}"/>
+                        <apex:inputField value="{!One_Stop__c.Additional_To_Email_address_1__c}" style="width:200px"/>
+                        <apex:inputField value="{!One_Stop__c.Additional_To_Email_address_2__c}" style="width:200px"/>
+                        <apex:inputField value="{!One_Stop__c.Additional_To_Email_address_3__c}" style="width:200px"/>
+                        <apex:inputField value="{!One_Stop__c.Additional_To_Email_address_4__c}" style="width:200px"/>
+                        <apex:inputField value="{!One_Stop__c.Additional_To_Email_address_5__c}" style="width:200px"/>
+                </apex:pageBlockSection>
+                <!--<apex:pageBlockSection showHeader="true" title="Notification" columns="2">
+                        <apex:inputField value="{!One_Stop__c.Send_Email__c}"/>
+                </apex:pageBlockSection>-->
+        </apex:pageBlock>
+        </apex:form>
+</apex:page>

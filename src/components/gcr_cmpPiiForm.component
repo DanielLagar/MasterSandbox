@@ -1,0 +1,126 @@
+<!-- 
+#    Pii component of V4 chat
+#    
+#    @param:  brand, country
+#    @author: ACCENTURE
+#    @date:   02/06/2017
+#
+#	 DATE              	NAME                CHANGE DESCRIPTION
+# 	 11/06/2017       	Accenture           Initial Draft
+-->
+<apex:component layout="none">
+     <!-- COMPONENT ATTRIBUTES -->
+    <apex:attribute name="contactRef" type="Contact" description="Contact object reference from parent page to determine values" />
+    <apex:attribute name="isZipMandatory" type="Boolean" default="false" description="Determine if postal code are mandatory selected country" />
+    <apex:attribute name="isStateMandatory" type="Boolean" default="false" description="Determine if states are mandatory selected country" />
+    <apex:attribute name="channelContent" type="GCRChannelContent__c" description="Configuaration data for page view" />
+    <apex:attribute name="chatCtrlRef" type="gcr_chatRedirectController" description="Configuaration data for page view" />
+    <apex:attribute name="fieldsToDisplay" type="String" description="Field details to display, semicolon seperated" />
+    <apex:attribute name="styleClassInput" type="String" description="Style classes for input fields" />
+    <apex:attribute name="styleInput" type="String" description="Additional styles for input fields" />
+    <apex:attribute name="onchange" type="String" description="onchange event javascript for all input text fields" />
+    <apex:attribute name="onchangeEmail" type="String" description="onchange event javascript for all input email fields" />
+    <apex:attribute name="onchangeCountry" type="String" description="onchange event javascript for select country field" />
+    <apex:attribute name="invalidEmailMsg" type="String" description="message displayed when email is not valid" />
+    
+    <style>
+		.inputPiiRequired:before {
+        	color: {!channelContent.BrandSColor__c};
+			content: "*";
+            vertical-align: top;
+            padding-right: 3px;
+            font-size: 20px;
+    		font-weight: bold;
+        }
+		.inputPiiOptional:before {
+        	color: {!channelContent.BrandSColor__c};
+			content: "*";
+            vertical-align: top;
+            padding-right: 3px;
+            font-size: 20px;
+    		font-weight: bold;
+        	visibility: hidden;
+        }
+        .inputContainerPiiDiv {
+        	margin-top: 20px;
+        }
+        .inputSelectCountryStyle {
+            background-image: url({!URLFOR($Resource.GCRWidgetContent, 'contacts/css/cssimage/droparrow.svg')});
+            background-position: 98% center;
+            background-size: 10px 10px;
+            background-repeat: no-repeat;
+            -webkit-appearance: button;
+            background-color: white; text-overflow: ellipsis;
+            white-space: nowrap;
+            -webkit-padding-end: 20px;
+            outline: none;
+            padding: 0px 0px 0px 7px;
+        }
+    </style>
+    
+    <apex:outputPanel rendered="{!AND(NOT(channelContent.CareHub__r.isLastNameFirst__c), CONTAINS(fieldsToDisplay, 'Name'))}">
+        <div id="idPiiFirstNameDiv" class="inputContainerPiiDiv inputPiiRequired">
+            <input type="text" id="idPiiFirstName" class="{!styleClassInput}" style="{!styleInput}" 
+                   placeholder="{!channelContent.GCRChatFNLabel__c}" onchange="{!onchange}" name="fname"/>
+        </div>
+        <div id="idPiiLastNameDiv" class="inputContainerPiiDiv inputPiiRequired">
+            <input type="text" id="idPiiLastName" class="{!styleClassInput}" style="{!styleInput}"
+                   placeholder="{!channelContent.GCRChatLNLabel__c}" onchange="{!onchange}" name="lname"/>
+        </div>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!AND(channelContent.CareHub__r.isLastNameFirst__c, CONTAINS(fieldsToDisplay, 'Name'))}">
+        <div id="idPiiLastNameDiv" class="inputContainerPiiDiv inputPiiRequired">
+            <input type="text" id="idPiiLastName" class="{!styleClassInput}" style="{!styleInput}"
+                   placeholder="{!channelContent.GCRChatLNLabel__c}" onchange="{!onchange}" name="lname"/>
+        </div>
+        <div id="idPiiFirstNameDiv" class="inputContainerPiiDiv inputPiiRequired">
+            <input type="text" id="idPiiFirstName" class="{!styleClassInput}" style="{!styleInput}"
+                   placeholder="{!channelContent.GCRChatFNLabel__c}" onchange="{!onchange}" name="fname"/>
+        </div>
+    </apex:outputPanel>
+	<div id="idPiiEmailDiv" class="inputContainerPiiDiv inputPiiRequired" rendered="{!CONTAINS(fieldsToDisplay, 'Email')}">
+    	<input type="text" id="idPiiEmail" class="{!styleClassInput}" style="{!styleInput}"
+               placeholder="{!channelContent.GCRChatEmailLabel__c}" onchange="{!onchangeemail}" name="email"/>
+        <div id="idInvalidEmailMsg" style="display:none;color:#FF0000;">{!invalidEmailMsg}</div>
+    </div>
+    <apex:repeat var="eachField" value="{!$ObjectType.Contact.FieldSets[IF(channelContent.CareHub__r.AddressFieldSet__c != null
+                                        , channelContent.CareHub__r.AddressFieldSet__c, 'CareHubAddressDefault')]}">
+        <apex:outputPanel rendered="{!OR(AND(CONTAINS(fieldsToDisplay, 'Phone'), eachField.FieldPath == 'Phone')
+                                       , AND(CONTAINS(fieldsToDisplay, 'Address')
+                                       , OR(eachField.FieldPath == 'Primary_Address_Line_1__c', eachField.FieldPath == 'Primary_Address_Line_2__c'
+                                          , eachField.FieldPath == 'Primary_City__c'
+                                          , eachField.FieldPath == 'Primary_Postal_Code__c', eachField.FieldPath == 'Primary_State_Province__c')))}">
+            <div id="idPii{!eachField.FieldPath}Div" class="inputContainerPiiDiv 
+                                                     {!IF(eachField.FieldPath == 'Primary_Postal_Code__c'
+                                                     	, IF(isZipMandatory, 'inputPiiRequired', 'inputPiiOptional')
+                                                     	, IF(eachField.FieldPath == 'Primary_State_Province__c'
+                                                     		, IF(isStateMandatory, 'inputPiiRequired', 'inputPiiOptional')
+                                                     		, IF(eachField.FieldPath == 'Primary_Address_Line_2__c', 'inputPiiOptional', 'inputPiiRequired')))}">
+                <input id="idPii{!eachField.FieldPath}" type="text" class="{!styleClassInput}" style="{!styleInput}" onchange="{!onchange}"
+                       placeholder="{!CASE(eachField.FieldPath, 'Primary_Address_Line_1__c', channelContent.EmailAddLine1Label__c
+                                                    , 'Primary_Address_Line_2__c', channelContent.EmailAddLine2Label__c
+                                                    , 'Primary_Postal_Code__c', channelContent.EmailZipLabel__c
+                                                    , 'Primary_City__c', channelContent.EmailCityLabel__c
+                                                    , 'Primary_State_Province__c', channelContent.EmailCountyLabel__c
+                                                    , 'Phone', channelContent.EmailPhoneLabel__c, '')}" 
+                        name="{!CASE(eachField.FieldPath, 'Primary_Address_Line_1__c', 'address-line1'
+                                                    , 'Primary_Address_Line_2__c', 'address-line2'
+                                                    , 'Primary_Postal_Code__c', 'postal-code'
+                                                    , 'Primary_City__c', 'city'
+                                                    , 'Primary_State_Province__c', 'state'
+                                                    , 'Phone', 'phone', '')}"/>
+                                                    
+            </div>
+        </apex:outputPanel>
+        <apex:outputPanel layout="block" rendered="{!eachField.FieldPath == 'Primary_Country__c'}">
+            <div id="idPii{!eachField.FieldPath}Div" class="inputContainerPiiDiv inputPiiRequired">
+                <select id="idPii{!eachField.FieldPath}" class="cmpInputStyle cmpInputWidthChat inputSelectCountryStyle" selected="{!channelContent.Country__c}" onchange="{!onchangeCountry}">
+                    <apex:repeat var="eachPlVal" value="{!chatCtrlRef.mCountryPlOption}">
+                        <apex:outputText rendered="{!eachPlVal != channelContent.Country__c}"><option value="{!eachPlVal}">{!eachPlVal}</option></apex:outputText>
+                        <apex:outputText rendered="{!eachPlVal == channelContent.Country__c}"><option value="{!eachPlVal}" selected="selected">{!eachPlVal}</option></apex:outputText>
+                    </apex:repeat>
+                </select>
+            </div>
+        </apex:outputPanel>        
+    </apex:repeat>
+</apex:component>

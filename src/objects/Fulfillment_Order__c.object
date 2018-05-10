@@ -1,0 +1,1553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>The Fulfillment Order object houses order details for Cases requiring a fulfillment order.  The Fulfillment Order represents the ‘Shopping Cart’ of items that complete a single order related to a Case.  The design supports the ability for a case to contain multiple Fulfillment Orders.  Fulfillment Orders can be both manually fulfilled or sent via integration to the P&amp;G Hermes application.  Fulfillment Orders contain a status field to indicate status of the current order.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ACR_Info__c</fullName>
+        <description>For recording matching ACR info</description>
+        <externalId>false</externalId>
+        <inlineHelpText>For recording matching ACR info</inlineHelpText>
+        <label>ACR Info</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Above_Monetary_Threshold__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>If &quot;True&quot; indicates creator or last user to modify has exceeded their monetary allowance.</inlineHelpText>
+        <label>Above Monetary Threshold</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Additional_Shipping_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Shipping Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Approve_Amount__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Approve Amount</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Attempt__c</fullName>
+        <externalId>false</externalId>
+        <label>Attempt</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Auto_Created__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Auto Created</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Case_Comment_Code__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Case Comment Code</label>
+        <referenceTo>Case_Comment_Code__c</referenceTo>
+        <relationshipLabel>Fulfillment Orders</relationshipLabel>
+        <relationshipName>Fulfillment_Orders</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Case_Country__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Case__r.Country__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Country</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Currency__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case__r.Currency__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Currency</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Product__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Case Product</label>
+        <referenceTo>Case_Product__c</referenceTo>
+        <relationshipLabel>Fulfillment Orders</relationshipLabel>
+        <relationshipName>Fulfillment_Orders</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Fulfillment Orders</relationshipLabel>
+        <relationshipName>Fulfillment_Orders</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Cloned_From_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Cloned From Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Conga_Case_Owner_Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case__r.Owner:User.LastName</formula>
+        <label>Conga Case Owner Last Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Conga_Case_Owner__c</fullName>
+        <description>Used in Conga template generation signature (Conga can&apos;t see lookup fields)</description>
+        <externalId>false</externalId>
+        <formula>Case__r.Owner:User.FirstName</formula>
+        <label>Conga Case Owner</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Conga_Merge_Template_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Conga Merge Template Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Conga_Solution_URL__c</fullName>
+        <description>This field will be sent to Conga server for generating PDF when workflow fires.  Added queries aliases - once queries are updated the non-aliased query section can be removed.</description>
+        <externalId>false</externalId>
+        <formula>&apos;&amp;id=&apos;+Id +
+&apos;&amp;templateid=&apos;+ Conga_Merge_Template_Id__c +
+&apos;&amp;OFN=&apos;+ Case__r.CaseNumber +&apos;-&apos;+TEXT(NOW()) +
+&apos;&amp;defaultpdf=1&apos; +
+
+&apos;&amp;QueryId=a0F8000000g1gXC?pv0=&apos; + Case__r.Id + 
+&apos;,a0F8000000g1gXA?pv0=&apos; + Id + 
+&apos;,a0F8000000g1gXB?pv0=&apos; + Contact__c + 
+&apos;,a0F8000000g1gX9?pv0=&apos; + Case_Country__c + &apos;~pv1=&apos; +  SUBSTITUTE(TEXT(Case__r.Brand__c), &apos;&amp;&apos;, &apos;&apos;) + &apos;~pv2=&apos; + TEXT(Case__r.Language__c) + 
+
+&apos;,[Case]a0F8000000g1gXC?pv0=&apos; + Case__r.Id + 
+&apos;,[LineItems]a0F8000000g1gXA?pv0=&apos; + Id + 
+&apos;,[Contact]a0F8000000g1gXB?pv0=&apos; + Contact__c + 
+&apos;,[Header]a0F8000000g1gX9?pv0=&apos; + Case_Country__c + &apos;~pv1=&apos; + SUBSTITUTE(TEXT(Case__r.Brand__c), &apos;&amp;&apos;, &apos;&apos;) + &apos;~pv2=&apos; + TEXT(Case__r.Language__c) + 
+
+&apos;&amp;lg4=2&apos;+/*This is the Task option*/ 
+
+&apos;&amp;mfts0=PDF_Val__c&apos;+
+&apos;&amp;mftsvalue0=true&apos; + 
+
+&apos;&amp;mfts1=PDF_Generated__c&apos;+
+&apos;&amp;mftsvalue1=true&apos; +
+
+&apos;&amp;qmode=1&apos;</formula>
+        <inlineHelpText>This field will be sent to Conga server for generating PDF when workflow fires. This is a backend field.</inlineHelpText>
+        <label>Conga Solution URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Conga_Workflow_Trigger__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field is used to trigger conga workflow and automatically generate PDFs using Conga workflow concept. This is for backend purpose.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used to trigger conga workflow and automatically generate PDFs using Conga workflow concept. This is for backend purpose.</inlineHelpText>
+        <label>Conga Workflow Trigger</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Center__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case__r.Contact_Center__c</formula>
+        <label>Contact Center</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This is used by conga merge</description>
+        <externalId>false</externalId>
+        <label>Contact Look Up</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Fulfillment Orders</relationshipLabel>
+        <relationshipName>Fulfillment_Orders</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Crisis_Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Crisis Country</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Crisis_Situation__c</fullName>
+        <externalId>false</externalId>
+        <label>Crisis Situation</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date_Created__c</fullName>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Date Created</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_Printed__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Printed</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>FF_Header__c</fullName>
+        <externalId>false</externalId>
+        <label>FF Header</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fulfillment_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Fulfillment Method</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Postal</fullName>
+                    <default>true</default>
+                    <label>Postal</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Fulfillment_Order_c__c</fullName>
+        <externalId>true</externalId>
+        <label>FulfillmentOrder_c.Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fullfillment_Amount_Roll_Up__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Sums amount of Fulfillment Line Item Monetary Values</inlineHelpText>
+        <label>Fullfillment Amount Roll-Up</label>
+        <summarizedField>Fulfillment_Order_Line_Item__c.Amount_Currency__c</summarizedField>
+        <summaryForeignKey>Fulfillment_Order_Line_Item__c.Fulfillment_Order__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Hermes_Country__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE (Case__r.Country__c, 
+&quot;Japan&quot;, &quot;Japan&quot;, 
+&quot;China&quot;, &quot;China&quot;, 
+&quot;Australia&quot;, &quot;Australia&quot;, 
+&quot;India&quot;, &quot;India&quot;, 
+&quot;Indonesia&quot;, &quot;Indonesia&quot;, 
+&quot;Brazil&quot;,&quot;Brazil&quot;,
+&quot;Japan&quot;, &quot;Japan&quot;, 
+&quot;Korea&quot;, &quot;Korea&quot;, 
+&quot;Malaysia&quot;, &quot;Malaysia&quot;, 
+&quot;New Zealand&quot;, &quot;New Zealand&quot;, 
+&quot;Philippines&quot;, &quot;Philippines&quot;, 
+&quot;Singapore&quot;, &quot;Singapore&quot;, 
+&quot;Thailand&quot;, &quot;Thailand&quot;, 
+&quot;Vietnam&quot;, &quot;Vietnam&quot;, 
+&quot;Australia&quot;, &quot;Australia&quot;, 
+&quot;Bahrain&quot;, &quot;Bahrain&quot;, 
+&quot;Belarus&quot;, &quot;Belarus&quot;, 
+&quot;Belgium&quot;, &quot;Belgium&quot;, 
+&quot;Croatia&quot;, &quot;Croatia&quot;, 
+&quot;Czech Repubic&quot;, &quot;Czech Repubic&quot;, 
+&quot;Denmark&quot;, &quot;Denmark&quot;, 
+&quot;Egypt&quot;, &quot;Egypt&quot;, 
+&quot;Finland&quot;, &quot;Finland&quot;, 
+&quot;France&quot;, &quot;France&quot;, 
+&quot;Germany&quot;, &quot;Germany&quot;, 
+&quot;Greece&quot;, &quot;Greece&quot;, 
+&quot;Hungary&quot;, &quot;Hungary&quot;, 
+&quot;Ireland&quot;, &quot;Ireland&quot;, 
+&quot;Italy&quot;, &quot;Italy&quot;, 
+&quot;Korea&quot;, &quot;Korea&quot;, 
+&quot;Kuwait&quot;, &quot;Kuwait&quot;, 
+&quot;Malaysia&quot;, &quot;Malaysia&quot;, 
+&quot;Netherlands&quot;, &quot;Netherlands&quot;, 
+&quot;New Zealand&quot;, &quot;New Zealand&quot;, 
+&quot;Norway&quot;, &quot;Norway&quot;, 
+&quot;Oman&quot;, &quot;Oman&quot;, 
+&quot;Poland&quot;, &quot;Poland&quot;, 
+&quot;Portugal&quot;, &quot;Portugal&quot;, 
+&quot;Qatar&quot;, &quot;Qatar&quot;, 
+&quot;Russia&quot;, &quot;Russia&quot;, 
+&quot;Saudi Arabia&quot;, &quot;Saudi Arabia&quot;, 
+&quot;Singapore&quot;, &quot;Singapore&quot;, 
+&quot;Slovakia&quot;, &quot;Slovakia&quot;, 
+&quot;South Africa&quot;, &quot;South Africa&quot;, 
+&quot;Spain&quot;, &quot;Spain&quot;, 
+&quot;Sweden&quot;, &quot;Sweden&quot;, 
+&quot;Switzerland&quot;, &quot;Switzerland&quot;, 
+&quot;Turkey&quot;, &quot;Turkey&quot;, 
+&quot;UAE&quot;, &quot;UAE&quot;, 
+&quot;United Kingdom&quot;, &quot;United Kingdom&quot;, 
+&quot;Yemen&quot;, &quot;Yemen&quot;, 
+&quot;United States of America&quot;, &quot;United States of America&quot;, 
+&quot;Canada&quot;, &quot;Canada&quot;, 
+&quot;Argentina&quot;, &quot;Argentina&quot;, 
+&quot;Bolivia&quot;, &quot;Bolivia&quot;, 
+&quot;Chile&quot;, &quot;Chile&quot;, 
+&quot;Colombia&quot;, &quot;Colombia&quot;, 
+&quot;Mexico&quot;, &quot;Mexico&quot;, 
+&quot;Peru&quot;, &quot;Peru&quot;, 
+&quot;Venezuela&quot;, &quot;Venezuela&quot;, 
+&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Hermes Country</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hermes_Integration_Message__c</fullName>
+        <externalId>false</externalId>
+        <label>Hermes Integration Message</label>
+        <length>240</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hermes_Integration_Success__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Hermes Integration Success</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Inactive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Inactive</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Keep_Amount__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Keep Amount?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Kobe_Rollup__c</fullName>
+        <description>This field is used for reporting.  Where there is a Kobe FF line item, the FF Order uses this count to show within the order, there is 0, 1, 2, etc Kobe FF line item in the order</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used for reporting.  Where there is a Kobe FF line item, the FF Order uses this count to show within the order, there is 0, 1, 2, etc Kobe FF line item in the order</inlineHelpText>
+        <label>Kobe Rollup</label>
+        <summaryFilterItems>
+            <field>Fulfillment_Order_Line_Item__c.Description__c</field>
+            <operation>contains</operation>
+            <value>Kobe</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Fulfillment_Order_Line_Item__c.Fulfillment_Order__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Letter_Body__c</fullName>
+        <externalId>false</externalId>
+        <label>Letter Body</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Line_Item_Count_CH_ET__c</fullName>
+        <description>Count of Fulfillment Order Line Item where the Type EQUALS CH,ET,MO,CP,CK</description>
+        <externalId>false</externalId>
+        <label>Line Item Count (CH/ET)</label>
+        <summaryFilterItems>
+            <field>Fulfillment_Order_Line_Item__c.Type__c</field>
+            <operation>equals</operation>
+            <value>CH,ET,MO,CP,CK</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Fulfillment_Order_Line_Item__c.Fulfillment_Order__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Line_Item_Count_no_CH_ET__c</fullName>
+        <externalId>false</externalId>
+        <label>Line Item Count (no CH / ET)</label>
+        <summaryFilterItems>
+            <field>Fulfillment_Order_Line_Item__c.Type__c</field>
+            <operation>notEqual</operation>
+            <value>CH,ET,MO,CP,CK</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Fulfillment_Order_Line_Item__c.Fulfillment_Order__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Locked_from_Editing__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Locked from Editing</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Midnight_Local_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Midnight Local Time</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Next_Day_Shipping__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Next Day Shipping</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_Letter_Needed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Backend field used to lock the orders which doesnt need letters</description>
+        <externalId>false</externalId>
+        <label>No Letter Needed</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Order_Resent__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Order Resent</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PDF_Generated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>PDF Generated</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PDF_Page_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>PDF Page Count</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PDF_Val__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>PDF Val</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Processing_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Processing Method</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Agent Handles</fullName>
+                    <default>false</default>
+                    <label>Agent Handles</label>
+                </value>
+                <value>
+                    <fullName>Fulfillment House</fullName>
+                    <default>true</default>
+                    <label>Fulfillment House</label>
+                </value>
+                <value>
+                    <fullName>In House</fullName>
+                    <default>false</default>
+                    <label>In House</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Promos_Created__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used at back end to stop the duplicate Promotional Items</description>
+        <externalId>false</externalId>
+        <label>Promos Created</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>RTL_Language__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>RTL Language</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Repeater_Relation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>If &quot;True&quot; indicates the fulfillment order is related to a consumer deemed a &quot;Repeater&quot;.</inlineHelpText>
+        <label>Related to Repeater</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Second_Attempt__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Second Attempt</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Shipping_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Shipping Method</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Express</fullName>
+                    <default>false</default>
+                    <label>Express</label>
+                </value>
+                <value>
+                    <fullName>Standard</fullName>
+                    <default>true</default>
+                    <label>Standard</label>
+                </value>
+                <value>
+                    <fullName>Next Day</fullName>
+                    <default>false</default>
+                    <label>Next Day</label>
+                </value>
+                <value>
+                    <fullName>Signature Required</fullName>
+                    <default>false</default>
+                    <label>Signature Required</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Open</fullName>
+                    <default>true</default>
+                    <label>Open</label>
+                </value>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>false</default>
+                    <label>Draft</label>
+                </value>
+                <value>
+                    <fullName>Closed</fullName>
+                    <default>false</default>
+                    <label>Closed</label>
+                </value>
+                <value>
+                    <fullName>Deleted</fullName>
+                    <default>false</default>
+                    <label>Deleted</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>TCI_Rollup__c</fullName>
+        <externalId>false</externalId>
+        <label>TCI Rollup</label>
+        <summaryFilterItems>
+            <field>Fulfillment_Order_Line_Item__c.Description__c</field>
+            <operation>equals</operation>
+            <value>TCI</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Fulfillment_Order_Line_Item__c.Fulfillment_Order__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Monetary_Value__c</fullName>
+        <description>Total Value of All Line Items&apos; Amount &amp; Total Retail Value fields.</description>
+        <externalId>false</externalId>
+        <label>Total Monetary Value</label>
+        <summarizedField>Fulfillment_Order_Line_Item__c.Total_Monetary_Value__c</summarizedField>
+        <summaryForeignKey>Fulfillment_Order_Line_Item__c.Fulfillment_Order__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Trans_Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Trans Country</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>userfname__c</fullName>
+        <description>Used to populate the User First Name in conga templates</description>
+        <externalId>false</externalId>
+        <formula>CreatedBy.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>userfname</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Fulfillment Order</label>
+    <listViews>
+        <fullName>AA</fullName>
+        <columns>NAME</columns>
+        <columns>PDF_Generated__c</columns>
+        <columns>Case_Country__c</columns>
+        <columns>Date_Created__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Case_Country__c</field>
+            <operation>equals</operation>
+            <value>philippines</value>
+        </filters>
+        <label>AA</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Fulfillments_in_Draft</fullName>
+        <columns>NAME</columns>
+        <columns>Case_Country__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Draft</value>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>THIS_WEEK</value>
+        </filters>
+        <label>Fulfillments in Draft</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Vietnam</fullName>
+        <columns>PDF_Generated__c</columns>
+        <columns>Date_Created__c</columns>
+        <columns>NAME</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Case_Country__c</field>
+            <operation>equals</operation>
+            <value>vietnam</value>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>greaterOrEqual</operation>
+            <value>7/12/2016 12:00 AM</value>
+        </filters>
+        <label>Vietnam</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>myview</fullName>
+        <columns>NAME</columns>
+        <columns>PDF_Generated__c</columns>
+        <columns>Case_Country__c</columns>
+        <columns>Date_Created__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Conga_Merge_Template_Id__c</field>
+            <operation>equals</operation>
+            <value>a0G8000000dHp07</value>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>greaterOrEqual</operation>
+            <value>1/1/2017 12:00 AM</value>
+        </filters>
+        <label>myview</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>C-{0000000000}</displayFormat>
+        <label>Fulfillment Order Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Fulfillment Orders</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Fulfillment_Locked</fullName>
+        <active>true</active>
+        <description>Checks Fulfillment Order and is set to &quot;Closed&quot;, and locks all users besides System Administrator, Global Administrator and Integration User</description>
+        <errorConditionFormula>AND(Locked_from_Editing__c = true, 
+NOT( $Profile.Name =&quot;Integration User&quot;), 
+NOT( $Profile.Name =&quot;Global Administrator&quot;), 
+NOT( $Profile.Name =&quot;System Administrator&quot;), 
+OR(ISCHANGED( Approve_Amount__c ),
+ISCHANGED( Trans_Country__c ),
+ISCHANGED( Processing_Method__c ),
+ISCHANGED( Status__c ),
+ISCHANGED( Case__c ),
+ISCHANGED( Fulfillment_Method__c ),
+ISCHANGED( Shipping_Method__c ),
+ISCHANGED( Case_Comment_Code__c ),
+ISCHANGED( Case_Product__c ),
+ISCHANGED( Contact__c )))</errorConditionFormula>
+        <errorMessage>Fulfillment Order has been locked, no updates are allowed. Please contact your system administrator.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Monetary_Threshold_Draft_to_Open</fullName>
+        <active>false</active>
+        <description>Verifies the user&apos;s Monetary Threshold and allow the user to set the status to Open.</description>
+        <errorConditionFormula>AND(Above_Monetary_Threshold__c ,ISCHANGED( Status__c ), $User.Monetary_Threshold__c &lt; Fullfillment_Amount_Roll_Up__c)</errorConditionFormula>
+        <errorMessage>This Order is above your Monetarty Threshold limit. You do not have the authority to change this order&apos;s status to Open. Please contact your manager or System Administrator.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>US_Can_not_change_from_DRAFT_Repeater</fullName>
+        <active>true</active>
+        <description>For US Agents: Ensures that US Agent&apos;s can not change the order from Draft, if they do not have the permissions.</description>
+        <errorConditionFormula>AND( ISCHANGED( Status__c ), OR(ISPICKVAL( Status__c , &quot;Open&quot;),ISPICKVAL( Status__c , &quot;Closed&quot;)), Repeater_Relation__c, $User.Country =&quot;USA&quot;, $Profile.Id=&quot;00e700000013BhS&quot; )</errorConditionFormula>
+        <errorMessage>Fulfillment order is related to a repeater. You do not have sufficient privileges to update the Order from Draft to Open. Please contact your Manager or System Administrator.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Add_New_Line_Item</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add New Line Item</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/13.0/connection.js&quot;)} 
+try { 
+
+  var caseId = &apos;{!Case.Id}&apos;; 
+  var FFIds={!GETRECORDIDS($ObjectType.Fulfillment_Order__c)}; 
+ 
+  var tFulfillmentOrderClosedMessage =
+    &apos;{!$Label.Fulfillment_FulfillmentOrderClosedMessage}&apos; != &apos;&apos; ? 
+        &apos;{!$Label.Fulfillment_FulfillmentOrderClosedMessage}&apos; : 
+        &apos;The Fulfillment Order you are trying to access is closed. Please select another.&apos;;
+  var tPleaseSelectOneFulfillmentOrderMessage=
+    &apos;{!$Label.Fulfillment_SelectOneFulfillmentOrderMessage}&apos; != &apos;&apos; ? 
+        &apos;{!$Label.Fulfillment_SelectOneFulfillmentOrderMessage}&apos; : 
+        &apos;Please select one Fulfillment Order.&apos;;
+
+  if(FFIds.length==1) 
+  { 
+    var FFresult=sforce.connection.query(&quot;Select Case_Comment_Code__c,Status__c from Fulfillment_Order__c where Id=&apos;&quot;+FFIds[0]+&quot;&apos;&quot;); 
+    var records2=FFresult.getArray(&apos;records&apos;); 
+    var caseCommentCode=records2[0].Case_Comment_Code__c; 
+    var status=records2[0].Status__c; 
+    var promo=records2[0].Promos_Created__c; 
+    if(status!=&apos;Closed&apos;) 
+    { 
+
+      window.location.href=&quot;/apex/sf_SelectFulfillmentItems?id={!Case.Id}&amp;comment=&quot;+ caseCommentCode +&quot;&amp;fromPage=Additems&amp;ffOrderid=&quot;+FFIds[0]+&quot;&amp;pro=&quot;+promo; 
+
+    } 
+    else 
+    { 
+      alert(tFulfillmentOrderClosedMessage); 
+    } 
+  } 
+  else 
+  { 
+    alert(tPleaseSelectOneFulfillmentOrderMessage); 
+  } 
+
+}//end of try 
+catch(e){alert(e);}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Conga_Composer</fullName>
+        <availability>online</availability>
+        <description>Create Order Letter</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Composer</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://composer.congamerge.com
+?SessionId={!$Api.Session_ID}
+&amp;ServerUrl={!$Api.Partner_Server_URL_320}
+&amp;Id={!Fulfillment_Order__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Conga_Debug</fullName>
+        <availability>online</availability>
+        <description>Button to create templates with queries and to debug existing templates.</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Conga Debug</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://composer.congamerge.com
+?sessionid={!API.Session_ID}
+&amp;serverurl={!API.Partner_Server_URL_260}
+&amp;id={!Fulfillment_Order__c.Id}
+
+&amp;templateid={!Fulfillment_Order__c.Conga_Merge_Template_Id__c}
+&amp;OFN={!Case.CaseNumber}+-+{!Today}
+
+&amp;QueryId= a0F8000000g1gXC?pv0={!Fulfillment_Order__c.CaseId__c},
+a0F8000000g1gXA?pv0={!Fulfillment_Order__c.Id},
+a0F8000000g1gXB?pv0={!Fulfillment_Order__c.ContactId__c},
+a0F8000000g1gX9?pv0={!Fulfillment_Order__c.Case_Country__c}~pv1={!Case.Brand__c}~pv2={!Case.Language__c},
+
+[Case]a0F8000000g1gXC?pv0={!Fulfillment_Order__c.CaseId__c},
+[LineItems]a0F8000000g1gXA?pv0={!Fulfillment_Order__c.Id},
+[Contact]a0F8000000g1gXB?pv0={!Fulfillment_Order__c.ContactId__c},
+[Header]a0F8000000g1gX9?pv0={!Fulfillment_Order__c.Case_Country__c}~pv1={!Case.Brand__c}~pv2={!Case.Language__c}
+
+&amp;lg4=1
+&amp;defaultpdf=1
+
+&amp;mfts0=PDF_Val__c
+&amp;mftsvalue0=true
+&amp;mfts1=PDF_Generated__c
+&amp;mftsvalue1=true</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Edit_Body</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Edit Letter</masterLabel>
+        <openType>replace</openType>
+        <page>sf_FulfillmentOrderLetterEdit</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Fulfillment_Order_Complete</fullName>
+        <availability>online</availability>
+        <description>was FF Order Complete.</description>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Fulfillment Order Complete</masterLabel>
+        <openType>replace</openType>
+        <page>sf_fulfillmentOrderCompleteButtonCode</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Generate_PDF</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Letter</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/apex.js&quot;)}
+ 
+
+/** 
+* This function is called by the HTML Body&apos;s OnLoad event. 
+* It defines an asynchronous method call (&quot;callback&quot;) which sends 
+* a Query call to Salesforce to retrieve a list of applicable merge templates. 
+* 
+* May need maintenance: the SOQL Select statement after sforce.connection.query 
+*/ 
+
+var relatedCases = sforce.connection.query(&quot;SELECT Id, Country__c, Brand__c, Amer_Brand__c, Emea_Brand__c, Ceemea_Brand__c, Language__c FROM Case WHERE Id=&apos;{!Fulfillment_Order__c.CaseId__c}&apos;&quot;); 
+var records = relatedCases.getArray(&quot;records&quot;); 
+var relatedCase = records[0]; 
+var country = relatedCase.Country__c; 
+
+
+var brand = &apos;&apos;; 
+if(relatedCase.Brand__c != null)
+    brand = relatedCase.Brand__c; 
+else if(relatedCase.Amer_Brand__c != null) 
+    brand = relatedCase.Amer_Brand__c; 
+else if(relatedCase.Emea_Brand__c != null) 
+    brand = relatedCase.Emea_Brand__c; 
+else if(relatedCase.Ceemea_Brand__c != null) 
+    brand = relatedCase.Ceemea_Brand__c; 
+
+brand=brand.replace(&apos;&amp;&apos;,&apos;%26&apos;); 
+
+
+var language = relatedCase.Language__c; 
+
+// Check for the Template Id 
+var templateId = &quot;{!Fulfillment_Order__c.Conga_Merge_Template_Id__c}&quot;; 
+if (templateId == &quot;&quot;) { 
+    alert(&apos;No template selected&apos;);	     
+} else { 
+    // Lookup the Microsoft Locale Id for the case&apos;s language. This is used by Conga Merge to interpret 
+    // HTML body correctly. For example: Thai=1054, English-US=1033 
+		
+    var localeId = lookupLocaleId(language); // This results in the Microsoft Language Id (LocaleId) 
+
+    // Moved this into Conga params - so that it is only set when file creation 
+    // succeeds, only. 
+/*
+    // Enable the &quot;PDF Generated&quot; checkbox 
+    var FO = new sforce.SObject(&quot;Fulfillment_Order__c&quot;);
+    FO.id = &quot;{!Fulfillment_Order__c.Id}&quot; ; 
+    FO.PDF_Val__c = true; 
+    result = sforce.connection.update([FO]); 
+*/
+
+    // Assmeble the URL to PointMerge 
+    // old url
+    //var PointMergeURL = &quot;https://www.appextremes.com/apps/Conga/PointMerge.aspx&quot;; 
+    var PointMergeURL = &quot;https://www.appextremes.com/apps/Conga/Composer.aspx&quot;; 
+
+    PointMergeURL += &quot;?sessionId={!API.Session_ID}&quot;; 
+    PointMergeURL += &quot;&amp;serverUrl={!API.Partner_Server_URL_80}&quot;; 
+    PointMergeURL += &quot;&amp;id={!Fulfillment_Order__c.Id}&quot;; 
+    PointMergeURL += &quot;&amp;templateId={!Fulfillment_Order__c.Conga_Merge_Template_Id__c}&quot;; 
+    PointMergeURL += &quot;&amp;QueryId=a0I70000000CMPp?pv0={!Fulfillment_Order__c.CaseId__c}&quot;; 
+    PointMergeURL += &quot;&amp;QueryId=a0I70000000CMPu?pv0={!Fulfillment_Order__c.Id}&quot;; 
+    PointMergeURL += &quot;&amp;QueryId=a0I70000000CMtu?pv0={!Fulfillment_Order__c.ContactId__c}&quot;; 
+    PointMergeURL += &quot;&amp;QueryId=a0I70000000CNQC?pv0=&quot; + country + &quot;~pv1=&quot;+brand+&quot;~pv2=&quot; + language; 
+
+    //FIXME 
+    /*
+    PointMergeURL += &quot;&amp;QueryId=a0I700000019kTF?pv0={!Fulfillment_Order__c.Case_Comment_Code__c}&quot;; 
+    */
+    PointMergeURL += &quot;&amp;lg3=2&quot;; 
+    PointMergeURL += &quot;&amp;lg4=1&quot;; 
+
+    // set pdf generated = true if letter generation succeeds
+    PointMergeURL += &quot;&amp;mfts0=PDF_Val__c&quot;;
+    PointMergeURL += &quot;&amp;mftsvalue0=true&quot;;
+
+    PointMergeURL += &quot;&amp;defaultpdf=1&quot;; 
+    PointMergeURL += &quot;&amp;lg0=0&quot;; 
+    PointMergeURL += &quot;&amp;htmlLocaleId=&quot; + localeId; 
+    PointMergeURL += &quot;&amp;htmlRTL={!Fulfillment_Order__c.RTL_Language__c}&quot;; 
+    PointMergeURL += &quot;&amp;ds7=1&quot;; 
+    PointMergeURL += &quot;&amp;OCNR=1&quot;; // added for service console - 9/4/14 - ljo
+    PointMergeURL += &quot;&amp;OFN={!Fulfillment_Order__c.Case__c}+-+{!NOW()}&quot;; 
+
+    // debugging
+    //alert(PointMergeURL);
+
+    //window.location = PointMergeURL; 
+    window.open( PointMergeURL, &quot;Conga&quot;, &quot;width=300,height=175,menubar=0&quot; );
+} 
+ 
+function lookupLocaleId(lang) 
+{ 
+    // These LocaleIds are based on the Microsoft .NET Framework: 
+    // https://www.microsoft.com/globaldev/reference/lcid-all.mspx 
+
+    var localeId; 
+
+    // Evaluate the upper-case value of the language 
+    lang = lang.toUpperCase(); 
+
+    // You can add other languages by repeating the &quot;case&quot; statement, above the &quot;default&quot; statement 
+    switch(lang) { 
+        case &quot;THAI&quot;: 
+            localeId=&quot;1054&quot;; 
+            break; 
+
+        case &quot;JAPANESE&quot;: 
+            localeId=&quot;1041&quot;; 
+            break; 
+
+        case &quot;KOREAN&quot;: 
+            localeId=&quot;1042&quot;; 
+            break; 
+
+        case &quot;ARABIC&quot;: 
+            localeId=&quot;3073&quot;; 
+            break; 
+
+        default: 
+            // Default to the English-US Locale 
+            localeId=&quot;1033&quot;; 
+    } 
+
+    return localeId; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Fulfillment_Order</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Fulfillment Order</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/13.0/connection.js&quot;)} 
+
+try 
+{ 
+  sforce.connection.sessionId =&apos;{!$Api.Session_ID}&apos;; 
+  var userId = &apos;{!$User.Id}&apos;; 
+  var tContactError = 
+    &apos;{!$Label.Fulfillment_ContactError}&apos; != &apos;&apos; ? 
+        &apos;{!$Label.Fulfillment_ContactError}&apos; : 
+        &quot;You must have a Primary Contact to send Fulfillment&quot;; 
+  var tCountryError =
+    &apos;{!$Label.Fulfillment_CountryError}&apos; != &apos;&apos; ? 
+        &apos;{!$Label.Fulfillment_CountryError}&apos; : 
+        &quot;Case Country and Primary Account Country must match to create a fulfillment order&quot; ; 
+  var tAddressMissing =
+    &apos;{!$Label.Fulfillment_AddressMissing}&apos; != &apos;&apos; ? 
+        &apos;{!$Label.Fulfillment_AddressMissing}&apos; : 
+        &quot;Contact Name, Address Line 1 and City are required to create a Fulfillment Order&quot;; 
+  var flag = 0; 
+  var caseId = &apos;{!Case.Id}&apos;; 
+
+  var addressline = &quot;&quot;; 
+  var city = &quot;&quot;; 
+  var country = &quot;&quot;; 
+  var lastname = &quot;&quot;; 
+  var isPersonAccount = &quot;false&quot;; 
+
+  var results = sforce.connection.query(&quot;Select ContactId,Country__c,Id, Contact_Center__c from Case where Id=&apos;&quot;+caseId+&quot;&apos;&quot;); 
+  var records = results.getArray(&apos;records&apos;); 
+  var caseContact =records[0].ContactId; 
+  var consumerCountry =records[0].Country__c; 
+  var ccenter =records[0].Contact_Center__c; 
+  if(consumerCountry!=null) {
+    if(consumerCountry.indexOf(&quot;-PGP&quot;) != -1)
+      consumerCountry=consumerCountry.replace(&quot;-PGP&quot;,&quot;&quot;);
+    else if (consumerCountry.indexOf(&quot;-JV&quot;) != -1){
+      consumerCountry=consumerCountry.replace(&quot;-JV&quot;,&quot;&quot;);
+    } 
+  }
+  if(caseContact== null) 
+  { 
+    flag=1; 
+    alert(tContactError); 
+  } else { 
+    
+    var resultCon = sforce.connection.query(&quot;Select Primary_Address_Line_1__c, Primary_City__c, LastName, Primary_Country__c from Contact where Id = &apos;&quot;+caseContact +&quot;&apos;&quot;); 
+    
+    recordsCon1 = resultCon.getArray(&apos;records&apos;); 
+    if(recordsCon1.length &gt; 0) 
+    { 
+      addressline = recordsCon1[0].Primary_Address_Line_1__c; 
+      city = recordsCon1[0].Primary_City__c; 
+      lastname = recordsCon1[0].LastName; 
+      country = recordsCon1[0].Primary_Country__c; 
+    } 
+    
+
+    if(ccenter!=&apos;Taiwan&apos; &amp;&amp; ccenter!=&apos;Hong Kong&apos; &amp;&amp; ccenter!=&apos;China P&amp;G&apos; &amp;&amp; ccenter!=&apos;China Sykes&apos; &amp;&amp; ccenter!=&apos;Japan&apos; &amp;&amp; ccenter!=&apos;Manila&apos; &amp;&amp; ccenter!=&apos;Korea&apos;  &amp;&amp; ccenter!=&apos;China TCI&apos;) 
+    { 
+      if(caseContact !=&apos;&apos; &amp;&amp; (addressline ==null || city == null || lastname == null || addressline ==&apos;&apos; || city == &apos;&apos; || lastname ==&apos;&apos;)) 
+      { 
+        if(consumerCountry == &apos;China&apos; || consumerCountry == &apos;Hong Kong&apos; || consumerCountry == &apos;Taiwan&apos;){}
+        else{
+          flag=2; 
+          alert(tAddressMissing); 
+        }
+      } 
+    } 
+  } 
+  
+  if(flag ==&apos;0&apos; || flag==0) 
+  { 
+    if(consumerCountry !=country &amp;&amp; (ccenter!=&apos;Taiwan&apos; &amp;&amp; ccenter!=&apos;Hong Kong&apos; &amp;&amp; ccenter!=&apos;SPG - Salon Professional Germany&apos;)) 
+    { 
+      flag=3; 
+      alert(tCountryError); 
+    } 
+  } 
+
+  if(flag == 1 || flag == 2 || flag==3) 
+    window.location.href=&apos;/&apos;+caseId; 
+  else 
+  { 
+    var productResult = sforce.connection.query(&quot;Select Id from Case_Product__c where Case__c=&apos;&quot;+caseId+&quot;&apos;&quot;); 
+    var products = productResult.getArray(&apos;records&apos;); 
+
+    var commentResult = sforce.connection.query(&quot;Select Id from Case_Comment_Code__c where Case__c=&apos;&quot;+caseId+&quot;&apos;&quot;); 
+    var comments = commentResult.getArray(&apos;records&apos;); 
+    
+    if(comments.length==1) 
+    { 
+      window.location.href=&quot;/apex/sf_SelectFulfillmentItems?id={!Case.Id}&amp;fromPage=oneTopic&amp;comment=&quot;+comments[0].Id; 
+    } 
+    else 
+    { 
+      window.location.href=&quot;/apex/sf_CreateFulfillmentOrder?id={!Case.Id}&quot;; 
+    }
+ } 
+} 
+catch(e1) 
+{
+  alert(e1);
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Select_Template</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Select Letter</masterLabel>
+        <openType>replace</openType>
+        <page>sf_FulfillmentSearchLetter</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Send_Default_Letter</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Default Letter</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>function init() 
+{ 
+  var session = &apos;{!API.Session_ID}&apos;; 
+  sforce.connection.init(&quot;{!API.Session_ID}&quot;, &quot;{!API.Partner_Server_URL_70}&quot;, true); 
+  setupPage() ; 
+  redirect(); 
+} 
+
+function redirect() 
+{ 
+  window.location.href = &quot;/{!Case.Id}&quot;; 
+} 
+
+function setupPage() { 
+  /* set defaults */
+  var tFulfillmentSearch = &apos;Fulfillment Search&apos;; 
+  var tCase = &apos;Case&apos;; 
+  var tConsumerCountry = &apos;Consumer Country&apos;; 
+  var tConsumerLanguage = &apos;Consumer Language&apos;; 
+  var tItemType = &apos;Item Type&apos;; 
+  var tBrand = &apos;Brand&apos;; 
+  var tSegment = &apos;Segment&apos;; 
+  var tDescription = &apos;Description&apos;; 
+  var tSearch = &apos;Search&apos;; 
+  var tAction = &apos;Action&apos;; 
+  var tSelect = &apos;Select&apos;; 
+  var tType = &apos;Type&apos;; 
+  var tPleaseSelectOneFulfillmentOrderMessage = &apos;Please select one Fulfillment Order.&apos;; 
+  var tFulfillmentOrderClosedMessage = &apos;Fulfillment Order you are trying to access is closed. Please select another.&apos;; 
+  var tNoCheckboxSelectedMessage = &apos;No check boxes selected&apos;; 
+  var tCannotAddAnotherCheckMessage = &apos;You cannot add another line item with check entry.&apos; 
+  var ffSearchStatusMsg = &apos;Searching ...&apos;; 
+  var NoResults = &quot;No results returned.&quot;; 
+
+  checkUserLanguage(); 
+
+  var country = &quot;{!Case.Country__c}&quot;; 
+  var language = &quot;{!Case.Language__c}&quot;; 
+
+  var ffid = &quot;&quot;; 
+  var records = {!GETRECORDIDS($ObjectType.Fulfillment_Order__c)}; 
+  if (records.length&gt;1) 
+  { 
+    alert(tPleaseSelectOneFulfillmentOrderMessage); 
+    window.location.href = &quot;/{!Case.Id}&quot;; 
+  } 
+  else if(records.length == 0) 
+  { 
+    alert(tNoCheckboxSelectedMessage); 
+    window.location.href = &quot;/{!Case.Id}&quot;; 
+  } 
+  else 
+  { 
+    ffid = records[0]; 
+
+// FIXME - need case comment code to get case data into document
+    //var records1 = sforce.connection.query(&quot;Select Id, Conga_Merge_Template_Id__c, Case_Comment_Code__c, Contact__c from Fulfillment_Order__c where Id=&apos;&quot;+ffid+&quot;&apos;&quot;); 
+    var records1 = sforce.connection.query(&quot;Select Id, Conga_Merge_Template_Id__c, Contact__c from Fulfillment_Order__c where Id=&apos;&quot;+ffid+&quot;&apos;&quot;); 
+
+    //alert(records1); 
+    result = records1.getArray(&apos;records&apos;); 
+    //alert(result); 
+    if(result[0].Conga_Merge_Template_Id__c == null) 
+    { 
+      alert(&apos;Case is missing template.&apos;); 
+    } 
+    else 
+    { 
+      var localeId = lookupLocaleId(language); 
+      // This results in the Microsoft Language Id (LocaleId) 
+
+      var FO = new sforce.SObject(&quot;Fulfillment_Order__c&quot;); 
+      FO.id = ffid; 
+      // Enable the &quot;PDF Generated&quot; checkbox 
+      FO.PDF_Val__c = true; 
+      var result1 = sforce.connection.update([FO]); 
+      //alert(result1); 
+
+      // Assemble the URL to PointMerge 
+      var PointMergeURL = &quot;https://www.appextremes.com/apps/Conga/PointMerge.aspx&quot;; 
+      PointMergeURL += &quot;?sessionId={!API.Session_ID}&quot;; 
+      PointMergeURL += &quot;&amp;serverUrl={!API.Partner_Server_URL_80}&quot;; 
+      PointMergeURL += &quot;&amp;id=&quot; + ffid; 
+      PointMergeURL += &quot;&amp;templateId=&quot; + result[0].Conga_Merge_Template_Id__c; 
+      PointMergeURL += &quot;&amp;OFN={!Case.CaseNumber}+-+{!NOW()}&quot;; 
+      PointMergeURL += &quot;&amp;QueryId=a0tQ0000002iuim?pv0={!Case.Id}&quot;; 
+      PointMergeURL += &quot;&amp;QueryId=a0tQ0000002iuik?pv0=&quot; + ffid; 
+      PointMergeURL += &quot;&amp;QueryId=a0tQ0000002iuis?pv0=&quot; + result[0].Contact__c; 
+      PointMergeURL += &quot;&amp;QueryId=a0tQ0000002iuit?pv0=&quot; + country + &quot;~pv2=&quot; + language; 
+      // FIXME - uncommment this
+      // PointMergeURL += &quot;&amp;QueryId=a0tQ0000002iuiu?pv0=&quot; + result[0].Case_Comment_Code__c; 
+      PointMergeURL += &quot;&amp;lg3=1&quot;; 
+      PointMergeURL += &quot;&amp;lg4=1&quot;; 
+      PointMergeURL += &quot;&amp;defaultpdf=1&quot;; 
+      PointMergeURL += &quot;&amp;lg0=0&quot;; 
+      PointMergeURL += &quot;&amp;htmlLocaleId=&quot; + localeId; 
+      PointMergeURL += &quot;&amp;ds7=5&quot;; 
+
+      //alert(PointMergeURL); 
+      tt=open(PointMergeURL, &quot;&quot;, &quot;resizable=yes, height=250, width=350, toolbar=no, menubar=no&quot;);       
+      onunload= redirect(); 
+    } 
+  } 
+} 
+
+function lookupLocaleId(lang) 
+{ 
+  // These LocaleIds are based on the Microsoft .NET Framework: 
+  // https://www.microsoft.com/globaldev/reference/lcid-all.mspx 
+
+  var localeId; 
+
+  // Evaluate the upper-case value of the language 
+  lang = lang.toUpperCase(); 
+
+  // You can add other languages by repeating the &quot;case&quot; statement, above the &quot;default&quot; statement 
+  switch(lang) 
+  { 
+    case &quot;THAI&quot;: 
+      localeId=&quot;1054&quot; 
+      break; 
+
+//// case &quot;CHINESE&quot;: 
+//// localeId=&quot;2052&quot; 
+//// break; 
+
+
+    case &quot;JAPANESE&quot;: 
+      localeId=&quot;1041&quot; 
+      break; 
+
+    default: 
+      // Default to the English-US Locale 
+      localeId=&quot;1033&quot;; 
+  } 
+
+  return localeId; 
+} 
+
+function checkUserLanguage() 
+{ 
+  //SetWaitMessage(&quot;Querying Person Accounts for matching email addresses. Please wait...&quot;); 
+
+  try 
+  { 
+        tFulfillmentSearch = &apos;{!JSENCODE($Label.Fulfillment_FulfillmentSearch)}&apos;;
+        tConsumerCountry = &apos;{!JSENCODE($Label.Fulfillment_ConsumerCountry)}&apos;;
+        tConsumerLanguage = &apos;{!JSENCODE($Label.Fulfillment_ConsumerLanguage)}&apos;;
+        tCase = &apos;{!JSENCODE($Label.Fulfillment_Case)}&apos;;
+        tItemType = &apos;{!JSENCODE($Label.Fulfillment_ItemType)}&apos;;
+        tBrand = &apos;{!JSENCODE($Label.Fulfillment_Brand)}&apos;;
+        tSegment = &apos;{!JSENCODE($Label.Fulfillment_Segment)}&apos;;
+        tDescription = &apos;{!JSENCODE($Label.Fulfillment_Description)}&apos;;
+        tSearch = &apos;{!JSENCODE($Label.Fulfillment_Search)}&apos;;
+        tAction = &apos;{!JSENCODE($Label.Fulfillment_Action)}&apos;;
+        tType = &apos;{!JSENCODE($Label.Fulfillment_Type)}&apos;;
+        tSelect = &apos;{!JSENCODE($Label.Fulfillment_Select)}&apos;;
+        NoResults = &apos;{!JSENCODE($Label.Fulfillment_NoResultsReturned)}&apos;;
+        tPleaseSelectOneFulfillmentOrderMessage = &apos;{!JSENCODE($Label.Fulfillment_SelectOneFulfillmentOrderMessage)}&apos;;  
+        tFulfillmentOrderClosedMessage = &apos;{!JSENCODE($Label.Fulfillment_FulfillmentOrderClosedMessage)}&apos;;
+        tNoCheckboxSelectedMessage = &apos;{!JSENCODE($Label.Fulfillment_NoCheckboxSelectedMessage)}&apos;;
+        tCannotAddAnotherCheckMessage = &apos;{!JSENCODE($Label.Fulfillment_CannotAddAnotherCheckMessage)}&apos;;
+        ffSearchStatusMsg = &apos;{!JSENCODE($Label.Fulfillment_FulfillmentItemSearchMessage)}&apos;;
+  } 
+  catch(e) 
+  { 
+    alert(e); 
+  } 
+} 
+
+function isBlank(val){if(val==null){return true;} 
+for(var i=0;i&lt;val.length;i++){if((val.charAt(i)!=&apos;&apos;)&amp;&amp;(val.charAt(i)!=&quot;\t&quot;)&amp;&amp;(val.charAt(i)!=&quot;\n&quot;)&amp;&amp;(val.charAt(i)!=&quot;\r&quot;)){return false;}}return true;}
+
+/* set events to call functions */
+//window.onload = init;
+//window.onunload=redirect;
+/* using extjs to get cross-browser support */
+Ext.onReady(init);
+Ext.EventManager.on(window, &apos;unload&apos;, function() {
+    redirect();
+});</url>
+    </webLinks>
+</CustomObject>

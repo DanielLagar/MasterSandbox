@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Used to toggle specific functionality.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TriggerOn__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If true trigger/method is active</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If true trigger/method is active</inlineHelpText>
+        <label>TriggerOn</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>TriggerSwitch</label>
+    <visibility>Protected</visibility>
+</CustomObject>

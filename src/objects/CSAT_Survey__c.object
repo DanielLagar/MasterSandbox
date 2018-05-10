@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Brand_Page_Parameters__c</fullName>
+        <externalId>false</externalId>
+        <label>Brand Page Parameters</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CX_Agent_Score_Q1_2__c</fullName>
+        <externalId>false</externalId>
+        <formula>(CX_Friendly_Welcoming_Score_Q1__c +
+CX_UnderstandsNeeds_Score_Q2__c) / 2</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CX Agent Score (Q1-2)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CX_EasySimple_Score_Q4__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Q_MakeItEasySimple__c  &gt;= 40, 1, 
+IF( Q_MakeItEasySimple__c  &lt;= 30, 0, 0))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CX EasySimple Score (Q4)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CX_FeelValued_Score_Q5__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  Q_MakeFeelValued__c  &gt;= 40, 1, 
+IF(  Q_MakeFeelValued__c   &lt;= 30, 0, 0))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CX FeelValued Score (Q5)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CX_Friendly_Welcoming_Score_Q1__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Q_FriendlyAndWelcoming__c   &gt;= 40, 1,  
+IF( Q_FriendlyAndWelcoming__c   &lt;= 30, 0, 0))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CX FriendlyWelcoming Score (Q1)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CX_MetNeeds_Score_Q3__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  Q_OfferSolutions__c  &gt;= 40, 1, 
+IF( Q_OfferSolutions__c &lt;= 30, 0, 0))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CX MetNeeds Score (Q3)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CX_Net_Promoter_Score_Q9__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Q_LikelyToRecommendBrandToFriends__c &gt;= 9, 1, 
+IF(Q_LikelyToRecommendBrandToFriends__c ==7 || Q_LikelyToRecommendBrandToFriends__c==8, 0,
+IF(Q_LikelyToRecommendBrandToFriends__c &lt;= 6, -1,0)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CX Net Promoter Score (Q9)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CX_Overall_Score_Q1_5__c</fullName>
+        <externalId>false</externalId>
+        <formula>(CX_Friendly_Welcoming_Score_Q1__c +
+CX_UnderstandsNeeds_Score_Q2__c +
+CX_MetNeeds_Score_Q3__c + 
+CX_EasySimple_Score_Q4__c + 
+CX_FeelValued_Score_Q5__c) / 5</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CX Overall Score (Q1-5)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CX_Repurchase_Score_Q8__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Q_LikelyToBuyBrand__c ,&quot;Definitely will buy&quot;) || 
+ISPICKVAL(Q_LikelyToBuyBrand__c, &quot;Probably will buy&quot;), 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CX Repurchase Score (Q8)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CX_Trust_Score_Q7__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Q_IsThisBrandYouCanTrust__c,&quot;Strongly Agree&quot;) || ISPICKVAL(Q_IsThisBrandYouCanTrust__c, &quot;Somewhat Agree&quot;), 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CX Trust Score (Q7)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CX_UnderstandsNeeds_Score_Q2__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Q_UnderstandSpecificNeeds__c   &gt;= 40, 1, 
+IF( Q_UnderstandSpecificNeeds__c   &lt;= 30, 0, 0))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CX UnderstandsNeeds Score (Q2)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Case_Brand__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Case__r.Brand__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Brand</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Country__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Case__r.Country__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Country</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Language_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case__r.Language_Code__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Language Code</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Language__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Case__r.Language__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Language</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Origin__c</fullName>
+        <description>Used to dynamically display &quot;Did you receive our response&quot; question on CS Survey form</description>
+        <externalId>false</externalId>
+        <formula>TEXT(Case__r.Origin)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case_Origin</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>CSAT Surveys</relationshipLabel>
+        <relationshipName>CSAT_Surveys</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>CSAT Surveys</relationshipLabel>
+        <relationshipName>CSAT_Surveys</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Created_By_Location__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Dataload_Created_By_Location__c != null, Dataload_Created_By_Location__c, TEXT(CreatedBy.Location__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Created By Location</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Created_By_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Dataload_Created_By_Name__c != null, Dataload_Created_By_Name__c, CreatedBy.FirstName &amp; &apos; &apos; &amp; CreatedBy.LastName)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Created By Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dataload_Created_By_Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Dataload Created By Location</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dataload_Created_By_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Dataload Created By Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Page_Parameters__c</fullName>
+        <externalId>false</externalId>
+        <label>Page Parameters</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Q_ConsumerCareTeamFeedback__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What was &lt;u&gt; the one thing &lt;/u&gt; that stood out, good or bad, about your experience with our Consumer Care Team?</inlineHelpText>
+        <label>Q_ConsumerCareTeamFeedback</label>
+        <length>2000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q_ExplainReasonForScore__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Could you please explain the reason for your score?</inlineHelpText>
+        <label>Q_ExplainReasonForScore</label>
+        <length>2000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q_FriendlyAndWelcoming__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Were we &lt;b&gt; friendly &amp; welcoming? &lt;/b&gt;</inlineHelpText>
+        <label>Q_FriendlyAndWelcoming</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q_IsThisBrandYouCanTrust__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Do you feel that this is a brand you can trust?</inlineHelpText>
+        <label>Q_IsThisBrandYouCanTrust</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Strongly Agree</fullName>
+                    <default>false</default>
+                    <label>Strongly Agree</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Agree</fullName>
+                    <default>false</default>
+                    <label>Somewhat Agree</label>
+                </value>
+                <value>
+                    <fullName>Neither Agree nor Disagree</fullName>
+                    <default>false</default>
+                    <label>Neither Agree nor Disagree</label>
+                </value>
+                <value>
+                    <fullName>Somewhat Disagree</fullName>
+                    <default>false</default>
+                    <label>Somewhat Disagree</label>
+                </value>
+                <value>
+                    <fullName>Strongly Disagree</fullName>
+                    <default>false</default>
+                    <label>Strongly Disagree</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q_LikelyToBuyBrand__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How likely are you to buy this brand in the future?</inlineHelpText>
+        <label>Q_LikelyToBuyBrand</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Definitely will buy</fullName>
+                    <default>false</default>
+                    <label>Definitely will buy</label>
+                </value>
+                <value>
+                    <fullName>Probably will buy</fullName>
+                    <default>false</default>
+                    <label>Probably will buy</label>
+                </value>
+                <value>
+                    <fullName>Might or might not buy</fullName>
+                    <default>false</default>
+                    <label>Might or might not buy</label>
+                </value>
+                <value>
+                    <fullName>Probably will not buy</fullName>
+                    <default>false</default>
+                    <label>Probably will not buy</label>
+                </value>
+                <value>
+                    <fullName>Definitely will not buy</fullName>
+                    <default>false</default>
+                    <label>Definitely will not buy</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q_LikelyToRecommendBrandToFriends__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How likely are you to recommend this brand to friends and family? (0 = very unlikely and 10 = very likely)</inlineHelpText>
+        <label>Q_LikelyToRecommendBrandToFriends</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q_MakeFeelValued__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did we &lt;b&gt;make you feel valued?&lt;/b&gt;</inlineHelpText>
+        <label>Q_MakeFeelValued</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q_MakeItEasySimple__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did we make it &lt;b&gt;easy and simple for you?&lt;/b&gt;</inlineHelpText>
+        <label>Q_MakeItEasySimple</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q_OfferSolutions__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did we offer solutions that &lt;b&gt; met your needs ? &lt;/b&gt;</inlineHelpText>
+        <label>Q_OfferSolutions</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q_UnderstandSpecificNeeds__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did we really &lt;b&gt;understand your specific needs? &lt;/b&gt;</inlineHelpText>
+        <label>Q_UnderstandSpecificNeeds</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Created</fullName>
+                    <default>true</default>
+                    <label>Created</label>
+                </value>
+                <value>
+                    <fullName>Submitted</fullName>
+                    <default>false</default>
+                    <label>Submitted</label>
+                </value>
+                <value>
+                    <fullName>Expired</fullName>
+                    <default>false</default>
+                    <label>Expired</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SurveyLinkURL__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (TEXT(Status__c) = &apos;Created&apos;, 
+
+HYPERLINK($Setup.ContactUsURL__c.URL__c &amp; &apos;/sf_csatsurvey&apos; &amp; Page_Parameters__c &amp; Brand_Page_Parameters__c , $Label.CSAT_Survey_Link_Text , &apos;_blank&apos;), 
+
+&apos;Survey Completed&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Survey Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Survey_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Survey Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Survey_Link__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (TEXT(Status__c) = &apos;Created&apos;, 
+
+$Setup.ContactUsURL__c.URL__c &amp; &apos;/sf_csatsurvey&apos; &amp; Page_Parameters__c &amp; Brand_Page_Parameters__c, 
+
+&apos;Survey Completed&apos;)</formula>
+        <label>Survey Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>CSAT Survey</label>
+    <listViews>
+        <fullName>My_CX</fullName>
+        <columns>NAME</columns>
+        <columns>Case__c</columns>
+        <columns>Q_ConsumerCareTeamFeedback__c</columns>
+        <columns>CX_Agent_Score_Q1_2__c</columns>
+        <columns>CX_Overall_Score_Q1_5__c</columns>
+        <columns>Case_Brand__c</columns>
+        <columns>Case_Country__c</columns>
+        <columns>Case_Language__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </filters>
+        <filters>
+            <field>LAST_UPDATE</field>
+            <operation>equals</operation>
+            <value>LAST_N_DAYS:7</value>
+        </filters>
+        <label>My CX</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>CSAT-{00000000}</displayFormat>
+        <label>CSAT Survey Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CSAT Surveys</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

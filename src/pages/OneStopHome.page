@@ -1,0 +1,47 @@
+<apex:page tabStyle="One_Stop__c" controller="OneStopHomeCon"> 
+ 
+ <apex:pageblock Title="Additional Links" id="linksAdditional" >
+     <apex:pageBlockSection columns="3">
+         <apex:pageBlockSectionItem >
+             <a href="/apex/OneStopNew?retURL=apex/OneStopHome">New Request</a>
+         </apex:pageBlockSectionItem>
+         <apex:pageBlockSectionItem >
+             <a href="/apex/OneStopListViews">List Views</a>
+         </apex:pageBlockSectionItem>
+         <apex:pageBlockSectionItem >
+             <a href="/apex/OneStopApprovedRequests">Approved Requests</a>
+         </apex:pageBlockSectionItem>
+         <apex:pageBlockSectionItem rendered="{!$User.X1STOP_Approver__c}">
+             <a href="/apex/OneStopNeedApproval">Requests Waiting for Approval</a>
+         </apex:pageBlockSectionItem>
+     </apex:pageBlockSection>
+ </apex:pageblock>
+ 
+ <apex:pageblock Title="Requests Owned By me" id="requests" >
+      <apex:pageBlockTable value="{!myrequests}" var="item" id="myrequests">
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Name.Label}">
+              <apex:outputLink value="/{!item.id}">{!item.Name}</apex:outputlink>
+          </apex:column>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Status__c.Label}" value="{!item.Status__c}"/>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Priority__c.Label}" value="{!item.Priority__c}"/>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Actual_Expected_Due_Date__c.Label}" value="{!item.Actual_Expected_Due_Date__c}"/>         
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.CreatedDate.Label}" value="{!item.CreatedDate}"/>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Flag__c.Label}" value="{!item.Flag__c}"/>
+      </apex:pageBlockTable>
+ </apex:pageblock>
+ 
+ <apex:pageblock Title="Requests Created By me" id="requestscreatedbyme" >
+      <apex:pageBlockTable value="{!RequestsCreatedByMe}" var="item" id="tablerequestscreatedbyme">
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Name.Label}">
+              <apex:outputLink value="/{!item.id}">{!item.Name}</apex:outputlink>
+          </apex:column>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Status__c.Label}" value="{!item.Status__c}"/>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Priority__c.Label}" value="{!item.Priority__c}"/>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Actual_Expected_Due_Date__c.Label}" value="{!item.Actual_Expected_Due_Date__c}"/>         
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.CreatedDate.Label}" value="{!item.CreatedDate}"/>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Flag__c.Label}" value="{!item.Flag__c}"/>
+      </apex:pageBlockTable>
+ </apex:pageblock> 
+ 
+ 
+</apex:page>

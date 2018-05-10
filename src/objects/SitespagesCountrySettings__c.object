@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>DOB_Type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Type of the DOB to be shown on the email form. Possible values are = &apos;MM/YYYY&apos; (or) &apos;Range&apos;.</inlineHelpText>
+        <label>DOB Type</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Minimum_Age__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Sitespage won&apos;t let the consumer to submit the email form if the consumer&apos;s age is less than the minimum age. Age should be in years. Ex: 12,13,14...</inlineHelpText>
+        <label>Minimum Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>SitespagesCountrySettings</label>
+    <visibility>Public</visibility>
+</CustomObject>

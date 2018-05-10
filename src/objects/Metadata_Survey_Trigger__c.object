@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>sf_OverrideMSTNewEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>sf_OverrideMSTNewEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>sf_OverrideMSTView</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object will store information from the Global Product and Global Comment Code that will be used to trigger the correct survey.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>This indicates this rule is Active</description>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Brand__c</fullName>
+        <externalId>false</externalId>
+        <label>Brand</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comment_Code_L1__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment Code L1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comment_Code_L2__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment Code L2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comment_Code_L3__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment Code L3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comment_Code_Path__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment Code Path</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Method__c</fullName>
+        <description>Values for this are dynamically taken from case object so that if a contact method is added it will be available automatically in the trigger admin page</description>
+        <externalId>false</externalId>
+        <label>Contact Method</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Direction__c</fullName>
+        <description>Direction is an option to trigger and it is multi-selectable. Shows picklist values from Case.Direction__c</description>
+        <externalId>false</externalId>
+        <label>Direction</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Expiration_Date__c</fullName>
+        <description>This is the date after which this rule expires</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter the date till which this rule is going to be valid.</inlineHelpText>
+        <label>Expiration Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Language__c</fullName>
+        <externalId>false</externalId>
+        <label>Language</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_30_Day_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Last 30 Day Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_60_Day_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Last 60 Day Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_90_Day_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Last 90 Day Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lifetime_Trigger_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Lifetime Trigger Count</label>
+        <summaryForeignKey>MST_Action_Count__c.Metadata_Survey_Trigger__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Product_Path__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Path</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment__c</fullName>
+        <externalId>false</externalId>
+        <label>Segment</label>
+        <length>10000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Survey_Fieldset__c</fullName>
+        <externalId>false</externalId>
+        <label>Survey Fieldset</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Survey_Object__c</fullName>
+        <description>Text area to enter the Survey Object</description>
+        <externalId>false</externalId>
+        <label>Survey Object</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Trigger_Count_Last_Updated__c</fullName>
+        <description>Date 30/60/90 Days Trigger Count fields were last updated</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date 30/60/90 Days Trigger Count fields were last updated</inlineHelpText>
+        <label>Trigger Count Last Updated</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Trigger_Type__c</fullName>
+        <description>Level -  Allows creation of a survey trigger at the brand/segment level and L1,L2, and L3 levels of a comment code
+Brand/Segment are refreshed in real time based on country entered
+L1, L2, and L3 comment code levels are available for the admin.
+Path - Allows creation of a survey trigger where a specific product and comment paths are required.
+Paths will be copy and pasted into text fields by the admin.
+Admin can enter 1 comment path and 1 product path per record</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Level -  Allows creation of a survey trigger at the brand/segment level and L1,L2, and L3 levels of a comment code
+
+Path - Allows creation of a survey trigger where a specific product and comment paths are required.</inlineHelpText>
+        <label>Trigger Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Level</fullName>
+                    <default>false</default>
+                    <label>Level</label>
+                </value>
+                <value>
+                    <fullName>Path</fullName>
+                    <default>false</default>
+                    <label>Path</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>Pick the type of survey</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the type of survey that will be opened based on the rule</inlineHelpText>
+        <label>Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Ad Hoc</fullName>
+                    <default>false</default>
+                    <label>Ad Hoc</label>
+                </value>
+                <value>
+                    <fullName>Probing Questions</fullName>
+                    <default>false</default>
+                    <label>Probing Questions</label>
+                </value>
+                <value>
+                    <fullName>SAS Survey</fullName>
+                    <default>false</default>
+                    <label>SAS Survey</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Metadata Survey Trigger</label>
+    <listViews>
+        <fullName>Ad_Hoc_Surveys</fullName>
+        <columns>NAME</columns>
+        <columns>Expiration_Date__c</columns>
+        <columns>Brand__c</columns>
+        <columns>Segment__c</columns>
+        <columns>Product_Path__c</columns>
+        <columns>Comment_Code_L3__c</columns>
+        <columns>Survey_Fieldset__c</columns>
+        <columns>Lifetime_Trigger_Count__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Type__c</field>
+            <operation>equals</operation>
+            <value>Ad Hoc</value>
+        </filters>
+        <label>Ad Hoc Surveys</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Product_Path__c</columns>
+        <columns>NAME</columns>
+        <columns>Direction__c</columns>
+        <columns>Expiration_Date__c</columns>
+        <columns>Active__c</columns>
+        <columns>Survey_Fieldset__c</columns>
+        <columns>Segment__c</columns>
+        <columns>Comment_Code_L3__c</columns>
+        <columns>Comment_Code_Path__c</columns>
+        <columns>Survey_Object__c</columns>
+        <columns>Type__c</columns>
+        <columns>Lifetime_Trigger_Count__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Comment_Code_Path__c</field>
+            <operation>contains</operation>
+            <value>damage</value>
+        </filters>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All_Records_with_Count</fullName>
+        <columns>NAME</columns>
+        <columns>Active__c</columns>
+        <columns>Last_30_Day_Count__c</columns>
+        <columns>Last_60_Day_Count__c</columns>
+        <columns>Last_90_Day_Count__c</columns>
+        <columns>Lifetime_Trigger_Count__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Records with Count</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Foreign_Material</fullName>
+        <columns>NAME</columns>
+        <columns>Expiration_Date__c</columns>
+        <columns>Active__c</columns>
+        <columns>Survey_Fieldset__c</columns>
+        <columns>Segment__c</columns>
+        <columns>Comment_Code_L3__c</columns>
+        <columns>Comment_Code_Path__c</columns>
+        <columns>Survey_Object__c</columns>
+        <columns>Type__c</columns>
+        <columns>Lifetime_Trigger_Count__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Comment_Code_L3__c</field>
+            <operation>contains</operation>
+            <value>Alleged Foreign Material</value>
+        </filters>
+        <label>Foreign Material</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Probing_Questions</fullName>
+        <columns>Product_Path__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>NAME</columns>
+        <columns>Contact_Method__c</columns>
+        <columns>Survey_Fieldset__c</columns>
+        <columns>Segment__c</columns>
+        <columns>Comment_Code_L3__c</columns>
+        <columns>Brand__c</columns>
+        <columns>Trigger_Type__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Type__c</field>
+            <operation>equals</operation>
+            <value>Probing Questions</value>
+        </filters>
+        <label>Probing Questions</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Safety_Assessment_Surveys</fullName>
+        <columns>Country__c</columns>
+        <columns>NAME</columns>
+        <columns>Comment_Code_L1__c</columns>
+        <columns>Comment_Code_L2__c</columns>
+        <columns>Comment_Code_L3__c</columns>
+        <columns>Segment__c</columns>
+        <columns>Contact_Method__c</columns>
+        <columns>Language__c</columns>
+        <columns>Brand__c</columns>
+        <columns>Trigger_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Type__c</field>
+            <operation>equals</operation>
+            <value>SAS Survey</value>
+        </filters>
+        <label>Safety Assessment Surveys</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>MTN-{000000}</displayFormat>
+        <label>Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Metadata Survey Triggers</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Active__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Expiration_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Trigger_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Lifetime_Trigger_Count__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Survey_Fieldset__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Survey_Object__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+        <listViewButtons>Update_MST_Count</listViewButtons>
+        <lookupDialogsAdditionalFields>Expiration_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Country__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Language__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Survey_Fieldset__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Survey_Object__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Type__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>NAME</lookupFilterFields>
+        <lookupFilterFields>Active__c</lookupFilterFields>
+        <lookupFilterFields>Survey_Fieldset__c</lookupFilterFields>
+        <lookupFilterFields>Survey_Object__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>Active__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Country__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Expiration_Date__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Language__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Survey_Fieldset__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Survey_Object__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Type__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Active__c</searchFilterFields>
+        <searchFilterFields>Country__c</searchFilterFields>
+        <searchFilterFields>Expiration_Date__c</searchFilterFields>
+        <searchFilterFields>Language__c</searchFilterFields>
+        <searchFilterFields>Survey_Fieldset__c</searchFilterFields>
+        <searchFilterFields>Survey_Object__c</searchFilterFields>
+        <searchResultsAdditionalFields>Survey_Object__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Survey_Fieldset__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Language__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Update_MST_Count</fullName>
+        <availability>online</availability>
+        <description>Javascript Button to fire the Schedule/Batch job MSTCount/MSTCountSchedule</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Update MST Count</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)} 
+
+var apexClassArray= sforce.connection.query(&quot;SELECT Id FROM ApexClass WHERE Name =&apos;MSTCount&apos;&quot;); 
+
+recordsclassid= apexClassArray.getArray(&quot;records&quot;); 
+
+var checkBatchRunningRecords= sforce.connection.query(&quot;SELECT ApexClassId, status FROM AsyncApexJob WHERE ApexClassId =&apos;&quot;+recordsclassid[0].Id+&quot;&apos; AND Status NOT IN (&apos;Completed&apos;,&apos;Aborted&apos;,&apos;Failed&apos;)&quot;); 
+
+records= checkBatchRunningRecords.getArray(&quot;records&quot;); 
+
+if(records.length&gt;0){ 
+window.alert(&quot;The batch job is currently executing. Please wait for it to complete.&quot;); 
+} 
+else{ 
+var scr=&quot;Id BatchJobMSTCountButtonClick = Database.executeBatch(new MSTCount(), 1);&quot;;
+
+var result = sforce.apex.executeAnonymous(scr);
+window.alert(&apos;Batch Job MSTCount has started.&apos;); 
+
+}</url>
+    </webLinks>
+</CustomObject>

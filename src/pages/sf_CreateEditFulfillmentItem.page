@@ -1,0 +1,119 @@
+<apex:page standardController="Fulfillment_Item__c" extensions="sf_CreateEditFulfillmentItemExt">
+    <apex:sectionHeader title="{!$ObjectType.Fulfillment_Item__c.label} Edit" subtitle="New {!$ObjectType.Fulfillment_Item__c.label}"/>
+    <apex:form id="form1">
+    <apex:pageMessages />
+    <apex:pageBlock title="{!$ObjectType.Fulfillment_Item__c.label} Edit" mode="edit">
+        <apex:pageBlockButtons >
+            <apex:commandButton action="{!save}" value="Save"/>
+            <apex:commandButton action="{!cancel}" value="Cancel"/>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection showHeader="true" title="Fulfillment Item Information" columns="2">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Fulfillment Item Owner"/>
+                <apex:outputText value="{!Fulfillment_Item__c.Owner.Name}"/>
+            </apex:pageBlockSectionItem>
+            <apex:inputField required="true" value="{!Fulfillment_Item__c.Type__c}"/>
+            <apex:inputField required="true" value="{!Fulfillment_Item__c.Name}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Active__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Description__c}"/>                               
+            <apex:inputField required="true" value="{!Fulfillment_Item__c.Contact_Center__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Expiration_Date__c}"/>
+            <apex:inputField required="true" value="{!Fulfillment_Item__c.Contact_Language__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Resend_Item__c}"/>
+            <apex:inputField required="true" value="{!Fulfillment_Item__c.Contact_Country__c}">
+                <apex:actionSupport event="onchange" rerender="form1" status="Status"/>
+            </apex:inputField>
+            <apex:pageBlockSectionItem id="br">
+                <apex:outputLabel value="{!$ObjectType.Fulfillment_Item__c.fields.Brand__c.Label}" for="brand"></apex:outputLabel>
+                <apex:selectList id="brand" size="1" value="{!Fulfillment_Item__c.Brand__c}">
+                    <apex:selectOptions value="{!brands}"></apex:selectOptions>
+                    <apex:actionSupport event="onchange" rerender="form1, segment"></apex:actionSupport>
+                </apex:selectList>
+            </apex:pageBlockSectionItem> 
+            <apex:inputField value="{!Fulfillment_Item__c.Fulfillment_Item_Group_ID__c}"/>
+            <apex:pageBlockSectionItem id="segment">
+                <apex:outputLabel value="{!$ObjectType.Fulfillment_Item__c.fields.Segment__c.Label}" for="segment"></apex:outputLabel>
+                <apex:selectList id="segment" size="1" value="{!Fulfillment_Item__c.Segment__c}">
+                    <apex:selectOptions value="{!segments}"></apex:selectOptions>
+                </apex:selectList> 
+            </apex:pageBlockSectionItem>
+            <apex:inputField value="{!Fulfillment_Item__c.Bundle_Parent__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Request_Type__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Conga_Template__c}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection showHeader="true" title="Prepaid Cards" columns="1">
+            <apex:inputField value="{!Fulfillment_Item__c.Program_Id__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.City_Country_Code__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Access_Level_Card_Choice__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Partner_Id__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Card_GL_Account__c}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection showHeader="true" title="Automated Fulfillment Items" columns="2">
+            <apex:inputField value="{!Fulfillment_Item__c.Promo_Flag__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Promo_Limit__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Promo_Segment__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Promo_Count__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Auto_Fulfillment_GCR_CID__c}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Fulfillment_Item__c.Promo_Quantity__c}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Fulfillment_Item__c.Promo_Template_Id__c}"/>
+            <apex:pageBlockSectionItem />
+        </apex:pageBlockSection>
+        <apex:pageBlockSection showHeader="true" title="Hermes Intergration" columns="2">
+            <apex:inputField value="{!Fulfillment_Item__c.RL_Address_Line_1__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Status__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.RL_Address_Line_2__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Preprinted__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.RL_Address_Line_3__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Retail_Value__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.RL_Address_Line_4__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Begin_DT__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.RL_Address_Line_5__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.End_DT__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.RL_Permit_City_State__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.UPC_Code__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.RL_Permit_Number__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.SKU__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Hermes_Country__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Purchasing_SKU__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.P_G_GL_Account_Number__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.EAN_Code__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.PG_Department_Number__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Stock_Item_Flag__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.PG_Budget_Code__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Site__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.PG_Country_Code__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Instructions__c}"/>
+            <apex:pageBlockSectionItem />
+            <apex:inputField value="{!Fulfillment_Item__c.Fulfillment_Company_ID__c}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection showHeader="true" title="Coupon Informaton" columns="2">
+            <apex:inputField value="{!Fulfillment_Item__c.Check_Digit__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.SAVE_VALUE_VLI__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Coupon_Type__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.SAVE_VALUE__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Coupon_Description__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.PRIMARY_PURCHASE_REQ_VLI__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Brand_ID__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.PRIMARY_PURCHASE_REQ__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Manufacturer_ID__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.PRIMARY_PURCHASE_REQ_CODE__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Family_Code__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.SERIAL_NUMBER_CODE__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Form_ID__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.MISC_ELEMENTS__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.NSC__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.SAVE_VALUE_CODE__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.APPLICATION_IDENTIFIER__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.SAVE_VALUES_APPLIES_TO__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.COMPANY_PREFIX_VLI__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.DO_NOT_MULTIPLY__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.COMPANY_PREFIX__c}"/>
+            <apex:inputField value="{!Fulfillment_Item__c.Store_Coupon__c}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection showHeader="true" title="System Information" columns="2">
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

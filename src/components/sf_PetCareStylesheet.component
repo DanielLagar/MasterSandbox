@@ -1,0 +1,78 @@
+<apex:component >
+<style type="text/css">
+    .eukanuba {
+        clear:both;
+        height:auto;
+        margin:0;
+        padding:15px;
+        width:550px;
+        height:800px;
+        color: #333333;
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+    }
+    
+    .eukanuba input, select, option {
+        font-size:11px;
+    }
+    
+    .eukanuba a {
+        color:#E73097;
+        text-decoration:none;
+    }
+    
+    .eukanuba a:hover {
+        color:#E73097;
+        text-decoration:underline;
+    }
+    
+    .eukanuba p, form {
+        line-height:16px;
+        margin: 15px 0;
+        padding:0;
+    }
+
+    .eukanuba .clear {
+        clear: both;
+    }
+    
+    .eukanuba h1 {
+        font-size:200%;
+    }
+    
+    .eukanuba h2 {
+        font-size:150%;
+    }
+    
+    .eukanuba .pink {
+        color: #E73097;
+    }
+
+    .eukanuba .privacy {
+        color: #888;
+        font-size: 80%
+    }
+    
+    .eukanuba .form_question {
+        margin: 10px 0;
+        display: block;
+    }
+        
+    .eukanuba .question_label {
+        float: left;
+        width: 40%;
+        text-align: right;
+        display: block;
+    }
+    
+    .eukanuba .question_label .label_container {
+        margin-right: 10px;
+    }
+    
+    .eukanuba .question_field {
+        float: left;
+        width: 60%;
+        display: block;
+    }
+    
+</style>
+</apex:component>

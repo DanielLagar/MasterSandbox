@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>APXTConga4__Conga_Solution__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Conga Solution</label>
+        <referenceTo>APXTConga4__Conga_Solution__c</referenceTo>
+        <relationshipName>Composer_QuickMerge_Records</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>5000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Launch_CM8__c</fullName>
+        <deprecated>false</deprecated>
+        <description>IF( 
+ OR(APXTConga4__Weblink_ID__c = null, APXTConga4__Weblink_ID__c = &apos;&apos;), 
+
+ IMAGE( &quot;/resource/APXTConga4__DisabledLaunchButton&quot;, &quot;Launch Disabled&quot;),
+
+ HYPERLINK(&quot;https://&quot; &amp; MID( $Api.Enterprise_Server_URL_320, FIND(&quot;://&quot;, $Api.Enterprise_Server_URL_100)+3, FIND( &quot;.com&quot;, $Api.Enterprise_Server_URL_100 )-4) 
+ &amp; &quot;servlet/servlet.Integration?lid=&quot; &amp; APXTConga4__Weblink_ID__c 
+ &amp; &quot;&amp;eid=&quot; &amp; Id &amp; &quot;&amp;ic=1&quot; 
+ , IMAGE( &quot;/resource/APXTConga4__ComposerLaunchButton&quot; , &quot;Launch Composer&quot;), &quot;_blank&quot; )
+)</description>
+        <externalId>false</externalId>
+        <formula>IF( 
+ OR(APXTConga4__Weblink_ID__c = null, APXTConga4__Weblink_ID__c = &apos;&apos;), 
+
+ IMAGE( &quot;/resource/APXTConga4__DisabledLaunchButton&quot;, &quot;Launch Disabled&quot;),
+
+ HYPERLINK(&quot;/apex/APXTConga4__SMComposer8Launcher?SampleRecordId=&quot; &amp; Id &amp; &quot;&amp;WeblinkId=&quot; &amp; APXTConga4__Weblink_ID__c &amp; &quot;&amp;SMRecordId=&quot; &amp; APXTConga4__Conga_Solution__r.Id &amp; &quot;&amp;OrganizationId=&quot; &amp; $Organization.Id
+ , IMAGE( &quot;/resource/APXTConga4__ComposerLaunchButton&quot; , &quot;Launch Composer&quot;), &quot;_blank&quot; ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Use this button to launch the Composer QuickMerge Solution. Only available when the Button ID field is populated.</inlineHelpText>
+        <label>Launch</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Weblink_ID_Formula__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>LEFT(APXTConga4__Weblink_ID__c, 15)</formula>
+        <label>Button ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Weblink_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Button ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Weblink_Name_Formula__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>APXTConga4__Weblink_Name__c</formula>
+        <label>Button Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Weblink_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Button Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>Conga Global Merge</label>
+    <listViews>
+        <fullName>APXTConga4__All</fullName>
+        <columns>NAME</columns>
+        <columns>APXTConga4__Weblink_Name_Formula__c</columns>
+        <columns>APXTConga4__Conga_Solution__c</columns>
+        <columns>APXTConga4__Weblink_ID_Formula__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>APXTConga4__Launch_CM8__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Conga Global Merge Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Conga Global Merges</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>APXTConga4__Weblink_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>APXTConga4__Conga_Solution__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>APXTConga4__Launch_CM8__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

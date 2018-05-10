@@ -1,0 +1,389 @@
+<!-- 
+/**
+* @author: salesforce.com
+* @date: 02/10/2015
+*
+* @description: live agent pre chat page for public site to collect info used to search the contact
+* 
+*/
+ -->
+<apex:page showHeader="false" sidebar="false" controller="sf_ContactUsTemplateController" extensions="sf_ContactUsLanguageController">
+    <!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+    <apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jquery_validate, '/dist/jquery.validate.min.js')}"/>
+
+    <!-- This script takes the endpoint URL parameter passed from the deployment
+    page and makes it the action for the form -->
+	<script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', {!$Setup.Global_Org_Settings__c.GA_Tracking_Code__c}]);
+        _gaq.push(['_trackPageview']);
+        
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+        if (!window.console) {console={log: function () {}} };    
+        (function() {
+            
+            function handlePageLoad() {
+                var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+                try {
+                    document.getElementById('prechatForm').setAttribute('action',
+                    decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+                } catch (err) {
+                    console.log (err);
+                }
+            } 
+
+            if (window.addEventListener) {
+                window.addEventListener('load', handlePageLoad, false);
+            } else { 
+                window.attachEvent('onload', handlePageLoad, false);
+            }
+
+        })();
+	</script>
+    <apex:composition template="sf_ContactUsTemplateNoHeaderPicklist">
+        <apex:define name="header">
+            <c:sf_ContactUsHeaderSimple />
+        </apex:define>
+        
+        <apex:define name="body">
+            <!-- yes it should be here!! -->
+            <script type="text/javascript">
+                //liveagent.enableLogging();
+                //a little syntactic sugar
+                Number.prototype.inRange = function(low, hi) {
+                    return this >= low && this <= hi;
+                };
+                //expects mm/yyyy date
+                var getAge = function(mmyyyy) {
+                    var month = parseInt(mmyyyy.substring(0,2));
+                    var year = parseInt(mmyyyy.substring(3,7));
+                    var birthDate = new Date(year, month-1, 1); //0 based months.
+                    var today = new Date();
+                    var age = today.getFullYear() - birthDate.getFullYear();
+                    var m = today.getMonth() - birthDate.getMonth();
+                    if( m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    return age;
+                };
+
+                var validator;
+                var initPageValidation = function () {
+                    validator = $('#prechatForm').validate({
+                        ignoreTitle: true,
+                        errorElement: 'span',
+                        focusInvalid: false,
+                        invalidHandler: function(form, validator) {
+                            var errors = validator.numberOfInvalids();
+                            if (errors) {
+                                  $("html, body").animate({ scrollTop: 0 }, "fast");
+                            }
+                        }
+
+                    });
+                    $('#firstNameField').rules ("add", {
+                            required : true
+                        }
+                    );
+
+                    $('#lastNameField').rules ("add", {
+                            required : true
+                        }
+                    );
+                    if ($('#agerange').length)
+                        $('#agerange').rules ("add", {
+                                required : true
+                            }
+                        );
+                    $('#emailField').rules ("add", {
+                            required : true,
+                            email : true
+                        }
+                    );
+                    jQuery.validator.addMethod("mmyyyy", function(value, element)  {
+                        return this.optional(element)
+                            || /^\d\d\/\d\d\d\d$/.test(value)
+                            && parseInt(value.substring(0,2)).inRange(1,12)
+                    },  "{!JSENCODE(langCon.language_config.Birthdate_field_validation_error__c)}");
+                    if ($('.birthdate').length) {
+                        $('.birthdate').rules ( "add", {
+                                required : true,
+                                mmyyyy: true
+                            }
+                        );
+                    }
+                    /* Customised the messages */
+                    jQuery.validator.messages.required = "{!JSENCODE(langCon.language_config.field_is_required_message__c)}";
+                }; //end initPageValidation
+                var checkAgeCookie = function () {
+                    
+                    if (getCookie('notOldEnough')) {
+                        $('#prechat_submit').remove();
+                        $('#notOldEnough').show();
+                        $('.row').remove();
+                    }
+                    return getCookie('notOldEnough');
+                };
+                var getCookie = function (cname) {
+                    var name = cname + "=";
+                    var ca = document.cookie.split(';');
+                    for(var i=0; i<ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0)==' ') c = c.substring(1);
+                        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+                    }
+                    return "";
+                };
+
+                $(document).ready(function() {
+                    if (!checkAgeCookie()) {
+                        initPageValidation();
+                        $('input:text').change( function(){
+                            $('#prechat_submit').attr('disabled', 'disabled');
+                            $('#acceptTsCs').attr('checked', false);
+                            if ($('#birthdateField').length) {
+                                if (getAge($('#birthdateField').val()) < {!langCon.bl_case_minimum_age}) {
+                                    document.cookie="notOldEnough=true";
+                                    checkAgeCookie();
+                                }
+                            } else {
+                                if ($('#agerange').val() == "1") { //always underage
+                                    document.cookie="notOldEnough=true";
+                                    checkAgeCookie();
+                                }
+                            }
+                        });
+                    }
+                    
+                });
+
+            var toggleSubmitButton = function (el) {
+                if ($(el).is(':checked')) {
+                    if ($('#birthdateField').length) {
+                        if (getAge($('#birthdateField').val()) >= {!langCon.bl_case_minimum_age})
+                            $('#prechat_submit').removeAttr('disabled');
+                    } else {
+                        $('#prechat_submit').removeAttr('disabled');
+                    }
+                }                
+                else $('#prechat_submit').attr('disabled', 'disabled');
+            };
+            </script>
+           <!--  <div class="page-title">{!langCon.language_config.Page_Heading__c}</div> -->
+                <form method='post' id='prechatForm'>
+                    <div id="validationError" style="display:none">{!langCon.language_config.Top_of_the_page_error_message__c}</div>
+                    <div class="innerForm">
+                        <!-- CDOY WR172 - Allow a way for admin users to use config to reverse the FirstName and Lastname on the contact Us pages. -->
+                        <apex:outputPanel layout="block" rendered="{!IF(langContr.isLastNameFirst == true,'false', 'true')}"> <!--CDOY WR172-->
+                            <apex:outputPanel layout="block" styleClass="row inputChatFieldStyle">
+                                <!--CHANGES CHAT REVAMP-->
+                                <!--<apex:outputLabel value="{!langCon.language_config.Contact_Us_First_Name__c}"/>--.
+                                <!--<input type='text' name='liveagent.prechat:FirstNameDetail' id='firstNameField' class="form-control" />-->                           
+                                <!-- The below line will replace Visitor with the value entered in input field --> 
+                                <input type='text' name='liveagent.prechat.name' id="firstNameField" class="form-control" 
+                                       placeholder="{!langCon.language_config.Contact_Us_First_Name__c}"
+                                       onchange="myFunction(); _gaq.push(['_trackEvent', 'Event_Form_Interaction', 'Event_Field_Focus', 'Case Prechat First Name']);" />
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="block" styleClass=" row inputChatFieldStyle">
+                                <!--CHANGES CHAT REVAMP-->
+                                <!--<apex:outputLabel value="{!langCon.language_config.Contact_Us_Last_Name__c}"/>-->
+                                <input type='text' name='liveagent.prechat:LastNameDetail' id='lastNameField' class="form-control"
+                                       placeholder="{!langCon.language_config.Contact_Us_Last_Name__c}"
+                                	   onchange="_gaq.push(['_trackEvent', 'Event_Form_Interaction', 'Event_Field_Focus', 'Case Prechat Last Name'])" />
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        <!-- CDOY WR172 - Allow a way for admin users to use config to reverse the FirstName and Lastname on the contact Us pages. -->
+                        <apex:outputPanel layout="block" rendered="{!IF(langContr.isLastNameFirst == true,'true', 'false')}"> <!--CDOY WR172-->
+                            <apex:outputPanel layout="block" styleClass="row inputChatFieldStyle">
+                                <!--CHANGES CHAT REVAMP-->
+                                <!--<apex:outputLabel value="{!langCon.language_config.Contact_Us_Last_Name__c}"/>-->
+								<input type='text' name='liveagent.prechat:LastNameDetail' id='lastNameField' class="form-control"
+                                       placeholder="{!langCon.language_config.Contact_Us_Last_Name__c}"
+									   onchange="_gaq.push(['_trackEvent', 'Event_Form_Interaction', 'Event_Field_Focus', 'Case Prechat Last Name'])" />
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="block" styleClass="row inputChatFieldStyle">
+                                <!--CHANGES CHAT REVAMP-->
+                                <!--<apex:outputLabel value="{!langCon.language_config.Contact_Us_First_Name__c}"/>-->
+                                <input type='text' name='liveagent.prechat.name' id="firstNameField" class="form-control" 
+                                       placeholder="{!langCon.language_config.Contact_Us_First_Name__c}"
+                                       onchange="myFunction(); _gaq.push(['_trackEvent', 'Event_Form_Interaction', 'Event_Field_Focus', 'Case Prechat First Name']);" />
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block" styleClass="row inputChatFieldStyle">
+                            <!--CHANGES CHAT REVAMP-->
+                            <!--<apex:outputLabel value="{!langCon.language_config.Contact_Us_Email_Address__c}"/>-->
+                            <input type='text' inline="{!langCon.language_config.Contact_Us_Email_Address__c}" name='liveagent.prechat:EmailDetail' 
+                                   placeholder="{!langCon.language_config.Contact_Us_Email_Address__c}"
+                                   id='emailField' class="form-control" onchange="_gaq.push(['_trackEvent', 'Event_Form_Interaction', 'Event_Field_Focus', 'Case Prechat Email'])"/>
+                        </apex:outputPanel>
+                        <!-- CDOY WR172 - Remove the DOB Fields from the PreChat Form -->
+                        <!--<apex:outputPanel layout="block" styleClass="row" style="padding:15px;" rendered="{!langCon.bl_show_age_mmyyyy}">
+                            <apex:outputLabel value="{!langCon.language_config.Contact_Us_Birth_Date__c}"/>
+                            <input type='text' name='liveagent.prechat:BirthdateDetail' id='birthdateField' class="form-control birthdate" placeholder="{!langCon.language_config.Contact_Us_Birth_Date_Placeholder__c}"
+                            onchange="_gaq.push(['_trackEvent', 'Event_Form_Interaction', 'Event_Field_Focus', 'Case Prechat Birthdate'])"/>
+                        </apex:outputPanel>-->
+                        <!-- CDOY WR172 - Remove the DOB Fields from the PreChat Form -->
+                        <!--<apex:outputPanel layout="block" styleClass="row preChatInput" rendered="{!langCon.bl_show_age_ranges}">
+                            <label for="agerange">{!langCon.language_config.Contact_Us_Age__c}</label><span class="required"></span><br/>
+                            <select id="agerange" class="form-control agerange">
+                                <option value="" label="{!langCon.language_config.Age_Range_Please_Select__c}"/>
+                                <option value="1" label="1-12"/>
+                                <option value="2" label="13-17"/>
+                                <option value="3" label="18+"/>
+                            </select> -->
+                            <!-- <apex:inputField styleClass="form-control required" id="agerange" value="{!newCase.Contact_Age_Range__c}"></apex:inputField> -->
+                        <!--</apex:outputPanel> -->
+                        <!-- CASE -->
+                        <!-- case hidden fields -->
+                        <input type="hidden" name="liveagent.prechat:CaseOrigin" value="Chat" />
+                        <input type="hidden" name="liveagent.prechat:CaseLanguage" value="{!langCon.language_config.Language__c}" />
+                        <input type="hidden" name="liveagent.prechat:CaseCountry" value="{!langCon.language_config.Country__c}" />
+                        <!-- WR440 - MAP CHAT TYPE -->
+                        <input type="hidden" name="liveagent.prechat:ChatTypeVal" value="{!$Currentpage.parameters.type}" />
+                        <!-- Map liveagent.prechat:CaseSubject and liveagent.prechat:Langugage custom detail to case fields -->
+                        <!-- WR440 - MAP CHAT TYPE VALUE TO CHAT TYPE CASE FIELD -->
+                        <input type="hidden" name="liveagent.prechat.findorcreate.map:Case" value="Origin,CaseOrigin; Language__c,CaseLanguage; Country__c,CaseCountry; ChatType__c,ChatTypeVal" />
+                        <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Case" value="Origin,true;Language__c,true; Country__c,true; ChatType__c,true" />
+                        <!-- Save the Case id to transcript's field CaseId -->
+                        <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Case" value="CaseId" />
+                       <!-- If a new Case record has been created, open it as a subtab -->
+                        <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Case" value="true" />
+                        <!-- CONTACT -->
+                        <!-- Map liveagent.prechat:FirstNameDetail and liveagent.prechat:LastNameDetail
+                        custom detail to Contact's field FirstName and LastName -->
+                        <input type="hidden" name="liveagent.prechat.findorcreate.map:Contact" value="FirstName,FirstNameDetail;LastName,LastNameDetail;Email,EmailDetail" />
+                        <!-- Specify to query for a matching Contact records FirstName field based on the value of FirstName -->
+                        <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Contact" value="FirstName,true; LastName,true; Email,true" />
+                        <!-- Return results only if there is an exact match of FirstName --> 
+                        <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Contact" value="Email,true" />
+                        <!-- If no match in search, create a new Contact record with the mapped value of firstname and last name -->
+                        <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Contact" value="FirstName,true;LastName,true;Email,true" /> 
+                        <!-- If a new Contact record has been created, open it as a subtab -->
+                        <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Contact" value="true" />
+                        <!-- Save the Contact id to transcript's field ContactId -->
+                        <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Contact" value="ContactId" />
+                        <!-- Link Contact to Case !-->
+                        <input type="hidden" name="liveagent.prechat.findorcreate.linkToEntity:Contact" value="Case, ContactId" />
+                        <!-- The below line will display the value from input field into the Details section of Live Agent Chat, we can replace Name with ContactName or LeadName or any text and that field will be populated in details section with value -->            
+                        <input type="hidden" name="liveagent.prechat:FirstNameDetail" id="FName" /> 
+                        <script> 
+                            function myFunction() { 
+                                var text1 = document.getElementById("firstNameField").value 
+                                document.getElementById("FName").value = text1; 
+                            } 
+                        </script> 
+                        <div class="clearfix"></div>
+                        <div class="row pull-right mt30">
+                            <div class="col-md-12">   
+                                <!--CDOY WR172 - Move the terms and conditions from the Brand Langauge object to the Langauge Object -->
+                                <!--<label for="acceptTsCs">{!langCon.language_config.Accept_Terms_and_Conditions_Label_Part_1__c} <a href="{!langCon.language_config.I_Agree_Url__c}" target="_blank">{!langCon.language_config.Accept_Terms_and_Conditions_Label_Part_2__c}</a>{!langCon.language_config.Accept_Terms_and_Conditions_Label_Part_3__c}</label>-->
+                            	<label for="acceptTsCs">{!langCon.brand_language_config.Accept_Terms_and_Conditions_Label_Part_1__c} <a href="{!langCon.brand_language_config.I_Agree_Url__c}" target="_blank">{!langCon.brand_language_config.Accept_Terms_and_Conditions_Label_Part_2__c}</a>{!langCon.brand_language_config.Accept_Terms_and_Conditions_Label_Part_3__c}</label>
+                            	
+                            	<span class="required">&nbsp;*</span>
+                                <input id="acceptTsCs" type="checkbox"
+                                    styleClass="form-control required" style="display:inline; width:20px; margin-left: 3px; height: 16px;" onchange="toggleSubmitButton($(this))"/>
+                            </div><!-- ./.col-md-5 -->
+                            <div class="col-md-5">
+                                &nbsp;
+                            </div><!-- ./col-md-5 -->
+                        </div><!-- ./row -->
+                        <apex:outputPanel layout="block" style="text-align:center;">
+                            <!--CHANGES CHAT REVAMP-->
+                            <!--<span id="notOldEnough" style="display:none">{!langCon.language_config.Contact_Us_Too_Young_Text__c}</span>-->
+                            <input class="btn-custom" disabled="disabled" id="prechat_submit" type="submit" value="Request Chat"
+                                   onclick="_gaq.push(['_trackEvent', 'Event_Form_Interaction', 'Event_Field_Focus', 'Case Prechat Submit'])"/>
+                        </apex:outputPanel>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+
+            
+        </apex:define>
+    </apex:composition>
+    
+    <style type="text/css">
+        p {font-weight: bolder }
+
+        #page-body {
+            max-width: 550px;
+        	/*CHANGES CHAT REVAMP*/
+        	padding: 15px;
+        	background-color: transparent;
+    		border-color: transparent;
+        }
+
+        #validationError {
+            font-family: "Trebuchet MS";
+            font-weight: bold;
+            color: #ad1c1c;
+            font-size: {!langCon.language_config.Error_Message_Font_Size__c};
+            background: #ffdbdb;
+            padding: 20px;
+        }
+        span.error {
+            font-family: "Trebuchet MS";
+            font-style:italic;
+            font-size: 12px;
+            color: #ad1c1c;
+
+        }
+
+        input.error, select.error, textarea.error {
+            border-color: #ad1c1c; 
+        }
+
+        a {
+            font-size: 1em;
+        }
+        /*CHANGES CHAT REVAMP*/
+    	.col-xs-6 {
+        	width:35%;
+        }
+		.page-header {
+        	padding-bottom:0px;
+        }
+    	.preChatHeaderCss {
+        	padding:0px;
+        }
+        .innerForm {
+        	padding:30px;
+        }
+        .btn-custom {
+        	font-size: 15px;
+            padding: 10px 20px;
+        }
+        #prechat_submit {
+            float: none;
+            margin-right: 0px;
+            font-size: 15px;
+            margin-bottom: 0px;
+        }
+        .inputChatFieldStyle {
+        	padding:0px 15px 0px 15px;
+        	margin-bottom: 15px;
+        }
+        .mt30 {
+            margin-top: 15px;
+        }
+        .innerForm label {
+        	font-size: 0.9em;
+        	font-weight: normal;
+        }
+        #page-footer {	
+            margin-top: 0px;
+        }
+    	#page-footer2 {
+    		padding: 10px 10px 0px 10px;
+    	}
+		#page-footer a:link {
+    		font-size:14px;
+    	}
+    </style>
+</apex:page>

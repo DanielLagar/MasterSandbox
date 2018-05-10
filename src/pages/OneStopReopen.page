@@ -1,0 +1,26 @@
+<apex:page standardController="One_Stop__c" extensions="OneStopReopenCon">
+        <apex:sectionHeader title="{!$ObjectType.One_Stop__c.label} Reopen" subtitle="{!One_Stop__c.name}"/>
+        <apex:form >
+        <apex:pageBlock title="{!$ObjectType.One_Stop__c.label} Edit" mode="edit">
+                <apex:pageBlockButtons >
+                        <apex:commandButton action="{!Save}" value="Save"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection showHeader="false" columns="1">
+                                <apex:inputField value="{!One_Stop__c.Reason_for_Reopening__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageMessages ></apex:pageMessages>
+                <apex:pageBlockSection showHeader="true" title="Reopen Comments" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Comment</apex:outputLabel>
+                        <apex:inputTextarea required="true" value="{!xComment}" style="width:400px; height:100px;" label="Comments"/>
+                    </apex:pageBlockSectionItem>                                         
+                </apex:pageBlockSection>
+                <apex:pageBlockSection showHeader="true" title="Notification" columns="1">
+                        <!--<apex:inputField value="{!One_Stop__c.Send_Email__c}"/>
+                        <apex:inputField value="{!One_Stop__c.Send_Notification_To_Approver__c}"/>-->
+                        <apex:outputLabel >Notification will be sent automatically</apex:outputLabel>
+                </apex:pageBlockSection>
+        </apex:pageBlock>
+        </apex:form>
+</apex:page>

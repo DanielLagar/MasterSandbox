@@ -1,0 +1,19 @@
+<apex:component layout="block" controller="gcr_answerController">
+<!--Component WR477 Created 27/03/2017 -->
+
+    <!-- INCLUDED STYLES -->
+    <apex:outputPanel >
+        <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubFaqCmpStyling.css')}"/>
+    </apex:outputPanel>
+    <apex:attribute name="channelContentId" assignTo="{!chlContentId}" description="Channel id for answer content" type="String" required="true" />
+    <apex:outputPanel rendered="{!tempBln}" />
+        <apex:outputPanel layout="block" >
+               <apex:outputPanel layout="block" styleClass="cmpHeaderClass">{!channelContent.ChannelHeader__c}</apex:outputPanel>
+         <script type="text/javascript" src="{!$Setup.Global_Org_Settings__c.Sprinklr_Community_Source__c}"></script>
+         <div id="spr-community-widget" style="text-align: center; height: 425px;">
+               <script type="text/javascript">
+                if(typeof SPR !== 'undefined') SPR.loadWidget('spr-community-widget', '{!channelContent.Sprinklr_Community_ID__c}');
+               </script>
+        </div>
+    </apex:outputPanel>
+</apex:component>

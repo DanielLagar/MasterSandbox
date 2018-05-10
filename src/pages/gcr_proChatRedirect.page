@@ -1,0 +1,45 @@
+<!-- 
+#    CR392 - Proactive Chat: This is a redirect page for proactive chat which redirects to prechat form with required parameters
+#    
+#    @param:  none
+#    @author: ACCENTURE
+#    @date:   11/08/2016
+# DATE              NAME                CHANGE DESCRIPTION
+# 11/08/2016        Accenture           Initial Draft
+# 11/01/2017        Accenture           Added "gcr_cmpPrechatFieldMapping" component for prechat api field mapping for no
+										prechat form changes for proactive and standalone chat
+-->
+<apex:page controller="gcr_proChatRedirectController" standardStylesheets="false" sidebar="false" showHeader="false" cache="false">
+    <style>@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);</style>
+    <apex:includeScript value="{!$Setup.ContactUsURL__c.Live_Agent_Endpoint__c}/content/g/js/36.0/deployment.js" />
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/proChatRedirect.js')}"/>
+
+    <form id="prechatForm" method="post">
+        <!-- LOADING INDICATOR -->
+        <div id="idSpinnerContainer"><c:gcr_cmpWaitingSpinner /></div>
+        <div id="idErrMsgContainer" style="display: none;">{!errorMsg}</div>
+        <!--<apex:outputPanel styleClass="fa fa-cog fa-spin fa-2x progressSpinner" />-->
+        <!-- PRECHAT FIELDS -->
+        <c:gcr_cmpPrechatFieldMapping chatType="{!chatType}" brand="{!brand}" country="{!country}" language="{!language}" />
+    </form>
+    <script>
+            console.log({!isBusinessHrsActive});
+            console.log({!isAgentAvailable});
+        //if ({!isBusinessHrsActive} && {!isAgentAvailable}) {
+        if (({!isBusinessHrsActive} && {!isAgentAvailable}) || {!isChatbot} ) {
+            if ({!isPrechat}) {
+
+                submitForChat('{!$Setup.ContactUsURL__c.Live_Agent_Endpoint__c}/chat'
+                            , '{!deploymentId}', '{!buttonId}', '{!$Organization.Id}'.substring(0, 15), '{!$Site.BaseUrl}'
+                            , '/{!preChatPage}?brand={!brand}&country={!country}&language={!language}&type={!chatType}&endpoint={!URLENCODE(endpoint)}');
+            } else {
+                submitForChatTwo('{!endpoint}', 'prechatForm');
+
+            }
+        } else {
+
+            document.getElementById('idSpinnerContainer').style.display = 'none';
+            document.getElementById('idErrMsgContainer').style.display = 'block';
+        }
+    </script>
+</apex:page>

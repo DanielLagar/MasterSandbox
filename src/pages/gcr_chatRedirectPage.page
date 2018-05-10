@@ -1,0 +1,50 @@
+<!-- 
+#    Redirect page of Chat Window
+#    
+#    @param:  none
+#    @author: ACCENTURE
+#    @date:   11/08/2016
+# DATE              NAME                CHANGE DESCRIPTION
+# 11/08/2016        Accenture           Initial Draft
+# 11/01/2017        Accenture           Added "gcr_cmpPrechatFieldMapping" component for prechat api field mapping for no
+										prechat form changes for care hub
+# 01/06/2017		Accenture			WR508 - Chat Redesign: Added "gcr_cmpWaitingSpinner" component for waiting spinner on 
+										chat request page
+-->
+<apex:page controller="gcr_chatRedirectController" standardStylesheets="false" sidebar="false" showHeader="false" cache="false">
+    <apex:includeScript value="{!$Setup.ContactUsURL__c.Live_Agent_Endpoint__c}/content/g/js/36.0/deployment.js" />
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/proChatRedirect.js')}" />
+
+    <style>
+        body {
+        	margin: 0px;
+        	font-family: Helvetica Neue, Arial;
+        }
+    </style>
+    <!-- WR508 - CHAT REDESIGN : HEADER FOR THE PAGE -->
+    <c:gcr_cmpChatHeader brandLogoUrl="{!chatChannelContent.BrandImg__c}" 
+                         pBrandColor="{!chatChannelContent.BrandPColor__c}" sBrandColor="{!chatChannelContent.BrandSColor__c}" />
+    <!-- WR508 - WAITING SPINNER AND CONFIGURABLE MESSAGE -->
+    <apex:outputPanel layout="block" style="height: 100%; text-align: center; margin-top: 20%;">
+		<c:gcr_cmpWaitingSpinner />
+        <apex:outputPanel layout="block" style="margin-top: 10px;">{!chatChannelContent.ConnectChatMsg__c}</apex:outputPanel>
+    </apex:outputPanel>
+    <!-- WR508 - CHAT REDESIGN : END -->
+    <form id="prechatForm" method="post">
+        <!-- REPLACED FROM A COMPONENT TO HAVE SAME LOGIC FOR ALL CHAT TYPES -->
+        <c:gcr_cmpPrechatFieldMapping fName="{!$CurrentPage.parameters.fname}"
+									  lName="{!$CurrentPage.parameters.lname}"
+                                      email="{!$CurrentPage.parameters.email}"
+                                      chatType="{!$CurrentPage.parameters.type}"
+                                      brand="{!IF(chatChannelContent != null, chatChannelContent.CareHub__r.Brand__c, '')}"
+                                      country="{!IF(chatChannelContent != null, chatChannelContent.CareHub__r.Country__c, '')}"
+                                      language="{!IF(chatChannelContent != null
+                                              , chatChannelContent.CareHub__r.BrandCountryLanguage__r.Contact_Us_Language__r.Language__c, '')}" />
+    </form>
+    <script>
+      //document.addEventListener ? document.addEventListener("load", submitForChat('{!endpoint}', 'prechatForm'), false) 
+      //                :  document.attachEvent("onload", submitForChat('{!endpoint}', 'prechatForm'), false);
+      document.addEventListener ? document.addEventListener("load", submitForChatTwo('{!endpoint}', 'prechatForm'), false) 
+                      :  document.attachEvent("onload", submitForChatTwo('{!endpoint}', 'prechatForm'), false);
+    </script>
+</apex:page>

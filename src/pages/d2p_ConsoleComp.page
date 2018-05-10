@@ -1,0 +1,128 @@
+<apex:page standardController="Case" extensions="d2p_consoleComp_ext" showHeader="false" sidebar="false" >
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <script type="text/javascript">
+    	var caseId = '';
+    	var sfPrimaryTabId = '';
+		var previousOnload = window.onload;
+    
+		window.onload = function(){ 
+		    if (previousOnload) { 
+		        previousOnload(); 
+		    }
+		    getPrimaryTabId();
+		}
+
+		sforce.console.onFocusedPrimaryTab(function (result) {
+			getPrimaryTabId();
+		});
+        
+        var refreshPrimaryTab = function (){
+        	sforce.console.refreshPrimaryTabById(sfPrimaryTabId, true);
+        }
+        
+        var getPrimaryTabId = function (){
+		    //Get the primary tab id to be used for refreshes
+		    sforce.console.getFocusedPrimaryTabId(function (result){
+                if(result.success){
+                    sfPrimaryTabId = result.id;
+                    sforce.console.getPageInfo(sfPrimaryTabId, function (result){
+                        var pageInfo = JSON.parse(result.pageInfo);
+                        if(typeof pageInfo.objectId != 'undefined'){
+                            if(pageInfo.objectId.substring(0,3) == '500'){
+				        		caseId = pageInfo.objectId;
+		                        setCaseId(caseId); 
+		                        showPanel();
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        //Call getPrimaryTabId on button click
+		sforce.console.onCustomConsoleComponentButtonClicked(getPrimaryTabId);
+
+		sforce.console.addEventListener(sforce.console.ConsoleEvent.CLOSE_TAB, function (result) {
+			hidePanel();
+		});
+
+		var showPanel = function(){
+			document.getElementById("{!$Component.theForm.thePB.tablePanel}").className = "displayTable";
+		}
+
+		var hidePanel = function(){
+			document.getElementById("{!$Component.theForm.thePB.tablePanel}").className = "hideTable";
+		}
+		
+    </script>
+
+    <style type="text/css">
+    	.displayTable{
+    		display: block;
+
+    	}
+    	.hideTable{
+    		display: none;
+    	}
+    </style>
+    
+    <apex:form id="theForm">
+        <apex:pageBlock id="thePB" >
+            <apex:actionStatus id="loading">
+                <apex:facet name="start">
+                    <!--Are these Salesforce CSS classes?-->
+					<div class="waitingSearchDiv" style="z-index: 9998; background-color: #fbfbfb; height: 100%;opacity:0.65;width:100%; position: fixed;">
+						<div class="waitingHolder" style="z-index: 9999;top: 40%; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">{!$Label.Contact_Info_Loading}...</span>
+                        </div>
+                    </div>
+                </apex:facet>            
+            </apex:actionStatus>
+            
+            <apex:actionFunction name="setCaseId" action="{!setCaseId}" status="loading" reRender="msgs,messagePanel,cpTable">
+                <apex:param name="caseId" value="" assignTo="{!caseId}"/>
+            </apex:actionFunction>
+            
+            <apex:outputPanel id="msgs" layout="block">
+                <apex:pageMessages />
+            </apex:outputPanel> 
+
+            <apex:outputPanel id="tablePanel" layout="block" styleClass="hideTable">
+				<apex:outputText value="{!$Label.d2p_Description}" />
+	            
+	            <!--Matching ACR Case Products-->
+	            <apex:pageBlockTable value="{!ACRCaseProducts}" var="cp" id="cpTable">
+	                <apex:column headerValue="{!$Label.Contact_Info_Select}">
+	                    <apex:inputCheckbox value="{!cp.selected}" disabled="{!cp.inprogress}" />
+	                </apex:column>
+	                <apex:column headerValue="{!$ObjectType.Case_Product__c.Fields.Product_Path__c.Label}">
+	                    {!cp.caseProduct.Product_Path__c}
+	                </apex:column>
+	                <!--
+	                <apex:column headerValue="{!$SObjectType.Case_Product__c.fields.Status__c.label}">-->
+	                <apex:column headerValue="{!$ObjectType.Case_Product__c.Fields.Status__c.Label}">
+	                    {!cp.caseProduct.Status__c}
+	                </apex:column>               
+	            </apex:pageBlockTable>
+
+	            <!--Process button-->
+	            <apex:actionStatus id="processing">
+	                <apex:facet name="stop">
+	                    <!--Oncomplete refresh primary tab-->
+	                    <apex:commandButton value="Process Selected" action="{!processSelected}" status="processing" oncomplete="refreshPrimaryTab();" reRender="msgs,messagePanel ,cpTable">
+	                    </apex:commandButton>
+	                </apex:facet>
+	                                    
+	                <apex:facet name="start">
+	                    <apex:outputPanel >
+	                        <apex:image value="{!$Resource.Default_Loading_Image}" style="height: 15px"/>
+	                        <apex:commandButton value="{!$Label.ContactUs_PleaseWait}" status="processing" disabled="true"/>
+	                    </apex:outputPanel>
+	                </apex:facet>                       
+	            </apex:actionStatus>
+            </apex:outputPanel>
+
+        </apex:pageBlock>    
+    </apex:form>
+</apex:page>

@@ -1,0 +1,128 @@
+<!-- 
+#    Pii pop up page for console
+#    
+#    @author: ACCENTURE
+#    @date:   08/19/2014
+#
+# DATE              NAME                CHANGE DESCRIPTION
+# 08/19/2014        SF                  Intial Draft
+# 19/06/2017        Accenture           WR508 - Chat Redsign: Added input checkboxes to select pii details instead of multi select picklist.
+-->
+<apex:page standardController="Case" showHeader="false" sidebar="false" extensions="sf_PIIPopupCon">
+    <apex:includeScript value="/support/console/39.0/integration.js"/>
+    <script>
+    	var customEventHandled = false;
+        // WR508 - Chat Redsign: FUNCTION TO SEND PII EVENT TO CHAT WINDOW
+        function sendPiiCustomEvent() {
+            if (document.getElementById('{!$Component.piiform:idValidated}').value == 'false') {
+                sforce.console.getEnclosingPrimaryTabId(function (currentPTab) {
+                    sforce.console.chat.getDetailsByPrimaryTabId(currentPTab.id, function(pTabDetail) {
+							let data = '';
+							data += document.getElementById('{!$Component.piiform.fieldPB.fieldPbSection.idChkbxName}').checked ?
+								data && data != '' ? ';FirstName;LastName' : 'FirstName;LastName' : '';
+							data += document.getElementById('{!$Component.piiform.fieldPB.fieldPbSection.idChkbxAddress}').checked ?
+								data && data != '' ? 
+									';Primary_Address_Line_1__c;Primary_Address_Line_2__c;Primary_City__c;Primary_State_Province__c;Primary_Postal_Code__c;Primary_Country__c' :
+									'Primary_Address_Line_1__c;Primary_Address_Line_2__c;Primary_City__c;Primary_State_Province__c;Primary_Postal_Code__c;Primary_Country__c' :
+							'';
+							data += document.getElementById('{!$Component.piiform.fieldPB.fieldPbSection.idChkbxEmail}').checked ?
+								data && data != '' ? ';Email' : 'Email' : '';
+							data += document.getElementById('{!$Component.piiform.fieldPB.fieldPbSection.idChkbxPhone}').checked ?
+								data && data != '' ? ';Phone' : 'Phone' : '';
+						/*WR - 574 - SEND THE CUSTOM EVENT ONLY WHEN THERE IS A SUCCESS RESPONSE*/
+						if(pTabDetail.success){
+							sforce.console.chat.sendCustomEvent(pTabDetail.details.chatKey, 'piievent', data, function (eventResult) {
+								console.log(eventResult.success);
+								if (eventResult.success) {
+									window.alert('{!$Label.msgPiiRequestSent}');
+								} else {
+									window.alert('{!$Label.msgPiiRequestFailed}');
+									displayPIILink();
+								}
+							});
+							sforce.console.chat.sendCustomEvent(pTabDetail.details.chatKey, 'caseId', '{!Case.Id}', function (eventResult) {
+								console.log(eventResult.success);
+							});
+							customEventHandled = true;
+						}else{
+							/*WR - 574 - ON FAILURE RESPONSE: GET ALL ENGAGED CHATS AND CHECK AGAINS THE CHATKEY STORED AGAINS THE CASE (VIA OPEN AS PRIMARY TAB BUTTON CLICK) */
+							sforce.console.chat.getEngagedChats(function(result) {
+								if (result.success) {
+									for (i = 0; i < result.chatKey.length; i++) { 
+										if(result.chatKey[i]=='{!caseobj.chat_key__c}'){
+											sforce.console.chat.sendCustomEvent(result.chatKey[i], 'piievent', data, function (eventResult) {
+											console.log(eventResult.success);
+											if (eventResult.success) {
+												window.alert('{!$Label.msgPiiRequestSent}');
+											} else {
+												window.alert('{!$Label.msgPiiRequestFailed}');
+											}
+											});
+											sforce.console.chat.sendCustomEvent(result.chatKey[i], 'caseId', '{!Case.Id}', function (eventResult) {
+												console.log(eventResult.success);
+											});
+											customEventHandled = true;
+											break;
+										}
+									}
+									/*WR - 574 - DISPLAY THE LINK IF THE CUSTOM EVENT IS NOT HANDLED*/
+								 	if(customEventHandled==false){
+        								displayPIILink();
+        							}
+									
+								}else {
+									console.log('getEngagedChats has failed');
+									displayPIILink();
+								}
+							});
+						}
+                        
+                    });
+                });
+            }
+
+           
+        }
+    </script>
+    <apex:form Id="piiform">
+        <!--<apex:actionFunction name="validate" action="{!validateFields}" reRender="piiform" />-->
+        <!--<apex:actionFunction name="save" action="{!save}" reRender="piiform" oncomplete="'{!caseObj.Origin}' == 'Chat' ? sendPiiCustomEvent(); : return false;" />-->
+        <apex:inputHidden id="idValidated" value="{!isValid}" />
+        <!-- WR - 574 ACTION FUNCTION TO TOGGLE THE DISPLAY INSERT BOOLEAN AND TO RERENDER THE PII FORM -->
+        <apex:actionFunction name="displayPIILink" action="{!toggleDisplayInsert}" reRender="piiform"></apex:actionFunction>
+                           
+        <apex:pageBlock id="fieldPB" mode="edit" rendered="{!displayInsert}">
+            <apex:pageMessages />
+            
+            <apex:pageBlockButtons location="bottom">
+                <!--<apex:commandButton action="{!save}" value="{!$Label.Submit}" reRender="piiform" />-->
+                <apex:commandButton value="{!$Label.Submit}" reRender="piiform" action="{!save}"
+                                        oncomplete="if('{!caseObj.Origin}' == 'Chat') sendPiiCustomEvent();" />
+            </apex:pageBlockButtons>
+            <!-- WR508 - CHAT REDESIGN: ADD CHECKBOXES FOR PII FIELDS AND REMOVED MULTI SELECT PICKLIST -->
+            <!-- WR508 - COLUMN SIZE FOR PAGEBLOCK SECTION CHANGED TO 2 -->
+            <apex:pageBlockSection id="fieldPbSection" showHeader="true" columns="2" title="{!$Label.labelSectionTitle}">
+                <apex:inputCheckbox id="idChkbxName" label="{!$Label.labelName}" value="{!isName}" />
+                <apex:inputCheckbox id="idChkbxAddress" label="{!$Label.labelAddress}" value="{!isAddress}" />
+                <apex:inputCheckbox id="idChkbxEmail" label="{!$Label.labelEmail}" value="{!isEmail}" />
+                <apex:inputCheckbox id="idChkbxPhone" label="{!$Label.labelPhone}" value="{!isPhone}" />
+                <!--START CR16 DPR Support-->
+                <!-- WR508 - STYLE (style="margin-left:25px;") ATTRIBUTE REMOVED -->
+                <apex:inputField label="{!$Label.Include_DPR_Form}" value="{!piiobject.Include_DPR_Form__c}" rendered="{!dprAvailable}" />
+                <!-- END CR16 DPR Support -->
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+      
+        <apex:pageBlock id="linkPB" mode="edit" rendered="{!!displayInsert}">
+            <apex:pageMessages />
+            
+            <apex:pageBlockSection showHeader="true" columns="1">
+                     
+                <br/><a id="piiurl" href="{!piiobject.PII_URL__c}">{!piiobject.PII_URL__c}</a><br/><br/>
+                          
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

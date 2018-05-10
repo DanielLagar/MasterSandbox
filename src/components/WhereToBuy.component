@@ -1,0 +1,891 @@
+<apex:component controller="ctr_WhereToBuy" extensions="googleGeocode_Util" language="{!langParam}" layout="block">
+
+    <apex:attribute name="country" description="Country to search within" assignTo="{!countryParam}" type="String" required="true"></apex:attribute>
+    <apex:attribute name="brand" description="brand to search within" assignTo="{!brandParam}" type="String" required="true"></apex:attribute>
+    <apex:attribute name="console" description="Are we in the console?" assignTo="{!consoleParam}" type="Boolean" required="true"></apex:attribute>
+    <apex:attribute name="lang" description="Display language" assignTo="{!langParam}" type="String" required="true"></apex:attribute>
+    <apex:attribute name="gtin" description="Product gtin to search for" type="String" required="false"></apex:attribute>
+    <apex:attribute name="location" description="brand to search within" type="String" required="false"></apex:attribute>
+    <apex:attribute name="localeKey" description="locale key for big data" type="String" required="true"></apex:attribute>
+
+    <meta http-equiv="cleartype" content="on"/>
+    <meta name="MobileOptimized" content="320"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    
+    <apex:includeScript value="https://maps.googleapis.com/maps/api/js?key={!$Setup.bigData_Settings__c.GoogleAPIKey__c}&language=en-us&libraries=places"/>
+    <apex:stylesheet value="{!URLFOR($Resource.wtb_resource, 'wtb.css')}"/>
+
+    <script type="text/javascript">
+    	//START The evil global vars
+    	wtbNS = {}; //namespace
+    	wtbNS.map; 
+    	wtbNS.markers = []; //used to create markers
+        wtbNS.markerList = [];//The marker collection
+        wtbNS.infowindow;
+		wtbNS.autocomplete;
+    	wtbNS.mapCenter;  
+    	wtbNS.distanceUnit = "";
+        wtbNS.prodName = "";//Initial selected product
+        wtbNS.displayProdName = "";//The product name displayed if filter is used
+		wtbNS.mps = 25; //Max page size - default to 25 but set via custom setting if different
+		wtbNS.currentPageNo = 1;
+		wtbNS.unfilteredStores = [];//deduped, GTIN unfiltered store
+		wtbNS.filterStores = {};//Object being used as a map
+		wtbNS.gtinFilter = "all"; //The selected filter
+    	//FIN The evil global vars
+    
+		Visualforce.remoting.timeout = 120000; //Product search/SOSL can be slow...
+
+		if (!{!console}) {
+            if(typeof ga === 'undefined'){//allows standalone usage
+				createGA("StandAlone");
+            } else{
+                trackPageData("locate", "/{!$Site.Name}/locate?brand={!brandParam}&country={!countryParam}&language={!langParam}");
+            }
+        } else {
+			createGA("Console");
+        }
+    
+    	function createGA(origin){
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,"script","https://www.google-analytics.com/analytics.js","ga");
+            ga("create", "{!$Setup.Global_Org_Settings__c.GA_Tracking_Code__c}", "auto");
+            //Manually set page hit - otherwise this includes all Console extra URL params
+            trackPageData("locate", "/"+origin+"/locate?brand={!brandParam}&country={!countryParam}&language={!langParam}");
+        }
+    
+        function trackPageData(pageTitle, pageUrl) {
+            ga('set', 'title', pageTitle);
+            ga('send', 'pageview', pageUrl);
+        }
+    
+    	function getUserType(){
+            var usertype = "Carehub";
+        	if({!console}){
+                usertype = "Console";
+            }
+            return usertype;
+        }
+    
+    	function getSiteName(){
+        	var siteName = "{!$Site.Name}";
+            if({!console}){
+                siteName = "Console";
+            }
+            return siteName;
+        }
+    
+        function searchOnEnter(ev){
+            if(window.event && window.event.keycode == 13 || ev.which == 13){
+                getProductsAF();
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    
+		//ON MAP MARKER CLICK FOCUS ON LIST ITEM
+    	function focusListItem(sid){
+			wtbNS.map.panTo(wtbNS.markerList[sid].getPosition());
+            wtbNS.map.setZoom(14);//Zoom in closer
+			//Get all elements with classname highlightResultItem, set class to resultItem
+            var x = document.getElementsByClassName("highlightResultItem");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = "resultItem";
+            }
+            
+			var w = window.innerWidth;
+            if(w > 869){
+                document.getElementById("sid"+sid).className = "highlightResultItem";
+                document.getElementById("sid"+sid).scrollIntoView(); 
+            }   
+        }
+    	
+    	//ON LIST ITEM CLICK FOCUS ON MAP MARKER
+    	function focusMapMarker(sid){
+            var w = window.innerWidth;
+            if(w > 869){
+                wtbNS.map.panTo(wtbNS.markerList[sid].getPosition());
+                wtbNS.map.setZoom(14);//Zoom in closer
+                wtbNS.markerList[sid].setAnimation(google.maps.Animation.DROP);
+                wtbNS.infowindow.setContent(wtbNS.markerList[sid].html);
+                wtbNS.infowindow.open(wtbNS.map, wtbNS.markerList[sid]);
+            }
+            
+			var x = document.getElementsByClassName("highlightResultItem");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = "resultItem";
+            }
+            document.getElementById("sid"+sid).className = "highlightResultItem";
+        }
+    
+        //PLACES API/AUTOCOMPLETE
+		function placeSearch(){
+            var country = document.getElementById("countrySelect").value; //The default country, may not get changed
+            var input = document.getElementById("locationInput"); //The location input value
+			
+            if (country != ""){
+                //Get country code from custom setting, build autocomplete
+				Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.ctr_WhereToBuy.getCountryCode}", country, function(result,event){
+                    var countryRestrict = {"country": result};
+                    wtbNS.autocomplete = new google.maps.places.Autocomplete(input,{componentRestrictions: countryRestrict});
+                });
+            }
+            else{
+                //No country code found build autocomplete with no country filter
+				wtbNS.autocomplete = new google.maps.places.Autocomplete(input);
+			}
+            document.getElementById("countrySelect").addEventListener("change", setAutocompleteCountry);
+        }
+    
+		//Set the country restriction based on user input.
+		function setAutocompleteCountry(){
+            var country = document.getElementById("countrySelect").value;
+            
+			if(country != ""){
+				Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.ctr_WhereToBuy.getCountryCode}", country, function(result,event){
+					wtbNS.autocomplete.setComponentRestrictions({'country': result});
+				});
+			}
+			else{
+				wtbNS.autocomplete.setComponentRestrictions({"country": []});
+			}
+            document.getElementById("locationInput").value = "";
+		}
+    
+    	function isServiceAvailable(){
+            var gtinTest = "{!$Setup.bigData_Settings__c.Test_GTIN__c}";
+            var latTest = "{!$Setup.bigData_Settings__c.Test_Latitude__c}";
+            var lngTest = "{!$Setup.bigData_Settings__c.Test_Longitude__c}";
+            var pageSize = "{!$Setup.bigData_Settings__c.Page_Size__c}";
+            if(pageSize !== ""){
+                wtbNS.mps = parseInt(pageSize);
+            }
+            
+			Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.ctr_WhereToBuy.getStoreLocations}", gtinTest, latTest, lngTest, "{!lang}", function(result, event){
+				console.log('*** Service check : '+event.status+ ' message: '+event.message);
+                if(!event.status){
+                    document.getElementById("loading").className = "wtbHidden";
+                    document.getElementById("serviceDown").className = "showServiceDown";
+                } else {
+                    document.getElementById("loading").className = "wtbHidden";
+                    document.getElementById("wtbWrapper").className = "wtbWrapper";
+                }
+            });
+        }
+    
+		//Note: HTML5 specific
+        function getCurrentLocationData(){ 
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                console.log("Geolocation is not supported by this browser.");
+            }
+            function showPosition(position) {
+                currentLat = position.coords.latitude;
+                currentLng = position.coords.longitude;
+                
+                //Reverse geocode
+                var latlngMap = {"lat":currentLat, "lng":currentLng};
+                googleGeocode_Util.getReverseGeocode(latlngMap,function(result,event){
+                    document.getElementById("locationInput").value = result;
+                });
+            }//getCurrentLocationData
+            
+			function showError(error) {
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        console.log("User denied the request for Geolocation.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        console.log("Location information is unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        console.log("The request to get user location timed out.");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        console.log("An unknown error occurred.");
+                        break;
+                }
+            }//showError end
+        }
+    
+    	//SET COUNTRY OPTIONS
+    	function getCountryOptions(){
+            var countryOptions = [];
+            var select = document.getElementById("countrySelect");
+			Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.ctr_WhereToBuy.getCountries}", "{!country}", function(result, event){
+                if(!event.status){
+                    console.log("***Error occurred - "+event.message);
+                } else {
+                 	countryOptions = result;
+                    for(i = 0; i < countryOptions.length; i++){
+                        var option = document.createElement("option");
+                        option.innerHTML = countryOptions[i];
+                        option.value = countryOptions[i];
+                        select.appendChild(option);
+            		}
+				}
+                placeSearch();//Now setup auto complete
+			});
+        }
+    
+    	//PRODUCT SEARCH
+    	function psValidation(){
+            clearValidation();
+            var address = document.getElementById("locationInput").value;
+        	var searchString = document.getElementById("productInput").value;
+            var country = "{!country}";
+            var brand = "{!brand}";
+            var process = true;
+            var messageHMTL = "";
+            
+            if(address.length == 0){
+				wtbfieldStylingMandatory("locationInput");
+                messageHMTL += "<div> {!$Label.WTB_Address_Error} </div>"
+                process = false;            
+            }
+            if(searchString.length < 3){
+                wtbfieldStylingMandatory("productInput");
+                messageHMTL += "<div> {!$Label.WTB_No_Results} </div>"
+                process = false;
+            }
+            if(country.length == 0){
+                wtbfieldStylingMandatory("countrySelect");
+                messageHMTL += "<div> {!$Label.WTB_Country} </div>"
+                process = false;
+            }
+            if(brand.length == 0){
+                messageHMTL += "<div>"+"No brand has been supplied"+"</div>"
+                process = false;
+            }
+            if(process){
+                productSearch(searchString, country, brand);
+            }
+            else{
+                var newdiv = document.createElement("div");
+                newdiv.innerHTML = messageHMTL;
+                var container = document.getElementById("addressError");
+                container.appendChild(newdiv); 
+                document.getElementById("addressError").className = "addressErrorOn";
+            }
+        }
+    
+    	function clearValidation(){
+            document.getElementById("addressError").innerHTML = "";
+        	document.getElementById("addressError").className = "wtbHidden";
+            document.getElementById("locationInput").style.borderColor = "#DDDDDD";
+            document.getElementById("productInput").style.borderColor = "#DDDDDD";
+            document.getElementById("countrySelect").style.borderColor = "#DDDDDD";
+        }
+    
+    	function productSearch(searchString, country, brand){
+            document.getElementById("privacyPanel").className = "wtbHidden"
+            document.getElementById("productSpinner").className = "productOverlayVisible";
+            document.getElementById("productResultsContainer").innerHTML = "";
+
+            var products = [];
+            var htmlData = "";
+            wtbNS.prodName = "";
+            wtbNS.displayProdName = "";
+			//now query products and build product results table
+            console.log("***Calling search with: "+searchString+" : "+country+" : "+brand);
+			Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.ctr_WhereToBuy.productSearch}", searchString, country, brand, function(result, event){
+                if(!event.status){
+                    console.log("***Error occurred - "+event.message);
+                    document.getElementById("productSpinner").className = "productOverlayHidden";
+                } else {
+
+                    products = result;
+
+                    for(i = 0; i < products.length; i++){
+                        var prodClass = "";
+                        var prodImg = products[i].Image_Url_Thumb__c;
+                        if(products[i].Image_Url_Thumb__c == ""){
+                            prodClass = "noProductImage";//
+                            prodImg = "{!URLFOR($Resource.wtb_resource, 'img/no-product-image.svg')}";
+                        }
+                        
+                        var prodName = products[i].Consumer_Facing_Name__c;
+                        var GTIN = products[i].GTIN_Number__c;
+
+                        htmlData += "<div class=prodWrapper onclick='storeSearch(\""+GTIN+"\",\""+prodName+"\");'>";//Don't need img url?
+                        	htmlData += "<figure>";
+                        		htmlData += "<img class=\""+prodClass+"\" src="+prodImg+"></img>";
+                        		htmlData += "<figcaption>"+prodName+"</figcaption>";
+                        	htmlData += "</figure>";//figure close
+                        htmlData += "</div>";//prodWrapper close
+                    }
+
+                    if(products.length == 0){
+                        document.getElementById("resultsCount").innerHTML = "{!$Label.WTB_No_Results}";
+                        document.getElementById("resultsCount").style.display = "block";
+                        document.getElementById("resultsCount").style.color = "red";
+                        wtbfieldStylingMandatory("productInput");
+						trackPageData('locate/product/resultnotfound', '/'+getSiteName()+'/locate/product/resultnotfound?q='
+                              + products.length
+                              + '&brand={!brandParam}&country={!countryParam}&language={!langParam}');
+                    }
+                    else{
+                        document.getElementById("resultsCount").style.color = "black";
+                        document.getElementById("resultsCount").innerHTML = products.length+" {!$Label.WTB_Products_Found}";
+                        document.getElementById("resultsCount").style.display = "block";
+						trackPageData('locate/product/resultfound', '/'+getSiteName()+'/locate/product/resultfound?q=' 
+                              + products.length
+                              + '&brand={!brandParam}&country={!countryParam}&language={!langParam}')
+                    }
+                    document.getElementById("productSpinner").className = "productOverlayHidden";
+
+                    var container = document.getElementById("productResultsContainer");
+                    container.innerHTML = htmlData;
+                }
+			});
+        }
+    
+    	//STORE LOCATION
+
+    	//Generic deduping list method
+    	//TODO: Last element is a function
+		function removeDuplicates(originalArray, prop) {
+			var newArray = [];
+			var lookupObject  = {};
+        
+			for(var i in originalArray) {
+				lookupObject[originalArray[i][prop]] = originalArray[i];
+			}
+        
+			for(i in lookupObject) {
+                if(typeof lookupObject[i] === 'object'){//Last element is a function otherwise? 
+					newArray.push(lookupObject[i]);
+                }
+			}
+			return newArray;
+		}
+
+    	function storeSearch(gtin, prodName){
+            
+            wtbNS.prodName = prodName;
+            wtbNS.displayProdName = "{!$Label.WTB_Product_Result}";//default to label
+            document.getElementById("productSpinner").className = "productOverlayVisible";
+			document.getElementById("resultsList").innerHTML = "";
+            document.getElementById("rhLeft").innerHTML = "";
+            document.getElementById("resultsContainer").className = "resultsVisible";
+
+            var address = document.getElementById("locationInput").value;
+            var latAndLng = [];
+            var lat;
+            var lng;
+            var locationClass = [];
+            var countryValue = document.getElementById("countrySelect").value;
+			//Clear previous search values
+            wtbNS.distanceUnit = "";
+            wtbNS.markers = [];
+			wtbNS.markerList = [];
+			wtbNS.unfilteredStores = [];
+            wtbNS.filterStores = {};
+            wtbNS.currentPageNo = 1;
+            wtbNS.gtinFilter = "all";
+
+            Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.ctr_WhereToBuy.geocodeAddress}", address, function(result,event){
+                latAndLng = result;
+                if(latAndLng != ''){
+
+                    document.getElementById("addressError").className = "addressErrorOff";
+                    Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.ctr_WhereToBuy.getDistanceUnit}", countryValue, function(result,event){
+                        wtbNS.distanceUnit = result;
+                    });
+                    
+                    document.getElementById("searchContainer").style.display = "none";
+                    document.getElementById("productResultsContainer").style.display = "none";
+                    document.getElementById("resultsCount").style.display = "none";
+					
+                    var p = latAndLng.split(",");
+                    lat = parseFloat(p[0]);
+                    lng = parseFloat(p[1]);
+                    wtbNS.mapCenter = new google.maps.LatLng(lat,lng);
+                    
+                    var mapOptions = {
+                        zoom:11,
+                        center: {lat: lat, lng: lng},
+                        scaleControl: true,
+                        mapTypeControlOptions: {
+                            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                            position: google.maps.ControlPosition.TOP_RIGHT
+                        },
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+
+                    wtbNS.map = new google.maps.Map(document.getElementById("resultsMap"),mapOptions);
+                    
+                    wtbNS.infowindow = new google.maps.InfoWindow({
+                        content: "loading..."
+                    });
+                    
+                    //Add Center marker
+                    var myLatLng = {lat: lat, lng: lng};
+                    var marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: wtbNS.map,
+                        icon: "{!URLFOR($Resource.wtb_resource, 'img/centerMarker.png')}",
+                        title: "{!$Label.WTB_Center_Pin}"
+                    });  
+
+                    //Now call for store data
+                    console.log("About to call getStoreLocations, gtin: "+gtin);
+                    console.log("localeKey: "+"{!localeKey}");
+					Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.ctr_WhereToBuy.getStoreLocations}", gtin, lat, lng, "{!localeKey}",function(result, event){
+                        if(!event.status){
+                            document.getElementById("resultsContainer").className = "wtbHidden"
+                            document.getElementById("serviceDown").className = "showServiceDown";
+                            document.getElementById("productSpinner").className = "productOverlayHidden";
+                        } else {
+                        	locationClass = result;
+                            for(i = 0; i < locationClass.length; i++){
+                                //Does key already exist?
+                                var v = wtbNS.filterStores[locationClass[i].gtin];
+                                var key = locationClass[i].gtin;
+                                if(v === undefined){
+                                    //Not found, create new  key and array value
+                                    var tmpArray = new Array(locationClass[i]);
+                                    wtbNS.filterStores[key] = tmpArray;
+                                } else{
+                                    //Found key add as new element to existing array
+                                    wtbNS.filterStores[key].push(locationClass[i]);
+                                }
+                            }
+                            
+                            //Create deduped array
+                            wtbNS.unfilteredStores = removeDuplicates(locationClass, "geodist");
+
+                            var htmlSelect = "";
+                            htmlSelect += "<input type='radio' name='gtinFilter' value='all' onclick='dtFilterResults(this.value)'><span id='all'>{!$Label.WTB_Show_All}</span></br>";
+                            
+                            var mbSelect = "";
+                            mbSelect += "<option value='all'>{!$Label.WTB_Show_All}</option>";
+
+                            Object.keys(wtbNS.filterStores).forEach(function(key) {
+                                var store = wtbNS.filterStores[key];
+                                if(store[0].cnsmr_facng_name != ""){
+                                    htmlSelect += "<input type='radio' name='gtinFilter' value="+key+" onclick='dtFilterResults(this.value)'><span id="+key+">"+store[0].cnsmr_facng_name+"</span></br>";
+                                    mbSelect += "<option value='"+key+"'>"+store[0].cnsmr_facng_name+"</option>";
+                                }
+                            });
+
+                            document.getElementById("diaglogContent").innerHTML = htmlSelect;
+                            document.getElementById("mbFilterSelect").innerHTML = mbSelect;
+                            paginateResults('list');
+                        }
+					});//getStoreLocations END
+                }
+                else if(latAndLng == ''){
+                    document.getElementById("productSpinner").style.display = "none"
+                    document.getElementById("addressError").className = "addressErrorOn";
+                    wtbfieldStylingMandatory("locationInput");
+                    document.getElementById("locationInput").scrollIntoView();
+                }
+            });//geocodeAddress end        
+        }//Product search end
+    
+		function wtbfieldStylingMandatory(idInputField){
+            document.getElementById(idInputField).style.borderColor = "red";
+        }
+    
+    	function searchAgain(){
+            document.getElementById("resultsPagination").innerHTML = "";//otherwise on search again appears too early
+            document.getElementById("resultsHeader").style.display = "none";
+            document.getElementById("resultsContainer").className = "wtbHidden";
+            document.getElementById("searchContainer").style.display = "block"
+            document.getElementById("productResultsContainer").style.display = "flex"
+            document.getElementById("resultsCount").style.display = "block";
+            document.getElementById("resultsMap").className = "mapContainerHidden";
+            
+			var type = document.getElementById("toggleView");
+			type.innerHTML = "{!$Label.WTB_Map_View}";
+			type.setAttribute("data-viewType","list");
+            
+			trackPageData('locate', '/'+getSiteName()+'/locate?brand={!brandParam}&country={!countryParam}&language={!langParam}');
+			ga('send', 'event', 'Event_Form_Interaction', 'Event_Button_Click', getUserType()+' locate SearchAgain');
+        }
+    
+    	function toggleView(type){
+            var viewType = type.getAttribute("data-viewType");
+            if(viewType == "list"){
+                document.getElementById("resultsList").className = "listContainerHidden";
+                document.getElementById("resultsMap").className = "mapContainerVisible";
+
+                google.maps.event.trigger(wtbNS.map, "resize");
+                wtbNS.map.panTo(wtbNS.mapCenter);
+                
+                type.innerHTML = "{!$Label.WTB_List_View}";
+                type.setAttribute("data-viewType","map");
+            }
+            else{
+                document.getElementById("resultsList").className = "listContainer";
+				document.getElementById("resultsMap").className = "mapContainerMobileHidden";
+                type.innerHTML = "{!$Label.WTB_Map_View}";
+                type.setAttribute("data-viewType","list");
+            }
+        }
+    
+    	function setPage(direction){
+            console.log("The direction: "+direction+" The current page: "+wtbNS.currentPageNo);
+        	if(direction === "next"){
+            	wtbNS.currentPageNo ++;
+            }
+            else{
+            	wtbNS.currentPageNo --;
+            }
+            console.log("The current page: "+wtbNS.currentPageNo);
+            paginateResults('desktop');
+        }
+    
+    	function paginateResults(viewType){
+            
+            var tmpStores = [];
+            var storesToRender = [];
+            //If filtered get gtin, get stores with key in range
+            //If unfiltered, get stores in range
+
+			if(wtbNS.gtinFilter === "all"){
+                tmpStores = wtbNS.unfilteredStores;
+            }
+            else{
+            	tmpStores = wtbNS.filterStores[wtbNS.gtinFilter];
+            }
+
+            //Now get the page data using tmpStores
+            var lastPos = wtbNS.mps*wtbNS.currentPageNo;
+            
+            //TODO: Improve this, not scalable
+            if(wtbNS.currentPageNo === 1){
+            	storesToRender = tmpStores.slice(0,wtbNS.mps);
+            }
+            else if(wtbNS.currentPageNo === 2){
+                var startPos = wtbNS.mps+1;
+                storesToRender = tmpStores.slice(wtbNS.mps,lastPos);
+            }
+            else if(wtbNS.currentPageNo === 3){
+                storesToRender = tmpStores.slice(wtbNS.mps*2,lastPos);
+            }
+			else if(wtbNS.currentPageNo === 4){
+                storesToRender = tmpStores.slice(wtbNS.mps*3,lastPos);
+            }
+			else if(wtbNS.currentPageNo === 5){
+                storesToRender = tmpStores.slice(wtbNS.mps*3,lastPos);
+            }
+ 
+            renderResults(storesToRender, tmpStores.length, viewType);
+        }
+    
+        function renderResults(stores, totalNo, viewType){
+            
+            var bounds = new google.maps.LatLngBounds();
+			//Remove any existing markers
+            for(i = 0; i < wtbNS.markerList.length; i++ ){
+            	wtbNS.markerList[i].setMap(null);
+            }
+			wtbNS.markers = [];
+			wtbNS.markerList = [];
+
+			document.getElementById("productSpinner").className = "productOverlayVisible";
+			document.getElementById("resultsList").innerHTML = "";
+            document.getElementById("rhLeft").innerHTML = "";
+			document.getElementById("resultsContainer").className = "resultsVisible";
+            
+            var htmlData = '';//Stores the HTML for the list view     
+            var markerLabel = 1;
+            var paginationHtml = "";
+        
+            for(i = 0; i < stores.length; i++ ){
+                //MAP MARKERS START
+                var m = stores[i].gaMarker;
+                var p = m.split(",");
+                
+                wtbNS.markers.push(p);
+                var titleString = wtbNS.markers[i][0]+'\n'+stores[i].store_address+'\n'+'Tel: '+stores[i].store_publc_phone_num
+                var contentString = '<b>'+wtbNS.markers[i][0]+'</b></br>'+stores[i].store_address+'</br>'+'Tel: '+stores[i].store_publc_phone_num
+                var position = new google.maps.LatLng(wtbNS.markers[i][1], wtbNS.markers[i][2]);
+                
+                bounds.extend(position);
+
+                var image = {
+                    url: "{!URLFOR($Resource.wtb_resource, 'img/markerPin.svg')}",
+                    scaledSize : new google.maps.Size(36, 36),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(18, 0),
+                    labelOrigin: new google.maps.Point(18,12)
+                };
+        
+                marker = new google.maps.Marker({
+                    position: position,
+                    map: wtbNS.map,
+                    title: titleString,
+                    html: contentString,
+                    label: {
+                        text: String(markerLabel),
+                        color: "#ffffff",
+                        fontSize: "1.4em",
+                        fontWeight: "bold"
+                    },
+                    icon: image,
+                    sid: i
+                });
+                wtbNS.markerList.push(marker);
+                    
+                google.maps.event.addListener(marker, "click", function(){
+                    wtbNS.infowindow.setContent(this.html);
+                    wtbNS.infowindow.open(wtbNS.map, this);
+                    focusListItem(this.sid);
+                });
+        
+                //LIST RESULTS START
+                htmlData += "<div class=resultItem id=sid"+i+" data-sid="+i+" onclick=focusMapMarker("+i+")>";
+                htmlData += "<div class=resultMarker>"+markerLabel+"</div>";
+                htmlData += "<div class=storeWrapper>";
+                htmlData += "<div><span class=storeName>"+stores[i].retailer_name+"</span>"
+                if(wtbNS.distanceUnit == 'km'){
+                    htmlData += "<span class=distance>"+stores[i].km+" km</span>";
+                }
+                else{
+                    htmlData += "<span class=distance>"+stores[i].miles+" miles</span>";
+                }
+                htmlData += "</div>"; //close name/distance
+
+                htmlData += "<div>"+stores[i].store_address+"</div>";
+                
+				htmlData += "<div class=phoneWrapper>";
+                htmlData += "<div>☎: "+stores[i].store_publc_phone_num+"</div>";
+                htmlData += "</div>";//phoneWrapper close
+
+                htmlData += "</div>";//storeWrapper close
+
+                htmlData += "<div class=directions>";
+                htmlData += "<a href='https://maps.google.com/?saddr="+wtbNS.mapCenter+"&daddr="+stores[i].store_address+"' target='_blank'>"+"<img src='{!URLFOR($Resource.wtb_resource, 'img/directionsIcon.png')}' alt='Directions' width='50' height='50'></img></a>";
+                htmlData += "</div>";//directions close
+                htmlData += "</div>"; //resultItem close
+                htmlData += "<div class='repeat-divider'></div>";
+                                        
+                markerLabel ++;
+
+            }//for close - Builds list/markers END
+
+            if(stores.length == 0){
+                htmlData += "<div> {!$Label.WTB_No_Store_Results} </div>";
+                htmlData += "<div> <span class='searchAgain' onclick='searchAgain();'>{!$Label.WTB_Search_Again}</span></div>";
+            }
+            else{
+                //Add pagination section
+                var startPos = 1;
+                var lastPos = wtbNS.currentPageNo*wtbNS.mps;
+                var previousImg = "<img id='previous' class='previousOff' src='{!URLFOR($Resource.wtb_resource, 'img/chevron-previousOFF.svg')}'/>";
+                var nextImg = "<img id='next' class='nextOn' onclick=setPage('next') src='{!URLFOR($Resource.wtb_resource, 'img/chevron-next.svg')}'/>";
+                if(totalNo <= lastPos){
+                	lastPos = totalNo;
+                    nextImg = "<img id='next' class='nextOff' src='{!URLFOR($Resource.wtb_resource, 'img/chevron-nextOFF.svg')}'/>";
+                }
+                if(wtbNS.currentPageNo > 1){
+                    startPos = (wtbNS.currentPageNo - 1)*wtbNS.mps;
+                    startPos ++;
+                    previousImg = "<img id='previous' class='previousOn' onclick=setPage('previous') src='{!URLFOR($Resource.wtb_resource, 'img/chevron-previous.svg')}'/>";
+                }
+                
+                paginationHtml += "<span id='pagination'> {!$Label.WTB_Showing_Results} "+startPos+" - "+lastPos+" of "+totalNo+"</span>";
+                paginationHtml += previousImg;
+				//Bit of white space inbetween to prevent clicking on the wrong img
+                paginationHtml += "<span style='padding-left:0.5em;padding-right:0.5em'></span>";
+                paginationHtml += nextImg;
+            }
+        
+            var newdiv = document.createElement("div");
+            newdiv.innerHTML = htmlData;
+            var resultsContainer = document.getElementById("resultsList");
+            resultsContainer.appendChild(newdiv); 
+            //Add productName to header
+            var nameSpan = document.createElement("span");
+            nameSpan.innerHTML = wtbNS.displayProdName;
+            var headerContainer = document.getElementById("rhLeft");
+            headerContainer.appendChild(nameSpan);
+            
+            if(viewType === "map"){
+                //mobile - keep on map tab, don't shift back to list tab
+				document.getElementById("resultsList").className = "listContainerHidden";
+                document.getElementById("resultsMap").className = "mapContainerVisible";              
+            }
+            else{
+                //google.maps.event.trigger(wtbNS.map, "resize");//TODO: Is this in the right place?
+                document.getElementById("resultsList").className = "listContainer";
+                document.getElementById("resultsMap").className = "mapContainerMobileHidden";             
+            }
+            
+            document.getElementById("resultsHeader").style.display = "flex";
+            document.getElementById("productSpinner").className = "productOverlayHidden";
+			document.getElementById("resultsPagination").innerHTML = paginationHtml;
+            
+            google.maps.event.trigger(wtbNS.map, "resize");//TODO: Is this in the right place?
+            
+            ga("send", "event", "Event_Form_Interaction", "Event_Button_Click", getUserType()+" locate SelectProduct");
+            if (stores.length > 0) {
+                trackPageData("locate/retailer/resultfound"
+                , "/"+getSiteName()+"/locate/retailer/resultfound?brand={!brandParam}&country={!countryParam}&language={!langParam}");
+            }
+            else {
+                trackPageData("locate/retailer/resultnotfound"
+                , "/"+getSiteName()+"/locate/retailer/resultnotfound?brand={!brandParam}&country={!countryParam}&language={!langParam}");
+            }
+            
+            //If single result prevent bounds zooming in too close
+            if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+				bounds.extend(wtbNS.mapCenter);
+            }
+            
+            wtbNS.map.fitBounds(bounds);
+            wtbNS.map.panTo(wtbNS.mapCenter);
+        }   
+    
+    	function dtFilterResults(option){
+            var prodName = document.getElementById(option).innerHTML;
+            document.getElementById("theDialog").className = "dialogOff"
+
+            if(option === "all"){
+                wtbNS.displayProdName = "{!$Label.WTB_Product_Result}";
+            }
+            else{
+                wtbNS.displayProdName = prodName;
+            }
+            wtbNS.currentPageNo = 1;
+            wtbNS.gtinFilter = option;
+            paginateResults('desktop');        
+        }
+    
+    	function mbFilterResults(selectOption){
+            if(selectOption.value == "all"){
+            }
+            else{
+                wtbNS.prodName = selectOption.options[selectOption.selectedIndex].text;
+            }
+            wtbNS.currentPageNo = 1;
+            wtbNS.gtinFilter = selectOption.value;
+            var viewType = document.getElementById("toggleView");
+            paginateResults(viewType.getAttribute("data-viewType"));
+        }
+    
+    	function displayFilter(){
+            document.getElementById("theDialog").className = "dialogOn"
+        }
+    </script>
+
+    <!--CONTENT START-->
+    <!--Display while checking if service is available-->
+	<div id="loading" class="showServiceDown">
+		<c:gcr_cmpWaitingSpinner />
+		<script type="text/javascript">
+			setTimeout(isServiceAvailable, 1);
+		</script>
+    </div>    
+
+    <!--Display if service is down or error-->
+    <div id="serviceDown" class="wtbHidden">
+        {!$Label.WTB_Service_not_available}
+    </div>
+    
+    <!--Only display if API check passes-->
+    <div id="wtbWrapper" class="wtbHidden">
+		<div id="productSpinner" class="productOverlayHidden">
+			<c:gcr_cmpWaitingSpinner />
+		</div>
+
+		<!--SEARCH FIELDS-->
+        <div id="searchContainer">
+
+            <div id="" class="cmpHeader">{!$Label.WTB_Welcome_Message}</div>
+            
+            <div id="locationSearchContainer" class="locationSearchInputContainer">
+                <input id="locationInput" type="text" placeholder="{!$Label.WTB_Address_Placeholder}" class="locationInput" onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', getUserType()+' locate CityPostCode');"/>
+                <select id="countrySelect" class="countryList"></select>
+            </div>
+            
+            <div id="productSearchContainer" class="productSearchContainer ">
+                <input id="productInput" class="productSearchInput " type="text" placeholder="{!$Label.WTB_Product_Placeholder}" onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', getUserType()+' locate ProductSearch');"/>
+                <span id="searchButton" style="text-decoration: none;vertical-align: middle;margin-right: 5px;" onclick="psValidation();"><img style="height:18px; cursor: pointer;" src="{!URLFOR($Resource.wtb_resource, 'img/searchIcon.svg')}"/></span>
+            </div> 
+            
+			<div id="addressError" class="addressErrorOff"></div>
+            
+            <!--Are we keeping disclaimer?-->
+            <div id="privacyPanel" class="privacyMessageContainer">
+                <span>{!$Label.WTB_Privacy_Message}</span><br/>
+                <span style="margin-top:10px">{!$Label.WTB_Disclaimer}</span>               
+            </div>
+        </div>
+        
+        <!--PRODUCT RESULTS START-->
+
+		<div id="resultsCount" class="resultCount"></div>
+      
+        <div id="productResultsContainer" class="productResults"></div>
+        
+        <!--STORE RESULTS START-->
+        <div id="resultsHeader" class="resultsHeader">
+            <div class="dtHeader">
+                <div id="rhLeft" class="left"></div>
+                <div id="rhRight" class="right">
+                    <span class="searchAgain" onclick="displayFilter()">{!$Label.WTB_Filter_Results}</span> | <span class="searchAgain" onclick="searchAgain();">{!$Label.WTB_Search_Again}</span>
+                    <div id="theDialog" class="dialogOff">
+                        <div id="diaglogContent" class="dialog-content">
+                            <!--Content generated via javascript-->
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            
+            <div class="mbHeader">
+                <div class="buttonWrapper">
+					<select id="mbFilterSelect" class="mbButton mbButtonSelect" onchange="mbFilterResults(this)"></select>	
+                    <span class="mbButton" onclick="searchAgain();">{!$Label.WTB_Search_Again}</span>
+                    <span id="toggleView" class="mbButton" onclick="toggleView(this);" data-viewType="list">{!$Label.WTB_Map_View}</span>
+                </div>
+            </div>
+
+        </div>
+
+		<div id="resultsContainer" class="wtbHidden">
+            <div id="listWrapper" class="listWrapper">
+                <div id="resultsList" class="listContainer"></div>
+                <div id="resultsPagination" class="paginationContainter"></div>
+            </div>
+
+            <div id="resultsMap" class="mapContainerHidden"></div>
+		</div><!-- resultsContainer close --> 
+
+    </div><!--theWrapper end-->
+
+	<!--On PB load complete ask for location in site and when address field is null only-->
+	<script>
+    	setTimeout(getCountryOptions, 1);
+		if({!consoleParam} == false && document.getElementById("locationInput").value==""){
+			document.getElementById("wtbWrapper").addEventListener("load", getCurrentLocationData());
+		}
+    	//Product search on enter
+    	var prodInput = document.getElementById("productInput");
+    	prodInput.addEventListener("keypress", function(event){
+            if(event.keyCode == 13){
+            	psValidation();
+                event.preventDefault();
+            }
+        });
+	</script>
+    <style>
+    .resultMarker {
+        background-image: url({!URLFOR($Resource.wtb_resource, 'img/markerPin.svg')});
+	}
+	.countryList{
+        background-image: url("{!URLFOR($Resource.wtb_resource, 'img/droparrow.svg')}");
+    }
+    </style>
+</apex:component>

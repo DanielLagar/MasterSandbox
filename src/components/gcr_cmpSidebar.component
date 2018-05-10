@@ -1,0 +1,44 @@
+<!-- 
+#    Component for sidebar of GCR Widget
+#    
+#    @param:  brand, country
+#    @author: ACCENTURE
+#    @date:   19/05/2016
+#
+-->
+<apex:component controller="gcr_sidebarController" layout="none">
+    <!-- ATTRIBUTES FOR COMPONENT -->
+    <apex:attribute name="handshake" assignTo="{!iHandshake}" description="Handshake instance" type="gcr_WidgetHandshake" required="true" />
+    <!-- OUTPUT TEXT TO SET VALUES DUE TO SALESFORCE LIMITATION -->
+    <apex:outputText rendered="{!controlConstructor}" />
+    <!-- ACTION FUNCTIONS FOR PREVIOUS AND NEXT ICONS -->
+    <apex:actionFunction id="callNext" name="callNext" action="{!next}" reRender="opMainId" />
+    <apex:actionFunction id="callPrevious" name="callPrevious" action="{!previous}" reRender="opMainId" />
+    <apex:actionRegion >
+        <apex:actionFunction id="callProcess" name="callProcess" action="{!process}" reRender="opMainId,rightPanelCmp">
+            <apex:param name="prsFstParam" assignTo="{!selectedChannel}" value="" />
+        </apex:actionFunction>
+    </apex:actionRegion>
+    <!-- CONTENT OF THE PAGE COMING FROM CONTROLLER VARIABLES -->
+    <nav>
+        <apex:dataList var="eachRes" value="{!lResourceData}" id="opMainId">
+            <apex:outputPanel layout="block" id="navButton">
+                <apex:outputLink onclick="if({!eachRes.isNext__c} && !{!eachRes.isPrevious__c}) 
+                                            {callNext(); return false;} 
+                                          else if(!{!eachRes.isNext__c} && {!eachRes.isPrevious__c})
+                                            {callPrevious(); return false;} 
+                                          else { callProcess('{!eachRes.Name}'); return false;}"
+                    styleClass="{!IF(iHandshake.gcrFunctionality == null, 'hoverDec'
+                                                , IF(iHandshake.gcrFunctionality != eachRes.Name, 'hoverInc', ''))}"
+                    rendered="{!iHandshake.gcrFunctionality != eachRes.Name}">
+                    <apex:image url="{!URLFOR($Resource[eachRes.StaticResourceName__c], eachRes.ResourcePath__c + eachRes.ContentName__c)}" />
+                    <apex:outputPanel >{!mDisplayName[eachRes.Name]}</apex:outputPanel>
+                </apex:outputLink>
+                <apex:outputPanel layout="block" rendered="{!NOT(iHandshake.gcrFunctionality != eachRes.Name)}">
+                    <apex:image url="{!URLFOR($Resource[eachRes.StaticResourceName__c], eachRes.ResourcePath__c + eachRes.ContentName__c)}" />
+                    <apex:outputPanel >{!mDisplayName[eachRes.Name]}</apex:outputPanel>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:dataList>
+    </nav>
+</apex:component>

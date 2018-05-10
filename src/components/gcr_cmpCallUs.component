@@ -1,0 +1,65 @@
+<!-- 
+#    Component for contact us page of GCR Widget
+#    
+#    @param:  brand, country
+#    @author: ACCENTURE
+#    @date:   01/06/2016
+#
+-->
+<apex:component layout="block" controller="gcr_callusController">
+	<apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/analyticsTracking.js')}" />
+	<script>
+    	trackPageData('call us', '/{!$Site.Name}/call us?brand={!inBrand}&country={!inCountry}&language={!inLanguage}');
+    </script>
+    <style>
+    	.bgImgFrenchFree {
+            background-image: url('{!URLFOR($Resource.GCRWidgetContent, 'contacts/png/freeTariff.PNG')}');
+        }
+        .bgImgFrenchTrivial {
+            background-image: url('{!URLFOR($Resource.GCRWidgetContent, 'contacts/png/trivializedTariff.PNG')}');
+        }
+        .bgImgFrenchPremium {
+            background-image: url('{!URLFOR($Resource.GCRWidgetContent, 'contacts/png/increasedTariff.PNG')}');
+        }
+    </style>
+    <apex:outputPanel rendered="{!NOT(isRightToLeft)}">
+        <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubCallCmpStyling.css')}"/>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!isRightToLeft}">
+        <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubCallCmpStyling_rtl.css')}" />
+    </apex:outputPanel>
+    
+    <!-- ATTRIBUTES FOR COMPONENT -->
+    <apex:attribute name="brand" assignTo="{!inBrand}" description="Selected brand" type="String" required="true" />
+    <apex:attribute name="country" assignTo="{!inCountry}" description="Selected country" type="String" required="true" />
+    <apex:attribute name="language" assignTo="{!inLanguage}" description="Selected language" type="String" required="true" />
+    <apex:attribute name="channelContentId" assignTo="{!channelId}" description="Callus channel" type="String" required="true" />
+    <apex:attribute name="rightToLeft" assignTo="{!isRightToLeft}" description="Email us channel content" type="Boolean" />
+    
+    <apex:outputPanel rendered="{!controlInit}" />
+    <apex:outputPanel layout="block" styleClass="callUsContainer">
+        <apex:outputPanel layout="block" styleClass="cmpHeaderClass">{!channelContent.ChannelHeader__c}</apex:outputPanel>
+        <!--styleClass="callUsContainer"-->
+        <apex:outputPanel layout="block" id="operationalHours" styleClass="callUsText">{!strOperationalHours}</apex:outputPanel>
+			<apex:repeat value="{!mTelephoneNumbers}" var="eachBrand">
+                <apex:outputPanel layout="block" styleClass="callUsText callUsPhoneText">{!eachBrand}</apex:outputPanel>
+                <apex:repeat value="{!mTelephoneNumbers[eachBrand]}" var="eachTel">
+                    <apex:outputLink style="color: inherit;" rendered="{!inCountry != 'France'}" value="tel:{!eachTel.ITFS_Number__c}">{!eachTel.ITFS_Number__c}</apex:outputLink><BR/>
+                    <apex:outputPanel style="height: 50px; width: 435px" layout="block" rendered="{!inCountry == 'France'}">
+                        <apex:outputPanel layout="block" styleClass="bgImgFrenchStyle 
+										   {!IF(eachTel.Phone_Charge_Type__c == 'Free', 'bgImgFrenchFree'
+                                           , IF(eachTel.Phone_Charge_Type__c == 'Local', 'bgImgFrenchTrivial'
+                                           , IF(eachTel.Phone_Charge_Type__c == 'Premium', 'bgImgFrenchPremium', '')))}">
+                            <apex:outputLink styleClass="phNoLink 
+                                           {!IF(eachTel.Phone_Charge_Type__c == 'Free', 'phNoStyleFree'
+                                           , IF(eachTel.Phone_Charge_Type__c == 'Local', 'phNoStyleTrivial'
+                                           , IF(eachTel.Phone_Charge_Type__c == 'Premium', 'phNoStylePremium', '')))}" value="tel:{!eachTel.ITFS_Number__c}">{!eachTel.ITFS_Number__c}</apex:outputLink>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:repeat>
+            </apex:repeat>
+    </apex:outputPanel>
+    <apex:outputPanel layout="block" styleClass="callUsImgDiv">
+    	<apex:image style="max-height: 502px;max-width: 398px;" url="{!channelContent.CareHub__r.BackgroundImgLanding__c}" />
+    </apex:outputPanel>
+</apex:component>

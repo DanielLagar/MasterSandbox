@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Stores org wide defaults</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Agent_Default_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Agent Default Email</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amber_Threshold__c</fullName>
+        <defaultValue>39</defaultValue>
+        <description>Red &gt; Amber threshold point. When the percent is equal to or higher to this value it will display amber.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Red &gt; Amber threshold point. When the percent is equal to or higher to this value it will display amber.</inlineHelpText>
+        <label>Amber Threshold</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Base_Site_URL__c</fullName>
+        <externalId>false</externalId>
+        <label>Base Site URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCM_Retreival_Delay_Minutes__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>CCM Retreival Delay Minutes</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Conga_Running_User_ID__c</fullName>
+        <description>This field holds ID of the Conga Running User. This field is required to prevent the Conga running user from changing the status of Fulfillment Orders.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field holds ID of the Conga Running User. This field is required to prevent the Conga running user from changing the status of Fulfillment Orders.</inlineHelpText>
+        <label>Conga Running User ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Conversable_Chatbot_Base_URL__c</fullName>
+        <description>Currently https://webchat.dev.conversable.com for the Dev box</description>
+        <externalId>false</externalId>
+        <label>Conversable Chatbot Base URL</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GA_Tracking_Code__c</fullName>
+        <description>Google Analytics tracking code specific to environment. *Note* must be enclosed in &apos; for example &apos;UA123&apos;.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Google Analytics tracking code specific to environment. *Note* must be enclosed in &apos; for example &apos;UA123&apos;.</inlineHelpText>
+        <label>GA Tracking Code</label>
+        <length>16</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Green_Threshold__c</fullName>
+        <defaultValue>70</defaultValue>
+        <description>Amber &gt; Green threshold point. When the percent is equal to or higher to this value it will display green.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Amber &gt; Green threshold point. When the percent is equal to or higher to this value it will display green.</inlineHelpText>
+        <label>Green Threshold</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Product_Results_is_Default__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If true product search tab defaults to the product results tab, if false defaults to the path tab</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If true product search tab defaults to the product results tab, if false defaults to the path tab</inlineHelpText>
+        <label>Product Results is Default</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Sprinklr_Community_Source__c</fullName>
+        <externalId>false</externalId>
+        <label>Sprinklr Community Source</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System_Administrator_Profile_Id__c</fullName>
+        <description>Id for the standard system admin profile</description>
+        <externalId>false</externalId>
+        <label>System Administrator Profile Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tag_Case_Days__c</fullName>
+        <description>Number of days to &quot;tag&quot; Cases back to when a Contact is saved to a Case</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of days to &quot;tag&quot; Cases back to when a Contact is saved to a Case</inlineHelpText>
+        <label>Tag Case Days</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>gsVerificationCode__c</fullName>
+        <description>Field to hold google site verification code to allow more users to use google webmaster tools for the site</description>
+        <externalId>false</externalId>
+        <label>Google Site Verification Code</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Global Org Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

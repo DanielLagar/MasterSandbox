@@ -1,0 +1,95 @@
+<apex:page id="pkbPage" sidebar="false" showHeader="false" docType="html-5.0" standardStylesheets="false" standardController="KnowledgeArticle" extensions="pkb_Controller,sf_ContactUsLanguageController" language="{!$CurrentPage.parameters.l}" cache="false">
+    <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"/>
+    <apex:composition template="ContactUsTemplate">
+        <apex:define name="body">
+            <apex:outputText rendered="{!viewingArticle}">
+                <apex:variable var="typeName" value="{!SUBSTITUTE(pkbCon.theKad.articleTypeName, pkbCon.kavExtension, '')}" />
+                <apex:variable var="articleURL" value="{!pkbCon.currentSiteUrl}articles{!pkbCon.selectedLanguageURL}{!typeName}/{!pkbCon.theKad.urlName}" />
+                <meta property="og:title" content="{!pkbCon.theKad.title}" />
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content="{!articleURL}" />
+                <meta property="og:site_name" content="{!SUBSTITUTE(pkbCon.siteName,'_',' ')}" />
+                <meta property="og:description" content="{!pkbCon.theKad.summary}" />
+                <meta property="description" content="{!pkbCon.theKad.summary}" />
+                <link rel="canonical" href="{!articleURL}" />
+            </apex:outputText>
+
+            <c:pkb_css />
+            <c:pkb_js pkbCon="{!pkbCon}"/>
+            <style>
+               .pkb a {
+                   color: black;
+               }
+            </style>
+    <!--
+
+SITE ADMIN: {!pkbCon.siteAdmin.Email}, {!pkbCon.siteAdmin.Name}<br/>
+ALL PARAMS: {!allSearchParams}<br/>
+SITE/PAGE URL: {!pkbCon.currentSiteUrl}<br/>
+FEEDBACK? : {!displayFeedback}<br/>
+SESSION: {!$Api.Session_ID}<br/>
+RSS URL: {!$Page.pkb_RSS}<br/>
+CATEGORIES: {!selectedCategory}<br/>
+KNOWLEDGE ARTICLE ID: {!theKad.Id}<br/>
+KNOWLEDGE ARTICLE ID (FROM CONTROLLER): {!KnowledgeArticle.Id}<br/>
+-->
+
+    <!--  HOME PAGE LAYOUT -->
+
+            <div id="body" class="pkb">
+                <!-- TODO: pull below text from language object -->
+                <!--<div class='intro'>{!language_config.PKB_Page_Intro__c}</div>-->
+<!-- 
+                <apex:outputPanel layout="block" rendered="{!true||ISBLANK(selectedBrand)}">
+                    <apex:form >
+                        <div class="left brand-select">
+                            <label for="{!$Component.brandSelectList}"><apex:outputText value="{!language_config.Select_Brand_Label__c}" /></label>
+                            <apex:selectList value="{!selectedBrand}" size="1" id="brandSelectList">
+                                <apex:selectOptions value="{!brandSelectList}"/>
+                                <apex:actionSupport event="onchange" action="{!updateBrand}" />
+                            </apex:selectList>
+                        </div>
+                    </apex:form>
+                </apex:outputPanel>
+-->
+                <apex:outputPanel layout="block" rendered="{!true||NOT(ISBLANK(selectedBrand))}">
+                    <div>
+                        <!--<div class="left article-search">-->
+                        <div class="article-search">
+                            <c:pkb_search pkbCon="{!pkbCon}" langCon="{!langCon}"/>
+                        </div>
+                    </div>
+
+                    <div style="clear: both;"></div>
+
+                    <div id="right_content" class="featured-related-container">
+                        <apex:outputText rendered="{!NOT(viewingArticle)}">
+                            <!-- new feature articles component -->               
+                            <c:pkb_featured pkbCon="{!pkbCon}" langCon="{!langCon}"
+                                rendered="{!NOT(searchExecuted)&&(bl_display_featured)}" />
+<!--                            <c:pkb_popular pkbCon="{!pkbCon}" rendered="{!NOT(searchExecuted)}" /> -->
+                            <c:pkb_results pkbCon="{!pkbCon}" langCon="{!langCon}" rendered="{!searchExecuted}"
+                                showHeaderInfo="true" />
+                            <!--<c:pkb_Results_CMD pkbCon="{!pkbCon}" langCon="{!langCon}" rendered="{!searchExecuted}"
+                                showHeaderInfo="true" />-->
+                        </apex:outputText>
+
+                        <apex:outputText rendered="{!viewingArticle}">
+                            <div id="articleView">
+                                <c:pkb_articleview pkbCon="{!pkbCon}" showFeedbackYesNo="true"
+                                    showBackLinks="true" />
+                            </div>
+                        </apex:outputText>
+
+                    </div>
+                </apex:outputPanel>
+            </div>
+
+        </apex:define>
+    </apex:composition>
+    <style type="text/css">
+        .fa {
+            cursor: pointer;
+        }
+    </style>
+</apex:page>

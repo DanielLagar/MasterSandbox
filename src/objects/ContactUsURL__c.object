@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>URL to the Contact Us page.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>CareHubUrl__c</fullName>
+        <description>Site url for care hub</description>
+        <externalId>false</externalId>
+        <label>Care Hub Url</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>LA_BtnVisibilityEndpoint__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Button Availability Endpoint</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_Endpoint__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Endpoint</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>URL__c</fullName>
+        <externalId>false</externalId>
+        <label>URL</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <label>ContactUsURL</label>
+    <visibility>Public</visibility>
+</CustomObject>

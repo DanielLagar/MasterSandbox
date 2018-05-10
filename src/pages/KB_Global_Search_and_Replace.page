@@ -1,0 +1,71 @@
+<apex:page controller="KB_Global_Search_and_Replace">
+    <div style="font-size:22px; font-weight:bold; padding:10px 0px;">Knowledge Global Search and Replace</div>
+    
+    <apex:form >
+    <apex:pageBlock title="Search Constraints" id="Constraints">
+        <apex:pageMessages />
+        <apex:outputText value="Article Type:" />
+        <apex:selectList value="{!strArticleType}" size="1" required="true">
+          <apex:actionSupport event="onchange" rerender="Submit"/>      
+            <apex:selectOptions value="{!ArticleTypes}"/>
+        </apex:selectList>
+        &nbsp;&nbsp;
+        <apex:outputText value="Publish Status:" />        
+        <apex:selectList value="{!strPublishStatus}" size="1" required="true">
+            <apex:selectOptions value="{!PublishStatus}"/>
+        </apex:selectList>
+        &nbsp;&nbsp;
+        <apex:outputText value="Language:" />        
+        <apex:selectList value="{!strLanguage}" size="1" required="true">
+            <apex:selectOptions value="{!Language}"/>
+        </apex:selectList>        
+        <br/><br/>
+        <apex:outputText value="Search String:" />
+        <apex:inputText id="Search" value="{!strSearchString}" style="width:200px" size="25" />      
+        <apex:outputText value=" " />
+        &nbsp;&nbsp;
+        <apex:outputText value="Plain Text" />
+        <apex:inputCheckbox value="{!bDisableRegex}" />
+        &nbsp;&nbsp;
+        <apex:outputText value="Case Sensitive" />
+        <apex:inputCheckbox value="{!bCaseSensitive}" /> 
+        <br/><br/>
+        <apex:outputText value="Replacement String:" />
+        <apex:inputText id="Replace" value="{!strReplacementString}" style="width:200px" size="25" />      
+        &nbsp;&nbsp;
+        <apex:outputText value="Publish as New Version" />
+        <apex:inputCheckbox value="{!bPublishNewVersion}" />
+        &nbsp;
+        <apex:outputText value="(Applies to source articles only)" />      
+        <br/>
+      </apex:pageBlock>
+      
+      <apex:outputPanel id="Submit">
+          <apex:pageBlock title="Search Fields" id="Fields" rendered="{!strArticleType != 'None'}" >
+            <apex:selectCheckboxes value="{!strFields}">
+                <apex:selectOptions value="{!ArticleFields}"/>
+            </apex:selectCheckboxes>
+            <br/>
+            <br/>        
+            <apex:commandButton value="Search" action="{!performSearch}"  />&nbsp;&nbsp;
+            <apex:outputText value="Search Only" />
+            <apex:inputCheckbox value="{!bSearchOnly}" />
+            &nbsp;&nbsp;
+            <apex:commandButton value="Status" action="{!refresh}" />
+          </apex:pageBlock>
+      </apex:outputPanel>
+       
+      <apex:pageblock title="{!strSearchStatus}" id="Articles">    
+            <apex:outputPanel id="ArticleList">
+            
+            <apex:outputText value="Number of Articles Searched={!nArticlesSearched}"/>
+            <br/>
+            <apex:outputText value="Number of Articles Selected={!nArticlesSelected}"/> 
+            <br/>
+            <apex:outputText value="Number of Articles Updated={!nArticlesUpdated}" rendered="{!!bSearchOnly}"/> 
+            <br/>            
+
+            </apex:outputPanel> 
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Mapping of Countries to Regions and SMOs</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Alternative_Contact_Info_Layout__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>To display the alternative layout  on the Contact Info tab, tick this checkbox</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Unchecked - Display standard Contact Info tab layout
+Checked - Display alternative layout for the Contact Info tab. (Used for Asia cases)</inlineHelpText>
+        <label>Alternative Contact Info Layout</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Currency_ISO_Code__c</fullName>
+        <description>http://www.currency-iso.org/en/home.html</description>
+        <externalId>false</externalId>
+        <label>Currency ISO Code</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Currency_Name__c</fullName>
+        <description>Friendly readable name for Currency</description>
+        <externalId>false</externalId>
+        <label>Currency Name</label>
+        <length>120</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisplayLabel__c</fullName>
+        <description>Human friendly display text. Used on public facing pages - Where To Buy</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Human friendly display text. Used on public facing pages - Where To Buy</inlineHelpText>
+        <label>DisplayLabel</label>
+        <length>120</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DistanceUnit__c</fullName>
+        <description>Used on wtb page. valid inputs = &apos;miles&apos; or &apos;km&apos;.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used on wtb page. valid inputs = &apos;miles&apos; or &apos;km&apos;.</inlineHelpText>
+        <label>DistanceUnit</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ISO_3166_1_Country_Code__c</fullName>
+        <description>To support Google Places Autocomplete: https://developers.google.com/maps/documentation/javascript/places-autocomplete</description>
+        <externalId>false</externalId>
+        <inlineHelpText>To support Google Places Autocomplete: https://developers.google.com/maps/documentation/javascript/places-autocomplete</inlineHelpText>
+        <label>ISO 3166-1 Country Code</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <externalId>false</externalId>
+        <label>Region</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SMO__c</fullName>
+        <externalId>false</externalId>
+        <label>SMO</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WTB_Enabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If true will appear on WTB search bar</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If true will appear on WTB search bar</inlineHelpText>
+        <label>WTB Enabled</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Country Region SMO</label>
+    <listViews>
+        <fullName>AA</fullName>
+        <columns>NAME</columns>
+        <columns>Region__c</columns>
+        <columns>SMO__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Currency_ISO_Code__c</columns>
+        <columns>Currency_Name__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>NAME</field>
+            <operation>equals</operation>
+            <value>australia,new zealand,thailand,singapore,malaysia,indonesia,vietnam,philippines</value>
+        </filters>
+        <label>AA</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Region__c</columns>
+        <columns>SMO__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Currency_ISO_Code__c</columns>
+        <columns>Currency_Name__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <visibility>Protected</visibility>
+</CustomObject>

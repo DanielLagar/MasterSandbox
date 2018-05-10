@@ -1,0 +1,234 @@
+<!-- 
+    
+    This page provides a way to search for Products and Case Comment Codes and add them to the existing Case Record.
+    Products and Case Comment codes can be added and removed dynamically.
+    
+    @param: Id - The Salesforce Id of the existing Case record
+    @Author: Oleg Rikkers, Chris Southworth 
+    
+-->
+
+<apex:page standardController="Case" extensions="sf_PopOutProductSearchConsoleCompCtrl" showHeader="false" sidebar="false">
+	<!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+    <!--<apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>--> 
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery1_10_4_CSS)}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.sf_ProductSearchPopoutCSS)}"/>   
+    
+    <!--<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"/>-->
+    <apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.sf_ProductSearchPopoutJS)}"/>
+
+ <div id="SearchContainer">
+    <apex:form id="form">
+	    <a name="top"/>
+
+        <apex:actionFunction name="setCaseId" action="{!setCaseId}" oncomplete="showSearchPanel();refreshCaseProducts();" reRender="productSearchPanel, caseProductsSection, caseCommentCodeSection, commentCodeDictionary, errorMessages" status="status">
+            <apex:param name="caseId" value="" assignTo="{!caseId}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="refreshCaseProducts" action="{!refreshCaseProducts}" reRender="caseProductsSection, surveyAvailableSection, errorMessages" status="status"/>
+        <apex:actionFunction name="refreshCaseComments" action="{!refreshCaseProducts}" reRender="caseCommentCodeSection, errorMessages, productInfo, saveProductButton, surveyAvailableSection" status="status"/>
+        <apex:actionFunction name="removeCommentCode" action="{!removeCommentCode}" oncomplete="refreshCaseProducts();refreshSelectedCaseTab();" reRender="caseProductsSection, errorMessages" status="status">
+            <apex:param name="commentCodeId" value="" assignTo="{!commentCodeId}"/>
+        </apex:actionFunction>
+        
+        <apex:pageMessages id="errorMessages"/>
+        <apex:outputPanel styleClass="errorMessages"/>
+        
+        <apex:outputPanel layout="block" styleClass="caseNotSelected" id="caseNotSelected">
+            Please select a Case Record to search for products.
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="block" styleClass="productSearchPanel" id="productSearchPanel">
+            <apex:pageBlock mode="mainDetail" rendered="{!!ISBLANK(caseRecord.Id)}">
+                
+                <apex:outputPanel style="margin-bottom: 10px" layout="block">
+                    <apex:outputPanel layout="block" styleClass="pageTitle">
+                    Product Search - Case: {!caseRecord.CaseNumber}
+                    </apex:outputPanel>
+
+                    <apex:inputField value="{!caseRecord.Country__c}" styleClass="country" style="margin-left:25px;"/>
+                    
+                    <!-- Survey button -->
+                    <apex:outputPanel layout="block" styleClass="surveyAvailableSection" style="float:right; margin-right:25px;" id="surveyAvailableSection">
+                        <apex:commandButton value="Survey Available" onComplete="navigateToSurveySummary()" style="color:red;" rendered="{!surveys.size>0}"/>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel layout="block" styleClass="searchBar">  
+                        <apex:inputText label="Enter Product Name" html-placeholder="Search Products..."
+                        onfocus="productSearchAutocomplete($(this), $('.country').val())" styleClass="productSearchBar"/>
+						<apex:inputCheckbox styleClass="gtinCheckbox" id="gtinCheckbox"/>{!$Label.ProductSearch_GTIN}						
+						<apex:outputText styleClass="processingTime"/> 
+                    </apex:outputPanel> 
+                                    
+                </apex:outputPanel>
+                
+                <apex:pageBlockSection >
+                </apex:pageBlockSection>
+                
+                <!-- CASE PRODUCTS SECTION -->
+                <apex:outputPanel layout="block" styleClass="caseProductsSection" id="caseProductsSection">
+                	<apex:variable var="count" value="{!0}"/>
+                    <apex:repeat value="{!productCommentsList}" var="productList">
+                        <apex:outputPanel layout="block" styleClass="caseProductItem">
+                           
+                            <!-- remove case product button -->
+                            <apex:commandLink value="[X] Remove" action="{!removeCaseProduct}" oncomplete="refreshCaseProducts();refreshSelectedCaseTab();" style="text-decoration:none; color:red;" status="status">
+                                <apex:param value="{!productList.product.Id}" assignTo="{!localProductId}" name="localProductId"/>
+                            </apex:commandLink>
+
+                            <!-- Save case product notes  button-->
+                            <apex:outputPanel id="saveProductButton">
+                            <apex:commandLink value="[V] Save" action="{!saveProductChanges}" reRender="caseProductsSection, errorMessages" status="status" style="text-decoration:none; color:green; margin-left: 10px;"
+                            rendered="{!OR(productList.product.Number_of_Adverse_Event_Comments__c>0, productList.product.Number_of_PQC_Comments__c>0)}"/>
+                            </apex:outputPanel>
+
+                            <apex:outputPanel layout="block" styleClass="productName">
+                                {!productList.product.Local_Product__r.Translated_Path__c} 
+                            </apex:outputPanel>
+                            
+                            <apex:outputPanel layout="block" styleClass="productInfo" id="productInfo">
+                                <apex:outputPanel rendered="{!OR(productList.product.Number_of_Adverse_Event_Comments__c>0, productList.product.Number_of_PQC_Comments__c>0)}">
+                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Product_in_Hand__c.Label}"/>
+                                <apex:inputField value="{!productList.product.Product_in_Hand__c}"/><p/>
+
+                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Product_available_for_return__c.Label}"/>
+                                <apex:inputField value="{!productList.product.Product_available_for_return__c}"/><p/>
+
+                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Production_Code__c.Label}"/>
+                                <apex:inputText value="{!productList.product.Production_Code__c}"/><p/>
+
+                                <p/>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            <apex:selectList id="level1SearchFilter" value="{!productList.levelOneFilter}" size="1" multiselect="false" styleClass="level1SearchFilter{!productList.product.Id}">
+                                <apex:selectOptions value="{!levelOneList}"/>
+                                <apex:actionSupport event="onchange" rerender="level2SearchFilter" status="status"/>
+                            </apex:selectList>
+                            <apex:selectList id="level2SearchFilter" value="{!productList.levelTwoFilter}" size="1" multiselect="false" styleClass="level2SearchFilter{!productList.product.Id}">
+                                <apex:selectOptions value="{!optionMap[productList.levelOneFilter]}"/>
+                            </apex:selectList>
+                            <br/>
+                            <!-- For when filters are removed: <apex:inputText html-placeholder="Search Comment Code..." onfocus="caseCommentSearchAutocomplete($(this), $('.country').val(), '{!productList.product.Id}', '{!productList.product.Global_Product_ID__c}', '', '');" style="width:300px; padding:5px"/> -->
+                            <apex:inputText html-placeholder="Search Comment Code..." onfocus="caseCommentSearchAutocomplete($(this), $('.country').val(), '{!productList.product.Id}', '{!productList.product.Global_Product_ID__c}', '{!caseRecord.Language__c}', '{!productList.product.Local_Product__r.Global_Product__r.Brand__c}', '{!productList.product.Local_Product__r.Global_Product__r.Segment__c}');" styleClass="commentCodeSearchBar"/>
+                            <!-- <apex:inputText html-placeholder="Search Comment Code..." onfocus="caseCommentSearchAutocomplete($(this), $('.country').val(), '{!productList.product.Id}', '{!productList.product.Global_Product_ID__c}','{!productList.levelOneFilter}', '{!productList.levelTwoFilter}');" style="width:300px; padding:5px"/> -->
+                            <apex:commandLink value="{!$Label.CommentCodeDictionary_BrowseAll}" onClick="window.location.hash='#top';" action="{!openCommentCodeDictionary}" onComplete="showCommentCodeDictionary();" reRender="commentCodeDictionary" status="status" style="margin-left:5px;">
+                                <apex:param value="{!productList.product.Id}" assignTo="{!dictionaryProductId}" name="dictionaryProductId"/>
+                                <apex:param value="{!productList.product.Global_Product_ID__c}" assignTo="{!globalProductId}" name="globalProductId"/>
+                                <apex:param value="{!count}" assignTo="{!caseProductIndex}" name="caseProductIndex"/>
+                            </apex:commandLink>
+                            <apex:outputText styleClass="{!productList.product.Id}codeProcessingTime"/> 
+                            <p/>
+
+                            <!-- CASE COMMENT CODES -->
+                            <apex:outputPanel layout="block" styleClass="caseCommentCodeSection" id="caseCommentCodeSection">
+                                <ul class="products tags">
+                                    <apex:repeat value="{!productList.caseCommentCodes}" var="commentCode" id="commentsList">
+
+                                        <li>
+                                            <!-- <apex:outputPanel layout="block" styleClass="warningSign"/> -->
+                                            <a href="javascript:removeCommentCode('{!commentCode.Id}')" style="{!IF(commentCode.Local_Comment_Code__r.Criticality__c = 'Critical', 'background-color:red;', '')}">
+                                                [X] {!commentCode.Local_Comment_Code__r.Full_Translated_Path__c}
+                                            </a>
+                                        </li>
+                                    </apex:repeat>
+                                </ul>
+                            </apex:outputPanel>
+
+                        </apex:outputPanel>
+						<apex:variable var="count" value="{!count + 1}"/>
+                    </apex:repeat>
+                </apex:outputPanel>
+            </apex:pageBlock>
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="block" styleClass="commentCodeDictionary" id="commentCodeDictionary">
+            <apex:pageMessages id="filterErrorMessages"/>
+            <apex:commandLink value="{!$Label.CommentCodeDictionary_GoBack}" onClick="window.location.hash='_';" action="{!resetCommentCodeDictionary}" onComplete="refreshCaseProducts();showSearchPanel();" rerender="caseProductsSection" status="status"/><br/>
+            <p>
+            {!$Label.CommentCodeDictionary_BrowseCommentCodesFor} {!dictionaryProduct.Local_Product__r.Translated_Path__c}
+            </p>
+            <apex:pageBlock >
+                <apex:outputPanel id="commentCodeList">
+                    <apex:pageBlockTable value="{!localCodes}" var="codeItem">
+                        <apex:column >
+                            <apex:facet name="header">
+                            {!$Label.CommentCodeDictionary_AddCommentCode}
+                            </apex:facet>
+                            <apex:commandLink action="{!addSelectedCommentCode}" oncomplete="refreshSelectedCaseTab();" value="{!$Label.CommentCodeDictionary_AddCommentCode}" styleClass="btn" status="status">
+                                <apex:param name="selectedLocalCommentId" assignTo="{!selectedLocalCommentId}" value="{!codeItem.Id}" />
+                            </apex:commandLink>
+                        </apex:column>
+                        <apex:column value="{!codeItem.Criticality__c}"/>
+                        <apex:column value="{!codeItem.Level_1__c}">
+                            <apex:facet name="header">
+                                <apex:outputPanel >
+                                    <apex:commandLink action="{!setSortDirection}" value="Level 1 {!IF(sortBy=='Level_1__c',IF(sortDirection='ASC','▲','▼'),'')}" rerender="commentCodeList" status="status">
+                                        <apex:param value="Level_1__c" name="column" assignTo="{!sortBy}" ></apex:param>
+                                    </apex:commandLink>
+                                    <br/>
+                                    <apex:selectList id="level1" value="{!levelOne}" size="1" multiselect="false">
+                                        <apex:selectOptions value="{!levelOneList}"/>
+                                        <apex:actionSupport event="onchange" action="{!filterByLevel1}" rerender="commentCodeList" status="status"/>
+                                    </apex:selectList>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column value="{!codeItem.Level_2__c}">
+                            <apex:facet name="header">
+                                <apex:outputPanel >
+                                    <apex:commandLink action="{!setSortDirection}" value="Level 2 {!IF(sortBy=='Level_2__c',IF(sortDirection='ASC','▲','▼'),'')}" rerender="commentCodeList" status="status">
+                                        <apex:param value="Level_2__c" name="column" assignTo="{!sortBy}" ></apex:param>
+                                    </apex:commandLink>
+                                    <br/>
+                                    <apex:selectList id="level2" value="{!levelTwo}" size="1" multiselect="false">
+                                        <apex:selectOptions value="{!optionMap[levelOne]}"/>
+                                        <apex:actionSupport event="onchange" action="{!refreshCodeFilterList}" rerender="commentCodeList" status="status"/>
+                                    </apex:selectList>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column value="{!codeItem.Level_3__c}">
+                            <apex:facet name="header">
+                                <apex:commandLink action="{!setSortDirection}" value="Level 3 {!IF(sortBy=='Level_3__c',IF(sortDirection='ASC','▲','▼'),'')}" rerender="commentCodeList" status="status">
+                                    <apex:param value="Level_3__c" name="column" assignTo="{!sortBy}" ></apex:param>
+                                </apex:commandLink>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column value="{!codeItem.Description__c}">
+                            <apex:facet name="header">
+                                <apex:commandLink action="{!setSortDirection}" value="Description {!IF(sortBy=='Description__c',IF(sortDirection='ASC','▲','▼'),'')}" rerender="commentCodeList" status="status">
+                                    <apex:param value="Description__c" name="column" assignTo="{!sortBy}" ></apex:param>
+                                </apex:commandLink>
+                            </apex:facet>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:outputPanel>
+            </apex:pageBlock>
+        </apex:outputPanel>
+
+        <apex:actionStatus id="status">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height: 100%;opacity:0.65;width:100%;">
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Loading...</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+</div> 
+
+<style>
+.warningSign {
+    background: url('{!URLFOR ($Resource.warningSign)}') no-repeat;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-size:20px 20px; 
+}
+</style>
+</apex:page>

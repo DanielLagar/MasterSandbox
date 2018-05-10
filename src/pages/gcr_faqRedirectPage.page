@@ -1,0 +1,54 @@
+<!-- 
+#    VISUALFORCE PAGE TO REDIRECT TO BRAND.COM WEBSITE
+#    
+#    @param:  NONE
+#    @author: ACCENTURE 
+#    @date:   01/08/2016
+#
+#    DATE               NAME                CHANGE DESCRIPTION
+#    26/04/2017         Accenture           WR500 - Added article details on the page and kept it hidden from the user to
+#                                           improve SEO Ranking.
+-->
+<apex:page controller="gcr_faqRedirectController" showHeader="false" showChat="true" cache="false"
+           sidebar="false" standardStylesheets="false" language="{!lang}">
+    <style>
+        @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
+        body { overflow: hidden; }
+    </style>
+    <!-- SCRIPTS INCLUDE -->
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/analyticsTracking.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/analyticsScript.js')}" />
+    
+    <!-- META TAGS FOR SEO -->
+    <meta name="description" content="{!article.Title}. {!articleDesc}" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+    <!-- ARTICLE TITLE -->
+    <title>{!article.Title}</title>
+    <!-- WR500 - ADDED ARTICLE CONTENT HIDDEN FROM USER TO IMPROVE SEO RANKING FOR THIS URL -->
+    <apex:outputPanel layout="block" style="margin-top: 100%;">
+        <!-- ARTICLE TITLE IN H1 -->
+        <h1 style="color: white;">{!article.Title}</h1>
+        <!-- ARTICLE CONTENT -->
+        <apex:outputText rendered="{!NOT(ISBLANK(article.Answer__c))}">
+            <apex:outputText value="{!article.Answer__c}" escape="false"></apex:outputText>
+        </apex:outputText>
+    </apex:outputPanel>
+    <!-- PANEL TO HOLD PROGRESS SPINNER AND TEXT -->
+    <apex:outputPanel layout="block" style="position: absolute;top: 45%;left: 50%;">
+        <apex:outputPanel layout="block" styleClass="fa fa-cog fa-spin fa-2x progressSpinner" />
+        <!-- TEXT IS HARDCODED AND TRANSLATED VIA BROWSER/PAGE LOCALIZATION -->
+        <apex:outputPanel layout="block" style="font-size: 1.4em;margin-left: -20px;">{!$Label.careHubLoading}...</apex:outputPanel>
+    </apex:outputPanel>
+    <script>
+        document.cookie = "debug_logs=debug_logs; path=/; domain=.force.com; value=debug_logs" ;
+        ga('create', '{!$Site.AnalyticsTrackingCode}', 'auto');
+        var pageUrl = "{!$CurrentPage.parameters.pageUrl}";
+        if (pageUrl != null && pageUrl.length > 0 && pageUrl.toLowerCase().indexOf('/faq/') >= 0) {
+            trackPageData(pageUrl.substring(pageUrl.indexOf('/faq/') + 5, pageUrl.length), "/{!$Site.name}" + pageUrl);
+            setTimeout(function() {
+                window.location.replace("{!urlToRediect}");
+            }, {!rdTime});
+        }
+    </script>
+</apex:page>

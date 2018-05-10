@@ -1,0 +1,355 @@
+<apex:component controller="sf_ContactUsHeaderComponentCtrl" >
+        <apex:form id="headerForm">
+        <style>
+            .phone-numbers {list-style:none;margin:0 40px;padding:0;}
+            .phone-numbers > li {margin:0;float:left;width:33%;}
+            .phone-numbers svg {width:14px;height:14px;position:relative;top:5px;float:left;}
+            .phone-numbers .department {display:inline-block;line-height:20px;float:left;font-weight:800;margin-left:15px;}
+            .phone-numbers .number {display:block;clear:both;line-height:20px;margin-left:28px;margin-bottom:30px;}
+            
+             @media (min-width:1200px) {
+            .phone-numbers > li {width:25%;}
+            
+            .image:hover .overlay {
+                width:80%;
+                height:80%;
+                background:rgba(0,0,0,0);
+                position:absolute;
+                top:-130px;
+                left:380px;
+                display:inline-block;
+                -webkit-box-sizing:border-box;
+                -moz-box-sizing:border-box;
+                box-sizing:border-box;
+                
+            }
+            
+            }
+            
+            @media (min-width:992px) {
+            .phone-numbers > li {width:25%;}
+            
+            .image:hover .overlay {
+                width:80%;
+                height:80%;
+                background:rgba(0,0,0,0);
+                position:absolute;
+                top:-130px;
+                left:380px;
+                display:inline-block;
+                -webkit-box-sizing:border-box;
+                -moz-box-sizing:border-box;
+                box-sizing:border-box;
+                
+            }
+            
+            }
+            
+            @media (max-width:991px) {
+            
+            .phone-numbers > li {width:50%;}
+            .image:hover .overlay {
+                width:80%;
+                height:80%;
+                background:rgba(0,0,0,0);
+                position:absolute;
+                top:-130px;
+                left:380px;
+                display:inline-block;
+                -webkit-box-sizing:border-box;
+                -moz-box-sizing:border-box;
+                box-sizing:border-box;
+                
+            }
+            
+            }
+            
+            @media (max-width:767px) {
+            .phone-numbers > li {width:100%;}
+            
+            .image:hover .overlay {
+                width:80%;
+                height:80%;
+                background:rgba(0,0,0,0);
+                position:absolute;
+                top:-125px;
+                left:10px;
+                display:inline-block;
+                -webkit-box-sizing:border-box;
+                -moz-box-sizing:border-box;
+                box-sizing:border-box;
+                
+            }
+            
+            
+            }
+            
+            .image {
+                position:relative;
+                display:inline-block;
+            	//width: 140px;
+            }
+            .overlay {
+                display:none;
+            }
+         
+    }
+        </style>
+            
+		<!--For tracking Country and Language selection event tracking-->
+        
+		<script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', {!$Setup.Global_Org_Settings__c.GA_Tracking_Code__c}]);
+            _gaq.push(['_trackPageview']);
+    
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+		</script>
+
+
+        <div class="page-header brand-header">
+            <div class="col-xs-6" style="padding-left:10px">
+                <div class="col-md-7">
+                    <img src="{!headerImageURL}" alt="{!langCon.brand_language_config.Logo_Hover_Text__c}" title="{!langCon.brand_language_config.Logo_Hover_Text__c}"></img>
+                </div>
+                <div class="col-md-3 col-md-offset-1">
+                    <div id="socialMediaIcons" class="socialmedia-brand">
+                        <apex:outputPanel layout="block" rendered="{!langCon.bl_show_twitter_link}" styleClass="glyph fs1 pull-left">
+                            <div class="clearfix bshadow0 pbs">
+                                <a href="{!langCon.brand_language_config.Link_URL_Twitter__c}" title="{!langCon.brand_language_config.Link_Hover_Text_Twitter__c}" target="_blank"> <span class="icon-Twitter"></span><span
+                                    class="mls"></span>
+                                </a>
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" rendered="{!langCon.bl_show_facebook_link}" styleClass="glyph fs1 pull-left">
+                            <div class="clearfix bshadow0 pbs">
+                                <a href="{!langCon.brand_language_config.Link_URL_Facebook__c}" title="{!langCon.brand_language_config.Link_Hover_Text_Facebook__c}" target="_blank"> <span class="icon-Facebook"></span><span
+                                    class="mls"></span>
+                                </a>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block" rendered="{!langCon.bl_show_pinterest_link}" styleClass="glyph fs1 pull-left">
+                            <div class="clearfix bshadow0 pbs">
+                                <a href="{!langCon.brand_language_config.Link_URL_Pinterest__c}" title="{!langCon.brand_language_config.Link_Hover_Text_Pinterest__c}" target="_blank"> <span class="icon-Pinterest"></span><span
+                                    class="mls"></span>
+                                </a>
+                            </div>
+                        </apex:outputPanel>
+                        <!--CDOY START-->
+                         <apex:outputPanel layout="block" rendered="{!langCon.bl_show_weibo_link}" styleClass="glyph fs1 pull-left">
+                            <div class="clearfix bshadow0 pbs">
+                                
+                                <a href="{!langCon.brand_language_config.Link_URL_Weibo__c}" title="{!langCon.brand_language_config.Link_Hover_Text_Weibo__c}" target="_blank"> <span class="fa fa-weibo"></span><span
+                                    class="mls"></span>
+                                </a>
+                              
+                            </div>
+                        </apex:outputPanel>
+                          <!--
+                            <apex:outputPanel layout="block" rendered="{!langCon.bl_show_wechat_link}" styleClass="glyph fs1 pull-left">
+                                <div class="clearfix bshadow0 pbs">
+                                    <a href="{!langCon.brand_language_config.Link_URL_Wechat__c}" title="{!langCon.brand_language_config.Link_Hover_Text_Wechat__c}" target="_blank" > <span class="fa fa-wechat" ></span><span
+                                        class="mls"></span>
+                                    </a>
+                                    
+                                    
+                                </div>
+                            </apex:outputPanel>
+                           -->       
+                        <!--CDOY END-->
+                    </div> <!-- end #socialMediaIcons -->
+                </div>
+          
+
+                <apex:outputPanel layout="block" styleClass="pull-left hidden-xs hidden-sm pull-left countryLanguageDivider" rendered="{!isDefaultBrand}"/>
+                <apex:outputPanel layout="block" styleClass="pull-left hidden-xs hidden-sm pull-left countryLanguageDividerSmall" rendered="{!!isDefaultBrand}"/>
+            </div>
+
+            <div class="col-xs-6">
+                <div id="countryLanguageContainer">
+                    <apex:outputPanel layout="block" styleClass="row header-dropdown">
+                        <apex:outputLabel value="{!langCon.language_config.Country_Label__c}"/><br/>
+                        <apex:selectList value="{!selectedCountry}" size="1" styleClass="col-xs-12 col-md-6" onfocus="_gaq.push(['_trackEvent', 'Event_Header_Interaction', 'Event_Field_Focus', 'Change Country'])">
+                            <apex:selectOptions value="{!countryList}"/>
+                            <apex:actionSupport event="onchange" action="{!processCountrySelect}"/>
+                        </apex:selectList>  
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="block" styleClass="row header-dropdown" id="langSection">
+                        <apex:outputLabel value="{!langCon.language_config.Language_Label__c}" rendered="{!countryList.size>0}"/><br/>
+                        <apex:selectList value="{!selectedLanguage}" size="1" rendered="{!countryList.size>0}" styleClass="col-xs-12 col-md-6" onfocus="_gaq.push(['_trackEvent', 'Event_Header_Interaction', 'Event_Field_Focus', 'Change Language'])">
+                            <apex:selectOptions value="{!languageList}"/>
+                             <apex:actionSupport event="onchange" action="{!processLanguageSelect}"/>
+                        </apex:selectList>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="block" styleClass="row header-dropdown" rendered="{!isDefaultBrand}" id="brand">
+                        <apex:outputLabel value="{!langCon.language_config.Brand_Label__c}" rendered="{!brandSelectList.size>0}"/><br/>
+                        <apex:selectList value="{!selectedBrand}" size="1" rendered="{!brandSelectList.size>0}" disabled="{!brandSelectList.size==1}" styleClass="col-xs-12 col-md-6">
+                            <apex:selectOptions value="{!brandSelectList}"/>
+                            <apex:actionSupport event="onchange" action="{!processBrandSelect}" />
+                        </apex:selectList>
+                    </apex:outputPanel>
+                    
+                </div> <!-- end #countryLanguageContainer big -->
+               
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- ./page-header -->
+
+        <div id="page-nav">
+
+            <!-- FIXME - have questions about where this information should go - may need
+                a new object? -->
+            <!-- FIXME per doug look at Telephony inventory. and how its currently done
+                put this at bottom of list - to do after styling is complete -->
+
+            <div id="phoneNumbers"  styleClass="pull-right contact-info">
+                
+                <div class="image" styleClass="pull-left">
+                    <apex:outputPanel rendered="{!langCon.bl_show_wechat_link}" >
+                        <div class="clearfix bshadow0 pbs">
+                           <!-- <a href="{!langCon.brand_language_config.Link_URL_Wechat__c}" title="{!langCon.brand_language_config.Link_Hover_Text_Wechat__c}" target="_blank" >  -->
+                                <span style="font-size:14pt; font-weight:bold; color:black; width:400px; " class="fa fa-wechat">关注微信，享更多服务(点我获取二维码)</span><span class="mls"></span>                            
+                                <div class="overlay"><apex:image url="{!URLFOR($Resource.GCR_wechat_QR)}" width="112" height="112"/></div>
+                            <!--</a> -->
+                        </div>
+                    </apex:outputPanel>
+                </div>
+
+				<apex:outputPanel id="frTelephony" rendered="{!selectedCountry == 'France'}">
+                   
+					<apex:repeat var="f" value="{!frenchTelephonyList}">
+                     	<c:FrenchTelephony TelNumber="{!f.ITFS_Number__c}"
+						TelCharge="{!f.Phone_Charge_Type__c}"
+						TelColour="{!f.Phone_Colour__c}"
+                        TelLabel="{!f.localBrand__c}"
+                        />                   
+                    </apex:repeat>
+                
+                 
+                </apex:outputPanel>
+				<!-- Phone Numbers listed in reverse order due to use of float right (pull-right) -->
+                <!--<apex:outputPanel layout="block" rendered="{!telephonyString !=''}" styleClass="pull-right contact-header">-->
+                <!-- Non french numbers -->
+                <!-- Phone Numbers listed in reverse order due to use of float right (pull-right) -->
+                
+                <apex:outputPanel layout="block" rendered="{!telephonyString !='' && selectedCountry != 'France'}" styleClass="pull-right contact-header">   
+				<apex:outputPanel layout="inline" rendered="{!telephonyString !=''}" styleClass="phone-number">&nbsp;{!telephonyString}&nbsp;</apex:outputPanel>
+                </apex:outputPanel>
+              
+				<apex:outputPanel layout="block" rendered="{!telephonyString !=''}" styleClass="pull-right contact-header phone-hours">{!operationalHours}</apex:outputPanel>
+				<!-- <apex:outputPanel layout="block" styleClass="pull-right contact-header phone-hours">{!operationalHours}</apex:outputPanel> -->
+                    
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!--    LIVE AGENT DEPLOYMENT  -->
+            <script type='text/javascript' src='{!$Setup.ContactUsURL__c.Live_Agent_Endpoint__c}/content/g/js/33.0/deployment.js'></script>
+            <script type='text/javascript'>
+
+                liveagent.enableLogging();
+
+                console.log ('Starting Live Agent...');
+                console.log ('langCon.brand_language_config...', '{!JSENCODE(langCon.brand_language_config.Id)}'); //CDOY WR288 JSENCODE Added to JS
+                
+                var isDuringBusinessHours = {!isDuringBusinessHours};
+                console.log ('isDuringBusinessHours...', isDuringBusinessHours);
+
+                if (isDuringBusinessHours) {
+                    liveagent.init('{!$Setup.ContactUsURL__c.Live_Agent_Endpoint__c}/chat', '{!JSENCODE(langCon.brand_language_config.Live_Agent_Deployment_Id__c)}', '{!LEFT($Organization.Id,15)}');//CDOY WR288 JSENCODE Added to JS
+                    liveagent.setChatWindowHeight(600);
+                    liveagent.setChatWindowWidth(850);
+                }
+                
+                function startChat () {
+                    $('.mainNav').removeClass("active");
+                    $('.chatNav').addClass("active");
+                     
+                    if ($('[id$=contactUsForm]'))
+                        $('[id$=contactUsForm]').children().empty(); 
+                    if ($('.innerForm'))
+                        $('.innerForm').html('{!JSENCODE(langCon.language_config.Live_Agent_Starting_Message__c)}'); //CDOY WR288 JSENCODE Added to JS
+
+                    //CHANGES CHAT REVAMP
+                    var widthVal = window.innerWidth - 400 - 10;
+                    var heightVal = window.innerHeight - 610;
+                    if (screen.width > 767) {
+                    	window.open('{!ChatStartUrl}', '_blank','resizable=no,height=610,width=400,top=' + heightVal 
+                                    + ',left=' + widthVal);//screenX=' + widthVal +'screenY=' + heightVal);
+                    } else {
+                        window.open('{!ChatStartUrl}');
+					}
+                }
+            </script>
+            <!--  END LIVE AGENT  -->
+
+            <!--<div class="page-title">{!langCon.language_config.Page_Heading__c}</div>-->
+
+            <ul class="nav nav-pills nav-justified " role="tablist">
+                <li class="mainNav {!IF(lower($CurrentPage.name)=='pkb_home',"active","")}" >
+                    <apex:commandLink action="{!goPKB}" ><span class="icon-Bulb"></span><span> &nbsp;{!langCon.language_config.Tab_Title_KB__c}</span></apex:commandLink>
+                </li>
+
+                <li class="mainNav {!IF(lower($CurrentPage.name)=='emailus',"active","")}" >
+                    <apex:commandLink action="{!goEmailUs}" ><span class="icon-Mail"></span><span> &nbsp;{!langCon.language_config.Tab_Title_Email_Us__c}</span></apex:commandLink> 
+                </li>
+                
+                <apex:outputPanel layout="none" rendered="{!langCon.bl_show_community_tab}">
+                    <li class="mainNav">
+                        <a href="{!langCon.brand_language_config.Link_URL_Community_Site__c}" target="_blank"><span class="icon-Community"></span><span> &nbsp;{!langCon.language_config.Tab_Title_Join_the_Community__c}</span></a>
+                    </li>
+                </apex:outputPanel>
+                
+                <apex:outputPanel layout="none" rendered="{!langCon.bl_show_live_chat_tab}">
+                    <li class="mainNav chatNav" style="cursor:pointer;">
+
+                    <!-- LIVE AGENT BUTTON -->
+                    
+                    <a id="liveagent_button_online" href="javascript://Chat" style="display: none;" onclick="startChat()">
+
+                        <span class="icon-ChatBubbz"/>
+                        <span> &nbsp;{!langCon.language_config.Tab_Title_Chat_Live__c}</span>
+              
+                    </a>
+                    
+
+                    <a id="liveagent_button_offline">
+                        <span class="fa fa-moon-o fa-tab"/>
+                        <span>
+                            {!IF(isDuringBusinessHours,langCon.language_config.Tab_Title_Chat_Offline__c,langCon.language_config.Tab_Title_Outside_of_Business_Hours__c)}
+                        </span>
+
+                    </a>
+
+                    <script type="text/javascript">
+                        if (!window._laq) { 
+                            window._laq = []; 
+                        }
+                        
+                        window._laq.push(
+                            function(){
+                                liveagent.showWhenOnline('{!JSENCODE(langCon.brand_language_config.Live_Agent_Button_Id__c)}', document.getElementById('liveagent_button_online')); //CDOY WR288 JSENCODE Added to JS
+                                liveagent.showWhenOffline('{!JSENCODE(langCon.brand_language_config.Live_Agent_Button_Id__c)}', document.getElementById('liveagent_button_offline')); //CDOY WR288 JSENCODE Added to JS
+                            }
+                        );
+
+
+                    </script>
+                    
+
+                   <!-- END LIVE AGENT BUTTON -->
+                  
+                    </li>
+                </apex:outputPanel>
+            </ul>
+        </div> <!-- end #page-nav -->
+    </apex:form>
+</apex:component>

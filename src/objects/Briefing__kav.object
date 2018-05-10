@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <articleTypeChannelDisplay>
+        <articleTypeTemplates>
+            <channel>App</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Prm</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Csp</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Pkb</channel>
+            <template>Toc</template>
+        </articleTypeTemplates>
+    </articleTypeChannelDisplay>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This will give agents easy access to information for all initiatives with live links to relevant associated articles enhancing their experience and interaction with knowledge.</description>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <fields>
+        <fullName>Additional_Information__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Information</label>
+        <length>50000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Associated_Articles__c</fullName>
+        <externalId>false</externalId>
+        <label>Associated Articles</label>
+        <length>50000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Background_Summary__c</fullName>
+        <externalId>false</externalId>
+        <label>Background / Summary</label>
+        <length>50000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Countries__c</fullName>
+        <externalId>false</externalId>
+        <label>Countries</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Ingredient_Information__c</fullName>
+        <externalId>false</externalId>
+        <label>Ingredient Information</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Key_Search_Words__c</fullName>
+        <externalId>false</externalId>
+        <label>Key Search Words</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Other_Information__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Information</label>
+        <length>50000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Pictorial__c</fullName>
+        <externalId>false</externalId>
+        <label>Pictorial</label>
+        <length>50000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Product_Paths__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Paths</label>
+        <length>50000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Review_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Review Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_of_Shipping_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Start of Shipping Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Use_Instructions__c</fullName>
+        <externalId>false</externalId>
+        <label>Use Instructions</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <label>Briefing</label>
+    <pluralLabel>Briefings</pluralLabel>
+</CustomObject>

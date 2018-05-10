@@ -1,0 +1,581 @@
+<!-- 
+/**
+* @author: salesforce.com
+* @date: 02/10/2015
+*
+* @description: csat survey public page
+* 
+*/
+ -->
+
+<apex:page cache="false" showHeader="false" sidebar="false" controller="sf_ContactUsTemplateController" extensions="sf_CSATSurveyExt" docType="html-5.0" standardStylesheets="false" language="{!$CurrentPage.parameters.lang}" title="{!$CurrentPage.parameters.brand}">
+    <!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+    <!--<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"/>-->
+    <apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jquery_validate, '/dist/jquery.validate.min.js')}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.jQuery1_10_4_CSS)}"/>
+    <!--<apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>-->
+    <!-- <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"/> -->
+    <apex:stylesheet value="{!URLFOR($Resource.IcoMoon, '/IcoMoon-Free-master/Font/demo-files/demo.css')}"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+
+    <apex:composition template="sf_ContactUsTemplateNoHeaderPicklist">
+        <apex:define name="header">
+            <c:sf_ContactUsHeaderSimple />
+        </apex:define>
+
+        <apex:define name="body">
+
+
+            <script type="text/javascript">
+
+                var validator;
+                var tempVal;
+                var initValidation = function () {
+                    
+                    console.log('about to create validator');
+                    tempVal =  $('[id$=surveyForm]').value;
+                    console.log('get form: '+tempVal);
+                    console.log('get object: '+$('[id$=surveyForm]'));
+                    
+                    validator = $('[id$=surveyForm]').validate({
+                        ignoreTitle: true,
+                        errorElement: 'span',
+                        focusInvalid: false,
+                        invalidHandler: function(form, validator) {
+                            var errors = validator.numberOfInvalids();
+                            if (errors) {
+                                  $("html, body").animate({ scrollTop: 0 }, "fast");
+                                 
+                            }
+                        },
+
+                        onclick: function (el, event) {
+                            $(el).parents().closest('div.radioButtonQuestion').removeClass('errorBox');
+                        },
+
+                        showErrors: function(errorMap, errorList) {
+                            
+                            $.each(errorList, function (index, item){
+                                $(item.element).parents().closest('div.radioButtonQuestion').addClass('errorBox');
+                            });
+                            //this.defaultShowErrors();
+                         }
+
+                    });
+
+                    $('[name$="friendlyRadio"]').rules ("add", {
+                            required : true
+                        }
+                    );
+
+                    $('[name$="specificNeedsRadio"]').rules ("add", {
+                            required : true
+                        }
+                    );
+
+                    $('[name$="offerSolutionRadio"]').rules ("add", {
+                            required : true
+                        }
+                    );
+
+                    $('[name$="simpleForYouRadio"]').rules ("add", {
+                            required : true
+                        }
+                    );
+
+                    $('[name$="feelValuedRadio"]').rules ("add", {
+                            required : true
+                        }
+                    );
+
+                    $('[name$="youCanTrustRadio"]').rules ("add", {
+                            required : true
+                        }
+                    );
+
+                    $('[name$="likelyToBuyRadio"]').rules ("add", {
+                            required : true
+                        }
+                    );
+
+                    $('[name$="likelyToRecommendRadio"]').rules ("add", {
+                            required : true
+                        }
+                    );
+
+                    
+
+                    
+                };
+
+                var validateForm = function () {
+                    var isFormValid = $('[id$=surveyForm]').valid();
+
+                    if (isFormValid) {
+                         $("#validationError").hide();
+                         submitSurvey();
+                    } else {
+                         $("#validationError").show();
+                    }
+                };
+
+                //Can't find items on initial load if not displaying survey initially
+                //Need to call again when we display survey section
+                $(document).ready (function (){
+                    if('{!csat.Case_Origin__c}' != 'Email'){
+                        initValidation();
+                        $('.radioWithLabelsOnBottom input').after('<br/>');
+                        var icons = '<div class="row hidden-lg hidden-md falinesmall">';
+                        icons += $('#smiles').html();
+                        icons += '</div>';
+                        $('.questionLabel').after(icons);
+                    }
+                });
+            
+                var setupPage = function(){
+                    initValidation();
+                    $('.radioWithLabelsOnBottom input').after('<br/>');
+                    var icons = '<div class="row hidden-lg hidden-md falinesmall">';
+                    icons += $('#smiles').html();
+                    icons += '</div>';
+                    $('.questionLabel').after(icons);                    
+                           
+                                                                            
+                }
+            
+                //WR212
+                var submitTask = function(){
+                    submitCaseTask();
+                }
+            </script>
+
+
+            <!-- BEGIN WELCOME -->
+            <apex:outputPanel layout="block" styleClass="row" rendered="{!!hasErrors && !showThankyou}">
+                <apex:outputText escape="false" value="{!langCon.language_config.CSAT_Welcome_Message__c}"></apex:outputText>
+            </apex:outputPanel>
+            <!-- END WELCOME -->
+
+            <apex:form id="surveyForm" styleClass="surveyForm">
+                <apex:actionFunction action="{!saveSurvey}" name="submitSurvey" status="sf_ProgressStatus"/>
+                <!--WR212-->
+                <apex:actionFunction action="{!saveTask}" name="submitCaseTask" status="sf_ProgressStatus"/>
+                <!-- messages -->
+                <apex:outputPanel layout="block" styleClass="errorMessagesPanel">
+                    <div id="validationError" style="display:none">{!langCon.language_config.Top_of_the_page_error_message__c}</div>
+                    <apex:pageMessages id="errorMessages"/>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="block" styleClass="innerForm" rendered="{!!hasErrors}" id="innerForm">
+
+                    <apex:outputPanel layout="block" rendered="{!csat.Case_Origin__c == 'Email' && !showThankyou}">
+                        <apex:outputPanel layout="block" styleClass="col-md-6">
+                            <apex:outputText escape="false" value="{!langCon.language_config.CSAT_Receive_Response__c}" styleClass="textLabel"/>
+                        </apex:outputPanel>
+                        <div class="col-md-6">
+                            <apex:selectList value="{!replyReceived}" multiselect="false" size="1" required="true">
+                                <apex:selectOptions value="{!ReplyOptions}"/>
+                                <apex:actionSupport event="onchange" reRender="innerForm" oncomplete="setupPage();" />
+                            </apex:selectList>
+                        </div>
+                        
+                        <br/><br/><br/><br/><br/>
+                         <!-- No reply received message panel-->
+                        <apex:outputPanel id="noReplyPanel" layout="block" styleClass="" rendered="{!replyReceived=='No' && !showThankyou}">
+                            <apex:outputText escape="false" value="{!langCon.language_config.CSAT_Response_Below__c}" styleClass="textLabel"/>
+                            <br/><br/>
+                            <apex:outputText escape="false" value="{!lastResponse}" styleClass="textLabel"/>
+                        </apex:outputPanel>
+                    </apex:outputPanel>                   
+
+                    <!--WR212 Did this help question panel-->
+                    <apex:outputPanel layout="block" rendered="{!replyReceived=='No' && !showThankyou}">
+                        <br/>
+                        <apex:outputPanel layout="block" styleClass="col-md-6">
+                            <apex:outputText escape="false" value="{!langCon.language_config.CSAT_Response_Help__c}" styleClass="textLabel"/>
+                        </apex:outputPanel>
+                        <div class="col-md-6">
+                            <apex:selectList value="{!needMoreHelp}" id="needMoreHelp" multiselect="false" size="1" required="true">
+                                <apex:selectOptions value="{!ReplyOptions}"/>
+                                <apex:actionSupport event="onchange" reRender="innerForm" oncomplete="setupPage();"/>
+                            </apex:selectList>
+                        </div>                    
+                    </apex:outputPanel>
+                    
+                    <!--WR212 Reply did not help input panel-->
+                    <apex:outputPanel layout="block" rendered="{!needMoreHelp=='Yes' && replyReceived=='No' && !showThankyou}">
+                        <br/><br/>
+                        <apex:outputPanel layout="block" styleClass="col-md-6">
+                            <apex:outputText escape="false" value="{!langCon.language_config.CSAT_Alternate_Contact_Details__c}" />
+                        </apex:outputPanel>
+                        <apex:inputTextarea value="{!taskDescription}" />
+                        
+                        <!-- submit button -->
+                        <div class="row" style="margin-top: 45px;">
+                            <input type="button" value="{!langCon.language_config.Button_Label_Submit__c}" class="btn-custom" onclick="submitTask();"/>
+                        </div>
+                    </apex:outputPanel>
+
+                    <!-- BEGIN SURVEY -->
+                    <!-- WR212 Only display if not show thank you, replyReceived == Yes OR Origin != email-->
+                    <apex:outputPanel layout="block" rendered="{!!showThankyou && replyReceived=='Yes' || needMoreHelp=='No'}">
+                        <!--WR212 Extra wording-->
+                        <apex:outputPanel layout="block" rendered="{!replyReceived=='Yes'}">
+                            <apex:outputText escape="false" value="{!langCon.language_config.CSAT_Think_about_experience__c}" />
+                            <br/>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel layout="block" rendered="{!replyReceived=='No' && needMoreHelp=='No'}">
+                            <br/><br/>
+                            <apex:outputText escape="false" value="{!langCon.language_config.CSAT_Hear_Feedback__c}" />
+                            <br/>
+                        </apex:outputPanel>
+                        
+                        <!-- faces -->
+                        <apex:outputPanel layout="block" styleClass="row qrow hidden-sm hidden-xs">
+                            <apex:outputPanel layout="block" styleClass="questionLabel col-md-6">
+                                <apex:outputText escape="false" value=""/>
+                            </apex:outputPanel>
+                            <div class="col-md-6 faline" id="smiles">
+                                <apex:panelGrid columns="5" styleClass="horIcons">
+                                    <apex:outputPanel >
+                                        <i class="icon icon-crypg fs1"></i>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel >
+                                        <i class="icon icon-sadpg fs1"></i>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel >
+                                        <i class="icon icon-neutralpg fs1"></i>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel >
+                                        <i class="icon icon-smilepg fs1"></i>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel >
+                                        <i class="icon icon-happypg fs1"></i>
+                                    </apex:outputPanel>
+                                    
+                                </apex:panelGrid>
+
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="row radioRow radioButtonQuestion">
+                            <apex:outputPanel layout="block" styleClass="questionLabel col-md-6">
+                                <apex:outputText escape="false" value="1. {!$ObjectType.CSAT_Survey__c.fields.Q_FriendlyAndWelcoming__c.InlineHelpText}" styleClass="textLabel"/>
+                            </apex:outputPanel>
+                            <div class="col-md-6 radioBox">
+                                <apex:selectRadio layout="lineDirection" legendInvisible="true" value="{!csat.Q_FriendlyAndWelcoming__c}" styleClass="horRadio" id="friendlyRadio">
+                                    <apex:selectOptions value="{!RadioButtonOptions}"/>
+                                </apex:selectRadio>
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="row radioRow radioButtonQuestion">
+                            <apex:outputPanel styleClass="questionLabel col-md-6">
+                                <apex:outputText escape="false" value="2. {!$ObjectType.CSAT_Survey__c.fields.Q_UnderstandSpecificNeeds__c.InlineHelpText}" styleClass="textLabel"/>
+                            </apex:outputPanel>
+                            
+                            <div class="col-md-6 radioBox">
+                                <apex:selectRadio layout="lineDirection" legendInvisible="false" value="{!csat.Q_UnderstandSpecificNeeds__c}" styleClass="horRadio" id="specificNeedsRadio">
+                                    <apex:selectOptions value="{!RadioButtonOptions}"/>
+                                </apex:selectRadio>
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="row radioRow radioButtonQuestion">
+                            <apex:outputPanel styleClass="questionLabel col-md-6">
+                                <apex:outputText escape="false" value="3. {!$ObjectType.CSAT_Survey__c.fields.Q_OfferSolutions__c.InlineHelpText}" styleClass="textLabel"/>
+                            </apex:outputPanel>
+                            <div class="col-md-6 radioBox">
+                                <apex:selectRadio layout="lineDirection" legendInvisible="true" value="{!csat.Q_OfferSolutions__c}" styleClass="horRadio" id="offerSolutionRadio">
+                                    <apex:selectOptions value="{!RadioButtonOptions}"/>
+                                </apex:selectRadio>
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="row radioRow radioButtonQuestion">
+                            <apex:outputPanel styleClass="questionLabel col-md-6">
+                                <apex:outputText escape="false" value="4. {!$ObjectType.CSAT_Survey__c.fields.Q_MakeItEasySimple__c.InlineHelpText}" styleClass="textLabel"/>
+                            </apex:outputPanel>
+                            <div class="col-md-6 radioBox">
+                                <apex:selectRadio layout="lineDirection" legendInvisible="true" value="{!csat.Q_MakeItEasySimple__c}" styleClass="horRadio" id="simpleForYouRadio">
+                                    <apex:selectOptions value="{!RadioButtonOptions}"/>
+                                </apex:selectRadio>
+                            </div>  
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="row radioRow radioButtonQuestion">
+                            <apex:outputPanel styleClass="questionLabel col-md-6">
+                                <apex:outputText escape="false" value="5. {!$ObjectType.CSAT_Survey__c.fields.Q_MakeFeelValued__c.InlineHelpText}" styleClass="textLabel"/>
+                            </apex:outputPanel>
+                            <div class="col-md-6 radioBox">
+                                <apex:selectRadio layout="lineDirection" legendInvisible="true" value="{!csat.Q_MakeFeelValued__c}" styleClass="horRadio" id="feelValuedRadio">
+                                    <apex:selectOptions value="{!RadioButtonOptions}"/>
+                                </apex:selectRadio>
+                            </div>  
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="row qrow" style="margin-top: 25px;">
+                            <apex:outputPanel styleClass="col-md-12 qrow">
+                                <apex:outputText escape="false" value="6. {!$ObjectType.CSAT_Survey__c.fields.Q_ConsumerCareTeamFeedback__c.InlineHelpText}" styleClass="textLabel"/>
+                            </apex:outputPanel>
+                            <div class="col-md-12">
+                                <apex:inputTextarea value="{!csat.Q_ConsumerCareTeamFeedback__c}" rows="5" styleClass="form-control commentField"/>
+                            </div>  
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="row qrow radioButtonQuestion">
+                            <apex:outputPanel styleClass=" col-md-6">
+                                <apex:outputText escape="false" value="7. {!SUBSTITUTE($ObjectType.CSAT_Survey__c.fields.Q_IsThisBrandYouCanTrust__c.InlineHelpText, '[brand]', brand)}" styleClass="qrow textLabel"/>
+                                <apex:outputPanel styleClass="radioBox" layout="block">
+                                    <apex:selectRadio layout="pageDirection" legendInvisible="true" value="{!csat.Q_IsThisBrandYouCanTrust__c}" styleClass="verRadio" id="youCanTrustRadio">
+                                        <apex:selectOptions value="{!BrandYouCanTrustOptions}"/>
+                                    </apex:selectRadio>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            <div class="col-md-6">
+                                
+                            </div>  
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="row qrow radioButtonQuestion">
+                            <apex:outputPanel styleClass="col-md-6">
+                                <apex:outputText escape="false" value="8. {!SUBSTITUTE($ObjectType.CSAT_Survey__c.fields.Q_LikelyToBuyBrand__c.InlineHelpText, '[brand]', brand)}" styleClass="qrow textLabel"/>
+                                <apex:outputPanel styleClass="radioBox" layout="block">
+                                    <apex:selectRadio layout="pageDirection" legendInvisible="true" value="{!csat.Q_LikelyToBuyBrand__c}" styleClass="verRadio" id="likelyToBuyRadio">
+                                        <apex:selectOptions value="{!BrandYouWillBuyOptions}"/>
+                                    </apex:selectRadio>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            <div class="col-md-6">
+                                
+                            </div>  
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="row qrow radioButtonQuestion">
+                            <apex:outputPanel styleClass=" col-md-12">
+                                <apex:outputText escape="false" value="9. {!SUBSTITUTE($ObjectType.CSAT_Survey__c.fields.Q_LikelyToRecommendBrandToFriends__c.InlineHelpText, '[brand]', brand)}" styleClass="textLabel"/>
+                            </apex:outputPanel>
+                            <div class="col-md-6 qrow radioBox">
+                                <apex:selectRadio layout="lineDirection" legendInvisible="true" value="{!csat.Q_LikelyToRecommendBrandToFriends__c}" styleClass="radioWithLabelsOnBottom" id="likelyToRecommendRadio">
+                                    <apex:selectOptions value="{!RadioButtonTenOptions}"/>
+                                </apex:selectRadio>
+                            </div>  
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="row qrow">
+                            <apex:outputPanel styleClass="col-md-12 qrow">
+                                <apex:outputText escape="false" value="10. {!$ObjectType.CSAT_Survey__c.fields.Q_ExplainReasonForScore__c.InlineHelpText}" styleClass="textLabel"/>
+                            </apex:outputPanel>
+                            <div class="col-md-12">
+                                <apex:inputTextarea value="{!csat.Q_ExplainReasonForScore__c}" rows="5" styleClass="form-control commentField"/>
+                            </div>  
+                        </apex:outputPanel>
+
+                        <!-- submit button -->
+                        <div class="row" style="margin-top: 45px;">
+                            <input type="button" value="{!langCon.language_config.Button_Label_Submit__c}" class="btn-custom" onclick="validateForm()"/>
+                        </div>
+                    </apex:outputPanel> 
+                    <!-- END SURVEY -->
+
+                    <!-- BIGIN THANK YOU -->
+                    <apex:outputPanel layout="block" rendered="{!showThankyou}" styleClass="row col-md-12 thankyou">
+                        <apex:outputPanel rendered="{!showThankyou && replyReceived=='Yes'}">
+                            <pre class="thanks">
+                                <apex:outputText escape="false" value="{!langCon.language_config.CSAT_Thank_you_message__c}"></apex:outputText>
+                            </pre>                      
+                        </apex:outputPanel> 
+                        <apex:outputPanel rendered="{!showThankyou && replyReceived=='No'}">
+                             <pre class="thanks">
+                                <apex:outputText escape="false" value="{!langCon.language_config.CSAT_No_Response_Received_Submission__c}"></apex:outputText>
+                            </pre>                       
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                    <!-- END THANK YOU -->
+                </apex:outputPanel>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+
+    <apex:actionStatus id="sf_ProgressStatus">
+        <apex:facet name="start">
+            <apex:outputPanel layout="block" styleClass="waiting" id="el_loading">
+                <apex:outputPanel layout="block" styleClass="waitingHolder">
+                    <span class="fa fa-spinner fa-spin fa-2x"/>
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+        </apex:facet>
+    </apex:actionStatus>
+
+    <style type="text/css">
+
+    .innerForm {
+        min-height: 250px;
+        padding: 10px !important;
+    }
+
+    .horRadio {
+        width: 75%;
+        margin-left: 7px;
+    }
+
+    .horIcons {
+        width: 75%;
+        margin-top: 10px;
+    }
+
+    .horRadio label {
+        font-weight: normal;
+    }
+
+    .verRadio input {
+        margin-right: 1em;
+    }
+
+    .verRadio label {
+        font-weight: normal;
+    }
+
+    .faline i{
+    
+    }
+
+
+    .falinesmall i{
+        
+    }
+
+    .radioWithLabelsOnBottom label {
+        display: inline;
+        font-weight: normal;
+        padding: 1px
+
+    }
+
+    .radioWithLabelsOnBottom input {
+        
+        font-weight: normal;
+        margin: 0px;
+    }
+
+    .radioWithLabelsOnBottom td {
+        padding-right: 10px;
+    }
+
+
+    .qrow {
+        margin-bottom: 10px;
+    }
+
+    .radioRow {
+        margin-bottom: 10px;
+    }
+
+    #validationError {
+        font-family: "Trebuchet MS";
+        font-weight: bold;
+        color: #ad1c1c;
+        font-size: {!langCon.language_config.Error_Message_Font_Size__c};
+        background: #ffdbdb;
+        padding: 20px;
+    }
+
+    .message img {
+        display: none;
+    }
+
+    .message {
+        border-width: 0px;
+        background-color: transparent;
+        margin-left: 0px;
+    }
+
+    .messageText span {
+        font-size: 75%;
+    }
+
+    .surveyForm {
+        //min-width: 200px;
+    }
+    .qrow fieldset {
+        padding: 15px 0px;
+    }
+
+    textarea.form-control {
+        margin-top: 10px;
+        margin-left: 0px;
+        width: 95%;
+    }
+
+    .btn-custom:hover {
+        text-decoration: none;
+    }
+
+    .errorBox {
+        border: 1px solid red;
+        padding-bottom: 2px;
+    }
+
+    .icon {
+        font-family: 'IcoMoon-Free' !important; 
+    }
+
+    .container {
+        padding: 5px !important;
+    }
+
+    .btn-custom {
+        height: 3em !important;
+    }
+
+
+    .icon-crypg:before {
+        content: "\e600";
+        font-family: "icomoonpg";
+    }
+
+    .icon-sadpg:before {
+        content: "\e601";
+        font-family: "icomoonpg";
+    }
+
+    .icon-neutralpg:before {
+        content: "\e602";
+        font-family: "icomoonpg";
+    }
+    .icon-smilepg:before {
+        content: "\e603";
+        font-family: "icomoonpg";
+    }
+
+    .icon-happypg:before {
+        content: "\e604";
+        font-family: "icomoonpg";
+    }
+
+    #page-body {
+        max-width: 828px;
+        padding:20px !important;
+    }
+
+    pre.thanks {
+        background-color: transparent;
+        border: 0px;
+        font-family: "{!brand_config.Font_Header__c}";
+        white-space: normal;
+        word-break: normal;
+    }
+        
+    pre.thanks a {
+        word-break: break-all;
+    }
+
+    </style>
+</apex:page>

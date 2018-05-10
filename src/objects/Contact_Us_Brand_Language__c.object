@@ -1,0 +1,1741 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Junction object storing brand- and language-specific settings and translations</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Accept_Terms_and_Conditions_Label_Part_1__c</fullName>
+        <description>This is the part of the terms and conditions label that comes before the link to the terms and conditions.</description>
+        <externalId>false</externalId>
+        <label>Accept Terms and Conditions Label Part 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Accept_Terms_and_Conditions_Label_Part_2__c</fullName>
+        <description>This is the part of the terms and conditions label that will link to the terms and conditions</description>
+        <externalId>false</externalId>
+        <label>Accept Terms and Conditions Label Part 2</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Accept_Terms_and_Conditions_Label_Part_3__c</fullName>
+        <description>This is the part (can be empty) of the terms and conditions label that will come after the link to the terms and conditions</description>
+        <externalId>false</externalId>
+        <label>Accept Terms and Conditions Label Part 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Age_Capture_Style__c</fullName>
+        <description>Style of Age Capture to display on Contact Us page</description>
+        <externalId>false</externalId>
+        <label>Age Capture Style</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>MM/YYYY</fullName>
+                    <default>false</default>
+                    <label>MM/YYYY</label>
+                </value>
+                <value>
+                    <fullName>Age Range</fullName>
+                    <default>false</default>
+                    <label>Age Range</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Brand_Country_Language__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact_Us_Brand__r.Brand__c + &quot; - &quot; + TEXT(Contact_Us_Language__r.Country__c) + &quot; - &quot; + TEXT(Contact_Us_Language__r.Language__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Brand/Country/Language</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Brand_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Contact_Us_Brand__r.Name</formula>
+        <label>Brand Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Business_Hours__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Business Hours</label>
+        <referenceTo>BusinessHours</referenceTo>
+        <relationshipName>Contact_Us_Brands_Languages</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Case_Submit_Ask_gender__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Display Gender input on Case submission form?</description>
+        <externalId>false</externalId>
+        <label>Case Submit Ask gender</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Case_Submit_Minimum_Age__c</fullName>
+        <description>Minimum age required to submit a case.  If Age Capture Style is blank (no age capture), this setting is ignored, and all users can submit cases.</description>
+        <externalId>false</externalId>
+        <label>Case Submit Minimum Age</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ChatImageUrl__c</fullName>
+        <description>Chat image url for Proactive Chat required to be sent to brand.com</description>
+        <externalId>false</externalId>
+        <label>Proactive Chat Image Url</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Brand__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Brand</label>
+        <referenceTo>Contact_Us_Brand__c</referenceTo>
+        <relationshipLabel>Contact Us Brands Languages</relationshipLabel>
+        <relationshipName>Contact_Us_Brands_Languages</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Language__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Language</label>
+        <referenceTo>Contact_Us_Language__c</referenceTo>
+        <relationshipLabel>Contact Us Brands Languages</relationshipLabel>
+        <relationshipName>Contact_Us_Brands_Languages</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Display_Summary__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If checked will display summary information for the article on both featured and searched articles</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked will display summary information for the article on both featured and searched articles</inlineHelpText>
+        <label>Display Summary?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ExternalId__c</fullName>
+        <externalId>false</externalId>
+        <label>ExternalId</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Featured_Article_1__c</fullName>
+        <description>Featured article to display in 1st (highest) position</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Featured article to display in 1st (highest) position</inlineHelpText>
+        <label>Featured Article 1</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Featured_Article_2__c</fullName>
+        <description>Featured article to display in 2nd position</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Featured article to display in 2nd position</inlineHelpText>
+        <label>Featured Article 2</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Featured_Article_3__c</fullName>
+        <description>Featured article to display in the 3rd position</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Featured article to display in the 3rd position</inlineHelpText>
+        <label>Featured Article 3</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Featured_Article_4__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Featured article to display in 4th position</inlineHelpText>
+        <label>Featured Article 4</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Featured_Article_5__c</fullName>
+        <description>Featured article to display in 5th (lowest) position</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Featured article to display in 5th (lowest) position</inlineHelpText>
+        <label>Featured Article 5</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>I_agree_URL__c</fullName>
+        <externalId>false</externalId>
+        <label>I agree URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Link_Hover_Text_Facebook__c</fullName>
+        <externalId>false</externalId>
+        <label>Link Hover Text Facebook</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Link_Hover_Text_Pinterest__c</fullName>
+        <externalId>false</externalId>
+        <label>Link Hover Text Pinterest</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Link_Hover_Text_Twitter__c</fullName>
+        <externalId>false</externalId>
+        <label>Link Hover Text Twitter</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Link_Hover_Text_Wechat__c</fullName>
+        <externalId>false</externalId>
+        <label>Link Hover Text Wechat</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Link_Hover_Text_Weibo__c</fullName>
+        <externalId>false</externalId>
+        <label>Link Hover Text Weibo</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Link_URL_Community_Site__c</fullName>
+        <description>Link to Community Site (e.g., GetSatisfaction).  If blank, community tab will not be displayed on Contact Us page.</description>
+        <externalId>false</externalId>
+        <label>Link URL Community Site</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Link_URL_Facebook__c</fullName>
+        <externalId>false</externalId>
+        <label>Link URL Facebook</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Link_URL_Pinterest__c</fullName>
+        <externalId>false</externalId>
+        <label>Link URL Pinterest</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Link_URL_Twitter__c</fullName>
+        <externalId>false</externalId>
+        <label>Link URL Twitter</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Link_URL_Wechat__c</fullName>
+        <externalId>false</externalId>
+        <label>Link URL Wechat</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Link_URL_Weibo__c</fullName>
+        <externalId>false</externalId>
+        <label>Link URL Weibo</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_Button_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Button Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_Deployment_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Deployment Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Logo_Hover_Text__c</fullName>
+        <description>Text displayed when user hovers mouse over brand logo.</description>
+        <externalId>false</externalId>
+        <label>Logo Hover Text</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone_1_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone 1 Label</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone_1_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone 1 Number</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone_2_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone 2 Label</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone_2_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone 2 Number</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone_3_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone 3 Label</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone_3_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone 3 Number</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone_Hours_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone Hours Label</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q10_Picklist_Values__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter picklist values on separate lines.  Only used when Question Type is picklist.</inlineHelpText>
+        <label>Q10 Picklist Values</label>
+        <length>4098</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q10_Question_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Q10 Question Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Picklist</fullName>
+                    <default>false</default>
+                    <label>Picklist</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q10_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Q10 Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q10_Reasons_For_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Q10 Reasons For Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1. Testimonial</fullName>
+                    <default>false</default>
+                    <label>1. Testimonial</label>
+                </value>
+                <value>
+                    <fullName>2. Inquiry</fullName>
+                    <default>false</default>
+                    <label>2. Inquiry</label>
+                </value>
+                <value>
+                    <fullName>3. Availability</fullName>
+                    <default>false</default>
+                    <label>3. Availability</label>
+                </value>
+                <value>
+                    <fullName>4. Complaint</fullName>
+                    <default>false</default>
+                    <label>4. Complaint</label>
+                </value>
+                <value>
+                    <fullName>5. Requests for Free Items</fullName>
+                    <default>false</default>
+                    <label>5. Requests for Free Items</label>
+                </value>
+                <value>
+                    <fullName>6. Promotions</fullName>
+                    <default>false</default>
+                    <label>6. Promotions</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q1_Picklist_Values__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter picklist values on separate lines.  Only used when Question Type is picklist.</inlineHelpText>
+        <label>Q1 Picklist Values</label>
+        <length>4098</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q1_Question_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Q1 Question Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Picklist</fullName>
+                    <default>false</default>
+                    <label>Picklist</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q1_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Q1 Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q1_Reasons_For_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Q1 Reasons For Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1. Testimonial</fullName>
+                    <default>false</default>
+                    <label>1. Testimonial</label>
+                </value>
+                <value>
+                    <fullName>2. Inquiry</fullName>
+                    <default>false</default>
+                    <label>2. Inquiry</label>
+                </value>
+                <value>
+                    <fullName>3. Availability</fullName>
+                    <default>false</default>
+                    <label>3. Availability</label>
+                </value>
+                <value>
+                    <fullName>4. Complaint</fullName>
+                    <default>false</default>
+                    <label>4. Complaint</label>
+                </value>
+                <value>
+                    <fullName>5. Requests for Free Items</fullName>
+                    <default>false</default>
+                    <label>5. Requests for Free Items</label>
+                </value>
+                <value>
+                    <fullName>6. Promotions</fullName>
+                    <default>false</default>
+                    <label>6. Promotions</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q2_Picklist_Values__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter picklist values on separate lines.  Only used when Question Type is picklist.</inlineHelpText>
+        <label>Q2 Picklist Values</label>
+        <length>4098</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q2_Question_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Q2 Question Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Picklist</fullName>
+                    <default>false</default>
+                    <label>Picklist</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q2_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Q2 Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q2_Reasons_For_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Q2 Reasons For Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1. Testimonial</fullName>
+                    <default>false</default>
+                    <label>1. Testimonial</label>
+                </value>
+                <value>
+                    <fullName>2. Inquiry</fullName>
+                    <default>false</default>
+                    <label>2. Inquiry</label>
+                </value>
+                <value>
+                    <fullName>3. Availability</fullName>
+                    <default>false</default>
+                    <label>3. Availability</label>
+                </value>
+                <value>
+                    <fullName>4. Complaint</fullName>
+                    <default>false</default>
+                    <label>4. Complaint</label>
+                </value>
+                <value>
+                    <fullName>5. Requests for Free Items</fullName>
+                    <default>false</default>
+                    <label>5. Requests for Free Items</label>
+                </value>
+                <value>
+                    <fullName>6. Promotions</fullName>
+                    <default>false</default>
+                    <label>6. Promotions</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q3_Picklist_Values__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter picklist values on separate lines.  Only used when Question Type is picklist.</inlineHelpText>
+        <label>Q3 Picklist Values</label>
+        <length>4098</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q3_Question_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Q3 Question Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Picklist</fullName>
+                    <default>false</default>
+                    <label>Picklist</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q3_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Q3 Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q3_Reasons_For_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Q3 Reasons For Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1. Testimonial</fullName>
+                    <default>false</default>
+                    <label>1. Testimonial</label>
+                </value>
+                <value>
+                    <fullName>2. Inquiry</fullName>
+                    <default>false</default>
+                    <label>2. Inquiry</label>
+                </value>
+                <value>
+                    <fullName>3. Availability</fullName>
+                    <default>false</default>
+                    <label>3. Availability</label>
+                </value>
+                <value>
+                    <fullName>4. Complaint</fullName>
+                    <default>false</default>
+                    <label>4. Complaint</label>
+                </value>
+                <value>
+                    <fullName>5. Requests for Free Items</fullName>
+                    <default>false</default>
+                    <label>5. Requests for Free Items</label>
+                </value>
+                <value>
+                    <fullName>6. Promotions</fullName>
+                    <default>false</default>
+                    <label>6. Promotions</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q4_Picklist_Values__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter picklist values on separate lines.  Only used when Question Type is picklist.</inlineHelpText>
+        <label>Q4 Picklist Values</label>
+        <length>4098</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q4_Question_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Q4 Question Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Picklist</fullName>
+                    <default>false</default>
+                    <label>Picklist</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q4_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Q4 Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q4_Reasons_For_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Q4 Reasons For Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1. Testimonial</fullName>
+                    <default>false</default>
+                    <label>1. Testimonial</label>
+                </value>
+                <value>
+                    <fullName>2. Inquiry</fullName>
+                    <default>false</default>
+                    <label>2. Inquiry</label>
+                </value>
+                <value>
+                    <fullName>3. Availability</fullName>
+                    <default>false</default>
+                    <label>3. Availability</label>
+                </value>
+                <value>
+                    <fullName>4. Complaint</fullName>
+                    <default>false</default>
+                    <label>4. Complaint</label>
+                </value>
+                <value>
+                    <fullName>5. Requests for Free Items</fullName>
+                    <default>false</default>
+                    <label>5. Requests for Free Items</label>
+                </value>
+                <value>
+                    <fullName>6. Promotions</fullName>
+                    <default>false</default>
+                    <label>6. Promotions</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q5_Picklist_Values__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter picklist values on separate lines.  Only used when Question Type is picklist.</inlineHelpText>
+        <label>Q5 Picklist Values</label>
+        <length>4098</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q5_Question_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Q5 Question Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Picklist</fullName>
+                    <default>false</default>
+                    <label>Picklist</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q5_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Q5 Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q5_Reasons_For_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Q5 Reasons For Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1. Testimonial</fullName>
+                    <default>false</default>
+                    <label>1. Testimonial</label>
+                </value>
+                <value>
+                    <fullName>2. Inquiry</fullName>
+                    <default>false</default>
+                    <label>2. Inquiry</label>
+                </value>
+                <value>
+                    <fullName>3. Availability</fullName>
+                    <default>false</default>
+                    <label>3. Availability</label>
+                </value>
+                <value>
+                    <fullName>4. Complaint</fullName>
+                    <default>false</default>
+                    <label>4. Complaint</label>
+                </value>
+                <value>
+                    <fullName>5. Requests for Free Items</fullName>
+                    <default>false</default>
+                    <label>5. Requests for Free Items</label>
+                </value>
+                <value>
+                    <fullName>6. Promotions</fullName>
+                    <default>false</default>
+                    <label>6. Promotions</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q6_Picklist_Values__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter picklist values on separate lines.  Only used when Question Type is picklist.</inlineHelpText>
+        <label>Q6 Picklist Values</label>
+        <length>4098</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q6_Question_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Q6 Question Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Picklist</fullName>
+                    <default>false</default>
+                    <label>Picklist</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q6_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Q6 Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q6_Reasons_For_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Q6 Reasons For Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1. Testimonial</fullName>
+                    <default>false</default>
+                    <label>1. Testimonial</label>
+                </value>
+                <value>
+                    <fullName>2. Inquiry</fullName>
+                    <default>false</default>
+                    <label>2. Inquiry</label>
+                </value>
+                <value>
+                    <fullName>3. Availability</fullName>
+                    <default>false</default>
+                    <label>3. Availability</label>
+                </value>
+                <value>
+                    <fullName>4. Complaint</fullName>
+                    <default>false</default>
+                    <label>4. Complaint</label>
+                </value>
+                <value>
+                    <fullName>5. Requests for Free Items</fullName>
+                    <default>false</default>
+                    <label>5. Requests for Free Items</label>
+                </value>
+                <value>
+                    <fullName>6. Promotions</fullName>
+                    <default>false</default>
+                    <label>6. Promotions</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q7_Picklist_Values__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter picklist values on separate lines.  Only used when Question Type is picklist.</inlineHelpText>
+        <label>Q7 Picklist Values</label>
+        <length>4098</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q7_Question_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Q7 Question Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Picklist</fullName>
+                    <default>false</default>
+                    <label>Picklist</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q7_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Q7 Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q7_Reasons_For_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Q7 Reasons For Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1. Testimonial</fullName>
+                    <default>false</default>
+                    <label>1. Testimonial</label>
+                </value>
+                <value>
+                    <fullName>2. Inquiry</fullName>
+                    <default>false</default>
+                    <label>2. Inquiry</label>
+                </value>
+                <value>
+                    <fullName>3. Availability</fullName>
+                    <default>false</default>
+                    <label>3. Availability</label>
+                </value>
+                <value>
+                    <fullName>4. Complaint</fullName>
+                    <default>false</default>
+                    <label>4. Complaint</label>
+                </value>
+                <value>
+                    <fullName>5. Requests for Free Items</fullName>
+                    <default>false</default>
+                    <label>5. Requests for Free Items</label>
+                </value>
+                <value>
+                    <fullName>6. Promotions</fullName>
+                    <default>false</default>
+                    <label>6. Promotions</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q8_Picklist_Values__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter picklist values on separate lines.  Only used when Question Type is picklist.</inlineHelpText>
+        <label>Q8 Picklist Values</label>
+        <length>4098</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q8_Question_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Q8 Question Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Picklist</fullName>
+                    <default>false</default>
+                    <label>Picklist</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q8_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Q8 Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q8_Reasons_For_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Q8 Reasons For Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1. Testimonial</fullName>
+                    <default>false</default>
+                    <label>1. Testimonial</label>
+                </value>
+                <value>
+                    <fullName>2. Inquiry</fullName>
+                    <default>false</default>
+                    <label>2. Inquiry</label>
+                </value>
+                <value>
+                    <fullName>3. Availability</fullName>
+                    <default>false</default>
+                    <label>3. Availability</label>
+                </value>
+                <value>
+                    <fullName>4. Complaint</fullName>
+                    <default>false</default>
+                    <label>4. Complaint</label>
+                </value>
+                <value>
+                    <fullName>5. Requests for Free Items</fullName>
+                    <default>false</default>
+                    <label>5. Requests for Free Items</label>
+                </value>
+                <value>
+                    <fullName>6. Promotions</fullName>
+                    <default>false</default>
+                    <label>6. Promotions</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q9_Picklist_Values__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter picklist values on separate lines.  Only used when Question Type is picklist.</inlineHelpText>
+        <label>Q9 Picklist Values</label>
+        <length>4098</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Q9_Question_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Q9 Question Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Picklist</fullName>
+                    <default>false</default>
+                    <label>Picklist</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Q9_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Q9 Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q9_Reasons_For_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Q9 Reasons For Writing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1. Testimonial</fullName>
+                    <default>false</default>
+                    <label>1. Testimonial</label>
+                </value>
+                <value>
+                    <fullName>2. Inquiry</fullName>
+                    <default>false</default>
+                    <label>2. Inquiry</label>
+                </value>
+                <value>
+                    <fullName>3. Availability</fullName>
+                    <default>false</default>
+                    <label>3. Availability</label>
+                </value>
+                <value>
+                    <fullName>4. Complaint</fullName>
+                    <default>false</default>
+                    <label>4. Complaint</label>
+                </value>
+                <value>
+                    <fullName>5. Requests for Free Items</fullName>
+                    <default>false</default>
+                    <label>5. Requests for Free Items</label>
+                </value>
+                <value>
+                    <fullName>6. Promotions</fullName>
+                    <default>false</default>
+                    <label>6. Promotions</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Show_Live_Chat_Tab__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field may be superceded with chat-specific field(s) (e.g., Chat Deployment, Skills, etc), in which case this field should become a formula based on the other field(s).</description>
+        <externalId>false</externalId>
+        <label>Show Live Chat Tab</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Signup_Blurb__c</fullName>
+        <description>CRM Banner signup blurb/strap line</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CRM Banner signup blurb/strap line</inlineHelpText>
+        <label>Signup Blurb</label>
+        <length>1000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Signup_Button_Label__c</fullName>
+        <description>CRM Banner signup button label</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CRM Banner signup button label</inlineHelpText>
+        <label>Signup Button Label</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Signup_Image__c</fullName>
+        <description>CRM Banner footer image</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CRM Banner footer image</inlineHelpText>
+        <label>Signup Image</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>StandaloneChatUrl__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND(!ISBLANK(Live_Agent_Button_Id__c), !ISBLANK(Live_Agent_Deployment_Id__c)), $Setup.ContactUsURL__c.CareHubUrl__c + &apos;/gcr_proChatRedirect?brand=&apos; +  Contact_Us_Brand__r.Name  + &apos;&amp;country=&apos; + Contact_Us_Language__r.GCRCountryIsoCode__c + &apos;&amp;language=&apos; + Contact_Us_Language__r.GCRLanguageIsoCode__c, &apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Standalone Chat Page Url</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Supports_SmartCare__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If checked will be passed to Sprinklr SmartCare for NLP/Initial response handling</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked will be passed to Sprinklr SmartCare for NLP/Initial response handling</inlineHelpText>
+        <label>Supports SmartCare?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Widget__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Populating this field will result in the Get Satisfaction Widget on the ContactUs page.</inlineHelpText>
+        <label>Widget Code</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>noPrechatProactive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Field to determine if pre chat form required before chat</description>
+        <externalId>false</externalId>
+        <label>noPrechatProactive</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>noPrechatStandalone__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Field to determine if a pre-chat form is required for standalone chat</description>
+        <externalId>false</externalId>
+        <label>noPrechatStandalone</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>signup_URL__c</fullName>
+        <description>CRM Banner signup URL to redirect consumer to</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CRM Banner signup URL to redirect consumer to</inlineHelpText>
+        <label>signup URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <label>Contact Us Brand Language</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>Signup_Button_Label__c</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <columns>Age_Capture_Style__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Australia</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Contact_Us_Language__c</field>
+            <operation>contains</operation>
+            <value>english-AUS</value>
+        </filters>
+        <label>Australia</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Braun</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand_Country_Language__c</field>
+            <operation>contains</operation>
+            <value>Braun</value>
+        </filters>
+        <label>Braun</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Germany</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand_Country_Language__c</field>
+            <operation>contains</operation>
+            <value>Germany</value>
+        </filters>
+        <label>Germany</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>India</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand_Country_Language__c</field>
+            <operation>contains</operation>
+            <value>india</value>
+        </filters>
+        <label>India</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Indonesia</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand_Country_Language__c</field>
+            <operation>contains</operation>
+            <value>indonesia</value>
+        </filters>
+        <label>Indonesia</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Israel</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand_Country_Language__c</field>
+            <operation>contains</operation>
+            <value>israel</value>
+        </filters>
+        <label>Israel</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Japan</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Contact_Us_Language__c</field>
+            <operation>contains</operation>
+            <value>Japanese</value>
+        </filters>
+        <label>Japan</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Korea</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Contact_Us_Language__c</field>
+            <operation>contains</operation>
+            <value>Korea</value>
+        </filters>
+        <label>Korea</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>New_Zealand</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Contact_Us_Language__c</field>
+            <operation>contains</operation>
+            <value>english-nz</value>
+        </filters>
+        <label>New Zealand</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>P_G</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand_Country_Language__c</field>
+            <operation>contains</operation>
+            <value>P&amp;G</value>
+        </filters>
+        <label>P&amp;G</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Pampers</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand_Country_Language__c</field>
+            <operation>contains</operation>
+            <value>Pampers</value>
+        </filters>
+        <label>Pampers</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Philippines</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand_Country_Language__c</field>
+            <operation>contains</operation>
+            <value>Philippines</value>
+        </filters>
+        <label>Philippines</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>my_view</fullName>
+        <columns>NAME</columns>
+        <columns>Brand_Name__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Brand_Country_Language__c</columns>
+        <columns>Contact_Us_Language__c</columns>
+        <columns>Case_Submit_Minimum_Age__c</columns>
+        <columns>Accept_Terms_and_Conditions_Label_Part_1__c</columns>
+        <columns>Accept_Terms_and_Conditions_Label_Part_2__c</columns>
+        <columns>Accept_Terms_and_Conditions_Label_Part_3__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>Live_Agent_Deployment_Id__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand_Country_Language__c</field>
+            <operation>contains</operation>
+            <value>jap</value>
+        </filters>
+        <label>my view</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>CBL-{0000}</displayFormat>
+        <label>Contact Us Brand Language Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Contact Us Brands Languages</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Brand_Country_Language__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Contact_Us_Brand__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Contact_Us_Language__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Article_Number_Format</fullName>
+        <active>true</active>
+        <description>prevents incorrect article number format being entered</description>
+        <errorConditionFormula>/*example: REGEX(SSN__c, &quot;[0-9]{3}-[0-9]{2}-[0-9]{4}&quot;)*/
+OR(
+NOT(
+REGEX(Featured_Article_1__c, &quot;[0-9]{9}|^$&quot;)
+),
+NOT(
+REGEX(Featured_Article_2__c, &quot;[0-9]{9}|^$&quot;)
+),
+NOT(
+REGEX(Featured_Article_3__c, &quot;[0-9]{9}|^$&quot;)
+),
+NOT(
+REGEX(Featured_Article_4__c, &quot;[0-9]{9}|^$&quot;)
+),
+NOT(
+REGEX(Featured_Article_5__c, &quot;[0-9]{9}|^$&quot;)
+))</errorConditionFormula>
+        <errorMessage>The article number format you have entered is incorrect. Please check the article number and try again. An article number should look like &quot;000046513&quot;.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

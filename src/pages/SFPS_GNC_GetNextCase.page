@@ -1,0 +1,114 @@
+<apex:page controller="SFPS_GNC_GetNextCase" showHeader="false" cache="false">                            
+    <apex:includeScript value="/support/console/34.0/integration.js"/>
+    <apex:stylesheet value="{!$Resource.SFPS_GNC_CSS}"  />
+
+    <apex:form >
+        <apex:actionfunction action="{!AssignNextRecord}" name="AssignNextRecord" oncomplete="OpenRecord()"
+            reRender="Toast, ErrorMessages, AssignmentMessage, NoRecordsMessage, CustomScript"/>
+        <apex:messages id="messages"></apex:messages>
+    </apex:form>
+
+    <apex:outputPanel id="Toast">
+        <div class="toastPanel">
+            <div id="WaitMessagePanel">
+                <div class="waitImage">
+                    <apex:image value="/img/loading32.gif"></apex:image>
+                </div>
+                <span class="waitMessage">
+                    <apex:outputLabel value="{!$Label.SFPS_GNC_Wait_Message}"></apex:outputLabel>
+                </span>
+            </div>
+
+            <div id="ProcessedMessagePanel">
+                <apex:outputPanel id="ErrorMessages" rendered="{!NOT(ISBLANK(ErrorMessage))}">
+                    <apex:pageMessages ></apex:pageMessages>
+                    <span class='errorMessages'>{!ErrorMessage}</span>
+                </apex:outputPanel>
+                <apex:outputPanel id="AssignmentMessage" rendered="{!AND(ISBLANK(ErrorMessage), NOT(ISBLANK(CaseNumberAssigned)))}">
+                    <div class="assignmentImage">
+                        <apex:image value="/img/icon/cases32.png"></apex:image>
+                    </div>
+                    <span class="assignmentMessage">
+                        <apex:outputLabel value="{!$Label.SFPS_GNC_Assigned_Case_Message}"></apex:outputLabel>&nbsp;{!CaseNumberAssigned}<br />
+                        <apex:outputLabel value="{!$Label.SFPS_GNC_Assigned_Case_Queue_Message}"></apex:outputLabel>&nbsp;{!CasePreviousQueue}
+                    </span>
+                </apex:outputPanel>
+                <apex:outputPanel id="NoRecordsMessage" rendered="{!AND(NoSearches == false, ISBLANK(ErrorMessage), ISBLANK(CaseNumberAssigned))}">
+                    <span class="noRecordsMessage">
+                        <apex:outputLabel value="{!$Label.SFPS_GNC_No_Records_Message}"></apex:outputLabel>
+                    </span>
+                </apex:outputPanel>
+                <div class="clearDiv"></div>
+                <div class="autoCloseMessage">
+                    <apex:outputLabel value="{!$Label.SFPS_GNC_Auto_Close_1}"></apex:outputLabel>&nbsp;{!AutoCloseDelay}&nbsp;<apex:outputLabel value="{!$Label.SFPS_GNC_Auto_Close_2}"></apex:outputLabel>
+                </div>
+            </div>            
+        </div>
+    </apex:outputPanel>
+
+    <apex:outputPanel id="CustomScript">
+        <script type="text/javascript">
+            // Assign class variables to javascript variables
+            var caseId      = '{!CaseIdAssigned}';
+            var caseNumber  = '{!CaseNumberAssigned}';
+        </script>
+    </apex:outputPanel>
+
+<script type="text/javascript">
+var CustomConsoleComponentButtonClicked = function(result) {
+    //console.log('CustomConsoleComponentButtonClicked() entered')
+    //console.log(result);
+
+    // don't do anything if the window is hidden
+    if (result.windowHidden)
+    {
+        return;
+    }
+
+    document.getElementById("WaitMessagePanel").style.display = "block";
+    document.getElementById("ProcessedMessagePanel").style.display = "none";
+
+    // assign the next record to current user
+    AssignNextRecord();
+
+    // close the console component after a few seconds
+    //console.log('Closing component dialog in {!AutoCloseDelay} seconds...');
+    setTimeout(function(){
+        //console.log('Closing component dialog.');
+        sforce.console.setCustomConsoleComponentVisible(false);
+    }, {!AutoCloseDelay} * 1000);
+}
+
+function OpenRecord()
+{
+    //console.log('OpenRecord() entered');
+    //console.log('Opening Primary Tab for [{!CaseIdAssigned}] with name [{!CaseNumberAssigned}]');
+
+    document.getElementById("WaitMessagePanel").style.display = "none";
+    document.getElementById("ProcessedMessagePanel").style.display = "block";
+
+    if (caseId != '')
+    {       
+        //sforce.console.openPrimaryTab(null, '/' + caseId, true, caseNumber, primaryTabSuccess, caseId);        
+        sforce.console.generateConsoleUrl(['/' + caseId], openRecordInConsole);
+    }
+}
+
+
+var openRecordInConsole = function openRecordInConsole(result)
+{
+    sforce.console.openConsoleUrl(null,result.consoleUrl,true,null,null);
+}
+
+
+// assign the click handler
+sforce.console.onCustomConsoleComponentButtonClicked(CustomConsoleComponentButtonClicked);
+
+// set the console component button icon to the object type img
+sforce.console.setCustomConsoleComponentButtonIconUrl('/img/icon/cases24.png');
+
+// set the console component button text to reflect the next object in the queue
+sforce.console.setCustomConsoleComponentButtonText('Get Next Case');
+</script>
+    
+</apex:page>

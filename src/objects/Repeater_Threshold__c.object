@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Per-language thresholds for Repeater detection logic</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Case_Count_Threshold__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of cases on an account (during the threshold period) that indicate a Suspected Repeater.  Evaluated independently of Reimbursement Value Threshold.  Can be blank if only a Reimbursement Value Threshold is needed.</inlineHelpText>
+        <label>Case Count Threshold</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reimbursement_Value_Threshold__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Total Reimbursement Value of all cases on an account (during the threshold period) that indicates a Suspected Repeater.  Evaluated independently of Case Count Threshold.  Can be blank if only a Case Count Threshold is needed.</inlineHelpText>
+        <label>Reimbursement Value Threshold</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Threshold_Period__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of days in threshold test period</inlineHelpText>
+        <label>Threshold Period (Days)</label>
+        <precision>5</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Repeater Thresholds</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Case_Count_Threshold__c</columns>
+        <columns>Reimbursement_Value_Threshold__c</columns>
+        <columns>Threshold_Period__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <visibility>Protected</visibility>
+</CustomObject>

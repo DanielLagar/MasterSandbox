@@ -1,0 +1,164 @@
+<!-- 
+#    Chat component of GCR Widget
+#    
+#    @param:  brand, country
+#    @author: ACCENTURE
+#    @date:   31/05/2016
+#	 DATE              	NAME                CHANGE DESCRIPTION
+# 	 31/05/2016       	Accenture           Initial Draft
+# 	 19/01/2017        	Accenture           Added new section with chat button without prechat form.
+#
+-->
+<apex:component controller="gcr_chatController" layout="block">
+    <apex:includeScript value="{!$Setup.ContactUsURL__c.Live_Agent_Endpoint__c}/content/g/js/36.0/deployment.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/gcrJsValidationScripts.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/analyticsTracking.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/gcrChatJScript.js')}" />
+    
+    <apex:outputPanel rendered="{!NOT(isRightToLeft)}">
+		<apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubChatCmpStyling.css')}" />
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!isRightToLeft}">
+        <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubChatCmpStyling_rtl.css')}" />
+    </apex:outputPanel>
+    
+    <script type="text/javascript">
+    	trackPageData('{!chatChannelContent.RecordType.Name}'
+                    , '/{!$Site.Name}/{!chatChannelContent.RecordType.Name}?brand={!chatChannelContent.CareHub__r.Brand__c}'
+                      + '&country={!chatChannelContent.CareHub__r.CountryIsoCode__c}&language={!chatChannelContent.CareHub__r.LanguageIsoCode__c}');
+    	// INITILIZE LIVE CHAT
+        intializeLivechat('{!$Setup.ContactUsURL__c.Live_Agent_Endpoint__c}/chat', '{!chatChannelContent.LAButtonId__c}'
+                        , '{!chatChannelContent.LADeploymentId__c}', '{!LEFT($Organization.Id, 15)}'
+                        , '{!isButtonAvailable}', '{!$Component.idOpOnlineForm}', '{!$Component.idOpOfflineForm}');
+    </script>
+    <apex:outputPanel id="idTempBln" rendered="{!tempBoolean}" />
+    <!-- ATTRIBUTES FOR COMPONENT -->
+    <apex:attribute name="channelContentId" assignTo="{!chlContentId}" description="Channel Content Id" type="String" required="true" />
+    <apex:attribute name="buttonAvailable" assignTo="{!isButtonAvailable}" description="Is Chat Visited" type="Boolean" />
+    <apex:attribute name="rightToLeft" assignTo="{!isRightToLeft}" description="Email us channel content" type="Boolean" />
+
+    <apex:outputPanel id="mainContent" layout="block" styleClass="chatMainContent">
+        <apex:outputPanel layout="block" styleClass="cmpHeaderClass">{!chatChannelContent.ChannelHeader__c}</apex:outputPanel>
+        <apex:outputPanel id="idOpOfflineForm" layout="block">
+            
+            <apex:outputPanel layout="block" styleClass="offlineMsg" rendered="{!OR(NOT(isBusinessHrsActive), NOT(isButtonAvailable))}">
+                <!--{!IF(isBusinessHrsActive, chatChannelContent.AgentBusyMsg__c, chatChannelContent.OutsideBusinessHoursMsg__c)}-->
+                <apex:outputPanel rendered="{!(NOT(isBusinessHrsActive))}">
+                    <span layout="block" styleClass="offlineMsg">
+                        {!chatChannelContent.OutsideBusinessHoursMsg__c}
+                    </span>
+                    <script>ga('send', 'event', 'Event_Chat_Interaction', 'Event_Message_Render', 'Outside Businss Hours Message');</script>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!(isBusinessHrsActive)}" >
+                    <span layout="block" styleClass="offlineMsg">
+                        {!chatChannelContent.AgentBusyMsg__c}
+                    </span>
+                    <script>ga('send', 'event', 'Event_Chat_Interaction', 'Event_Message_Render', 'Agent Busy Message');</script>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            
+        </apex:outputPanel>
+        <apex:outputPanel id="idOpOnlineForm" layout="block">
+            <!-- PRECHAT FORM WITH CHAT BUTTON -->
+           <apex:outputPanel layout="block" style="width: 100%;" styleClass="cmpChatPosition"
+                             rendered="{!AND(isBusinessHrsActive, isButtonAvailable, NOT(chatChannelContent.noPrechat__c))}">
+               <apex:outputText escape="false" styleClass="chatText" value="{!chatChannelContent.GCRChatHeaderLabel__c}" />
+                <apex:outputText id="idFldReqText" value="{!chatChannelContent.CareHub__r.ValidationErrorMessage__c}" style="display:none;color:red;" />
+                <apex:outputPanel layout="block" rendered="{!NOT(chatChannelContent.CareHub__r.isLastNameFirst__c)}">
+                    <apex:outputPanel layout="block" styleClass="inputRequired">
+                        <apex:inputText id="inFirstName1" required="true" html-placeholder=" {!chatChannelContent.GCRChatFNLabel__c}"
+                                        onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Chat FirstName');"
+                                        onchange="if(!onChangeFieldCheck('{!$Component.inFirstName1}', ''))
+                                                  changeCheckboxVal('{!$Component.idInputPrivacy}', '{!$Component.idChatReqBtn}');"
+                                        style="margin-top: auto;" maxlength="40" value="{!strFirstName}"
+                                        styleClass="cmpInputStyle cmpInputheight cmpInputWidthChat" />
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" styleClass="inputRequired">
+                        <apex:inputText id="inLastName1" required="true" html-placeholder=" {!chatChannelContent.GCRChatLNLabel__c}"
+                                        onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Chat LastName');"
+                                        onchange="if(!onChangeFieldCheck('{!$Component.inLastName1}', ''))
+                                                  changeCheckboxVal('{!$Component.idInputPrivacy}', '{!$Component.idChatReqBtn}');"
+                                        style="margin-top: auto;" maxlength="80" value="{!strLastName}"
+                                        styleClass="cmpInputStyle cmpInputheight cmpInputWidthChat inputRequired" />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" rendered="{!chatChannelContent.CareHub__r.isLastNameFirst__c}">
+                    <apex:outputPanel layout="block" styleClass="inputRequired">
+                        <apex:inputText id="inLastName2" required="true" html-placeholder=" {!chatChannelContent.GCRChatLNLabel__c}"
+                                        onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Chat LastName');"
+                                        onchange="if(!onChangeFieldCheck('{!$Component.inLastName2}', ''))
+                                                  changeCheckboxVal('{!$Component.idInputPrivacy}', '{!$Component.idChatReqBtn}');"
+                                        style="margin-top: auto;" maxlength="80" value="{!strLastName}"
+                                        styleClass="cmpInputStyle cmpInputheight cmpInputWidthChat inputRequired" />
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" styleClass="inputRequired">
+                        <apex:inputText id="inFirstName2" required="true" html-placeholder=" {!chatChannelContent.GCRChatFNLabel__c}"
+                                        onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Chat FirstName');"
+                                        onchange="if(!onChangeFieldCheck('{!$Component.inFirstName2}', ''))
+                                                  changeCheckboxVal('{!$Component.idInputPrivacy}', '{!$Component.idChatReqBtn}');"
+                                        style="margin-top: auto;" maxlength="40" value="{!strFirstName}"
+                                        styleClass="cmpInputStyle cmpInputheight cmpInputWidthChat inputRequired" />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                <apex:outputPanel id="idOpEmail" layout="block" styleClass="inputRequired">
+                        <apex:inputText html-placeholder=" {!chatChannelContent.GCRChatEmailLabel__c}" maxlength="80"
+                                        style="margin-top: auto;" id="inEmail" required="true"
+                                        onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Chat Email');"
+                                        value="{!strEmail}" styleClass="cmpInputStyle cmpInputheight cmpInputWidthChat inputRequired"
+                                        onchange="if(document.getElementById('{!$Component.inEmail}').value != '')
+                                                  if(onChangeEmailCheck('{!$Component.inEmail}', '{!$Component.idEmailFormatMsg}'))
+                                                  changeCheckboxVal('{!$Component.idInputPrivacy}', '{!$Component.idChatReqBtn}');"/>
+                    <apex:outputText id="idEmailFormatMsg" value="{!chatChannelContent.EmailIncorrectMessage__c}" style="display:none;color:red;" />
+                    <apex:outputText id="idEmailInvalid" value="chatChannelContent.EmailInvalidMessage__c" style="display:none;color:red;" />
+                </apex:outputPanel>
+                <!-- CALLED FROM allValidated() JAVASCRIPT METHOD (IN gcrChatJScript.js JAVASCRIPT) -->
+                <apex:actionFunction id="refreshSubmit" name="refreshSubmit" action="{!retrieveChatPageUrl}" reRender="opSubmitBtn" />
+                <apex:actionFunction id="refreshSubmitDisable" name="refreshSubmitDisable" action="{!disableSubmit}"
+                                     reRender="opSubmitBtn" status="idSubmitBtnStatus" />
+                
+                <apex:outputPanel layout="block" styleClass="inputRequired chatPrivacy" style="margin: 25px 25px 25px calc(10% - 4px);">
+                    <apex:outputPanel id="privacyCheckbox">
+                        <apex:inputCheckbox id="idInputPrivacy" required="true" value="{!isTNCAgreed}"
+                                            onchange="if({!NOT(chatChannelContent.CareHub__r.isLastNameFirst__c)}) 
+                                                allValidated('{!$Component.inFirstName1}', '{!$Component.inLastName1}', '{!$Component.inEmail}'
+                                                      , '{!$Component.idInputPrivacy}', '{!$Component.idFldReqText}', '{!$Component.idEmailFormatMsg}');
+                                                else allValidated('{!$Component.inFirstName2}', '{!$Component.inLastName2}', '{!$Component.inEmail}'
+                                                      , '{!$Component.idInputPrivacy}', '{!$Component.idFldReqText}', '{!$Component.idEmailFormatMsg}');" />
+                    </apex:outputPanel>
+                    <apex:outputLabel id="idTncLabel" for="idInputPrivacy">
+                        <c:gcr_cmpLinkSeperator strInput="{!privacyPolicyFull}" strSepStart="[" strSepEnd="]"
+                                                onClick="window.open('{!chatChannelContent.CareHub__r.PrivacyPolicyLink__c}'
+                                                                   , '_blank', 'height=600,width=600'); return false;" />
+                    </apex:outputLabel>
+                </apex:outputPanel>
+                <apex:outputPanel id="opSubmitBtn" layout="block" styleClass="cmpInputStyle" style="text-align: center;">
+                    <apex:actionStatus id="idSubmitBtnStatus">
+                        <apex:facet name="stop">
+                            <apex:commandButton id="idChatReqBtn" value="{!chatChannelContent.GCRChatBtnLabel__c}" styleClass="btnStyling btnStylingPrechat"
+                                                style="{!IF(isSubmitDisable, 'opacity: 0.25;', '')}" reRender="idTempBln" disabled="{!isSubmitDisable}"
+                                                onclick="openChatWindow(false, 610, 400, '{!chatPageUrl}');" />
+                        </apex:facet>
+                        <apex:facet name="start">
+                            <apex:commandButton id="idChatReqBtn1" value="{!chatChannelContent.GCRChatBtnLabel__c}" styleClass="btnStyling btnStylingPrechat"
+                                                style="opacity: 0.25;" disabled="true" />
+                        </apex:facet>
+                    </apex:actionStatus>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            <!-- CHAT BUTTON WITHOUT PRECHAT FORM -->
+			<apex:outputPanel layout="block" style="width: 100%;" styleClass="cmpChatPosition"
+                              rendered="{!AND(isBusinessHrsActive, isButtonAvailable, chatChannelContent.noPrechat__c)}">
+                <apex:outputPanel style="margin: 30px 30px 0px 30px;text-align: center; font-size: 1.2em;" layout="block" styleClass="chatText">
+                	<c:gcr_cmpLinkSeperator strInput="{!chatChannelContent.GCRChatHeaderLabel__c}" strSepStart="[" strSepEnd="]"
+                                            onClick="window.open('{!chatChannelContent.CareHub__r.PrivacyPolicyLink__c}'
+                                                               , '_blank', 'height=600,width=600'); return false;" />
+				</apex:outputPanel>
+				<apex:commandButton value="{!chatChannelContent.GCRChatBtnLabel__c}" styleClass="btnStyling btnStylingNoPrechat" reRender="idTempBln"
+                                    onclick="openChatWindow(false, 610, 400, '{!chatPageUrl}')" />
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    <apex:outputPanel layout="block" styleClass="chatImgDiv">
+    	<apex:image styleClass="chatImg" url="{!chatChannelContent.CareHub__r.BackgroundImgLanding__c}" />
+    </apex:outputPanel>
+</apex:component>

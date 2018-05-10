@@ -1,0 +1,12 @@
+<apex:page id="emailUsPage" sidebar="false" showHeader="false" docType="html-5.0" standardStylesheets="false" controller="sf_ContactUsTemplateController" extensions="sf_EmailUsExt,sf_ContactUsLanguageController">
+    <title>{!if(brand != '', brand, 'P&G')}</title>
+    <apex:composition template="ContactUsTemplate">
+        <apex:define name="body">
+            <div id="body">
+                <!-- FIXME - Correct message, use language object -->
+                <div class='page-title'>{!language_config.Contact_Us_Too_Young_Heading__c}</div>
+                <div class='intro'>{!language_config.Contact_Us_Too_Young_Text__c}</div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,28 @@
+<apex:page standardController="One_Stop__c" extensions="OneSTOPCommentAddCom">   
+   
+       
+     <apex:sectionHeader title="{!$ObjectType.One_Stop__c.label} Edit" subtitle="{!One_Stop__c.name}"/>
+     <apex:form >
+        <apex:pageBlock title="{!$ObjectType.One_Stop__c.label} Edit" mode="edit">
+                <apex:pageMessages />
+                <apex:pageBlockButtons >
+                        <apex:commandButton action="{!save}" value="Save" />
+                        <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection showHeader="true" title="Comments" columns="1">
+                       
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Comment</apex:outputLabel>
+                        <apex:inputTextarea value="{!xComment}" style="width:400px; height:100px;" id="Comments" label="Comments" required="true"/>
+                    
+                    </apex:pageBlockSectionItem>           
+                            <apex:inputField value="{!One_Stop__c.Sub_Status__c}" />                        
+                </apex:pageBlockSection>
+                
+             <apex:pageBlockSection showHeader="true" title="Notification" columns="1">
+                        <apex:outputLabel >Notification will be sent automatically</apex:outputLabel>
+                </apex:pageBlockSection>
+                
+        </apex:pageBlock>
+        </apex:form>
+</apex:page>

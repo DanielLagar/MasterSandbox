@@ -1,0 +1,71 @@
+<!-- 
+#    Chat header component of V4 chat
+#    
+#    @param:  brand, country
+#    @author: ACCENTURE
+#    @date:   02/06/2017
+#	 DATE              	NAME                CHANGE DESCRIPTION
+# 	 31/05/2017       	Accenture           Initial Draft
+-->
+<apex:component layout="none">
+    <!-- CONTENT ATTRIBUTES -->
+    <apex:attribute name="brandLogoUrl" description="Url for brand logo" type="String" required="true" />
+    <apex:attribute name="greetText" description="Greeting text" type="String" />
+    <apex:attribute name="endChatBtnText" description="Button text and title" type="String" />
+    <apex:attribute name="btnStyleClass" description="Button style class" type="String" />
+    <apex:attribute name="btnId" description="Button style class" type="String" />
+    
+    <!-- CONFIGURABLE CONTENT STYLE ATTRIBUTES -->
+    <apex:attribute name="pBrandColor" description="Primary brand color hex code to define background color" type="String" required="true" />
+    <apex:attribute name="sBrandColor" description="Primary brand color hex code to define text color and other color attributes" type="String" required="true" />
+    
+    <!-- STYLES FOR COMPONENTS -->
+    <style>
+    	.headerOuterDiv {
+        	background-color: {!pBrandColor};
+        	height: 15%; 
+        	max-height: calc(610px * 0.15);
+        	position: relative;
+        }
+        
+        .headerGreetText {
+        	display: none; 
+        	font-size: 9pt; 
+        	margin-top: 0.5%; 
+        	font-weight: bold; 
+        	color: {!sBrandColor};
+        	height: 40%;
+        }
+        
+        #idEndChatBtn {
+        	display: none; 
+        	position: absolute; 
+        	right: 0.5%; 
+        	top: 1.5%;
+        	background: linear-gradient(to bottom, #ffffff -100%, {!sBrandColor} 100%); 
+        	color: {!pBrandColor};
+        }
+        
+        .headerLogo {
+            width: 100%; 
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .headerLogo img {
+            height: 60%;
+            margin-top: 1.5%;
+        }
+
+    </style>
+    <apex:outputPanel layout="block" styleClass="headerOuterDiv">
+        <button id="{!btnId}" class="{!btnStyleClass}" title="{!endChatBtnText}">{!endChatBtnText}</button>
+        <apex:outputPanel styleClass="headerLogo" layout="block">
+            <apex:image url="{!brandLogoUrl}"/>
+            <div id="idGreetText" style="{!NOT(ISBLANK(greetText))}" class="headerGreetText">{!greetText}</div>
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:component>

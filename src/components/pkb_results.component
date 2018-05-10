@@ -1,0 +1,160 @@
+<apex:component allowDML="true">
+
+<apex:attribute name="pkbCon" type="pkb_Controller" required="true" description="handle to the pkb controller" />
+<apex:attribute name="langCon" type="sf_ContactUsLanguageController" required="true" description="handle to the language controller" />
+<apex:attribute name="showHeaderInfo" type="Boolean" required="true" description="flag to indicate whether to show results header and empty results message" />
+<apex:attribute name="displaySummary" type="Boolean" required="false" description="controls if article summary is displayed" />
+
+<!-- note that noResultsFound is actually a string, not a boolean, due to the inability to
+     explicitly declare types in VF apex:variable tags, so must pass the strings 'true' and 'false' instead of using an expression that returns true or false -->
+<apex:variable var="noResultsFound" value="{!IF(pkbCon.foundRecommended, 'false', 'true')}" />
+<apex:variable var="currPage" value="{!IF(pkbCon.displayContactUs, 1, pkbCon.currPage)}" />
+
+  <apex:form >
+
+	<!-- For debugging
+    <apex:messages />-->
+      
+  <apex:outputPanel layout="block" id="results">
+    <div id="results">
+
+      <apex:outputText rendered="{!showHeaderInfo}">
+          <!-- <h2 class="section">{!$Label.PKB2_Search_Results}</h2>
+          <div class="articleViewIcons" id="resultsRssLink">
+            <a href="{!$Page.pkb_RSS}?{!pkbCon.allSearchParams}" target="_blank" title="{!$Label.PKB2_Subscribe_Feed_Results}"><apex:image url="{!URLFOR($Resource.pkb_icons, 'rss.png')}" /></a>
+          </div> -->
+
+          <h3 class="search-results">
+            {!langCon.language_config.Search_Results__c} <span class="search-term">{!pkbCon.urlSearchQuery}</span>
+          </h3>
+      </apex:outputText>
+
+	<!-- this panel was orginally to show recommended Articles - not used
+    christopher.macduff@accenture.com
+	replacing with knowledge:articlelist approach
+	-->
+        
+      <!--<apex:outputPanel layout="block" styleClass="recommendedArticles" rendered="{!(pkbCon.foundRecommended) && (pkbCon.currPage == 1)}">-->
+        <!-- ALM1425 -->
+
+		<!--
+		<apex:repeat var="a" value="{!pkbCon.recommendedKads}">
+            <c:pkb_article pkbCon="{!pkbCon}"
+              aid="{!a.id}"
+              title="{!a.title}"
+              displaySummary="{!langCon.bl_display_summary}"
+              summary="{!a.summary}"
+              urlName="{!a.urlName}"
+              articleTypeName="{!a.articleTypeName}"
+              articleTypeLabel="{!a.articleTypeLabel}"
+              lastModifiedDate="{!a.lastModifiedDate}"
+              firstPublishedDate="{!a.firstPublishedDate}"
+              lastPublishedDate="{!a.lastPublishedDate}"
+            />
+          <apex:outputPanel rendered="{!IF(pkbCon.recommendedKads.size>1,true,false)}">
+              <div class="article-divider"></div>
+          </apex:outputPanel>
+          <apex:variable var="noResultsFound" value="false" />
+        </apex:repeat>
+        
+		<div class="related-articles rec">{!langCon.language_config.Search_Related__c}</div>
+      </apex:outputPanel>-->
+        
+        <apex:outputPanel >
+		<apex:panelGroup id="theSearchResults">
+			<apex:panelGrid width="100%"  >
+ 				<knowledge:articleList articleVar="article"
+                hasMoreVar="more"
+				categories="{!pkbCon.selectedCategory}"
+				keyword="{!pkbCon.urlSearchQuery}"
+				language="{!langCon.languageCode}"
+                articleTypes="FAQ__kav"
+                sortBy="mostViewed"
+                pageSize="100">
+                      <c:pkb_article pkbCon="{!pkbCon}"
+                      aid="{!article.id}"
+                      title="{!article.title}"
+                      displaySummary="{!langCon.bl_display_summary}"
+                      summary="{!article.summary}"
+                      urlName="{!article.urlName}"
+                      articleTypeName="{!article.articleTypeName}"
+                      articleTypeLabel="{!article.articleTypeLabel}"
+                      lastModifiedDate="{!article.lastModifiedDate}"
+                      firstPublishedDate="{!article.firstPublishedDate}"
+                      lastPublishedDate="{!article.lastPublishedDate}"
+                      />
+					<div class="article-divider"></div>
+                    
+                    <!-- sets value of noResultsFound-->
+                    <script type="text/javascript">moreResults = {!more};</script>
+                    <apex:variable var="noResultsFound" value="false" />
+                    <script type="text/javascript">noResultsFound = {!noResultsFound}</script>
+                    
+				</knowledge:articleList>
+			</apex:panelGrid>
+		</apex:panelGroup>
+        </apex:outputPanel>
+
+        <!--
+       <knowledge:articleList articleVar="a"
+        pageSize="{!pkbCon.articlesPerPage}"
+        categories="{!pkbCon.selectedCategory}"
+        hasMoreVar="more"
+        keyword="{!pkbCon.urlSearchQuery}"
+        language="{!langCon.languageCode}"
+        pageNumber="{!currPage}">
+
+        <c:pkb_article pkbCon="{!pkbCon}"
+          aid="{!a.id}"
+          title="{!a.title}"
+          summary="{!a.summary}"
+          urlName="{!a.urlName}"
+          articleTypeName="{!a.articleTypeName}"
+          articleTypeLabel="{!a.articleTypeLabel}"
+          lastModifiedDate="{!a.lastModifiedDate}"
+          firstPublishedDate="{!a.firstPublishedDate}"
+          lastPublishedDate="{!a.lastPublishedDate}"
+        /> 
+
+        <script type="text/javascript">moreResults = {!more};</script>
+        <apex:variable var="noResultsFound" value="false" />
+        <script type="text/javascript">noResultsFound = {!noResultsFound}</script>
+      </knowledge:articleList>-->
+
+      <apex:outputPanel layout="block" rendered="{!(noResultsFound == 'true') && (NOT(pkbCon.displayContactUs))}" style="margin-top: 10px;">
+        {!langCon.language_config.No_Results__c}
+      </apex:outputPanel>
+		
+        <!-- christopher.macduff@accenture.com : not needed anymore?
+      <apex:outputPanel layout="block" style="height: 20px; margin-top: 10px;" styleClass="resultsPaginationLinks" rendered="{!NOT(pkbCon.displayContactUs)}">
+          <div style="float: left; margin-bottom: 10px;">
+              <apex:commandLink action="{!pkbCon.prevPage}" rerender="results" rendered="{!(pkbCon.currPage > 1)}" status="prevStatus">&lt; {!langCon.language_config.Previous__c}</apex:commandLink>
+              &nbsp;
+              <apex:actionStatus id="prevStatus">
+                <apex:facet name="start"><apex:image value="{!$Resource.pkb_loadingdots}" /></apex:facet>
+                <apex:facet name="stop"></apex:facet>
+              </apex:actionStatus>
+          </div>
+
+          <div style="float: right; margin-bottom: 10px;">
+            <span id="nextLink">
+              <apex:actionStatus id="nextStatus">
+                <apex:facet name="start"><apex:image value="{!$Resource.pkb_loadingdots}" /></apex:facet>
+                <apex:facet name="stop"></apex:facet>
+              </apex:actionStatus>
+                &nbsp;
+                <apex:commandLink action="{!pkbCon.nextPage}" rerender="results" status="nextStatus">language_config.Next__c&gt;</apex:commandLink>
+            </span>
+          </div>
+      </apex:outputPanel>-->
+
+    <apex:outputText rendered="{!pkbCon.displayContactUs && pkbCon.searchExecuted}">
+      <script type="text/javascript">if ({!noResultsFound}) prepareToRenderOverlay();</script>
+    </apex:outputText>
+
+    <script type="text/javascript">hideNext(); hideResultsRss(); hideImmediateHelp({!noResultsFound});</script>
+    </div>
+  </apex:outputPanel>
+  </apex:form>
+
+</apex:component>

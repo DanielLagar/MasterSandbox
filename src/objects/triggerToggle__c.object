@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Toggles supported triggers off/on as required.
+*Note* Field names must match Trigger name.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>AccountTrigger__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Toggle for Account Trigger</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle for Account Trigger</inlineHelpText>
+        <label>AccountTrigger</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CaseCommentCodeTrigger__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Toggle for CaseCommentCodeTrigger</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle for CaseCommentCodeTrigger</inlineHelpText>
+        <label>CaseCommentCodeTrigger</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CaseContactTrigger__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Toggle for CaseContactTrigger__c Trigger</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle for CaseContactTrigger__c Trigger</inlineHelpText>
+        <label>CaseContactTrigger</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CaseTrigger__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Toggle for Case Trigger</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle for Case Trigger</inlineHelpText>
+        <label>CaseTrigger</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ContactTrigger__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Toggle for Contact Trigger</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle for Contact Trigger</inlineHelpText>
+        <label>ContactTrigger</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FulfillmentOrderLineItem__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Toggle for FulfillmentOrderLineItem Trigger</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle for FulfillmentOrderLineItem Trigger</inlineHelpText>
+        <label>FulfillmentOrderLineItem</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FulfillmentOrder__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Toggle for FulfillmentOrder Trigger</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle for FulfillmentOrder Trigger</inlineHelpText>
+        <label>FulfillmentOrder</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>SafetyAssessmentSurvey__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Toggle for SAS Trigger</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle for SAS Trigger</inlineHelpText>
+        <label>SafetyAssessmentSurvey</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>sf_EmailMessage__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Toggle for EmailMessage Trigger</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle for EmailMessage Trigger</inlineHelpText>
+        <label>sf_EmailMessage</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>sf_TaskTrigger__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Toggle for Task Trigger</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Toggle for Task Trigger</inlineHelpText>
+        <label>sf_TaskTrigger</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>triggerToggle</label>
+    <visibility>Protected</visibility>
+</CustomObject>

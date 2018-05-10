@@ -1,0 +1,50 @@
+<!-- 
+#    Component for serach and diplay products
+#    
+#    @param:  searchString, resultCount
+#    @author: ACCENTURE
+#    @date:   29/06/2016
+#
+-->
+<apex:component controller="gcr_productListController" layout="block">
+	<apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubProdListCmpStyling.css')}" />
+
+    <!-- INCOMING ATTRIBUTES FOR COMPONENT -->
+    <apex:attribute name="displayResultCount" assignTo="{!desiredResultCount}" description="Result count required to be displayed on the page" type="Integer" required="false" />
+    <apex:attribute name="iconType" assignTo="{!iconAddRemove}" description="" type="String"/>
+    <apex:attribute name="productList" assignTo="{!lProduct}" description="" type="sObject[]" required="true" />
+    <apex:attribute name="fieldSetName" assignTo="{!strFieldSet}" description="" type="String" required="true" />
+    <apex:attribute name="sObjectName" assignTo="{!strSobject}" description="" type="String" required="true" />
+    <apex:attribute name="actionJs" assignTo="{!strActionJs}" description="" type="String" />
+
+    <!-- COMPONENT BODY -->
+    <apex:outputPanel layout="block" id="productListContainer" styleClass="inputOptional">
+        <apex:outputPanel layout="block" styleClass="opDivTable">
+            <apex:repeat var="eachProduct" value="{!lProduct}" id="dtProdList">
+                <apex:outputPanel layout="block" styleClass="opDivRow">
+                    <apex:repeat var="eachField" value="{!lFieldSetMember}">
+                        <apex:outputPanel layout="block" styleClass="opDivCell productImage" id="productImage" rendered="{!IF(eachField.Type = 'url', true, false)}" >
+                            <apex:image styleClass="{!IF(OR(ISNULL(eachProduct[eachField.fieldPath]), eachProduct[eachField.fieldPath] == ''), 'noProductImage', '')}"
+                                        url="{!IF(OR(ISNULL(eachProduct[eachField.fieldPath])
+                                             	   , TRIM(eachProduct[eachField.fieldPath]) == '')
+                                                , URLFOR($Resource.GCRWidgetContent, 'contacts/svg/no-product-image.svg')
+                                                , eachProduct[eachField.fieldPath])}" />
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block" styleClass="opDivCell productText" id="productName" rendered="{!IF(eachField.Type != 'url', true, false)}">
+                            <apex:outputText value="{!eachProduct[eachField.fieldPath]}" id="productText"/>
+                        </apex:outputPanel>
+                    </apex:repeat>
+                    <!-- COLUMN FOR ADD REMOVE ICON -->
+                    <apex:outputPanel layout="block" styleClass="opDivCell productAdd"
+                                      rendered="{!AND(NOT(ISBLANK(iconAddRemove)), OR(iconAddRemove = 'ADD', iconAddRemove = 'REMOVE'))}" id="productAdd">
+                        <apex:commandLink onclick="{!SUBSTITUTE(actionJs, '[param1]', eachProduct.Id)}" id="productAddButton">
+    						<apex:image url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/Add_Product.svg')}" rendered="{!iconAddRemove = 'ADD'}" />
+                            <apex:image url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/Remove_Product.svg')}" rendered="{!iconAddRemove = 'REMOVE'}" />
+                        </apex:commandLink>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" style="height:4px;width:100%"></apex:outputPanel>
+            </apex:repeat>
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:component>

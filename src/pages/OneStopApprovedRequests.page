@@ -1,0 +1,17 @@
+<apex:page Controller="OneStopHomeCon" tabStyle="One_Stop__c"> 
+  <br/>
+  &nbsp;&nbsp;<apex:outputLink value="{!URLFOR($Action.One_Stop__c.Tab, $ObjectType.One_Stop__c)}"> Back to List: 1STOP Requests</apex:outputLink><br/><br/>
+  <apex:pageblock Title="Requests in the Approved queue" id="approvedrequests" >
+      <apex:pageBlockTable value="{!approvedrequests}" var="item" id="approvedrequests">
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Name.Label}">
+              <apex:outputLink value="/{!item.id}">{!item.Name}</apex:outputlink>
+          </apex:column>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Status__c.Label}" value="{!item.Status__c}"/>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Priority__c.Label}" value="{!item.Priority__c}"/>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Actual_Expected_Due_Date__c.Label}" value="{!item.Actual_Expected_Due_Date__c}"/>         
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.CreatedDate.Label}" value="{!item.CreatedDate}"/>
+          <apex:column headerValue="{!$ObjectType.One_Stop__c.Fields.Flag__c.Label}" value="{!item.Flag__c}"/>
+      </apex:pageBlockTable>
+ </apex:pageblock>
+ 
+</apex:page>

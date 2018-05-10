@@ -1,0 +1,586 @@
+<!-- 
+#    COMPONENT FOR EMAIL US FORM OF GCR WIDGET
+#    
+#    @param:  NONE
+#    @author: ACCENTURE 
+#    @date:   26/05/2016
+#    CHANGE LOG
+#    DATE                   NAME                    CHANGE DESCRIPTION
+#    26/05/2016             Accenture               Initial Draft
+#    21/11/2016             Accenture               Added additional attribute to capture referer details
+#    20/03/2017             ACCENTURE               WR476 Added the Product Search when consumer selects Product Availability/Where to Buy
+#    20/03/2017             ACCENTURE               WR367 Removed client side validation for the address fields
+-->
+<apex:component controller="gcr_emailUsController" layout="block" allowDML="true">
+    <apex:outputPanel rendered="{!tempData}" />
+    <!-- ATTRIBUTES FOR COMPONENT -->
+    <apex:attribute name="channelContentId" assignTo="{!chlContentId}" description="Email us channel content" type="String" required="true" />
+    <apex:attribute name="rightToLeft" assignTo="{!isRightToLeft}" description="Email us channel content" type="Boolean" />
+    <!-- ATTRIBUTES TO CAPTURE REFERER DETAILS -->
+    <apex:attribute name="refererUrl" assignTo="{!referer}" description="referer details of care hub" type="String" />
+    <!-- INCLUDED JAVASCRIPTS -->
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/gcrJsValidationScripts.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/analyticsTracking.js')}" />
+    <script>
+        trackPageData('{!chlContentRec.RecordType.Name}'
+                , '/{!$Site.Name}/{!chlContentRec.RecordType.Name}?brand={!chlContentRec.CareHub__r.Brand__c}&country={!chlContentRec.CareHub__r.CountryIsoCode__c}&language={!chlContentRec.CareHub__r.LanguageIsoCode__c}');
+    </script>
+    
+    <!-- INCLUDED STYLES -->
+    <apex:outputPanel rendered="{!NOT(isRightToLeft)}">
+        <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubEmailUsCmpStyling.css')}"/>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!isRightToLeft}">
+        <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubEmailUsCmpStyling_rtl.css')}"/>
+    </apex:outputPanel>
+
+    <apex:outputPanel id="idJsPanel">
+        <script type="text/javascript">
+            function submitData(isLastNameFst, selectEmptyValue) {
+                // FIELD ID ARRAYS
+                var idFieldArray = [];
+                var idFieldEmailArray = [];
+                var idFieldDateArray = [];
+                // FIELD ID ERROR ARRAYS
+                var idErrFieldArray = [];
+                //var idEmailErrFieldArray = [];
+                var idErrDateFieldArray = [];
+                var inputSelectArray = [];
+                var errInputSelectArray = [];
+                var isDateExist = false;
+                var isEmailExist = false;
+                if (!isLastNameFst) {
+                    idFieldArray.push('{!$Component.idFirstName1}');
+                    idFieldArray.push('{!$Component.idLastName1}');
+                } else {
+                    idFieldArray.push('{!$Component.idFirstName2}');
+                    idFieldArray.push('{!$Component.idLastName2}');
+                }
+                idFieldArray.push('{!$Component.idReasonForWriting}');
+                idFieldArray.push('{!$Component.idEmailDescription}');
+                idFieldArray.push('{!$Component.idEmail}');
+                idFieldArray.push('{!$Component.idInputPrivacy}');
+                // EMAIL FIELDS TO BE PUSHED TO DIFFERENT ARRAY
+                idFieldEmailArray.push('{!$Component.idEmail}');
+                /* Shouldnt be required */
+                /*
+                if ({!chlContentRec.isCrmRequired__c}) {
+                    idFieldArray.push('{!$Component.idInputCrm}');
+                }
+                if ({!chlContentRec.PromotionCheckbox__c}) {
+                    idFieldArray.push('{!$Component.idInputPromotion}');
+                }
+                */
+
+                /* CDOY WR367 - Removed client side validation. Currently broken by the Apex Repeat around the Address fields */
+                /*
+                if (document.getElementById('{!$Component.idReasonForWriting}').value == '{!chlContentRec.EmailReason4__c}') {
+                    idFieldArray.push('{!$Component.idProblemCmp:idEmailUsPrbCmp:idAddLine1}');
+                    if ({!handshakeInstance.isZipMandatory}) {
+                        idFieldArray.push('{!$Component.idProblemCmp:idEmailUsPrbCmp:idAddLineZip}');
+                    }
+                    idFieldArray.push('{!$Component.idProblemCmp:idEmailUsPrbCmp:idAddLineCity}');
+                    if ({!handshakeInstance.isStateMandatory}) {
+                        idFieldArray.push('{!$Component.idProblemCmp:idEmailUsPrbCmp:idAddLineCounty}');
+                    }
+                }
+                */
+
+                /*var prodCodeArray = findInputWithId('idProblemCmp:idEmailUsPrbCmp', 'idProdCode');
+                if (prodCodeArray.length > 0) {
+                    idFieldArray = idFieldArray.concat(prodCodeArray);
+                }*/
+                var haveProdArray = findSelectWithId('idProblemCmp:idEmailUsPrbCmp', 'idStillHave');
+                if (haveProdArray.length > 0) {
+                    inputSelectArray = inputSelectArray.concat(haveProdArray);
+                }
+                var usedBeforeArray = findSelectWithId('idProblemCmp:idEmailUsPrbCmp', 'idUsedBefore');
+                if (usedBeforeArray.length > 0) {
+                    inputSelectArray = inputSelectArray.concat(usedBeforeArray);
+                }
+                idFieldArray = idFieldArray.concat(inputSelectArray);
+                errInputSelectArray = inputSelectValidation(inputSelectArray);
+                idFieldDateArray = findInputWithId('idProblemCmp:idEmailUsPrbCmp', 'idExpDate', false);
+                idErrFieldArray = validateAllInput(idFieldArray, selectEmptyValue);
+                idEmailErrFieldArray = validateAllEmail(idFieldEmailArray);
+                if (idFieldDateArray.length > 0) {
+                    idErrDateFieldArray = validateAllDates(idFieldDateArray);
+                    isDateExist = true;
+                }
+                changeStylingBack(idFieldArray);
+                var isValidated = true;
+                if (errInputSelectArray.length > 0) {
+                    idErrFieldArray = idErrFieldArray.concat(errInputSelectArray);
+                }
+                if (idErrFieldArray.length > 0) {
+                    changeStylingMandatory(idErrFieldArray);
+                    isValidated = false;
+                } else {
+                    isValidated = isEmailValidated(idEmailErrFieldArray, '{!$Component.idFldReqText}', '{!$Component.idEmailFormatMsg}');
+                    if (isDateExist) {
+                        isValidated = isDateValidated(idErrDateFieldArray, '{!$Component.idFldReqText}', '{!$Component.idProblemCmp:idEmailUsPrbCmp:idDateFormatMsg}');
+                    }
+                }
+                if (!isValidated) {
+                    document.getElementById('{!$Component.idFldReqText}').style.display = "block";
+                    document.getElementById('{!$Component.idRightPanel}').scrollTop = 0;
+                }
+                return isValidated;
+            }
+        </script>
+    </apex:outputPanel>
+    <script type="text/javascript">
+        var flData = '';
+        var attachmentName = '';
+        var attachmentType = '';
+        var attachment = '';
+        var fileSize = 0;
+        //var flMaxSize = 5242880;(5 MB)
+        //var flMaxStrSize = 6990508;(5 MB)
+        var flMaxSize = 4350000;// (4.3 MB)
+        var flMaxStrSize = 6000000;// (4.3 MB)
+        var chunkSize = 950000;
+        var positionIndex;
+        var doneUploading;
+        var spinnerId = '';
+        var statusCmpId = '';
+        var statusStartId = '';
+        var statusEndId = '';
+        var sendBtnId = '';
+        
+        var uploadData = function(flComponentId, cmpSpinnerId, attCount, attLimit, errorCmpId, sendId, statSCmp, statECmp, statCmpId, allowExtns) {
+            statusCmpId = statCmpId;
+            statusStartId = statSCmp;
+            statusEndId = statECmp;
+            sendBtnId = sendId;
+            onStartStatus(statusCmpId, statusStartId, statusEndId, sendBtnId);
+            attErrMsgToggle(false, errorCmpId);
+            if (attCount < attLimit) {
+                spinnerId = cmpSpinnerId;
+                flData = document.getElementById(flComponentId).files[0];
+                attachmentName = flData.name;
+                attachmentType = flData.type;
+                var flBinaryData = "";
+                var flExtension = attachmentName.split('.').pop().toLowerCase();
+                var isAllowedExtn = true;
+                if (allowExtns != null && allowExtns != '' && allowExtns.indexOf(flExtension) == -1) {
+                    isAllowedExtn = false;
+                }
+                if(flData != undefined && isAllowedExtn) {
+                    console.log('FILE DATA SIZE : ' + flData.size);
+                    if(flData.size <= flMaxSize) {
+                        var flReader = new FileReader();
+                        flReader.readAsArrayBuffer(flData); //SUPPORTS IE 10 AND UP
+                        // FILE READER ONLOAD EVENT HANDLER
+                        flReader.onload = (function(readerEvt) {
+                            var flByteData = new Uint8Array(readerEvt.target.result);
+                            var flLength = flByteData.byteLength;
+            
+                            for (var i = 0; i < flLength; i++){
+                                flBinaryData += String.fromCharCode(flByteData[i]);
+                            }
+                        }); // END ONLOAD
+                        // FILE READER ONLOAD END EVENT HANDLER
+                        flReader.onloadend = (function(e) {
+                            // GET FILE CONTENTS
+                            attachment = window.btoa(flBinaryData);
+                            fileSize = attachment.length;
+                            console.log("ATTACHMENT LENGTH: " + fileSize);
+                            doneUploading = false;
+                            if(fileSize <= flMaxStrSize) {
+                                console.log('CALL SAVE ATTACH FUNCTION ');
+                                positionIndex = 0;
+                                uploadAttachment(null);
+                            } else {
+                                onStopStatus(statusCmpId, statusStartId, statusEndId, sendBtnId);
+                                displayErrorMessage(errorCmpId, 'filesize');
+                            }
+                        }); // END ONLOADEND
+                        // FILE READER ONERROR EVENT HANDLER
+                        flReader.onerror = (function(e) {
+                            onStopStatus(statusCmpId, statusStartId, statusEndId, sendBtnId);
+                            displayErrorMessage(errorCmpId, 'onerror');
+                        }); // END ONERROR
+                        // FILE READER ONABORT EVENT HANDLER
+                        flReader.onabort = (function(e) {
+                            onStopStatus(statusCmpId, statusStartId, statusEndId, sendBtnId);
+                            displayErrorMessage(errorCmpId, 'onabort');
+                        }); // END ONABORT
+                    } else {
+                        onStopStatus(statusCmpId, statusStartId, statusEndId, sendBtnId);
+                        displayErrorMessage(errorCmpId, 'filesize');
+                    }
+                } else {
+                    onStopStatus(statusCmpId, statusStartId, statusEndId, sendBtnId);
+                    displayErrorMessage(errorCmpId, 'extnblock');
+                    // TODO: TO SHOW INVAILD ATTACHMENT EXTENSION ERROR
+                }
+            } else {
+                displayErrorMessage(errorCmpId, 'attachlimit');
+                onStopStatus(statusCmpId, statusStartId, statusEndId, sendBtnId);
+            }
+        }        
+        var uploadAttachment = function(attachmentId) {
+            var attachmentBody = "";
+            if(fileSize <= positionIndex + chunkSize) {
+                attachmentBody = attachment.substring(positionIndex);
+                doneUploading = true;
+            } else {
+                attachmentBody = attachment.substring(positionIndex, positionIndex + chunkSize);
+            }
+            console.log("UPLOADING " + attachmentBody.length + " CHARS OF " + fileSize);
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.gcr_emailUsController.createAttachment}'
+                , attachmentId
+                , attachmentName
+                , attachmentType
+                , attachmentBody
+                , function(result, event) {
+                    if(event.status) {
+                        if(result != null) {
+                            if(doneUploading == true) {
+                                console.log("FILE HAS BEEN SUCCESSFULLY UPLOADED.");
+                                document.getElementById('{!$Component.hiddenAttId}').value += result + ',';
+                                saveAttach(attachmentName);
+                                //onStopStatus(statusCmpId, statusStartId, statusEndId, sendBtnId);
+                            } else {
+                                positionIndex += chunkSize;
+                                uploadAttachment(result);
+                                console.log("CHUNK HAS BEEN SUCCESSFULLY UPLOADED." + positionIndex);
+                            }
+                        }
+                    } else { //something else happened in remote action
+                        console.log(event.message);
+                        onStopStatus(statusCmpId, statusStartId, statusEndId, sendBtnId);
+                    }
+                  }, //end callback
+                {buffer: true, escape: true, timeout: 120000}
+            );
+        }
+        function onStartStatus(statusCmpId, start, end, send) {
+            document.getElementById(statusCmpId).style.display = 'block';
+            disableAttachFileBtn(start, end, send);
+        }
+        function onStopStatus(statusCmpId, start, end, send) {
+            document.getElementById(statusCmpId).style.display = 'none';
+            enableAttachFileBtn(start, end, send);
+        }
+        function enableAttachFileBtn(start, end, send) {
+            document.getElementById(start).style.display = 'none';
+            document.getElementById(end).style.display = 'block';
+            document.getElementById(send).disabled = false;
+        }
+        function disableAttachFileBtn(start, end, send) {
+            document.getElementById(start).style.display = 'block';
+            document.getElementById(end).style.display = 'none';
+            document.getElementById(send).disabled = true;
+        }
+        function displayErrorMessage(errorCmpId, inErr) {
+            var errorMessage = '';
+            var chgStyling = false;
+            if (inErr == 'attachlimit') {
+                errorMessage = '{!chlContentRec.AttachmentLimitMessage__c}';
+                chgStyling = true;
+            } else if (inErr == 'filesize') {
+                errorMessage = '{!chlContentRec.FileLimitMessage__c}';
+                chgStyling = true;
+            } else if (inErr == 'extnblock') {
+                errorMessage = '{!chlContentRec.InvalidAttachmentMessage__c}';
+                chgStyling = true;
+            } else {
+                errorMessage = '{!$Label.errMsgGeneric}';
+                chgStyling = true;
+            }
+            document.getElementById('{!$Component.attError}').value += errorMessage + ',';
+            console.log('ASSIGNED ERROR MESSAGE : ' + errorMessage);
+            if (chgStyling) {
+                attErrMsgToggle(chgStyling, errorCmpId, errorMessage);
+            }
+        }
+        function attErrMsgToggle(toShow, errorCmpId, errorMessage) {
+            document.getElementById(errorCmpId).innerHTML = errorMessage;
+            if (toShow) {
+                document.getElementById(errorCmpId).style.display = 'block';
+            } else {
+                document.getElementById(errorCmpId).style.display = 'none';
+            }
+        }
+        function inputSelectValidation(inputSelectArray) {
+            var retVal = [];
+            var iterator = 0;
+            while (iterator < inputSelectArray.length) {
+                if (document.getElementById(inputSelectArray[iterator]).value == null
+                || document.getElementById(inputSelectArray[iterator]).value == ''
+                || document.getElementById(inputSelectArray[iterator]).value == '0') {
+                    retVal.push(inputSelectArray[iterator]);
+                }
+                iterator++;
+            }
+            return retVal;
+        }
+        function findSelectWithId(fIdToSearch, mIdToSearch) {
+            var domInputs = document.getElementsByTagName('select');
+            var retVal = [];
+            var iterator = 0;
+            while (iterator < domInputs.length) {
+                if (domInputs[iterator] != '' 
+                && domInputs[iterator].id != undefined
+                && domInputs[iterator].id.indexOf(fIdToSearch) >= 0
+                && domInputs[iterator].id.indexOf(mIdToSearch) >= 0) {
+                    retVal.push(domInputs[iterator].id);
+                }
+                iterator++;
+            }
+        
+            return retVal;
+        }
+    </script>
+    <!-- ACTION FUNCTION FOR ATTACHMENT ADD -->
+    <apex:actionFunction id="saveAttach" name="saveAttach" action="{!saveAttachment}" reRender="idAttachedFilesPanel,idInputFileButton"
+                         oncomplete="onStopStatus('{!$Component.attachProgressId}', '{!$Component.idInputFileButtonStart}'
+                                                , '{!$Component.idInputFileButton}', '{!$Component.idSubmitBtn}');">
+        <apex:param name="paramName" assignTo="{!attachmentName}" value="" />
+    </apex:actionFunction>
+    <apex:inputHidden id="hiddenAttId" value="{!srtAttachmentId}" />
+    <apex:outputPanel layout="block" styleClass="cmpHeaderClass">{!chlContentRec.ChannelHeader__c}</apex:outputPanel>
+    <apex:outputPanel layout="block" id="emailContainer">
+        <apex:outputPanel layout="block" style="text-align: center; width: 100%;" rendered="{!isMain}">
+            <apex:actionRegion >
+                <apex:outputPanel layout="block" id="idFldReqText" style="{!IF(isValidated, 'display:none;color:red;', 'display:block;color:red;')}">
+                    {!chlContentRec.CareHub__r.ValidationErrorMessage__c}
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" styleClass="inputRequired cmpInputStyle" style="margin-top: 0px;">
+                    <!-- REASON FOR WRITING SELECT LIST WITH ITS ACTION REIGON TO PREVENT ALL FORM VALUES SUBMISSION -->
+                    <apex:actionRegion >
+                        <apex:selectList id="idReasonForWriting" value="{!handshakeInstance.newCase.Reason}" size="1" 
+                                         styleClass="cmpInputheight cmpInputWidthEmail cmpPicklist"
+                                         onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus Reason');"
+                                         style="{!IF(handshakeInstance.mValidationMap['caseReasonField'], 'border: 1px solid red;', '')}">
+                            <apex:actionSupport event="onchange" reRender="opRepAPrb, opWhereToBuy, idEmailDescription" status="idSelectReason"
+                                                onbeforedomupdate="onChangeFieldCheck('{!$Component.idReasonForWriting}', '{!chlContentRec.EmailReasonLabel__c}');" />
+                            <apex:selectOptions value="{!lReasonForWriting}" />
+                        </apex:selectList>
+                    </apex:actionRegion>
+                </apex:outputPanel>
+                <!-- MOCK UP FOR WHERE TO BUY/AVAILABILITY LAYOUT START WR476-->
+                
+                <apex:outputPanel layout="block" id="opWhereToBuy" >
+
+
+                <apex:outputText id="otWhereToBuyHelp" value="{!chlContentRec.EmailWTBSearchHelp__c}" rendered="{!AND(NOT(ISBLANK(handshakeInstance.newCase.Reason))
+                                                      , handshakeInstance.newCase.Reason == chlContentRec.EmailReason3__c)}" />
+                    <c:gcr_cmpEmailUsWhereToBuy id="idWhereToBuyCmp" channelContent="{!chlContentRec}" handshake="{!handshakeInstance}"
+                                             rightToLeft="{!isRightToLeft}"
+                                             rendered="{!AND(NOT(ISBLANK(handshakeInstance.newCase.Reason))
+                                                      , handshakeInstance.newCase.Reason == chlContentRec.EmailReason3__c)}" />
+                </apex:outputPanel>
+
+                <!-- MOCK UP FOR WHERE TO BUY/AVAILABILITY LAYOUT END WR476-->
+
+                <!-- DEFAULT COMPONENTS TO BE DISPLAYED -->
+                <apex:outputPanel layout="block" styleClass="inputRequired cmpInputStyle">
+                    <apex:inputTextArea id="idEmailDescription" value="{!caseDescription}" rows="6" cols="50" html-placeholder="{!IF(handshakeInstance.newCase.Reason == chlContentRec.EmailReason3__c
+                                                                                                                                ,chlContentRec.EmailWtbDescLabel__c
+                                                                                                                                ,chlContentRec.EmailDescLabel__c)}" 
+                                        styleClass="cmpInputWidthEmail cmpInputStyle" style="{!IF(handshakeInstance.mValidationMap['caseDescField'], 'border: 1px solid red;', '')}"
+                                        onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus Description');"
+                                        onchange="onChangeFieldCheck('{!$Component.idEmailDescription}', '');" html-maxlength="32768" />
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" rendered="{!NOT(chlContentRec.CareHub__r.isLastNameFirst__c)}">
+                    <apex:outputPanel layout="block" styleClass="inputRequired cmpInputStyle">
+                        <apex:inputText id="idFirstName1" value="{!handshakeInstance.newContact.FirstName}" html-placeholder=" {!chlContentRec.EmailFNLabel__c}"
+                                        onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus FirstName');"
+                                        styleClass="cmpInputheight cmpInputWidthEmail" onchange="onChangeFieldCheck('{!$Component.idFirstName1}', '');"
+                                        style="{!IF(handshakeInstance.mValidationMap['contactFirstName'], 'border: 1px solid red;', '')}" maxlength="80" />
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" styleClass="inputRequired cmpInputStyle">
+                        <apex:inputText id="idLastName1" value="{!handshakeInstance.newContact.LastName}" html-placeholder=" {!chlContentRec.EmailLNLabel__c}"
+                                        onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus LastName');"
+                                        styleClass="cmpInputheight cmpInputWidthEmail" onchange="onChangeFieldCheck('{!$Component.idLastName1}', '');"
+                                        style="{!IF(handshakeInstance.mValidationMap['contactLastName'], 'border: 1px solid red;', '')}" maxlength="80" />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!chlContentRec.CareHub__r.isLastNameFirst__c}">
+                    <apex:outputPanel layout="block" styleClass="inputRequired cmpInputStyle">
+                        <apex:inputText id="idLastName2" value="{!handshakeInstance.newContact.LastName}" html-placeholder=" {!chlContentRec.EmailLNLabel__c}"
+                                        onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus LastName');"
+                                        styleClass="cmpInputheight cmpInputWidthEmail" onchange="onChangeFieldCheck('{!$Component.idLastName2}', '');"
+                                        maxlength="80" style="{!IF(handshakeInstance.mValidationMap['contactLastName'], 'border: 1px solid red;', '')}" />
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" styleClass="inputRequired cmpInputStyle">
+                        <apex:inputText id="idFirstName2" value="{!handshakeInstance.newContact.FirstName}" html-placeholder=" {!chlContentRec.EmailFNLabel__c}"
+                                        onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus FirstName');"
+                                        styleClass="cmpInputheight cmpInputWidthEmail" onchange="onChangeFieldCheck('{!$Component.idFirstName2}', '');" maxlength="40"
+                                        style="{!IF(handshakeInstance.mValidationMap['contactFirstName'], 'border: 1px solid red;', '')}" />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" styleClass="inputRequired cmpInputStyle">
+                    <apex:inputText id="idEmail" value="{!handshakeInstance.newContact.Email}" maxlength="80"
+                                    onfocus="ga('send', 'event', 'Event_Form_Interaction', 'Event_Field_Focus', 'Carehub Emailus Email');"
+                                    styleClass="cmpInputheight cmpInputWidthEmail" html-placeholder=" {!chlContentRec.EmailLabel__c}" 
+                                    style="{!IF(handshakeInstance.mValidationMap['contactEmail'], 'border: 1px solid red;', '')}" 
+                                    onchange="if(document.getElementById('{!$Component.idEmail}').value != '') {
+                                              onChangeEmailCheck('{!$Component.idEmail}', '{!$Component.idEmailFormatMsg}');}" />
+                    <apex:outputText id="idEmailFormatMsg" value="{!chlContentRec.EmailIncorrectMessage__c}"
+                                     style="{!IF(isEmailFormat, 'display:none;color:red;', 'display:block;color:red;')}" />
+                    <apex:outputText id="idEmailExist" value="{!chlContentRec.EmailInvalidMessage__c}"
+                                     style="{!IF(isEmailValid, 'display:none;color:red;', 'display:block;color:red;')}" /> 
+                </apex:outputPanel>
+                <!-- FIELD BLOCK FOR REASON FOR WRITING AS 'REPORT A PROBLEM' -->
+                <apex:outputPanel layout="block" id="opRepAPrb" >
+                    <c:gcr_cmpEmailUsProblem id="idProblemCmp" channelContent="{!chlContentRec}" handshake="{!handshakeInstance}"
+                                             rightToLeft="{!isRightToLeft}"
+                                             rendered="{!AND(NOT(ISBLANK(handshakeInstance.newCase.Reason))
+                                                      , handshakeInstance.newCase.Reason == chlContentRec.EmailReason4__c)}" />
+                </apex:outputPanel>
+                <!-- BLOCK FOR ATTACHED FILES -->
+                <apex:outputPanel layout="block" styleClass="attachedFilesPanelContainer">
+                    <apex:outputPanel layout="block" id="idAttachedFilesPanel">
+                        <apex:outputText value="{!chlContentRec.AttachedFilesLabel__c}" rendered="{!lAttachmentName.size > 0}" />
+                        <apex:variable value="{!0}" var="rowNum"/>
+                        <apex:repeat var="eachAttach" value="{!lAttachmentName}">
+                            <apex:outputPanel layout="block" styleClass="attachedFile">
+                                <apex:outputPanel layout="block" styleClass="attachedFileText">
+                                    <apex:outputText value="{!eachAttach}" />
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="block" style="display:inline-flex;">
+                                    <apex:commandLink styleClass="attachedFileRemoveIcon"  action="{!removeAttachment}" reRender="idAttachedFilesPanel,idInputFileButton"
+                                                      onclick="attErrMsgToggle(false, '{!$Component.idOutputTextError}', '');" status="idFileAttStatus">
+                                        <apex:image style="height:20px;width:20px;" url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/Remove_Product.svg')}" />
+                                        <apex:param name="remAttIndex" assignTo="{!remAttachmentIndex}" value="{!rowNum}" />
+                                    </apex:commandLink><BR/>
+                                    <apex:variable var="rowNum" value="{!rowNum + 1}" />
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                <!-- INPUT FILE BUTTON COMPONENT WITH STYLING -->
+                <apex:outputPanel layout="block" style="padding-top: 5px;">
+                    <apex:outputText id="idOutputTextError" value="" style="color:red;display:none;"/>
+                    <apex:outputPanel id="attachProgressId" styleClass="fa fa-cog fa-spin fa-2x progressSpinner"
+                                      style="margin-bottom:10px;width:20px;margin-left:auto;margin-right:auto;display:none" />
+                    <!-- ACTION STATUS FOR ATTACHMENT FILE -->
+                    <apex:actionStatus id="idFileAttStatus">
+                        <apex:facet name="start">
+                            <span id="attachProgressId1" class="fa fa-cog fa-spin fa-2x progressSpinner" style="margin-bottom:10px;" />
+                        </apex:facet>
+                    </apex:actionStatus>
+                    <apex:outputPanel id="idInputFileButtonStart" layout="block" styleClass="inputFileEnable btnStyling" style="display:none;">
+                        <apex:outputPanel layout="block" styleClass="fileUpload" style="margin-top: 3px;">{!chlContentRec.EmailAttachButtonLabel__c}</apex:outputPanel>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="idInputFileButton" layout="block" styleClass="inputFileEnable btnStyling">
+                        <apex:outputPanel layout="block" styleClass="fileUpload" style="margin-top: 3px;">
+                            <input id="idInputFile" type="file" style="overflow: hidden; width: 130px; height: 25px;" class="upload" value=""
+                                   onchange="if(document.getElementById('idInputFile').value != null && document.getElementById('idInputFile').value != '')
+                                             uploadData('idInputFile','{!$Component.attachProgressId}'
+                                                        ,{!lAttachmentName.size},{!chlContentRec.AttachmentLimit__c}
+                                                        ,'{!$Component.idOutputTextError}','{!$Component.idSubmitBtn}'
+                                                        ,'{!$Component.idInputFileButtonStart}', '{!$Component.idInputFileButton}'
+                                                        , '{!$Component.attachProgressId}', '{!chlContentRec.InvalidAttachmentExtn__c}');"  />
+                            <apex:outputPanel >{!chlContentRec.EmailAttachButtonLabel__c}</apex:outputPanel>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                <!-- NEWSLETTER AND TERMS CONDITIONS CHECKBOXES AND FINAL FORM SUBMISSION COMPONENTS -->
+
+
+
+                <apex:outputPanel layout="block" id="opCrmReq" rendered="{!chlContentRec.isCrmRequired__c}"> 
+                    <apex:outputPanel id="crmCheckbox">
+                        <apex:inputCheckbox id="idInputCrm" value="{!handshakeInstance.newContact.Email_Opt_In__c}"/>
+                    </apex:outputPanel>
+                    <apex:outputLabel id="idCrmLabel" for="idInputCrm" value="{!chlContentRec.CrmLabel__c}" >
+                    </apex:outputLabel>
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" rendered="{!chlContentRec.PromotionCheckbox__c}"> 
+                    <apex:inputCheckbox id="idInputPromotion" selected="{!chlContentRec.promotionalChecked__c}" />
+                    <apex:outputLabel id="idPromotionLabel" for="idInputPromotion" value="{!chlContentRec.PromotionLabel__c}" />
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" styleClass="inputRequired" id="emailPrivacyText">
+                    <apex:outputPanel id="privacyCheckbox">
+                        <apex:inputCheckbox id="idInputPrivacy" onchange="onChangeFieldCheck('{!$Component.idInputPrivacy}', '');" />
+                    </apex:outputPanel>
+                    <apex:outputLabel id="idTncLabel" for="idInputPrivacy">
+                        <c:gcr_cmpLinkSeperator strInput="{!privacyPolicyFull}" strSepStart="[" strSepEnd="]"
+                                                onClick="window.open('{!chlContentRec.CareHub__r.PrivacyPolicyLink__c}', '_blank', 'height=600,width=600'); return false;" />
+                    </apex:outputLabel>
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" style="margin: 14px;">
+                    <apex:actionStatus id="idActionSubmit">
+                        <apex:facet name="stop">
+                            <apex:commandButton id="idSubmitBtn" value="{!chlContentRec.EmailBtnSendEmail__c}" styleClass="btnStyling" 
+                                                onclick="if(submitData({!chlContentRec.CareHub__r.isLastNameFirst__c}, '{!chlContentRec.EmailReasonLabel__c}')) {
+                                                             disableAttachFileBtn('{!$Component.idInputFileButtonStart}'
+                                                                                , '{!$Component.idInputFileButton}'
+                                                                                , '{!$Component.idSubmitBtn}');
+                                                             submitAction(); } return false;"
+                                                style="width: 250px; height: 35px;" />
+                        </apex:facet>
+                        <apex:facet name="start">
+                            <!--BUTTON TO GET SPINNER INSIDE BUTTON-->
+                            <button class="btnStyling" status="idActionSubmit" style="width: 250px; height: 35px;">
+                                <span class="fa fa-cog fa-spin fa-2x progressSpinner"></span>
+                            </button>
+                        </apex:facet>
+                    </apex:actionStatus>
+                </apex:outputPanel>
+                <apex:inputHidden id="attError" value="{!srtAttachmentErr}" />
+                <apex:actionFunction id="submitAction" name="submitAction" action="{!submitActionData}" reRender="emailContainer" status="idActionSubmit"
+                                     oncomplete="if({!isCaseSubmit}){trackPageData('ThankYou', '{!$Site.Name}/{!chlContentRec.RecordType.Name}/ThankYou');}
+                                                 enableAttachFileBtn('{!$Component.idInputFileButtonStart}', '{!$Component.idInputFileButton}'
+                                               , '{!$Component.idSubmitBtn}');" />
+            </apex:actionRegion> 
+        </apex:outputPanel>
+        <apex:outputPanel layout="block" rendered="{!isSelectAdd}">
+            <apex:outputPanel layout="block" styleClass="suggestedAddressMessage">{!chlContentRec.SelectAddText__c}</apex:outputPanel>
+            <apex:outputPanel layout="block" style="color:red;" rendered="{!addressNotSelected}">
+                {!chlContentRec.AddSelectionMessage__c}
+            </apex:outputPanel>
+            <apex:selectRadio layout="lineDirection" styleClass="addressRadioButton" value="{!selectedAddress}">
+                <apex:selectOption itemValue="selected" itemEscaped="false"
+                                   itemLabel="<div class=suggestedAddresslabel>{!chlContentRec.EnteredAddLabel__c}</div>
+                                              <div class=addressText>{!handshakeInstance.newContact.Primary_Address_Line_1__c}
+                                              {!IF(handshakeInstance.newContact.Primary_Address_Line_2__c != '', '</BR>', '')}
+                                              {!handshakeInstance.newContact.Primary_Address_Line_2__c}
+                                              </BR>{!handshakeInstance.newContact.Primary_City__c}
+                                              </BR>{!handshakeInstance.newContact.Primary_State_Province__c}
+                                              </BR>{!handshakeInstance.newContact.Primary_Country__c}
+                                              </BR>{!handshakeInstance.newContact.Primary_Postal_Code__c}</BR></div>" />
+                <apex:selectOption itemValue="suggested" itemEscaped="false"
+                                   itemLabel="<div class=suggestedAddresslabel>{!chlContentRec.SuggestedAddLabel__c}</div>
+                                              <div class=addressText>{!validatedContact.Primary_Address_Line_1__c}
+                                              {!IF(validatedContact.Primary_Address_Line_2__c != '', '</BR>', '')}
+                                              {!validatedContact.Primary_Address_Line_2__c}
+                                              </BR>{!validatedContact.Primary_City__c}
+                                              </BR>{!validatedContact.Primary_State_Province__c}
+                                              </BR>{!validatedContact.Primary_Country__c}
+                                              </BR>{!validatedContact.Primary_Postal_Code__c}</div>" />
+            </apex:selectRadio>
+            <apex:outputPanel layout="block" styleClass="navigationButtonContainer">
+                <apex:commandButton value="{!chlContentRec.BackBtnLabel__c}" action="{!backForAddressChange}" reRender="emailContainer" styleClass="btnStyling backButton"
+                                    oncomplete="trackPageData('AddressChange', '{!$Site.Name}/{!chlContentRec.RecordType.Name}/AddressChange');"/>
+                <apex:outputPanel styleClass="continueButtonContainer" layout="block">
+                <apex:actionStatus id="continueStatus">
+                    <apex:facet name="stop">
+                        <apex:commandButton value="{!chlContentRec.ContinueBtnLabel__c}" action="{!continueAddressSel}"
+                                reRender="emailContainer" styleClass="btnStyling continueButton" status="continueStatus"
+                                oncomplete="trackPageData('ThankYou', '{!$Site.Name}/{!chlContentRec.RecordType.Name}/ThankYou');" />
+                    </apex:facet>
+                    <apex:facet name="start">
+                        <button class="btnStyling continueButton" status="idActionSubmit">
+                            <span class="fa fa-cog fa-spin fa-2x progressSpinner"></span>
+                        </button>
+                    </apex:facet>
+                </apex:actionStatus>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:outputPanel layout="block" styleClass="emailUsThankyouContainer" rendered="{!isCaseSubmit}">
+            <apex:outputPanel layout="block">
+                <apex:outputPanel layout="block" styleClass="thankyouMessage">
+                    <apex:outputText value="{!SUBSTITUTE(chlContentRec.EmailThankyouMsg__c, '[caseNumber]', handshakeInstance.newCase.CaseNumber)}" escape="false"/>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:component>

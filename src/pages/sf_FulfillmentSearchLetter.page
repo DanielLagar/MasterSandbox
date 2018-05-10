@@ -1,0 +1,82 @@
+<apex:page standardController="Fulfillment_Order__c"  sidebar="false" showHeader="false" extensions="sf_FulfillmentSearchLetterCtrl">    
+    <script>    
+    function validateSubject(){
+        //alert(document.getElementById('{!$Component.searchForm.keyword}').value);
+        if(document.getElementById('{!$Component.searchForm.keyword}').value=''){
+            alert('{!$Label.Fulfillment_EnterKeyword}');
+            return false;
+        }
+        else return true;                                  
+    }    
+    
+    function handleKeyPress(e){ 
+          var key= 0;
+          if(window.event){
+            key= e.keyCode;
+          }else if(e.which){
+                key= e.which;
+          }
+          if(key==13){
+           searchMethod();
+          return false;
+          }
+    }
+        
+    </script>
+    <style>
+        .outerboxStyle{
+            margin:6px;
+            padding:20px 20px 20px 15px;
+            border-style: solid;
+            border-width: 1px;
+        }
+        .SearchBoxStyle{
+            border-bottom-style: solid;
+            border-width: 1px;
+            border-color:#DBD7D7;
+            height:40px;
+        }
+    </style>
+    <apex:form id="searchForm">
+       <apex:pageMessages ></apex:pageMessages>
+       <apex:actionFunction name="searchMethod" action="{!search_new}" reRender="searchResults,viewResults" status="status"/>        
+       <apex:param name="searchBtn" assignTo="{!templeteOptions}" value=""/>     
+         <div class="outerboxStyle">
+           <div class="SearchBoxStyle">
+               <apex:outputLabel value="{!tkeyword}" style="font-weight:bold"/>&nbsp;&nbsp;
+               <apex:inputText id="keyword" value="{!searching}" html-placeholder="{!$Label.Fulfillment_EnterKeyword}" style="width:200px;" onkeypress="return handleKeyPress(event);"/>&nbsp;
+               <!--<apex:outputPanel styleClass="btn" onclick="values('Yes!');" >{!search1}</apex:outputPanel>-->
+               <apex:commandButton value="{!search1}" action="{!search_new}" reRender="searchResults,viewResults" status="status"/>&nbsp;&nbsp;
+               <apex:actionStatus id="status" startText="Searching..." />
+               <!--<apex:outputText value="{!tNoResult}" style=" color:#f60;font-weight: bold;"></apex:outputText>-->
+           </div>
+           <div style="margin-top:10px">
+               <table>
+                   <tr>
+                       <td style="vertical-align:top;">
+                           <div>
+                               <apex:outputPanel id="searchResults">
+                                   <apex:outputLabel style="font-weight:bold">{!$Label.Fulfillment_SelectTemplate}</apex:outputLabel><br/><br/>
+                                   <apex:selectList size="15" style="width:350px;" value="{!selectedTemp}" id="templateDropDownList" required="true">
+                                       <apex:selectOptions value="{!templeteOptions}"  />
+                                   </apex:selectList>
+                               </apex:outputPanel>
+                               <div style="padding-top:5px;">
+                                   <apex:commandButton value="{!View}" id="ViewButton" action="{!viewbtn}" style="width:80px;" reRender="viewResults" ></apex:commandButton> &nbsp;           
+                                   <apex:commandButton action="{!selectBtn}" value="{!select1}" style="width:80px;" />&nbsp;
+                                   <apex:commandButton action="{!cancelbtnAction}" value="{!btnCancel}" style="width:80px;" />
+                               </div>
+                           </div>
+                       </td>
+                       <td style="vertical-align:top;padding-left:15px;">                           
+                           <apex:outputPanel id="viewResults">
+                               <apex:outputLabel style="font-weight:bold">{!$Label.Fulfillment_TemplateName}</apex:outputLabel>&nbsp;&nbsp;{!viewTemplateName}<br/><br/>
+                               <apex:outputText id="view" value="{!SUBSTITUTE((viewDis),'\n','<br/>')}" escape="false"  />           
+                           </apex:outputPanel>
+                       </td>
+                   </tr>
+               </table>                            
+           </div>        
+        </div>      
+    </apex:form>
+</apex:page>

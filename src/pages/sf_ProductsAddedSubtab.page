@@ -1,0 +1,712 @@
+<!-- 
+    
+    This page provides a way to search for Products and Case Comment Codes and add them to the existing Case Record.
+    Products and Case Comment codes can be added and removed dynamically.
+    
+    @param: Id - The Salesforce Id of the existing Case record
+    @Author: Oleg Rikkers, Chris Southworth 
+             Archana Sethuraman - Changed picklist value from Inactive to Cancelled 
+
+-->
+
+<apex:page standardController="Case" extensions="sf_ProductsAddedSubtabController,sf_DAMImageProxyCtrl" showHeader="false" sidebar="false">
+
+    <!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+    <!-- <apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/> -->
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery1_10_4_CSS)}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.sf_ProductsAddedSubtabCSS)}"/> 
+    
+    <!-- <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"/>-->
+    <apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.sf_ProductsAddedSubtabJS)}"/>
+   
+    <apex:includeScript value="{!$Resource.cometd}"/>
+    <apex:includeScript value="{!$Resource.jquery151}"/>
+    <apex:includeScript value="{!$Resource.json2}"/>
+    <apex:includeScript value="{!$Resource.jquery_cometd}"/>
+
+    <script type="text/javascript">
+        var j$ = jQuery.noConflict();
+        var caseId = '{!Case.Id}';
+        var sfPrimaryTabId = null;
+        var criticalityImageUrl = '{!URLFOR($Resource.sf_Icons, "Icons/warning16.png")}';
+        
+        sforce.console.getEnclosingPrimaryTabId (function (result) {
+            sfPrimaryTabId = result.id;
+        });
+
+        $(document).ready(function () {
+            //setCaseId(caseId);
+            showSearchPanel();
+        });
+
+        function retrieveImages () {
+            //build list of ids
+            var prodIds = [];
+
+            $('img.productThumbnail').each (function (index, item){
+                //console.log(item);
+                prodIds.push($(item).attr('id'));
+            });
+            
+            //console.log('calling getDamImageThumbnailUrlInBulk');
+            //console.log(prodIds);
+            getDamImageThumbnailUrlInBulk (prodIds);
+        }
+        
+        function jumpToTop(){
+            var top = document.getElementById('pageTop').offsetTop;
+            window.scrollTo(0, top);
+        }
+        
+        function refreshPage(){
+            window.location.reload();
+        }
+        
+        function resetFilterSelects(){
+            $('.commentSearchCell select').val( $('.commentSearchCell select').prop('defaultSelected') );
+        }
+        
+        function resetCommentCodeSearchText(){
+            $('.commentCodeSearchBar').val('');
+        }
+        
+        function resetSearchTextAndFilters(){
+            resetCommentCodeSearchText();
+            resetFilterSelects();
+        }
+        
+        //popup notification when new products are added on the Product Search tab
+        var displayNewProductNotification = function (result) {
+            if (caseId == result.message){
+                $('#dialog-refresh').show();
+                $('#productsAvailable').show();
+            }
+        };
+
+        var getDamImageThumbnailUrlInBulk = function (prodIds) {
+            sf_DAMImageProxyCtrl.getDamImageThumbnailUrlInBulk(prodIds, function (result, event) {
+                
+                if (event.status) {
+                    for (i = 0; i < result.length; i++) {
+                        $('#' + result[i].Id).attr('src', result[i].Image_Url_Thumb__c);
+                        console.log(result[i].Id);
+                    }
+                } else {
+                    console.log(event);
+                }
+            },{escape: false});
+        };
+
+        sforce.console.addEventListener('sf_ProductSearchNewProductAdded', displayNewProductNotification);
+        
+        function refreshChecklist(){
+            sforce.console.fireEvent('sf_RefreshChecklistEvent', caseId);
+        }
+        
+        function refreshProductSearchCounts(productId){
+            sforce.console.fireEvent('sf_RefreshProductCountsEvent', productId);
+        }
+
+    </script>
+    
+    <style type="text/css">
+
+        .dividerLine{
+            width: 1px;
+            height: 26px;
+            margin: 0px 3px;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            background-image: url('{!URLFOR($Resource.sf_Icons, "Icons/path_divider_default.png")}');
+        }
+
+    </style>
+
+ <div id="SearchContainer">
+    <apex:form id="form">
+        <a name="top"/>
+        <div id="pageTop"></div>
+        
+        <apex:pageMessages id="errorMessages"/>
+        <apex:outputPanel styleClass="errorMessages"/>
+
+        <apex:actionFunction name="refreshCaseProducts" action="{!refreshCaseProducts}" reRender="caseProductsSection, caseCommentCodeSection, errorMessages" status="status"/>
+        <!-- Review Line Below.... is it still used -->
+        <apex:actionFunction name="refreshCaseComments" action="{!refreshCaseProducts}" reRender="caseProductsSection, caseCommentCodeSection, errorMessages" status="status"/>
+        
+        <apex:actionFunction name="removeCommentCode" immediate="true" action="{!removeCommentCode}" oncomplete="refreshSelectedCaseTab();" reRender="caseProductsSection, errorMessages, " status="status">
+            <apex:param name="commentCodeId" value="" assignTo="{!commentCodeId}"/>
+            <apex:param name="caseProductId" value="" assignTo="{!caseProductId}"/>
+            <apex:param name="caseProductIndex" value="" assignTo="{!caseProductIndex}"/>
+        </apex:actionFunction>
+        
+        <apex:actionFunction name="updateCaseCommentList" immediate="true" action="{!updateCaseCommentList}" oncomplete="refreshSelectedCaseTab();" reRender="caseProductsSection, errorMessages" status="status">
+            <apex:param name="caseProductId" value="" assignTo="{!caseProductId}"/>
+        </apex:actionFunction>
+        
+        <apex:actionFunction name="closeCommentCodeDictionary" action="{!closeCommentCodeDictionary}" rerender="commentCodeModalPopup, caseProductsSection" status="status"/>
+
+        <apex:actionFunction name="openProductAssociationPopup" action="{!openProductAssociationPopup}" reRender="commentProductAssociationPopup" status="status">
+            <apex:param name="currentSelectedProductId" value="" assignTo="{!currentSelectedProductId}"/>
+            <apex:param name="mstToAssociate" value="" assignTo="{!mstToAssociate}"/>
+            <apex:param name="displayProductAssociationPopup" value="" assignTo="{!displayProductAssociationPopup}"/>
+        </apex:actionFunction>
+
+        <apex:actionFunction name="rerenderAssociationPopup" reRender="commentProductAssociationPopup" status="sf_ProgressStatus"/>
+
+        <div id="top"></div>
+        
+        <apex:outputPanel layout="block" style="width:99%; height: 30px; overflow:auto; margin-left: 5px; margin-top: 10px;" styleClass="mainRefreshButton">
+            <button type="button" id="refreshButton" style="float: left; margin-right: 0px;" onclick="refreshPage();">{!$Label.RefreshProductComments_ButtonText}</button>
+            <div id="productsAvailable" style="display: none; float: left;color:red;margin-left: 5px;margin-top:5px;">{!$Label.RefreshProductComments_AlertText}</div>
+        </apex:outputPanel>
+        
+        <apex:outputPanel layout="block" styleClass="caseNotSelected" id="caseNotSelected">
+            Please select a Case Record to search for products.
+        </apex:outputPanel>
+        
+        <apex:outputPanel layout="block" styleClass="caseProductsSection" id="caseProductsSection">
+            <apex:pageBlock mode="mainDetail" rendered="{!!ISBLANK(caseRecord.Id)}">
+                <apex:outputPanel rendered="{!IF(productCommentsList.size > 0, false, true)}">
+                    <div class="noResults">
+                        {!$Label.CommentCodeSearch_NoProducts}
+                    </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!IF(productCommentsList.size > 0, true, false)}">
+                    <table class="mainContent">
+                        <tr>
+                            <td>
+                                <div class="labelHeader">
+                                    <div class="productHeader">
+                                        <img src="{!URLFOR($Resource.sf_Icons, 'Icons/products32.png')}"/>
+                                        {!$Label.CommentCodeSearch_ProductsAddedLabel}: {!caseRecord.CaseNumber}
+                                    </div>
+                                    <div class="commentCodeHeader">
+                                        <img src="{!URLFOR($Resource.sf_Icons, 'Icons/ipPhone24.png')}"/>
+                                        {!$Label.CommentCodeSearch_CommentCodesLabel}
+                                    </div>
+                                    <div style="clear: both"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <apex:outputPanel id="lastSavedTimeTop" style="float: right;">
+                                    <apex:outputPanel rendered="{!lastSavedTime != ''}">
+                                        <apex:outputText styleClass="lastSavedText" value="{!$Label.AgentConsole_Saved_As_Of} {!lastSavedTime}"/>
+                                    </apex:outputPanel>
+                                    <apex:commandButton value="{!$Label.ProductComment_Save}" action="{!saveProductCommentChanges}" rerender="caseProductsSection, errorMessages, lastSavedTimeTop, lastSavedTimeBottom" styleClass="saveButton" status="status" oncomplete="refreshChecklist()"/>
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                            <td colspan="2">
+                                <apex:variable var="count" value="{!0}"/>
+                                <apex:repeat value="{!productCommentsList}" var="productList">
+                                    <apex:outputPanel layout="block" id="productContainer">
+                                        <table class="productTable">
+                                            <tr>
+                                                <td class="productImageCell">
+                                                    <img id="{!productList.product.Local_Product__r.id}" src="{!IF(productList.product.Local_Product__r.Image_Url_Thumb__c != '', productList.product.Local_Product__r.Image_Url_Thumb__c, URLFOR($Resource.sf_MissingProductImage))}" class="productThumbnail" onclick="openProductPopup('{!productList.product.Local_Product__r.id}'); return false;"/>
+                                                </td>
+                                                <td class="productInfoCell">
+                                                    <p class="productNameField">{!productList.displayName}</p>
+                                                    <p class="productUPCField">{!productList.product.Local_Product__r.GTIN_Number__c}</p>
+                                                    <p class="productStatus"><b>{!$ObjectType.Case_Product__c.fields.ProductStatus__c.Label}:</b> {!productList.product.ProductStatus__c}</p>
+                                                    <p class="productStatus"><b>{!$ObjectType.Case_Product__c.fields.Status__c.Label}:</b> {!productList.product.Status__c}</p>
+                                                </td>
+                                                <td class="commentSearchCell">
+                                                    <apex:outputPanel rendered="{!AND(productList.product.productstatus__c != 'Cancelled', productList.product.Status__c != 'Product Received')}">
+                                                        <apex:outputText value="{!$Label.CommentCodeSearch_Selection}" styleClass="labelText"/><apex:outputText styleClass="{!productList.product.Id}codeProcessingTime"/>
+                                                        <br/>
+                                                        <apex:outputPanel id="searchFilters">
+                                                            <apex:selectList id="level1SearchFilter" value="{!productList.levelOneFilter}" size="1" multiselect="false" styleClass="level1SearchFilter{!productList.product.Id}" disabled="{!OR(productList.product.productstatus__c == 'Cancelled', productList.product.Status__c == 'Product Received')}">
+                                                                <apex:selectOptions value="{!levelOneList}"/>
+                                                                <apex:actionSupport event="onchange" rerender="level2SearchFilter" status="status"/>
+                                                            </apex:selectList>
+                                                            <br/>
+                                                            <apex:selectList id="level2SearchFilter" value="{!productList.levelTwoFilter}" size="1" multiselect="false" styleClass="level2SearchFilter{!productList.product.Id}" disabled="{!OR(productList.product.productstatus__c == 'Cancelled', productList.product.Status__c == 'Product Received')}">
+                                                                <apex:selectOptions value="{!optionMap[productList.levelOneFilter]}"/>
+                                                            </apex:selectList>
+                                                        </apex:outputPanel>
+                                                        <br/>
+                                                        <br/>
+                                                        <div class="searchLabels">
+                                                            <div style="float: left;">
+                                                                <apex:outputText value="{!$Label.CommentCodeSearch_SearchCodes}" styleClass="labelText"/>
+                                                            </div>
+                                                            <div class="browseCommentCodes">
+                                                                <apex:commandLink value="{!$Label.CommentCodeDictionary_BrowseAll}" action="{!openCommentCodeDictionary}" onComplete="" reRender="commentCodeModalPopup" status="status" rendered="{!AND(productList.product.productstatus__c != 'Cancelled', productList.product.Status__c != 'Product Received')}">
+                                                                    <apex:param value="{!productList.product.Id}" assignTo="{!dictionaryProductId}" name="dictionaryProductId"/>
+                                                                    <apex:param value="{!productList.product.Global_Product_ID__c}" assignTo="{!globalProductId}" name="globalProductId"/>
+                                                                    <apex:param value="{!count}" assignTo="{!caseProductIndex}" name="caseProductIndex"/>
+                                                                </apex:commandLink>
+                                                            </div>
+                                                        </div>
+                                                        <br/>
+                                                        <apex:inputText html-placeholder="Search Comment Code..." onfocus="caseCommentSearchAutocomplete($(this), '{!caseRecord.Country__c}', '{!productList.product.Id}', '{!productList.product.Global_Product_ID__c}', '{!userLanguage}', '{!JSENCODE(productList.product.Local_Product__r.Global_Product__r.Brand__c)}', '{!JSENCODE(productList.product.Local_Product__r.Global_Product__r.Segment__c)}');" styleClass="commentCodeSearchBar" disabled="{!OR(productList.product.productstatus__c == 'Cancelled', productList.product.Status__c == 'Product Received')}"/>
+                                                    </apex:outputPanel>
+                                                    <apex:outputPanel styleClass="inactiveProductFields" rendered="{!OR(productList.product.productstatus__c == 'Cancelled', productList.product.Status__c == 'Product Received')}">
+                                                        <table width="100%">
+                                                            <tr>
+                                                                <td>
+                                                                    <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Status__c.Label}" styleClass="inactiveFieldLabel"/>:&nbsp;
+                                                                    <apex:outputField value="{!productList.product.Status__c}"/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Changed_By__c.Label}" styleClass="inactiveFieldLabel"/>:&nbsp;
+                                                                    <apex:outputField value="{!productList.product.Changed_By__c}"/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Change_Reason__c.Label}" styleClass="inactiveFieldLabel"/>:&nbsp;
+                                                                    <apex:outputField value="{!productList.product.Change_Reason__c}"/>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </apex:outputPanel>
+                                                </td>
+                                                <td class="productButtonsCell">
+                                                    <apex:commandButton value="{!$Label.CommentCodeSearch_DeleteButton}" immediate="true" action="{!removeCaseProduct}" oncomplete="refreshSelectedCaseTab();resetSearchTextAndFilters();refreshProductSearchCounts('{!local_product_id}');" styleClass="deleteButton" rerender="caseProductsSection, caseCommentCodeSection, searchFilters, errorMessages" rendered="{!AND(productList.product.productstatus__c != 'Cancelled', productList.product.Status__c != 'Product Received')}" status="status">
+                                                        <apex:param value="{!productList.product.Id}" assignTo="{!localProductId}" name="localProductId"/>
+                                                        <apex:param value="{!productList.product.Local_Product__r.Id}" assignTo="{!local_product_id}" name="local_product_id"/>
+                                                        <apex:param value="{!count}" assignTo="{!caseProductIndex}" name="caseProductIndex"/>
+                                                    </apex:commandButton>
+                                                    <br/>
+                                                    <br/>
+                                                    <apex:commandButton value="{!$Label.CommentCodeSearch_CloneButton}" immediate="true" action="{!cloneCaseProduct}" oncomplete="refreshSelectedCaseTab();jumpToTop();resetSearchTextAndFilters();" styleClass="cloneButton" rerender="caseProductsSection, caseCommentCodeSection, searchFilters, errorMessages" rendered="{!AND(productList.product.productstatus__c != 'Cancelled', productList.product.Status__c != 'Product Received')}" status="status">
+                                                        <apex:param value="{!productList.product.Id}" assignTo="{!localProductId}" name="localProductId"/>
+                                                    </apex:commandButton>
+                                                    <!--START: ChrisM 40MM WTB Button to open WTB tool in console-->
+                                                    <!--
+													ChrisM removed conditional render 7th Mar 2016
+                                                    <apex:outputPanel id="wtbButton" rendered="{!NOT(ISNULL(productList.product.Local_Product__r.GTIN_Number__c)) && wtbCountry}">
+													--> 
+													<apex:outputPanel id="wtbButton" rendered="{!wtbCountry}">
+														<br/><br/>
+                                                        <apex:commandButton value="{!$Label.WTB_Console_Button}" styleClass="cloneButton" onclick="openWTB('{!productList.product.Consumer_Facing_Brand__c}','{!caseRecord.Country__c}','{!productList.product.Local_Product__r.GTIN_Number__c}', '{!caseRecord.BigData_Locale_Code__c}');return false">
+                                                        </apex:commandButton>
+                                                        <script type="text/javascript">
+                                                            function openWTB(brand, country, gtin, locale) {
+                                                                brand = encodeURIComponent(brand);
+                                                                country = encodeURIComponent(country);
+                                                                gtin = encodeURIComponent(gtin);
+                                                                locale = encodeURIComponent(locale);
+                                                                console.log("Brand: "+brand+" country: "+country+" gtin: "+gtin);
+                                                                sforce.console.getEnclosingPrimaryTabId(function(result) {
+                                                                    sforce.console.openSubtab(result.id, "apex/consoleWhereToBuy?brand="+brand+"&country="+country+"&gtin="+gtin+"&locale="+locale, true, "{!$Label.WTB_Tab_Name}", null);
+                                                                    });
+                                                            }//close openWTB
+                                                        </script>
+                                                    </apex:outputPanel>
+                                                    <!--FIN: ChrisM 40MM WTB Button to open WTB tool in console-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" class="productPath">
+                                                    <apex:outputText value="{!productList.productDisplayPath}" escape="false"/>
+                                                </td>
+                                            </tr>
+                                            <tr style="display: {!IF(productList.caseCommentCodes.size > 0, 'table-row', 'none')};">
+                                                <td colspan="2" class="productFieldsCell">
+                                                    <apex:outputPanel id="productInfo" rendered="{!IF(productList.caseCommentCodes.size > 0, true, false)}">
+                                                        <div class="productFieldsSection">
+                                                            <apex:outputPanel rendered="{!OR(productList.aaeCount > 0, productList.pqcCount > 0)}">
+                                                                <apex:outputPanel id="productPanel" rendered="{!AND(productList.product.productstatus__c != 'Cancelled', productList.product.Status__c != 'Product Received')}">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Production_Code__c.Label}" styleClass="labelText"/>
+                                                                                <img src="/s.gif" id="HelpImage" alt="{!$ObjectType.Case_Product__c.fields.Production_Code__c.inlineHelpText}" class="helpOrb" title="{!$ObjectType.Case_Product__c.fields.Production_Code__c.inlineHelpText}" />
+                                                                                <br/>
+                                                                                
+                                                                                <apex:inputField value="{!productList.product.Production_Code__c}"/>
+                                                                            </td>
+                                                                            <td valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Production_Code_Verification__c.Label}" styleClass="labelText"/>
+                                                                                <br/>
+                                                                                <apex:inputField id="pcVerif" value="{!productList.product.Production_Code_Verification__c}"/>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Where_Bought__c.Label}" styleClass="labelText"/>
+                                                                                <img src="/s.gif" id="HelpImage" alt="{!$ObjectType.Case_Product__c.fields.Where_Bought__c.inlineHelpText}" class="helpOrb" title="{!$ObjectType.Case_Product__c.fields.Where_Bought__c.inlineHelpText}" />
+                                                                                <br/>
+                                                                                <apex:inputField value="{!productList.product.Where_Bought__c}"/>
+                                                                            </td>
+                                                                            <td valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Product_available_for_return__c.Label}" styleClass="labelText"/>
+                                                                                <br/>
+                                                                                <apex:inputField value="{!productList.product.Product_available_for_return__c}"/>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2" valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Expiration_Date__c.Label}" styleClass="labelText"/>
+                                                                                <br/>
+                                                                                <apex:inputField value="{!productList.product.Expiration_Date__c}" onblur="$('#datepicker').hide()"/>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Same_Version__c.Label}" styleClass="labelText"/>
+                                                                                <img src="/s.gif" id="HelpImage" alt="{!$ObjectType.Case_Product__c.fields.Same_Version__c.inlineHelpText}" class="helpOrb" title="{!$ObjectType.Case_Product__c.fields.Same_Version__c.inlineHelpText}" />
+                                                                                <br/>
+                                                                                <apex:inputField value="{!productList.product.Same_Version__c}"/>
+                                                                            </td>   
+
+                                                                            <!-- ALM 662 -->
+                                                                            <td valign="top">
+                                                                                <apex:outputPanel rendered="{!caseRecord.CCM_Initial_Pull__c != null && caseRecord.Intake_Agent_Request__c}">
+                                                                                    <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.CCM_Retreival_Request__c.Label}" styleClass="labelText"/>
+                                                                                    <img src="/s.gif" id="HelpImage" alt="{!$ObjectType.Case_Product__c.fields.CCM_Retreival_Request__c.inlineHelpText}" class="helpOrb" title="{!$ObjectType.Case_Product__c.fields.CCM_Retreival_Request__c.inlineHelpText}" />
+                                                                                    <br/>
+                                                                                    <apex:inputField value="{!productList.product.CCM_Retreival_Request__c}"/>
+                                                                                </apex:outputPanel>
+                                                                            </td>
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </apex:outputPanel>
+                                                                <apex:outputPanel rendered="{!OR(productList.product.productstatus__c == 'Cancelled', productList.product.Status__c == 'Product Received')}">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Production_Code__c.Label}" styleClass="labelText"/>
+                                                                                <img src="/s.gif" id="HelpImage" alt="{!$ObjectType.Case_Product__c.fields.Production_Code__c.inlineHelpText}" class="helpOrb" title="{!$ObjectType.Case_Product__c.fields.Production_Code__c.inlineHelpText}" />
+                                                                                <br/>
+                                                                                <apex:outputField rendered="true" value="{!productList.product.Production_Code__c}"/>
+                                                                            </td>
+                                                                            <td valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Production_Code_Verification__c.Label}" styleClass="labelText"/>
+                                                                                <br/>
+                                                                                <apex:outputField value="{!productList.product.Production_Code_Verification__c}"/>
+                                                                            </td >
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Where_Bought__c.Label}" styleClass="labelText"/>
+                                                                                <img src="/s.gif" id="HelpImage" alt="{!$ObjectType.Case_Product__c.fields.Where_Bought__c.inlineHelpText}" class="helpOrb" title="{!$ObjectType.Case_Product__c.fields.Where_Bought__c.inlineHelpText}" />
+                                                                                <br/>
+                                                                                <apex:outputField value="{!productList.product.Where_Bought__c}"/>
+                                                                            </td>
+                                                                            <td valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Product_available_for_return__c.Label}" styleClass="labelText"/>
+                                                                                <br/>
+                                                                                <apex:outputField value="{!productList.product.Product_available_for_return__c}"/>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2" valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Expiration_Date__c.Label}" styleClass="labelText"/>
+                                                                                <br/>
+                                                                                <apex:outputField value="{!productList.product.Expiration_Date__c}"/>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2" valign="top">
+                                                                                <apex:outputLabel value="{!$ObjectType.Case_Product__c.fields.Same_Version__c.Label}" styleClass="labelText"/>
+                                                                                <img src="/s.gif" id="HelpImage" alt="{!$ObjectType.Case_Product__c.fields.Same_Version__c.inlineHelpText}" class="helpOrb" title="{!$ObjectType.Case_Product__c.fields.Same_Version__c.inlineHelpText}" />
+                                                                                <br/>
+                                                                                <apex:outputField value="{!productList.product.Same_Version__c}"/>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </apex:outputPanel>
+                                                            </apex:outputPanel>
+                                                        </div>
+                                                    </apex:outputPanel>
+                                                </td>
+                                                <td class="commentCodeCell" colspan="2">
+                                                    <apex:outputPanel id="caseCommentCodeSection" rendered="{!IF(productList.caseCommentCodes.size > 0, true, false)}">
+                                                        <div class="commentCodeSection">
+                                                            <apex:repeat value="{!productList.caseCommentCodes}" var="commentCode" id="commentsList">
+                                                                <table class="commentCodeTable">
+                                                                    <tr>
+                                                                        <td class="commentCodeData">
+                                                                            <table class="{!IF(commentCode.Status__c == 'Cancelled', 'inactiveCommentCodeDetailsTable', 'commentCodeDetailsTable')}">
+                                                                                <tr>
+                                                                                    <td class="warningSignCell">
+                                                                                        <div class="warningSign">
+                                                                                            <apex:image styleClass="criticalityImage" value="{!URLFOR($Resource.sf_Icons, 'Icons/warning16.png')}" rendered="{!IF(commentCode.Local_Comment_Code__r.Criticality__c = 'Critical',true, false)}"/> 
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="commentDescriptionCell">
+                                                                                        <apex:outputPanel rendered="{!IF(commentCode.Local_Comment_Code__r.Global_Comment_Code__r.Reason_Required__c == false, true, false)}">
+                                                                                            <p class="commentLevel3Text">{!commentCode.Local_Comment_Code__r.Level_1__c}</p>
+                                                                                            <p class="commentLevel2Text">{!commentCode.Local_Comment_Code__r.Level_2__c}</p>
+                                                                                            <p class="commentLevel3Text">{!commentCode.Local_Comment_Code__r.Level_3__c}</p>
+                                                                                        </apex:outputPanel>
+                                                                                        <apex:outputPanel rendered="{!IF(commentCode.Local_Comment_Code__r.Global_Comment_Code__r.Reason_Required__c == true, true, false)}">
+                                                                                            <p class="commentLevel3Text">{!commentCode.Local_Comment_Code__r.Level_1__c}</p>
+                                                                                            <apex:outputPanel rendered="{!AND(commentCode.Status__c != 'Cancelled', productList.product.productstatus__c != 'Cancelled', productList.product.Status__c != 'Product Received')}">
+                                                                                                <apex:inputField value="{!commentCode.Unable_To_Classify_Reason__c}" html-placeholder="{!$Label.CommentCodeSearch_UnableToClassifyReason}" styleClass="reasonField"/>
+                                                                                            </apex:outputPanel>
+                                                                                            <apex:outputPanel rendered="{!OR(commentCode.Status__c == 'Cancelled', productList.product.productstatus__c == 'Cancelled', productList.product.Status__c == 'Product Received')}">
+                                                                                                {!$Label.CommentCodeSearch_UnableToClassifyReason}:&nbsp;
+                                                                                                <apex:outputField value="{!commentCode.Unable_To_Classify_Reason__c}" html-placeholder="{!$Label.CommentCodeSearch_UnableToClassifyReason}" styleClass="reasonField"/>
+                                                                                            </apex:outputPanel>
+                                                                                        </apex:outputPanel>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <apex:outputPanel rendered="{!commentCode.Status__c == 'Cancelled'}">
+                                                                                            <p class="">
+                                                                                                <apex:outputLabel value="{!$ObjectType.Case_Comment_Code__c.fields.Status__c.Label}" styleClass="inactiveFieldLabel"/>:&nbsp;
+                                                                                                <apex:outputField value="{!commentCode.Status__c}"/>
+                                                                                                <br/>
+                                                                                                <apex:outputLabel value="{!$ObjectType.Case_Comment_Code__c.fields.Changed_By__c.Label}" styleClass="inactiveFieldLabel"/>:&nbsp;
+                                                                                                <apex:outputField value="{!commentCode.Changed_By__c}"/>
+                                                                                                <br/>
+                                                                                                <apex:outputLabel value="{!$ObjectType.Case_Comment_Code__c.fields.Change_Reason__c.Label}" styleClass="inactiveFieldLabel"/>:&nbsp;
+                                                                                                <apex:outputField value="{!commentCode.Change_Reason__c}"/>
+                                                                                            </p>
+                                                                                        </apex:outputPanel>
+                                                                                    </td>
+                                                                                    <td class="quantityCell">
+                                                                                        <apex:outputText value="{!$Label.CommentCodeSearch_Quantity}" styleClass="quantityLabel"/>
+                                                                                        <br/>
+                                                                                        <apex:outputPanel rendered="{!AND(commentCode.Status__c != 'Cancelled', productList.product.productstatus__c != 'Cancelled', productList.product.Status__c != 'Product Received')}">
+                                                                                            <apex:inputField styleClass="commentQuantity" value="{!commentCode.Quantity_Affected__c}"/>
+                                                                                        </apex:outputPanel>
+                                                                                        <apex:outputPanel rendered="{!OR(commentCode.Status__c == 'Cancelled', productList.product.productstatus__c == 'Cancelled', productList.product.Status__c == 'Product Received')}">
+                                                                                            <apex:outputField styleClass="commentQuantity" value="{!commentCode.Quantity_Affected__c}"/>
+                                                                                        </apex:outputPanel>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                        <td class="removeCommentCell">
+                                                                            <apex:outputPanel rendered="{!AND(commentCode.Status__c != 'Cancelled', productList.product.productstatus__c != 'Cancelled', productList.product.Status__c != 'Product Received')}">
+                                                                                <div class="removeCommentButton">
+                                                                                    <div class="removeButtonImage">
+                                                                                        <img class="removeButton" src="{!URLFOR($Resource.sf_Icons, 'Icons/Remove_Button_small_Default.png')}"
+                                                                                            onclick="removeCommentCode('{!commentCode.Id}', '{!productList.product.Id}', '{!count}'); return false;"
+                                                                                            onMouseOver="this.src='{!URLFOR($Resource.sf_Icons, 'Icons/Remove_Button_small_Hover.png')}'"
+                                                                                            onMouseOut="this.src='{!URLFOR($Resource.sf_Icons, 'Icons/Remove_Button_small_Default.png')}'"
+                                                                                            onMouseDown="this.src='{!URLFOR($Resource.sf_Icons, 'Icons/Remove_Button_small_Press.png')}'"
+                                                                                            onMouseUp="this.src='{!URLFOR($Resource.sf_Icons, 'Icons/Remove_Button_small_Default.png')}'">
+                                                                                        </img>
+                                                                                    </div>
+                                                                                    <div class="removeButtonText">{!$Label.CommentCodeSearch_RemoveCommentCode}</div>
+                                                                                </div>
+                                                                            </apex:outputPanel>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </apex:repeat>
+                                                        </div>
+                                                    </apex:outputPanel>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </apex:outputPanel>
+                                    <apex:variable var="count" value="{!count + 1}"/> 
+                                </apex:repeat>
+                            </td>
+                        <tr>
+                            <td colspan="2" style="padding-bottom: 10px;">
+                                <apex:outputPanel id="lastSavedTimeBottom" style="float: right;">
+                                    <apex:outputPanel rendered="{!lastSavedTime != ''}">
+                                        <apex:outputText styleClass="lastSavedText" value="{!$Label.AgentConsole_Saved_As_Of} {!lastSavedTime}"/>
+                                    </apex:outputPanel>
+                                    <apex:commandButton value="{!$Label.ProductComment_Save}" action="{!saveProductCommentChanges}" rerender="caseProductsSection, errorMessages, lastSavedTimeTop, lastSavedTimeBottom" styleClass="saveButton" status="status" oncomplete="refreshChecklist()"/>
+                                </apex:outputPanel>
+                                <a href="#top" style="padding-top: 3px; padding-left: 3px; display: inline-block; text-decoration: none;">{!$Label.Back_To_Top}</a>
+                            </td>
+                        </tr>
+                    </table>
+                </apex:outputPanel>
+            </apex:pageBlock>
+        </apex:outputPanel>
+                      
+        <!-- Comment Code Modal Popup -->
+        <apex:outputPanel id="commentCodeModalPopup">
+            <apex:outputPanel styleClass="commentCodeDictionaryModalPopup" layout="block" rendered="{!displayCommentCodeDictionary}">
+                <apex:outputPanel layout="block" styleClass="commentCodeDictionary" id="commentCodeDictionary" rendered="{!displayCommentCodeDictionary}">
+                    <apex:pageMessages id="filterErrorMessages"/>
+                    <div class="dicHeaderContainer">
+                        <div style="float:left;"><!--CDOY WR267 Float Left Added-->
+                            <div class="dicbrowseText">{!$Label.CommentCodeDictionary_BrowseCommentCodesFor}</div>
+                            <div class="dicProductName">{!dictionaryProduct.Local_Product__r.Translated_Path__c}</div>
+                        </div><!--CDOY WR267 Float Left Added -->
+                    
+                        <apex:outputPanel layout="block" styleClass="closeButton" style="position:absolute; top: 18px; right: 15px;">
+                            <a href = "javascript:void(0)" onclick = "updateCaseCommentList('{!dictionaryProduct.Id}');closeCommentCodeDictionary();">{!$label.ProductsAddedSubtab_Close} <b>X</b></a>
+                        </apex:outputPanel>
+                    </div>
+                    <div id="dictionaryDataContainer">
+                        <apex:pageBlock >
+                            <apex:outputPanel id="commentCodeList">
+                                <apex:pageBlockTable value="{!localCodes}" var="codeItem">
+                        
+                                    <apex:column value="{!codeItem.Level_1__c}">
+                                        <apex:facet name="header">
+                                            <apex:outputPanel >
+                                                <apex:commandLink action="{!setSortDirection}" value="{!$Label.ProductsAddedSubtab_Level1} {!IF(sortBy=='Level_1__c',IF(sortDirection='ASC','▲','▼'),'')}" rerender="commentCodeList" status="status">
+                                                    <apex:param value="Level_1__c" name="column" assignTo="{!sortBy}" ></apex:param>
+                                                </apex:commandLink>
+                                                <br/>
+                                                <apex:selectList id="level1" value="{!levelOne}" size="1" multiselect="false">
+                                                    <apex:selectOptions value="{!levelOneList}"/>
+                                                    <apex:actionSupport event="onchange" action="{!filterByLevel1}" rerender="commentCodeList" status="status"/>
+                                                </apex:selectList>
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                    </apex:column>
+                                    <apex:column value="{!codeItem.Level_2__c}">
+                                        <apex:facet name="header">
+                                            <apex:outputPanel >
+                                                <apex:commandLink action="{!setSortDirection}" value="{!$Label.ProductsAddedSubtab_Level2} {!IF(sortBy=='Level_2__c',IF(sortDirection='ASC','▲','▼'),'')}" rerender="commentCodeList" status="status">
+                                                    <apex:param value="Level_2__c" name="column" assignTo="{!sortBy}" ></apex:param>
+                                                </apex:commandLink>
+                                                <br/>
+                                                <apex:selectList id="level2" value="{!levelTwo}" size="1" multiselect="false">
+                                                    <apex:selectOptions value="{!optionMap[levelOne]}"/>
+                                                    <apex:actionSupport event="onchange" action="{!refreshCodeFilterList}" rerender="commentCodeList" status="status"/>
+                                                </apex:selectList>
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                    </apex:column>
+                                    <apex:column value="{!codeItem.Level_3__c}">
+                                        <apex:facet name="header">
+                                            <apex:commandLink action="{!setSortDirection}" value="{!$Label.ProductsAddedSubtab_Level3} {!IF(sortBy=='Level_3__c',IF(sortDirection='ASC','▲','▼'),'')}" rerender="commentCodeList" status="status">
+                                                <apex:param value="Level_3__c" name="column" assignTo="{!sortBy}" ></apex:param>
+                                            </apex:commandLink>
+                                        </apex:facet>
+                                    </apex:column>
+                                    <apex:column value="{!codeItem.Description__c}">
+                                        <apex:facet name="header">
+                                            <apex:commandLink action="{!setSortDirection}" value="{!$Label.ProductsAddedSubtab_Description} {!IF(sortBy=='Description__c',IF(sortDirection='ASC','▲','▼'),'')}" rerender="commentCodeList" status="status">
+                                                <apex:param value="Description__c" name="column" assignTo="{!sortBy}" ></apex:param>
+                                            </apex:commandLink>
+                                        </apex:facet>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                        {!$Label.CommentCodeDictionary_AddCommentCode}
+                                        </apex:facet>
+                                        <apex:commandLink action="{!addSelectedCommentCode}" onclick="$('[id$=currentSelectedProductInputId]').val('{!dictionaryProduct.Id}');"  oncomplete="updateCaseCommentList('{!dictionaryProduct.Id}');refreshSelectedCaseTab();" value="{!$Label.CommentCodeDictionary_AddCommentCode}" styleClass="btn" status="status" reRender="commentProductAssociationPopup">
+                                            <apex:param name="selectedLocalCommentId" assignTo="{!selectedLocalCommentId}" value="{!codeItem.Id}" />
+                                        </apex:commandLink>
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                            </apex:outputPanel>
+                        </apex:pageBlock>
+                    </div>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        
+        <apex:actionStatus id="status">
+            <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="z-index: 9998; background-color: #fbfbfb; height: 100%;opacity:0.65;width:100%; position: fixed;">
+                        <div class="waitingHolder" style="z-index: 9999;top: 40%; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Loading...</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionStatus>
+          
+        <c:sf_ProductDetailPopup />
+        <apex:inputText style="display:none" styleClass="lastAddedCCCId" value="{!lastAddedCommentCode}"/>
+        <!-- Product Association popup -->
+        <apex:outputPanel id="commentProductAssociationPopup">
+
+            <apex:outputPanel rendered="{!displayProductAssociationPopup}">
+                    <div id="popupSASProductAssociationPopupCtrl" class="screen_overlay_show"/>
+ 
+            <div id="lightSASProductAssociationPopupCtrl" class="white_content_show">
+                
+                <apex:pageMessages />
+                    <apex:outputPanel layout="block" styleClass="popupHeader">
+                        <apex:outputText value="{!$Label.Case_ProductSearchPromtTitle}"/>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="block" styleClass="productDetail">
+                        <apex:outputPanel layout="block" style="width:80px;float:left;">
+                            <apex:image value="{!if (currentProduct.Local_Product__r.Image_Url_Thumb__c == null, URLFOR ($Resource.sf_MissingProductImage), currentProduct.Local_Product__r.Image_Url_Thumb__c)}" width="80px" height="80px"/>  
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block">
+                            <apex:outputLabel value="{!currentProduct.Product_Path__c}"/> <p/><p/>
+                            <apex:outputPanel > {!currentProduct.GTIN_Number__c}</apex:outputPanel>
+                        </apex:outputPanel>
+
+                        <div style="clear: both;"/>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel styleClass="sasList" layout="block" id="sasList">
+                        <hr/>
+                        <apex:repeat value="{!sasList}" var="sas">
+                            <table>   
+                                <tr>
+                                    <td style="width:100%; max-width: 100px; overflow: hidden; text-overflow: ellipsis;white-space: normal; padding-right: 30px;">
+                                        <apex:repeat value="{!sas.Survey_Comment_Products__r}" var="scp" id="scpLi"> 
+                                            <apex:outputText value="{!scp.Case_Product__r.Product_Path__c}" style="line-height: 30px;"/> <br/>
+                                        </apex:repeat> 
+                                    </td>
+
+                                    <td style="text-align:right; vertical-align: middle; width:110px;">        
+                                        <apex:commandButton action="{!addProductToSAS}" value="{!$Label.Case_ProductSearchAssociateButton}" status="sf_ProgressStatus" oncomplete="refreshSelectedCaseTab(); rerenderAssociationPopup(); updateCaseCommentList('{!currentSelectedProductId}');" style="width:100px;" onclick="$(this).attr('disabled', 'disabled')">
+                                                <apex:param value="{!sas.Id}" assignTo="{!sasId}" name="sasId"/>
+                                                <apex:param value="{!lastAddedCommentCode}" assignTo="{!lastAddedCommentCode}" name="lastAddedCommentCode"/>
+                                        </apex:commandButton>
+                                    </td>
+                                </tr>   
+                            </table> 
+                            
+                            <hr/>
+                            </apex:repeat>
+                           
+                    </apex:outputPanel>
+                    
+                    <apex:panelGrid columns="2" style="width:100%; padding-right: 26px; padding-left: 26px;  padding-bottom: 30px;">
+                        
+
+                        <apex:commandButton action="{!cancelAssociation}" value="{!$Label.Back_Button}"  style="width:100px;" oncomplete="refreshSelectedCaseTab(); rerenderAssociationPopup(); updateCaseCommentList('{!currentSelectedProductId}');"/>
+
+                        <apex:outputPanel >
+                                <label>{!$Label.SAS_shouldCloseProductAssociationPopup}</label>
+                                <apex:inputCheckbox id="shouldCloseProductAssociationPopup" selected="{!shouldCloseProductAssociationPopup}"/>
+                                <apex:commandButton value="{!$Label.Case_ProductSearchNotRelatedButton}" action="{!createNewSAS}" style="width:100px; float:right" status="sf_ProgressStatus" oncomplete="refreshSelectedCaseTab(); rerenderAssociationPopup(); updateCaseCommentList('{!currentSelectedProductId}');" onclick="$(this).attr('disabled', 'disabled')">
+                                    <apex:param value="{!lastAddedCommentCode}" assignTo="{!lastAddedCommentCode}" name="lastAddedCommentCode"/>
+                                </apex:commandButton>
+                        </apex:outputPanel>
+
+                        
+                        
+                    </apex:panelGrid>
+          
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+
+        <!-- END Product Association popup -->
+        
+        <!-- START Product/Comments refresh dialog -->
+        <div id="dialog-refresh" style="display: none;">
+            <div id="dialog-refresh-overlay" class="refresh_screen_overlay_show"/>
+            <div id="dialog-refresh-whitecontent" class="refresh_white_content_show">
+                <div id="dialog-refresh-header" class="popupHeader">{!$Label.RefreshProductsCommentsSubtab_DialogHeader}</div>
+                <p class="refresh-text">{!$Label.RefreshProductsCommentsSubtab_DialogText}</p>
+                <div class="dialog-button-container">
+                    <hr class="dialog-hr"/>
+                    <button type="button" class="dialog-button" onclick="$('#dialog-refresh').hide();">{!$Label.RefreshSubtab_CloseDialog}</button>
+                    <button type="button" class="dialog-button" onclick="refreshPage();">{!$Label.RefreshSubtab_RefreshNow}</button>
+                </div>
+            </div>
+        </div>
+        <!-- END Product/Comments refresh dialog -->
+
+    </apex:form>
+
+
+</div> 
+</apex:page>

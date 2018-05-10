@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Master Detail with Local Comment Code</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Comment_Group__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The Comment Group that this Global Comment Code is associated to</description>
+        <externalId>false</externalId>
+        <label>Comment Group</label>
+        <referenceTo>Comment_Group__c</referenceTo>
+        <relationshipLabel>Global Comment Code</relationshipLabel>
+        <relationshipName>Global_Comment_Code</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Criticality__c</fullName>
+        <description>This indicates if a Comment Code falls under Critical or Non-Critical</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If Checked indicates a critical type else non-critical</inlineHelpText>
+        <label>Criticality</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Critical</fullName>
+                    <default>false</default>
+                    <label>Critical</label>
+                </value>
+                <value>
+                    <fullName>Non-Critical</fullName>
+                    <default>false</default>
+                    <label>Non-Critical</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Do_not_send_survey__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Do not send survey</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Full_Comment_Path__c</fullName>
+        <externalId>false</externalId>
+        <formula>text(Level_1__c ) &amp;&apos;/&apos;&amp;  text(Level_2__c)  &amp;&apos;/&apos;&amp; Level_3__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Full Comment Path</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GCR_CID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>This is an ID that will be populated by the C3DB system</description>
+        <externalId>true</externalId>
+        <label>GCR_CID</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Inactive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this box if the Global Comment Code needs to be marked Inactive</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked indicates that this Global Comment Code is inactive</inlineHelpText>
+        <label>Inactive</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Level_1__c</fullName>
+        <description>This is going to be the First Level Identifying the Type of Comment</description>
+        <externalId>false</externalId>
+        <label>Level 1</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Adverse Event</fullName>
+                    <default>false</default>
+                    <label>Adverse Event</label>
+                </value>
+                <value>
+                    <fullName>Availability</fullName>
+                    <default>false</default>
+                    <label>Availability</label>
+                </value>
+                <value>
+                    <fullName>Complaints Other</fullName>
+                    <default>false</default>
+                    <label>Complaints Other</label>
+                </value>
+                <value>
+                    <fullName>Inquiry</fullName>
+                    <default>false</default>
+                    <label>Inquiry</label>
+                </value>
+                <value>
+                    <fullName>Product Quality Complaint</fullName>
+                    <default>false</default>
+                    <label>Product Quality Complaint</label>
+                </value>
+                <value>
+                    <fullName>Testimonial</fullName>
+                    <default>false</default>
+                    <label>Testimonial</label>
+                </value>
+                <value>
+                    <fullName>Unable to Classify</fullName>
+                    <default>false</default>
+                    <label>Unable to Classify</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Level_2__c</fullName>
+        <description>This indicates the next level of detail after the type of comment has been classified</description>
+        <externalId>false</externalId>
+        <label>Level 2</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Adverse Event</fullName>
+                    <default>false</default>
+                    <label>Adverse Event</label>
+                </value>
+                <value>
+                    <fullName>Alleged Contamination</fullName>
+                    <default>false</default>
+                    <label>Alleged Contamination</label>
+                </value>
+                <value>
+                    <fullName>Availability</fullName>
+                    <default>false</default>
+                    <label>Availability</label>
+                </value>
+                <value>
+                    <fullName>Consumer Preference / Dislikes</fullName>
+                    <default>false</default>
+                    <label>Consumer Preference / Dislikes</label>
+                </value>
+                <value>
+                    <fullName>Corporate</fullName>
+                    <default>false</default>
+                    <label>Corporate</label>
+                </value>
+                <value>
+                    <fullName>Damage to Property</fullName>
+                    <default>false</default>
+                    <label>Damage to Property</label>
+                </value>
+                <value>
+                    <fullName>Dissatisfied with Product Performance</fullName>
+                    <default>false</default>
+                    <label>Dissatisfied with Product Performance</label>
+                </value>
+                <value>
+                    <fullName>Environment</fullName>
+                    <default>false</default>
+                    <label>Environment</label>
+                </value>
+                <value>
+                    <fullName>Label, Insert Legibility or Confusing</fullName>
+                    <default>false</default>
+                    <label>Label, Insert Legibility or Confusing</label>
+                </value>
+                <value>
+                    <fullName>Marketing Loyalty</fullName>
+                    <default>false</default>
+                    <label>Marketing Loyalty</label>
+                </value>
+                <value>
+                    <fullName>Marketing Personal Information</fullName>
+                    <default>false</default>
+                    <label>Marketing Personal Information</label>
+                </value>
+                <value>
+                    <fullName>Marketing Pricing</fullName>
+                    <default>false</default>
+                    <label>Marketing Pricing</label>
+                </value>
+                <value>
+                    <fullName>Marketing Promotion, Advertising</fullName>
+                    <default>false</default>
+                    <label>Marketing Promotion, Advertising</label>
+                </value>
+                <value>
+                    <fullName>Marketing Shopping Experience</fullName>
+                    <default>false</default>
+                    <label>Marketing Shopping Experience</label>
+                </value>
+                <value>
+                    <fullName>Missing Label, Coding, Insert</fullName>
+                    <default>false</default>
+                    <label>Missing Label, Coding, Insert</label>
+                </value>
+                <value>
+                    <fullName>Moe</fullName>
+                    <default>false</default>
+                    <label>Moe</label>
+                </value>
+                <value>
+                    <fullName>Packaging or Product Mix Up, Mislabel</fullName>
+                    <default>false</default>
+                    <label>Packaging or Product Mix Up, Mislabel</label>
+                </value>
+                <value>
+                    <fullName>Pet Health Effect</fullName>
+                    <default>false</default>
+                    <label>Pet Health Effect</label>
+                </value>
+                <value>
+                    <fullName>Product Information</fullName>
+                    <default>false</default>
+                    <label>Product Information</label>
+                </value>
+                <value>
+                    <fullName>Product or Packaging Malfunction Hazard</fullName>
+                    <default>false</default>
+                    <label>Product or Packaging Malfunction Hazard</label>
+                </value>
+                <value>
+                    <fullName>Product or Packaging Non Functioning or Damaged (Not Hazardous)</fullName>
+                    <default>false</default>
+                    <label>Product or Packaging Non Functioning or Damaged (Not Hazardous)</label>
+                </value>
+                <value>
+                    <fullName>Product Usage</fullName>
+                    <default>false</default>
+                    <label>Product Usage</label>
+                </value>
+                <value>
+                    <fullName>Safety Closure defect, child resistant closure</fullName>
+                    <default>false</default>
+                    <label>Safety Closure defect, child resistant closure</label>
+                </value>
+                <value>
+                    <fullName>Sensory</fullName>
+                    <default>false</default>
+                    <label>Sensory</label>
+                </value>
+                <value>
+                    <fullName>Suspect Counterfeit</fullName>
+                    <default>false</default>
+                    <label>Suspect Counterfeit</label>
+                </value>
+                <value>
+                    <fullName>Suspect Tampering</fullName>
+                    <default>false</default>
+                    <label>Suspect Tampering</label>
+                </value>
+                <value>
+                    <fullName>Testimonial</fullName>
+                    <default>false</default>
+                    <label>Testimonial</label>
+                </value>
+                <value>
+                    <fullName>Volume/Fill/Count/missing parts</fullName>
+                    <default>false</default>
+                    <label>Volume/Fill/Count/missing parts</label>
+                </value>
+                <value>
+                    <fullName>Unable to Classify</fullName>
+                    <default>false</default>
+                    <label>Unable to Classify</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Level_3__c</fullName>
+        <description>This is the 3rd level</description>
+        <externalId>false</externalId>
+        <label>Level 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used to determine if the &apos;Reason Required&apos; field should display for comment codes.</description>
+        <externalId>false</externalId>
+        <label>Reason Required</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Global Comment Code</label>
+    <listViews>
+        <fullName>CX_exclusions</fullName>
+        <columns>NAME</columns>
+        <columns>Do_not_send_survey__c</columns>
+        <columns>Level_1__c</columns>
+        <columns>Level_2__c</columns>
+        <columns>Level_3__c</columns>
+        <columns>Full_Comment_Path__c</columns>
+        <columns>Criticality__c</columns>
+        <columns>Inactive__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Do_not_send_survey__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>CX exclusions</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>GCR_CID</fullName>
+        <columns>NAME</columns>
+        <columns>GCR_CID__c</columns>
+        <columns>Level_1__c</columns>
+        <columns>Level_2__c</columns>
+        <columns>Level_3__c</columns>
+        <columns>Full_Comment_Path__c</columns>
+        <columns>Criticality__c</columns>
+        <columns>Inactive__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>GCR_CID__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>Inactive__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Level_3__c</field>
+            <operation>startsWith</operation>
+            <value>Tapes</value>
+        </filters>
+        <label>GCR CID</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>My_View1</fullName>
+        <columns>NAME</columns>
+        <columns>GCR_CID__c</columns>
+        <columns>Full_Comment_Path__c</columns>
+        <columns>Level_1__c</columns>
+        <columns>Level_2__c</columns>
+        <columns>Level_3__c</columns>
+        <columns>Criticality__c</columns>
+        <columns>Inactive__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>GCR_CID__c</field>
+            <operation>equals</operation>
+            <value>10277</value>
+        </filters>
+        <label>My View1</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>GCC-{0000}</displayFormat>
+        <label>Global Comment Code Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Global Comment Code</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Criticality__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Full_Comment_Path__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Inactive__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Level_1__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Level_2__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Level_3__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Criticality__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Full_Comment_Path__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Inactive__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Level_1__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Level_2__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Level_3__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>Criticality__c</lookupFilterFields>
+        <lookupFilterFields>Full_Comment_Path__c</lookupFilterFields>
+        <lookupFilterFields>Inactive__c</lookupFilterFields>
+        <lookupFilterFields>Level_1__c</lookupFilterFields>
+        <lookupFilterFields>Level_2__c</lookupFilterFields>
+        <lookupFilterFields>Level_3__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>Criticality__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Full_Comment_Path__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Inactive__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Level_1__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Level_2__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Level_3__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Comment_Group__c</searchFilterFields>
+        <searchFilterFields>Criticality__c</searchFilterFields>
+        <searchFilterFields>Full_Comment_Path__c</searchFilterFields>
+        <searchFilterFields>Inactive__c</searchFilterFields>
+        <searchFilterFields>Level_1__c</searchFilterFields>
+        <searchFilterFields>Level_2__c</searchFilterFields>
+        <searchFilterFields>Level_3__c</searchFilterFields>
+        <searchResultsAdditionalFields>Criticality__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Full_Comment_Path__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Inactive__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Level_1__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Level_2__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Level_3__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

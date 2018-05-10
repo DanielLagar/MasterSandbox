@@ -1,0 +1,219 @@
+<apex:page contentType="text/css">
+	.surveyContainer{
+		background:white; 
+		padding:12px; 
+		margin-bottom:10px;
+		border: 1px solid #c6ccce;
+	}
+	
+	.section {
+	}
+
+	.sectionHeader {
+		font-size: 13px;
+		text-align: left;
+		padding: 10px 0px 10px 15px;
+		background: #4a4a4a;
+		color: white;
+		font-weight: bold;
+		margin:0px;
+	}
+
+	.sectionContent {
+		margin:0px;
+		padding:10px;
+		border:1px solid rgb(196, 196, 196);
+		color: rgb(74,74,86);
+	}
+
+	.question {
+		font-weight:bold;
+	}
+	.answer {
+		margin-bottom: 15px;
+	}
+	
+	.answer input{
+		padding: 5px 6px;
+		width: 95%;
+	}
+
+    .answer input[type=checkbox] {
+        width: 12px;
+    }
+
+    .answer select[multiple="multiple"] {
+        width: 100% !important;
+    }
+
+	.answer select {
+		padding: 5px 6px;
+        width: 50%;
+		
+		
+	}
+	.answer textArea {
+		padding: 5px 6px;
+		width: 50%;
+		height: 50px;
+		font-size: 88%;
+	}
+	/*.question label {
+		display: block;
+		font-weight: bold;
+	}
+
+	.inlineLabel {
+		display: inline !important;
+	}
+
+	
+
+	.question {
+		margin-left: 15px;
+		margin-bottom: 30px;
+	}*/
+
+	.errorMsg {
+		display: inline-block;
+		margin-left: 12px;
+	}
+
+	.tabs {
+    	margin: 20px 15px;
+    }
+
+    .tab {
+    	border-width: 1px 1px 0px 1px;
+  		border-color: rgb(196, 196, 196);
+	  	border-style: solid;
+	  	background-image: -moz-linear-gradient( 90deg, rgb(240,242,243) 0%, rgb(240,242,242) 100%);
+	  	background-image: -webkit-linear-gradient( 90deg, rgb(240,242,243) 0%, rgb(240,242,242) 100%);
+	  	background-image: -ms-linear-gradient( 90deg, rgb(240,242,243) 0%, rgb(240,242,242) 100%);
+	  	color: black;
+    	display: inline-block;
+    	height: 22px;
+    	width: 170px;
+    	font-weight: bold;
+    	font-size: 11px;
+    	text-align: center;
+    	font-family: Arial;
+    	line-height: 22px;
+        cursor:default;
+    }
+
+    .activeTab {
+  		border-color: rgb(22, 95, 171);
+  		background-image: -moz-linear-gradient( 90deg, rgb(30,114,202) 0%, rgb(22,95,171) 100%);
+  		background-image: -webkit-linear-gradient( 90deg, rgb(30,114,202) 0%, rgb(22,95,171) 100%);
+  		background-image: -ms-linear-gradient( 90deg, rgb(30,114,202) 0%, rgb(22,95,171) 100%);
+  		color: white;
+    }
+
+    .activeTab td {
+    	color: white;
+    }
+
+    .probingQuestions {
+    	background: #f8f8f8 !important;
+    }
+
+    .content {
+    	border-width: 1px;
+  		border-color: rgb(196, 196, 196);
+	  	border-style: solid;
+    	background: white;
+    	padding: 10px;
+    }
+
+    .message {
+        margin: 0px 0px 12px;
+    }
+    .mt10{
+    	margin-top:10px;
+    }
+    .mb10{
+    	margin-bottom:10px;
+    }
+
+    .buttons input {
+        float:right;
+        width: 100px;
+    }
+
+    .fieldSetSection {
+      
+    }
+
+    .mainTableTd {
+    	vertical-align: top;
+    	width: 70%;
+    }
+    .mainTableTd2 {
+    	vertical-align: top !important;
+    	width: 30%;
+    }
+
+    .products {
+    	margin: 10px 10px 0px 20px;
+    }
+
+    .clearFix {
+        clear: both;
+    }
+
+    .productsSelectedTable table{
+    	border-color: rgb(196, 196, 196);
+    	width: 100%;
+    }
+
+ 	.productsSelectedTable td{
+    	border: 0px;
+    }
+
+    .symptomSection {
+        padding-left: 15px;
+        background: white;
+        border-color: rgb(196, 196, 196);
+    }
+
+
+    .symptomCell {
+    }
+
+    .symptomCell select {
+        padding: 5px;
+        width:90%;
+    }
+
+    .symptomCell label{
+        font-weight: bold;
+    }
+
+    .symptomCell textarea {
+         width:90%;
+    }
+
+    .helpOrb {
+    	background-position: -20px 0;
+    }
+
+
+
+    .productBlock {
+    	width:100%; 
+    	border: 1px solid;
+    	border-color: rgb(196, 196, 196);
+    }
+
+    .rowLabelTd {
+    }
+
+    .rowLabel {
+    	padding: 13px !important;
+    }
+
+    .mainContent {
+    	min-width: 825px;
+    }
+</apex:page>

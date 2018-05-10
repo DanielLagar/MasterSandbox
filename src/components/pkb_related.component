@@ -1,0 +1,41 @@
+<apex:component allowDML="true">
+<apex:attribute name="pkbCon" type="pkb_Controller" required="true" description="handle to the pkb controller" />
+
+  <apex:outputPanel styleClass="relatedArticles" layout="block">
+    <h2 class="section related-articles">{!pkbCon.langCon.language_config.Search_Related__c}</h2>
+
+    <apex:outputPanel layout="block" styleClass="searchDrillr">
+      <knowledge:articleList articleVar="a"
+        pageSize="{!pkbCon.relatedArticles+1}"
+        keyword="{!pkbCon.theKad.title}"
+        pageNumber="1"
+        language="{!pkbCon.selectedLanguage}"
+        categories="{!pkbCon.selectedCategory}">
+        <apex:variable var="typeName" value="{!SUBSTITUTE(a.articleTypeName, '__kav', '')}" />
+        <apex:variable var="feedback" value="{!pkbCon.feedbackSourceParam}={!pkbCon.feedbackRelated}" />
+        <apex:variable var="params" value="{!IF(ISBLANK(pkbCon.allSearchParams), feedback, pkbCon.allSearchParams+ '&' +feedback)}" />
+        <apex:variable var="articleURL" value="{!$Site.CurrentSiteUrl}articles{!pkbCon.selectedLanguageURL}{!typeName}/{!a.urlName}" />
+
+        <apex:outputPanel layout="block" rendered="{!(LEFT(pkbCon.theArticle.Id, 15) != LEFT(a.Id, 15))}" style="margin-bottom: 5px;">
+           <!-- <a class="relatedLink" href="{!articleURL}/?{!params}">{!a.Title}</a>  -->
+
+	        <c:pkb_article pkbCon="{!pkbCon}"
+	          aid="{!a.id}"
+	          title="{!a.title}"
+	          summary="{!a.summary}"
+	          urlName="{!a.urlName}"
+	          articleTypeName="{!a.articleTypeName}"
+	          articleTypeLabel="{!a.articleTypeLabel}"
+	          lastModifiedDate="{!a.lastModifiedDate}"
+	          firstPublishedDate="{!a.firstPublishedDate}"
+	          lastPublishedDate="{!a.lastPublishedDate}"
+	        />
+
+        </apex:outputPanel>
+
+       </knowledge:articleList>
+    </apex:outputPanel>
+
+  </apex:outputPanel>
+
+</apex:component>

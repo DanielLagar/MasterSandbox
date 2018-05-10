@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Settings used by Conga Solutions. Use for testing and for enabling the Composer Button to Solution converter.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>APXTConga4__Enable_Button_To_Solution__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Enable Button To Solution Converter</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Server_Override__c</fullName>
+        <defaultValue>&quot;https://composer.congamerge.com&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Server Endpoint URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Conga Solutions Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

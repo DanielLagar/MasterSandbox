@@ -1,0 +1,158 @@
+<!-- 
+#   Component for Knowledge Article Search
+#    
+#   @param:  
+#   @author: ACCENTURE
+#   @date:   15/06/2016
+#	DATE				NAME				CHANGE DESCRIPTION
+#	31/10/2016			Accenture			Removed overflow:auto from div id idArticlePanel
+#	26/01/2017			Accenture			WR-440 - Article helpful links added below the feedback component.
+# -->
+<apex:component controller="gcr_knowledgeArticleController" layout="block">
+    <!-- SCRIPTS INCLUDE -->
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/analyticsTracking.js')}" />
+	<!-- SCRIPT FOR GOOGLE ANALYTICS TRACKING -->
+    <script>
+    	trackPageData('{!chlContentRec.RecordType.Name}'
+                , '/{!$Site.Name}/{!chlContentRec.RecordType.Name}?brand={!chlContentRec.CareHub__r.Brand__c}&country={!chlContentRec.CareHub__r.CountryIsoCode__c}&language={!chlContentRec.CareHub__r.LanguageIsoCode__c}');
+    </script>
+    <!-- LOAD STYLESHEETS BASED ON LANGUAGE WRITING SYSTEM RTL OR LTR -->
+    <apex:outputPanel rendered="{!NOT(isRightToLeft)}">
+    	<apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubFaqCmpStyling.css')}" />
+    </apex:outputPanel>    
+    <apex:outputPanel rendered="{!isRightToLeft}">
+		<apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubFaqCmpStyling_rtl.css')}" />
+    </apex:outputPanel>
+
+	<!-- ATTRIBUTES FOR COMPONENT -->
+    <apex:attribute name="channelContentId" assignTo="{!chlContentId}" description="Email us channel content" type="String" required="true" />
+    <apex:attribute name="defaultKa" assignTo="{!strKaUrlName}" description="defalt article to show" type="String" required="true" />
+    <apex:attribute name="rightToLeft" assignTo="{!isRightToLeft}" description="Email us channel content" type="Boolean" />
+	
+    <!-- TEMP VARIABLE TO GET ALL DATA FROM ATTRIBUTES : VF LIMITATION -->
+    <apex:outputPanel rendered="{!blnTemp}" />
+
+    <!-- ACTION FUNCTIONS FOR ARTICLE DATA -->
+    <!-- ACTION FUNCTION TO RETRIEVE ARTICLE DETAILS BASED ON ARTICLE ID USED IN "gcr_cmpKnowledgeArticleList" COMPONENT -->
+    <apex:actionFunction id="getArticleDetails" name="getArticleDetails" action="{!getArticleDetail}" reRender="idArticlePanel">
+        <apex:param name="paramArticleId" assignTo="{!kArticleId}" value="" />
+    </apex:actionFunction>
+    <!-- ACTION FUNCTION TO GO TO SEARCH RESULTS PAGE -->
+    <apex:actionFunction id="searchResult" name="searchResult" action="{!getSearchResult}" reRender="idArticlePanel" status="idStatusSearch" />
+    <apex:actionFunction id="goTolastPage" name="goTolastPage" action="{!lastPage}" reRender="idFeaturedArticles, opPaginationId" />
+    <apex:actionFunction id="goToNextPage" name="goToNextPage" action="{!next}" reRender="idFeaturedArticles, opPaginationId" />
+    <apex:actionFunction id="goToFirstPage" name="goToFirstPage" action="{!firstPage}" reRender="idFeaturedArticles, opPaginationId" />
+    <apex:actionFunction id="goToPrevPage" name="goToPrevPage" action="{!previous}" reRender="idFeaturedArticles, opPaginationId" />
+
+	<!-- OUTPUT PANEL FOR ARTICLE SEARCH INPUT AND BUTTON -->
+    <apex:outputPanel layout="block" id="idArticlePanel">
+        <apex:messages />
+        <apex:outputPanel layout="block" styleClass="cmpHeaderClass" rendered="{!AND(isLanding, showArticleList)}">
+            {!chlContentRec.ChannelHeader__c}</apex:outputPanel>
+		<apex:outputPanel layout="block" styleClass="searchBackContainer" rendered="{!AND(NOT(isLanding), showArticleList)}" >
+            <apex:commandLink action="{!goToLanding}" styleClass="searchBack" value="{!chlContentRec.BackToFeaturedLabel__c}" reRender="idArticlePanel" />
+        </apex:outputPanel>
+        <apex:outputPanel layout="block" styleClass="article-search" rendered="{!showArticleList}">
+            <apex:outputPanel layout="block" styleClass="articleSearchContainer">
+                <!-- INPUT SEARCH BOX -->
+                <apex:inputText value="{!strSearch}" id="theSearchstring" styleClass="searchInput" maxlength="100" size="80"
+                                html-placeholder=" {!chlContentRec.FAQArticleSearchLabel__c}"/>
+                <!-- SEARCH BUTTON -->
+                <button type="submit" id="searchButton" onclick="searchResult();
+                                                                 ga('send', 'pageview'
+                                                                  , '/{!$Site.Name}/{!chlContentRec.RecordType.Name}?q=' + document.getElementById('{!$Component.theSearchstring}').value);
+                                                                 return false;">
+                    <!-- SEARCH BUTTON STATUS -->
+                    <apex:actionStatus id="idStatusSearch">
+                        <apex:facet name="stop">
+                            <span class="fa fa-search"></span>
+                        </apex:facet>
+                        <apex:facet name="start">
+                            <span class="fa fa-cog fa-spin fa-2x progressSpinner"></span>
+                        </apex:facet>                    
+                    </apex:actionStatus>
+                </button>
+                <!-- SEARCH MINIMUM CHARACTERS ERROR MESSAGE -->
+            	<apex:outputPanel layout="block" rendered="{!isMinCharError}" style="color:red;text-align:center;">
+                    {!chlContentRec.CareHub__r.SearchMinCharMsg__c}</apex:outputPanel>
+            </apex:outputPanel>
+        </apex:outputPanel>        
+        <apex:outputPanel layout="block" styleClass="faqHeaderMessage" rendered="{!AND(NOT(isLanding), showArticleList)}">
+			{!IF(lKnowledgeArticle.size <= 0, chlContentRec.SearchResultMessage__c + ' \"' + strSearch + '\" ', chlContentRec.FAQHeaderSearch__c)}
+        </apex:outputPanel>
+        <!-- FEATURED ARTICLES DEFAULT VIEW -->
+        <apex:outputPanel id="idFeaturedArticles" layout="block" rendered="{!showArticleList}" styleClass="faqArticleList">
+            <c:gcr_cmpKnowledgeArticleList kaList="{!lKnowledgeArticle}" isLanding="{!isLanding}" strFaqUrl="{!strFaqUrl}"
+                                           html-class="{!IF(isLanding, 'articleListLanding', 'articleListSearch')}"  lastArticleId="{!lastArticleId}" />
+            <!-- ADD IMAGE -->
+            <apex:outputPanel layout="block" styleClass="faqLandingImgDiv" rendered="{!isLanding}">
+				<apex:image styleClass="faqLandingImg" url="{!chlContentRec.CareHub__r.BackgroundImgLanding__c}" />
+            </apex:outputPanel>
+            <!-- ADD IMAGE -->
+        </apex:outputPanel>
+        <!-- PAGINATION RELATED COMPONENTS -->
+        <!-- DECEMBER CHANGE -->
+        <apex:outputPanel layout="block" id="opPaginationId" styleClass="searchPagination"
+                          rendered="{!AND(NOT(ISBLANK(strSearch)), showArticleList, NOT(isLanding), totalSearchArticles > intPageSize)}">
+            <apex:panelGrid style="margin-left: auto; margin-right: auto; max-width: 100%;" columns="5">
+                <!-- NAVIGATION LINK FOR FIRST PAGE -->
+                <apex:outputLink disabled="{!NOT(currentPage > 1)}" onclick="goToFirstPage(); return false;">
+                    <apex:image styleClass="page paginationIcon {!IF(currentPage > 1, 'pageEnable', 'pageDisable')}"
+                                url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationFPageIcon.svg')}" />
+                </apex:outputLink>
+                <!-- NAVIGATION LINK FOR PREVIOUS PAGE -->
+                <apex:outputLink disabled="{!NOT(currentPage > 1)}" onclick="goToPrevPage(); return false;">
+                    <apex:image styleClass="page paginationIcon {!IF(currentPage > 1, 'pageEnable', 'pageDisable')}"
+                                url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationPrvIcon.svg')}" />
+                </apex:outputLink>
+                <!-- NAVIGATION LINKS FOR ALL PAGES -->
+                <apex:repeat var="eachPage" value="{!lPageNumbers}">
+                    <apex:commandLink styleClass="page" rendered="{!eachPage != currentPage}"
+                                      action="{!displaySelectedPage}" value="{!eachPage}" reRender="idFeaturedArticles, opPaginationId">
+                        <apex:param name="paramVal" value="{!eachPage}" assignTo="{!currentPage}" />
+                    </apex:commandLink>
+                    <apex:outputPanel styleClass="{!IF(eachPage == currentPage, 'pageDisable', 'pageEnable')}"
+                                      rendered="{!eachPage == currentPage}">{!eachPage}</apex:outputPanel>
+                </apex:repeat>
+                <!-- NAVIGATION LINK FOR NEXT PAGE -->
+                <apex:outputLink disabled="{!NOT(currentPage < totalPages)}" onclick="goToNextPage(); return false;">
+                    <apex:image styleClass="page paginationIcon {!IF(currentPage < totalPages, 'pageEnable', 'pageDisable')}"
+                                url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationNextIcon.svg')}" />
+                </apex:outputLink>
+                <!-- NAVIGATION LINK FOR LAST PAGE -->
+                <apex:outputLink disabled="{!NOT(currentPage < totalPages)}" onclick="goTolastPage(); return false;">
+                    <apex:image styleClass="page paginationIcon {!IF(currentPage < totalPages, 'pageEnable', 'pageDisable')}"
+                                url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationLPageIcon.svg')}" />
+                </apex:outputLink>
+            </apex:panelGrid>
+        </apex:outputPanel>
+        <!-- OUTPUT PANEL FOR ARTICLE VIEW -->
+        <apex:outputPanel id="idKnowledgeArticle" layout="block" rendered="{!NOT(showArticleList)}">
+            <!-- NAVIGATION LINKS TOP -->
+            <apex:outputPanel layout="block" styleClass="searchBackContainer">
+                <apex:commandLink action="{!goToLanding}" styleClass="searchBack" value="{!chlContentRec.BackToFeaturedLabel__c}"
+                                  rendered="{!OR(strSearch == null, strSearch == '')}" reRender="idArticlePanel" />
+                <apex:commandLink action="{!getSearchResult}" styleClass="searchBack" value="{!chlContentRec.BackToSearchLabel__c}"
+                                  rendered="{!AND(strSearch != null, strSearch != '')}" reRender="idArticlePanel" />
+            </apex:outputPanel>
+            <!-- ARTICLE CONTENT COMPONENT -->
+            <c:gcr_cmpKnowledgeArticleView articleTitle="{!kArticleView.Title}" articleContent="{!kArticleView.Answer__c}" articleLinks="{!kArticleView.Helpful_Links__c}" />
+            <!-- ARTICLE FEEDBACK COMPONENT -->
+            <apex:outputPanel layout="block" id="idFeedbackCmp">
+                <c:gcr_cmpArticleFeedback channelContentId="{!channelContentId}" knowledgeArticle="{!kArticleView}"
+                                          searchString="{!strSearch}" rightToLeft="{!isRightToLeft}" />
+            </apex:outputPanel>
+            <!-- ARTICLE HELPFUL LINKS -->
+            <apex:outputPanel layout="block" style="padding-top: 1em;">
+                <apex:outputText value="{!kArticleView.Helpful_Links__c}" escape="false" />
+            </apex:outputPanel>
+            <!-- NAVIGATION LINKS BOTTOM -->
+            <apex:outputPanel layout="block" styleClass="searchBackContainer">
+                <apex:commandLink action="{!goToLanding}" styleClass="searchBack" value="{!chlContentRec.BackToFeaturedLabel__c}"
+                                  rendered="{!OR(strSearch == null, strSearch == '')}" reRender="idArticlePanel" />
+                <apex:commandLink action="{!getSearchResult}" styleClass="searchBack" value="{!chlContentRec.BackToSearchLabel__c}"
+                                  rendered="{!AND(strSearch != null, strSearch != '')}" reRender="idArticlePanel" />
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:component>

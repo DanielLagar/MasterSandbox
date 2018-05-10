@@ -1,0 +1,1384 @@
+<!-- 
+#    VISUALFORCE V4 CHAT PAGE
+#    
+#    @param:  NONE
+#    @author: ACCENTURE 
+#    @date:   02/06/2017
+#
+-->
+<apex:page controller="gcr_chatRedirectController" showHeader="false" standardStylesheets="false" sidebar="false" cache="false">
+    <!-- LOAD STYLESHEETS -->
+    <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubChatCmpStyling.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubMain.css')}" />
+
+    <!-- LOAD JAVASCRIPTS -->
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/gcrJsValidationScripts.js')}" />
+    <apex:includeScript value="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"/> <!--SOCKJS included for Chatbot-->
+
+    <!--WR545 ChatBot hidden input-->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        /*START CHAT PAGE STYLING*/
+        
+        #liveAgentChatLogText .client {
+            background-color: {!chatChannelContent.SpeechBubbleBgColorClient__c};
+            border-color: {!chatChannelContent.SpeechBubbleBgColorClient__c};
+            color: {!chatChannelContent.SpeechBubbleTxtColorClient__c};
+        }
+        
+        #liveAgentChatLogText .operator {
+            background-color: {!chatChannelContent.SpeechBubbleBgColorAgent__c};
+            border-color: {!chatChannelContent.SpeechBubbleBgColorAgent__c};
+            color: {!chatChannelContent.SpeechBubbleTxtColorAgent__c};
+        }
+        
+        .liveAgentSendButton {
+            background: url({!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/SendButton.svg')});
+        }
+
+        #idPiiModal {
+            background-color: {!chatChannelContent.BrandPColor__c};
+        }
+        
+        .chatPageBtnReverseColor {
+            background: linear-gradient(to bottom, #ffffff -100%, {!chatChannelContent.BrandSColor__c} 100%); color: {!chatChannelContent.BrandPColor__c};
+            color: {!chatChannelContent.BrandPColor__c};
+        }
+        
+        .chatPageBtnColor {
+            background: {!chatChannelContent.BrandPColor__c};
+            color: {!chatChannelContent.BrandSColor__c};
+            font-weight: bold;
+        }
+        
+        #idToggleArrow {
+            background-color: {!chatChannelContent.BrandSColor__c}
+        }
+        
+        #submitSpinner {
+            display: none;
+        }
+        
+        /*END CHAT PAGE STYLING*/
+        
+        /*START CHATBOT PAGE STYLING*/
+
+        .quickReplyButton:hover {
+            background: linear-gradient(to bottom, #ffffff -100%, {!chatChannelContent.BrandSColor__c} 100%); 
+            color: {!chatChannelContent.BrandPColor__c};
+        }
+        
+        .quickReplyClicked {
+            background: {!chatChannelContent.BrandPColor__c};
+            color: {!chatChannelContent.BrandSColor__c};
+        }
+        
+        .postbackCTA {
+            background: {!chatChannelContent.BrandPColor__c};
+            color: {!chatChannelContent.BrandSColor__c};
+        }
+        
+        .urlCTA {
+            background: {!chatChannelContent.BrandPColor__c};
+            color: {!chatChannelContent.BrandSColor__c};
+        }
+        
+        .postbackCTAClicked {
+            background: {!chatChannelContent.BrandSColor__c};
+            color: {!chatChannelContent.BrandPColor__c};
+        }
+        
+        /*END CHATBOT PAGE STYLING*/
+    </style>
+    <!-- Header Moved outside LiveAgent:ClientChat for chatbot WR545-->
+    <apex:outputPanel >
+        <c:gcr_cmpChatHeader brandLogoUrl="{!chatChannelContent.BrandImg__c}" greetText="{!chatChannelContent.GreetMsg__c}"
+                             pBrandColor="{!chatChannelContent.BrandPColor__c}" sBrandColor="{!chatChannelContent.BrandSColor__c}" 
+                             endChatBtnText="{!chatChannelContent.EndChatBtnLabel__c}" btnStyleClass="chatPageBtnStyle" btnId="idEndChatBtn" />
+    </apex:outputPanel>
+
+    <!-- Rendered added for chatbot WR545-->
+
+    <!--LiveAgent:ClientChat START-->
+    <div id="chatbotTranscriptContainer" style="display:none"><apex:outputText value="{!transcript}" escape="false"></apex:outputText></div>
+    <liveAgent:clientChat id="idClientChat" rendered="{!!useChatbot}">
+    
+        <!-- HTML CODE FOR '✖' is '&#10006;' CANT USE IT -->
+        <liveAgent:clientChatFileTransfer fileTransferUploadLabel="{!chatChannelContent.ChooseFileLabel__c}" fileTransferCancelFileLabel="✖" fileTransferUploadLabel="{!chatChannelContent.ChooseFileLabel__c}"
+                                          fileTransferDropFileLabel="{!chatChannelContent.DropFileLabel__c}" fileTransferSendFileLabel=" " fileTransferFailedLabel="{!chatChannelContent.FileFailedMsg__c}"
+                                          fileTransferSuccessfulLabel="{!chatChannelContent.FileSuccessMsg__c}" fileTransferCanceledLabel="{!chatChannelContent.FileCancelledMsg__c}" />
+        <!-- TODO: PUT ALL LABELS IN CONFIGURATION -->
+        <liveAgent:clientChatLog id="idClientChatLogArea" agentTypingLabel="{!chatChannelContent.AgentTypingLabel__c}" chatEndedByAgentLabel="{!chatChannelContent.ChatEndAgentLabel__c}"
+                                 chatEndedByVisitorIdleTimeoutLabel="{!chatChannelContent.TimeoutVisitorLabel__c}" chatEndedByVisitorLabel="{!chatChannelContent.ChatEndVisitorLabel__c}"
+                                 chatTransferredLabel="{!chatChannelContent.ChatTransferredLabel__c}" visitorNameLabel="{!chatChannelContent.VisitorLabel__c}" />
+        <apex:outputPanel layout="block">
+            <liveAgent:clientChatAlertMessage />
+            <liveAgent:clientChatStatusMessage />
+            <div id="idWaitingMessage">
+                <div id="idSpinnerContainer"><c:gcr_cmpWaitingSpinner /></div>
+                <apex:outputPanel layout="block" style="margin-top: 10px;">{!chatChannelContent.ConnectChatMsg__c }<!--<liveAgent:clientChatQueuePosition />--></apex:outputPanel>
+            </div>
+        </apex:outputPanel>
+        <div id="idBlockInputs">
+            <div id="liveAgentChatInputContainer">
+                <liveagent:clientChatInput id="idChatInputBox" useMultiline="true" />
+                <liveAgent:clientChatSendButton id="idChatSendButton" label="title" />
+            </div>
+
+        </div>
+
+        <c:gcr_cmpChatFooter PP="{!privacyPolicyFull}" 
+                     PPLink="{!chatChannelContent.CareHub__r.PrivacyPolicyLink__c}" 
+                     TC="{!TsAndCs}"
+                     TCLink="{!TsAndCsURL}"  
+                     CurrentYear="{!currentYear}"/>
+    
+    </liveAgent:clientChat>
+    <!--LiveAgent:ClientChat END-->
+
+    <!--CHATBOT ProtoType START-->
+    <apex:outputPanel rendered="{!useChatbot}">
+        <div class="liveAgentChatElement" id="liveAgentChatLog">
+            <div id="liveAgentChatLogText">
+                
+            </div>
+        </div>
+        
+        <div id="idBlockInputs" style="display: flex;">
+            <div id="liveAgentChatInputContainer">
+                <span id='idChatInputBox'>
+                    <form onsubmit='event.preventDefault = true; sendMessage();' action='javascript://submit' style='display: inline;'>    
+                        <div class='liveAgentChatElement liveAgentChatInput' id='liveAgentChatInput'>
+                            <textarea onkeydown='if (event.keyCode == 13) { sendMessage(); return false;}' class='liveAgentChatTextArea' id='liveAgentChatTextArea' autofocus="autofocus" maxlength='6000' placeholder='Write a message...' style='overflow: hidden; word-wrap: break-word; height: 100%; width: 100%; border: none; overflow: auto; 
+                            outline: none;' wrap='soft' data-uidsfdc='3' />
+                           
+                        </div>
+                    </form>
+                </span>
+                <span id='idChatSendButton'>
+                    <button class='liveAgentChatElement liveAgentSendButton' onclick='sendMessage()'/>
+                </span>
+            </div>
+        </div>
+        <c:gcr_cmpChatFooter PP="{!privacyPolicyFull}" 
+                             PPLink="{!chatChannelContent.CareHub__r.PrivacyPolicyLink__c}" 
+                             TC="{!TsAndCs}"
+                             TCLink="{!TsAndCsURL}"  
+                            CurrentYear="{!currentYear}"/>
+    </apex:outputPanel>
+    
+    <!--CHATBOT ProtoType END-->
+
+    <!--Footer Start-->
+ 
+    <!--Footer End-->
+
+
+    <!-- HIDDEN INPUT TO DETERMINE DIFFRENT WINDOW FUNCTINALITY CONTEXTS -->
+    <input id="idPiiContext" type="hidden" value="PII_REQUESTED" />
+    <input id="idEndChatContext" type="hidden" value="END_CHAT_NOT_REQUESTED" />
+    <input id="idSubContext" type="hidden" value="CHAT_REQUESTED" />
+    <input id="idFileUploadContext" type="hidden" value="FT_INITIAL" />
+    <input id="idPiiReqFields" type="hidden" />
+    <input id="idAddressCheck" type="hidden" value="NOT_DONE" />
+    <input id="idCaseId" type="hidden" value="" />
+    <!-- PRECHAT DETAILS -->
+    <input id="idFirstName" type="hidden" value="{!$CurrentPage.parameters.fname}" />
+    <input id="idLastName" type="hidden" value="{!$CurrentPage.parameters.lname}" />
+    <input id="idEmail" type="hidden" value="{!$CurrentPage.parameters.email}" />
+
+    <!-- END CHAT DIV -->
+    <div id="idEndChatModal" class="allModalStyling transitionPropsCls">
+        <!-- TODO: TEXT IN CONFIG -->
+        <div class="endChatContainer">
+            <input id="idCheckboxValueCheck" type="hidden" value="unchecked" />
+            <div class="sendCopyContainer">
+               <div class="sendCopyWrapper">
+                    <div id="idSendEmailCheckbox">
+                        <div id="idSendEmailCheckboxDiv">
+                            <img id="idEmailCheckedImg" src="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/TickSquare.svg')}" />
+                        </div>
+                    </div>
+                    <div id="idSendEmailTextWrapper">
+                        <div id="idSendEmailText">{!chatChannelContent.TranscriptEmailLabel__c}</div>
+                   </div>
+                </div>
+            </div>
+           <div id="idEmailInputContainer">
+                <input id="idEmailSendChat" type="text" class="cmpInputStyle cmpInputWidthChat" placeholder="{!chatChannelContent.GCRChatEmailLabel__c}"
+                       onchange="onChangeEmailCheck('idEmailSendChat', 'idEmailInvalidError');"
+                       onkeydown="emailInputOnKeydown();" />
+                <div id="idEmailInvalidError">{!chatChannelContent.EmailIncorrectMessage__c}</div>
+                <div id="idEmailRequiredError">{!chatChannelContent.CareHub__r.ValidationErrorMessage__c}</div>
+            </div>
+            <div id="idEndChatMessage">{!chatChannelContent.EndChatConfMsg__c}</div>
+            <div class="endContinueButtonContainer">
+                <button id="idEndChatAcceptButton" disabled="true" 
+                        class="chatPageBtnStyle chatPageBtnColor">{!chatChannelContent.EndChatAcceptBtnLabel__c}</button>
+                <button id="idEndChatRejectButton" disabled="true" onclick="endChatReject(); return false;"
+                        class="chatPageBtnStyle chatPageBtnColor">{!chatChannelContent.EndChatRejectBtnLabel__c}</button>
+            </div>
+        </div>
+    </div>
+    <!-- PII UTILITY DIV -->
+    <div id="idPiiModal" class="allModalStyling transitionPropsCls">
+        <div>
+            <div id="idPiiFields">
+                <div id="idPiiOutOfHoursHandoffMsg" rendered = "{!useChatBot}">
+						<apex:outputLabel id="idPiiOutOfHoursHandoffMsgLabel" for="idPiiOutOfHours" style="color: {!chatChannelContent.BrandSColor__c};" value="{!chatChannelContent.Chatbot_Out_of_Hours_Handoff_Message__c}" rendered="{!useChatbot}"></apex:outputLabel>
+						
+				</div>
+                <div id="idFieldRequiredText">{!chatChannelContent.CareHub__r.ValidationErrorMessage__c}</div>
+                <div id="idPiiErrText">{!chatChannelContent.PiiSubmitFailMsg__c}</div>
+                <!-- PII FORM INPUT FIELDS COMPONENT -->
+                <c:gcr_cmpPiiForm channelContent="{!chatChannelContent}" styleClassInput="cmpInputStyle cmpInputWidthChat"
+                                  isStateMandatory="{!isStateMandatory}"  isZipMandatory="{!isZipMandatory}"
+                                  fieldsToDisplay="Name;Email;Address;Phone" chatCtrlRef="{!sefReference}" invalidEmailMsg="{!chatChannelContent.EmailIncorrectMessage__c}"
+                                  onchange="onChangeFieldCheckWithStyle(this.id, '', 'background-color', '#FFFFFF', '#FEE69C');"
+                                  onchangeEmail="if(document.getElementById(this.id).value != '') {
+                                                 onChangeEmailCheckWithStyle(this.id, 'idInvalidEmailMsg', 'background-color', '#FFFFFF', '#FEE69C'); }"
+                                  onchangeCountry="piiCountryChange(this.value);"/>
+                <div id="idPrivacyCbxCon">
+                    <input id="idPiiTermsCond" type="checkbox" onchange="onChangeFieldCheckWithStyle(this.id, '', 'color', '{!chatChannelContent.BrandSColor__c}', '#FF0000');" />
+                    <label id="idPiiLabelTermsCond" for="idPiiTermsCond" style="color: {!chatChannelContent.BrandSColor__c};">
+                        <c:gcr_cmpLinkSeperator strInput="{!chatChannelContent.CareHub__r.PrivacyPolicyLabel__c}" strSepStart="[" strSepEnd="]"
+                                                onClick="window.open('{!chatChannelContent.CareHub__r.PrivacyPolicyLink__c}', '_blank', 'height=600,width=600'); return false;"
+                                                style="cursor: pointer; text-decoration: underline; color: inherit;" 
+                                                idAnchorLink="idPrivacyLink" />
+                    </label>
+                </div>
+            </div>
+            <div id="idAddressSelect" style="display: none;">
+                <div style="color: {!chatChannelContent.BrandSColor__c}; width: 90%; margin: 4% auto 4% auto;">{!chatChannelContent.SelectAddText__c}</div>
+                <div style="width: 75%; margin-left: auto; margin-right: auto; text-align: left; font-size: 10pt;">
+                    <div class="addressBox">
+                        <input type="radio" name="address" value="entered" checked="true" /> {!chatChannelContent.EnteredAddLabel__c}
+                        <!--<div class=suggestedAddresslabel></div>-->
+                        <div id="idEntereddAddText" class="addressText"></div>
+                    </div>
+                    <div id="idSuggestAddDiv" class="addressBox">
+                        <input id="idSuggestedRadio" type="radio" name="address" value="sugggested" /> {!chatChannelContent.SuggestedAddLabel__c}
+                    </div>
+                </div>
+            </div>    
+            <div id="idPiiSubmitButtonContainer">
+                <button id="idPiiSubmit" disabled="true" class="chatPageBtnStyle chatPageBtnReverseColor"
+                        onclick="piiSubmit();">{!chatChannelContent.PiiSubmitBtnLabel__c}</button>
+                <button id="idPiiBack" disabled="true" style="display: none;" class="chatPageBtnStyle chatPageBtnReverseColor"
+                        onclick="piiBack();">{!chatChannelContent.BackBtnLabel__c}</button>
+            </div>
+            <div id='submitSpinner'>
+                <c:gcr_cmpWaitingSpinner />
+            </div>
+        </div>
+    </div>
+    <div id="idToggleArrow" class="transitionPropsCls">
+        <div id="idArrowDiv" style="border-bottom: 5px solid {!chatChannelContent.BrandPColor__c};" />
+    </div>
+    <script>
+		var windowOpenerObj;
+		//GLOBAL VARIABLES - SCOPES WITH THE PII FORM AND CLOSE CHAT FUNCTIONALITY
+		var agentTranscript = '';
+		var pii_result = '';
+		//CHATBOT Scripts START
+		if({!useChatbot}) {
+
+			var cId;
+			var sock;
+			var account_id;
+			var client_id;
+			var d = new Date();
+			var n = d.getTime();
+			var s = JSON.stringify(n);
+			var qrCount = 0;
+			var ctaCount = 0;
+			
+			
+
+			
+			Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.gcr_chatRedirectController.createCaseForChatbot}', '{!$Currentpage.parameters.Source}','{!$Currentpage.parameters.Country}','{!$Currentpage.parameters.Language}','{!$Currentpage.parameters.Brand}' ,function (result, event){
+				if (event.status) {
+					console.log('****case created');
+
+					cId = result;
+					//console.log('*** var c : '+c );
+					console.log('*** var cn : '+cId );
+					connectToChatbot();
+		
+				}
+			}); 
+			
+			
+			//Show End Chat Button and Close Window
+			document.getElementById('idEndChatBtn').style.display = "block";
+			var fullChatDiv = document.getElementById("liveAgentChatLogText").innerHTML;
+			document.getElementById('idEndChatBtn').onclick = function() {
+					// PASS the VALUE AS FALSE SINCE THE AGENT HANDOFF DOESN'T HAPPENED IN THIS CASE
+			        Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.gcr_chatRedirectController.closeChatbotCase}", client_id, fullChatDiv,false,agentTranscript,pii_result, function (result, event){
+								if(event.status){
+									sock.close();
+			                        window.close();
+								}
+			        });
+			        
+			}
+			
+
+			function connectToChatbot() {
+				//account_id = '568aadae-d1f5-4b23-8b6f-0794bfe8a421'; 
+				account_id = "{!chatChannelContent.Chatbot_Account_Id__c}";
+				//account_id = {!chatChannelContent.Chatbot_Account_Id__c}; //Need to get working
+
+				client_id = cId;
+				console.log('**cId'+ cId);
+				//client_Id = c.id;
+				console.log('client id: ' + client_id);
+				var conversablePath =  "{!$Setup.Global_Org_Settings__c.Conversable_Chatbot_Base_URL__c}";
+				const path = conversablePath + '/echo?' + 'account_id='+ account_id + '&client_id=' + client_id;
+				console.log('path : '+ path);
+				sock = new SockJS(path);
+				console.log('Hits here1');
+				connectNew();
+			}
+			
+			function closeSockConnection(url){
+				sock.close();
+				window.location = url;
+			}
+			//window.addEventListener("DOMContentLoaded",
+			function connectNew() {
+
+				sock.onopen = function() {
+					console.log('in the onopen');
+					var sessionStartString = JSON.stringify({ account_id: account_id, client_id: client_id, type: 'session_started', data: {text: null, quick_replies: null}, ts: s });
+					sock.send (sessionStartString);
+					//sock.send(["{\"account_id\":\"568aadae-d1f5-4b23-8b6f-0794bfe8a421\",\"client_id\":\"90\",\"data\":{},\"ts\":1501305781013,\"type\":\"session_started\"}"]);
+					console.log('session started');
+					/*sock.send(["{\"account_id\":\"568aadae-d1f5-4b23-8b6f-0794bfe8a421\",\"client_id\":\"15\",\"type\":\"text\",\"data\":{\"text\":\"Hello Guy\",\"quick_replies\":null}}"]);
+					console.log('message sent');*/
+				};
+				
+				sock.onmessage = function(e) {
+					console.log('message', e.data);
+					var response = JSON.parse(e.data);
+					var type = response.type;
+					var text = response.data.text;
+					var qrImage = 'test';
+					console.log('message: ' + response);
+					console.log('type: ' + type);
+					//document.getElementById("outputPanel").innerHTML = message;
+					
+					var newDiv = document.createElement('div');
+					var newMessage = document.createElement('span');
+					var chatWindow = document.getElementById('liveAgentChatLogText');
+					
+					newDiv.appendChild(newMessage);
+					chatWindow.appendChild(newDiv);
+					newDiv.className = 'operatorContainer';
+					
+					if (type == 'text' && text !== "") { 
+						newMessage.innerHTML = text;
+						newMessage.className = 'operator';
+						newMessage.scrollIntoView();
+						return false;
+					}
+					
+					if (type == 'fb_image') {
+						
+						var imageUrl = response.data.url;
+						
+						newMessage.innerHTML = '<img src="'+imageUrl+'"/>';
+						newMessage.className = 'operator';
+						newMessage.scrollIntoView();
+						return false;
+					}
+					
+					if (type == 'generic_template') {
+						
+						newMessage.className = 'operator';
+						
+							var elementsLength = response.data.elements.length;
+							var elements = response.data.elements;
+							var theElements = "";
+							var newElements = document.createElement('ul');
+							
+							for(i = 0; i < elementsLength; i++){
+								console.log('elements length: ' + elementsLength);
+								
+								theElements += '<li><div id="elementContainer">';
+								
+								if (elements[i].image_url !== "") { 
+									theElements += '<img src="'+elements[i].image_url+'"/>';
+								}
+								
+								theElements += '<div id="element'+i+'" class="quickReplyTitle">'+elements[i].title+'</div><div id="element'+i+'subtitle" class="quickReplySubtitle">'+elements[i].subtitle+'</div>';
+								
+								if (elements[i].buttons !== null) {
+								
+									for(j = 0; j < elements[i].buttons.length; j++){
+										
+										if (elements[i].buttons[j].type == 'postback') {
+											
+											var elementTitle = elements[i].buttons[j].title;
+											var elementType = elements[i].buttons[j].type;
+												
+											var payload = elements[i].buttons[j].payload;
+											var escapedPayload = payload.replace(/"/g, "&quot;").replace(/%22/g, "&quot;");
+											
+										   theElements += '<div class="postbackCTA" id="cta_'+ctaCount+'" onclick="sendQR(this, \''+escapedPayload+'\', \''+elementTitle+'\', \''+elementType+'\', null)">'+elements[i].buttons[j].title+')</div>';
+											
+											ctaCount ++;
+										}
+											
+										if (elements[i].buttons[j].type == 'web_url') {
+											theElements += '<a href="'+elements[i].buttons[j].url+'" target="_blank" class="urlCTAaTag"><div class="urlCTA">'+elements[i].buttons[j].title+'</div></a>';
+										}
+									}
+								}
+								
+								theElements += '</div></li>';
+								
+								newMessage.appendChild(newElements);
+								newMessage.className = "operator carouselbox";
+								newElements.innerHTML = theElements;
+								newElements.className = 'content';
+								newElements.scrollIntoView();
+								return false;
+								
+						}//elements end
+						return false;
+					}// generic templates end
+					
+					if (type == 'quick_reply_message') {
+						
+						var numberQR = response.data.quick_replies.length;
+												
+						var quickReplies = response.data.quick_replies;
+						var theTitles = "";
+						var newQuickReplies = document.createElement('div');
+						
+						for(i = 0; i < numberQR; i++){
+							console.log('quick replies length: ' + numberQR);
+							
+							var qrTitle = quickReplies[i].title;
+							
+							var qrSafeTitle = qrTitle.replace(/'/g, "\\'").replace(/"/g, "&quot;").replace("/", "%2F");
+							
+							var qrType = quickReplies[i].content_type;
+							
+							var payload = quickReplies[i].payload;
+							var escapedPayload = payload.replace(/"/g, "&quot;").replace(/%22/g, "&quot;");
+							
+							theTitles += '<input type="button" id="button_'+qrCount+'" class="quickReplyButton chatPageBtnColor" value="'+quickReplies[i].title+'" onclick="sendQR(this, \''+escapedPayload+'\', \''+qrSafeTitle+'\', \''+qrType+'\', \''+numberQR+'\')"/>';
+							
+							qrCount ++;     
+						}//for loop end
+						//document.getElementById("demo").innerHTML = theTitles;
+						
+						newMessage.innerHTML = text;
+						newMessage.className = 'operator';
+						
+						if (response.data.attachment !== null && response.data.attachment.payload.url !== ""  && response.data.attachment.payload.url !== undefined) {
+							qrImage = response.data.attachment.payload.url;
+							console.log('image url: ' + qrImage);
+							
+							newMessage.innerHTML = text + '<img src="'+qrImage+'"/>';
+						}
+						
+						if (response.data.attachment !== null && response.data.attachment.payload.template_type == 'generic') {
+							/*var qrTitle = response.data.attachment.payload.elements.title;
+							var qrItemUrl = response.data.attachment.payload.elements.item_url;
+							qrImage = response.data.attachment.payload.elements.image_url;
+							var qrSubtitle = response.data.attachment.payload.elements.subtitle;
+							
+							console.log('fullmenu image url: ' + qrImage);
+							
+							newMessage.innerHTML = text + qrItemUrl + qrTitle + '<img src="'+qrImage+'"/>' + qrSubtitle;*/
+							
+							var elementsLength = response.data.attachment.payload.elements.length;
+							var elements = response.data.attachment.payload.elements;
+							var theElements = "";
+							var newElements = document.createElement('ul');
+							
+							for(i = 0; i < elementsLength; i++){
+								console.log('elements length: ' + elementsLength);
+								
+								theElements += '<li><div id="elementContainer">';
+								
+								if (elements[i].image_url !== "") { 
+									theElements += '<img src="'+elements[i].image_url+'"/>';
+								}
+								
+								theElements += '<div id="element'+i+'" class="quickReplyTitle">'+elements[i].title+'</div><div id="element'+i+'subtitle" class="quickReplySubtitle">'+elements[i].subtitle+'</div>';
+								
+								
+								if (elements[i].buttons !== null) {
+									for(j = 0; j < elements[i].buttons.length; j++){
+										
+										if (elements[i].buttons[j].type == 'postback') {
+											
+											var elementTitle = elements[i].buttons[j].title;
+											var elementType = elements[i].buttons[j].type;
+												
+											var payload = elements[i].buttons[j].payload;
+											var escapedPayload = payload.replace(/"/g, "&quot;").replace(/%22/g, "&quot;");
+											
+										   theElements += '<div class="postbackCTA" id="cta_'+ctaCount+'" onclick="sendQR(this, \''+escapedPayload+'\', \''+elementTitle+'\', \''+elementType+'\', null)">'+elements[i].buttons[j].title+'</div>';
+											ctaCount ++;
+										}
+											
+										if (elements[i].buttons[j].type == 'web_url') {
+											theElements += '<a href="'+elements[i].buttons[j].url+'" target="_blank" class="urlCTAaTag"><div class="urlCTA">'+elements[i].buttons[j].title+'</div></a>';
+										}
+									}
+								}
+								
+								theElements += '</div></li>';
+								
+								
+								newMessage.innerHTML = text + '<div class="buttons"><button class="prev"> ◀ <span class="offscreen">Previous</span></button><button class="next"><span class="offscreen">Next</span> ▶ </button> </div>';
+								newMessage.className = "operator carouselbox";
+								newMessage.appendChild(newElements);
+								newElements.innerHTML = theElements;
+								newElements.className = 'content';
+								newElements.scrollIntoView();
+								
+							}
+							
+								if (elementsLength > 1) {carousel = (function(){
+									console.log('in the elements if');
+									var box = newMessage;
+									var next = box.querySelector('.next');
+									var prev = box.querySelector('.prev');
+									var items = box.querySelectorAll('.content li');
+									var counter = 0;
+									var amount = items.length;
+									var current = items[0];
+									box.classList.add('active');
+									function navigate(direction) {
+										current.classList.remove('current');
+										counter = counter + direction;
+											if (direction === -1 && 
+												counter < 0) { 
+											counter = amount - 1; 
+											}
+											if (direction === 1 && 
+												!items[counter]) { 
+											counter = 0;
+											}
+										current = items[counter];
+										current.classList.add('current');
+									}
+									next.addEventListener('click', function(ev) {
+										navigate(1);
+									});
+									prev.addEventListener('click', function(ev) {
+										navigate(-1);
+									});
+									navigate(0);
+								})();}; 
+								
+						}
+						
+						chatWindow.appendChild(newQuickReplies);
+						newQuickReplies.className = 'quickReplyContainer';
+						newQuickReplies.innerHTML = theTitles;
+						newQuickReplies.scrollIntoView();
+						return false;
+					} //Quick replies end
+					
+					if (type == 'agent_handoff') {
+
+							console.log('***this is an agent handoff***');
+							if (response.data.agent_unavailable) {
+								handlePII_ChatBot();
+							}else{
+								//Remove on hovers so transcript appears disabled in liveagent chat
+								for(i = 0; i < qrCount; i++){
+									document.getElementById('button_'+i+'').removeAttribute("onclick");
+									if (document.getElementById('button_'+i+'').className == "quickReplyButton chatPageBtnColor") {
+										document.getElementById('button_'+i+'').className = "quickReplyButtonDisabled chatPageBtnColor noHover"; 
+									}
+									document.getElementsByClassName('postbackCTA').style = "cursor:auto";
+								}
+								
+								for(i = 0; i < ctaCount; i++){
+									document.getElementById('cta_'+i+'').removeAttribute("onclick");
+									document.getElementById('cta_'+i+'').style = "cursor:auto"; 
+								}
+								
+								//grab transcript to append to case
+								var fullChatDiv = document.getElementById("liveAgentChatLogText").innerHTML;
+								//console.log('fullChatDiv : '+fullChatDiv);
+								var liveAgentChatURL = "{!$setup.Global_Org_settings__c.Base_Site_URL__c}" + 'carehub/gcr_proChatRedirect?brand=Vicks&country=us&language=en&handover=true&source=Handoff'
+										liveAgentChatURL += '&chatbotCase='+cId;
+								// PASS the VALUE AS TRUE SINCE THE AGENT HANDOFF DOESN'T HAPPENED IN THIS CASE		
+								Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.gcr_chatRedirectController.closeChatbotCase}", client_id, fullChatDiv,true, agentTranscript,pii_result, function (result, event){
+									if(event.status){
+										closeSockConnection(liveAgentChatURL);
+									}
+								});
+							}
+							//handlePII_ChatBot();
+						}
+				}
+			};
+			
+			
+			function sendMessage() {
+				var text = document.getElementById("liveAgentChatTextArea").value;
+				console.log('text: ' + text);
+				if (text !== "") {
+				var stringifier = JSON.stringify({ account_id: account_id, client_id: client_id, type: 'text', data: {text: text, quick_replies: null} });
+				console.log('stringifier: ' + stringifier);
+				sock.send(stringifier);
+				//sock.send(["{\"account_id\":\"568aadae-d1f5-4b23-8b6f-0794bfe8a421\",\"client_id\":\"46\",\"type\":\"text\",\"data\":{\"text\":\"menu\",\"quick_replies\":null}}"]);
+				console.log('message sent');
+				
+				var newDiv = document.createElement('div');
+				var newSpan = document.createElement('span');
+				var chatWindow = document.getElementById('liveAgentChatLogText');
+				
+				newDiv.appendChild(newSpan);
+				chatWindow.appendChild(newDiv);
+				newDiv.className = 'clientContainer'
+				newSpan.innerHTML = text;
+				newSpan.className = 'client';
+				newSpan.scrollIntoView();
+				
+				agentTranscript = agentTranscript+'<br>'+'typed: '+text+'<br>';
+				
+				document.getElementById('liveAgentChatTextArea').value = '';
+				console.log('textarea reset');}
+			}
+			
+			function sendQR(button, payload, title, type, numberQR) {
+				console.log('QR clicked');
+				console.log('payload: ' + payload);
+				var stringifier = JSON.stringify({ account_id: account_id, client_id: client_id, type: 'payload', data: {type: type, title: title, payload: payload}});
+				console.log('stringifier: ' + stringifier);
+				sock.send(stringifier);
+				console.log('QR Sent');
+				agentTranscript = agentTranscript+'<br>'+'clicked: '+title+'<br>';
+				console.log(agentTranscript);
+				
+				for(i = qrCount - numberQR; i < qrCount; i++){
+					document.getElementById('button_'+i+'').removeAttribute("onclick");
+					document.getElementById('button_'+i+'').className = ('quickReplyButtonDisabled chatPageBtnColor noHover');
+				}
+				
+				if (button.className == 'postbackCTA') {
+					button.className = "postbackCTAClicked noHover";
+				}
+				else {
+					button.className = "quickReplyButtonDisabled quickReplyClicked noHover";
+				//button.removeAttribute("onclick");
+				}
+			}
+			/*document.getElementById('idEndChatBtn').onclick = function() {
+			
+				if(event.ctrlKey && event.keyCode == 87) { 
+					console.log("Hey! Ctrl+T event captured!");
+					event.preventDefault(); 
+				}
+			}*/
+			
+			/*window.onbeforeunload = function() {
+				console.log('***Window Closing***');
+				//grab transcript to append to case
+				var fullChatDiv = document.getElementById("liveAgentChatLogText").innerHTML;
+				//console.log('fullChatDiv : '+fullChatDiv);
+				Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.gcr_chatRedirectController.closeChatbotCase}", client_id, fullChatDiv, agentTranscript, function (result, event){
+					if (event.status) {
+						//console.log('****case created');
+
+						//cId = result;
+						//console.log('***Closing Chatbot case using AF***);
+						//console.log('*** var cn : '+cId );
+						//connectToChatbot();
+					}
+				}); 
+				sock.close();
+			}*/
+			
+			//COMMENTED OUT BY CD FOR SMOOTH TRANSITION OVER TO DEV. 
+			/*window.addEventListener("beforeunload", function (event) {
+				console.log('***Window Closing***');
+				var fullChatDiv = document.getElementById("liveAgentChatLogText").innerHTML;
+				Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.gcr_chatRedirectController.closeChatbotCase}", client_id, fullChatDiv, agentTranscript, function (result, event){
+					if (event.status) {
+						//console.log('****case created');
+				
+						//cId = result;
+						//console.log('***Closing Chatbot case using AF***);
+						//console.log('*** var cn : '+cId );
+						//connectToChatbot();
+					}
+				}); 
+				sock.close();
+				wait(500);
+				event.returnValue = "\o/";
+			});*/
+
+		};
+
+			// TODO: MOVE APPROPRIATE METHODS TO STATIC RESOURCE
+			function sendEmailRemoteAction(emailAddress, emailContent) {
+				Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.gcr_chatRedirectController.sendTrascript}"
+														, emailAddress
+														, emailContent
+														, '{!chatChannelContent.Id}'
+                                                        , '{!charSet}'
+														, function (result, event) {
+					if (event.status) {
+						console.log('email sent');
+						wrapChat();
+						SfdcApp.LiveAgent.Chasitor.endChat();
+						window.close();
+					}
+				});
+			}
+
+			function piiCountryChange(country) {
+				Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.gcr_chatRedirectController.changeCountry}", country, function (result, event) {
+					if (event.status) {
+						let fieldArray = document.getElementById('idPiiReqFields').value.split(';');
+						if (result.Uses_Postal_Codes__c) {
+							document.getElementById('idPiiPrimary_Postal_Code__cDiv').setAttribute('class', 'inputContainerPiiDiv inputPiiRequired');
+							if (fieldArray.indexOf('idPiiPrimary_Postal_Code__c') == -1) {
+								fieldArray.push('idPiiPrimary_Postal_Code__c');
+							}
+						} else {
+							document.getElementById('idPiiPrimary_Postal_Code__cDiv').setAttribute('class', 'inputContainerPiiDiv inputPiiOptional');
+							if (fieldArray.indexOf('idPiiPrimary_Postal_Code__c') != -1) {
+								fieldArray.splice(fieldArray.indexOf('idPiiPrimary_Postal_Code__c'), 1);
+							}
+						}
+						if (result.Uses_States__c) {
+							document.getElementById('idPiiPrimary_State_Province__cDiv').setAttribute('class', 'inputContainerPiiDiv inputPiiRequired');
+							if (fieldArray.indexOf('idPiiPrimary_State_Province__c') == -1) {
+								fieldArray.push('idPiiPrimary_State_Province__c');
+							}
+						} else {
+							document.getElementById('idPiiPrimary_State_Province__cDiv').setAttribute('class', 'inputContainerPiiDiv inputPiiOptional');
+							if (fieldArray.indexOf('idPiiPrimary_State_Province__c') != -1) {
+								fieldArray.splice(fieldArray.indexOf('idPiiPrimary_State_Province__c'), 1);
+							}
+						}
+						document.getElementById('idPiiReqFields').value = '';
+						for (let itr = 0; itr < fieldArray.length; itr++) {
+							if (itr == 0) document.getElementById('idPiiReqFields').value += fieldArray[itr];
+							else document.getElementById('idPiiReqFields').value += ';' + fieldArray[itr];
+						}
+					}
+				});
+			}
+		
+			function endChatAccept() {
+				if (document.getElementById('idCheckboxValueCheck').value
+				 && document.getElementById('idCheckboxValueCheck').value == 'checked') {
+					if (document.getElementById('idEmailSendChat').value) {
+						console.log('INPUT HAS VALUE');
+						if (!isEmailValid('idEmailSendChat')) {
+							sendEmailRemoteAction(document.getElementById('idEmailSendChat').value
+												, document.getElementById('liveAgentChatLogText').innerHTML);
+						} else {
+							document.getElementById('idEmailInvalidError').style.display = 'block';
+							fieldStylingMandatory('idEmailSendChat');
+						}
+					} else {
+						document.getElementById('idEmailRequiredError').style.display = 'block';
+						fieldStylingMandatory('idEmailSendChat');
+					}
+				} else if (document.getElementById('idCheckboxValueCheck').value == 'unchecked') {
+					SfdcApp.LiveAgent.Chasitor.endChat();
+					document.getElementById('idEndChatModal').style.height = '0';
+					window.close()
+				}    
+			}
+
+			function emailCheckboxClickEvent() {
+				if (document.getElementById('idCheckboxValueCheck').value == 'unchecked') {
+					document.getElementById('idEmailInputContainer').style.display = 'block';
+					document.getElementById('idEmailCheckedImg').style.visibility = 'visible';
+					document.getElementById('idCheckboxValueCheck').value = 'checked';
+				} else if (document.getElementById('idCheckboxValueCheck').value == 'checked') {
+					document.getElementById('idEmailInputContainer').style.display = 'none';
+					//document.getElementById('idEmailInputContainer').style.display = 'none';
+					document.getElementById('idEmailCheckedImg').style.visibility = 'hidden';
+					document.getElementById('idCheckboxValueCheck').value = 'unchecked';
+				}
+			}
+
+			function emailInputOnKeydown() {
+				document.getElementById('idEmailInvalidError').style.display = 'none';
+				document.getElementById('idEmailRequiredError').style.display = 'none';
+				fieldStylingDefault('idEmailSendChat');
+			}
+
+			function initModal(idModal, isToggleArrow, modalOpenHeight, ctxId, ctxVal) {
+				document.getElementById(idModal).style.height = modalOpenHeight;
+				document.getElementById(ctxId).value = ctxVal;
+				if (isToggleArrow) {
+					document.getElementById('idToggleArrow').style.top = '77.5%';
+				}
+			}
+			
+			// WRAP FUNCTIONS
+			function wrapPiiForm() {
+				document.getElementById('idPiiModal').style.height = '0%';
+				document.getElementById('idToggleArrow').style.top = '-20px';
+				document.getElementById('idPiiSubmit').disabled = true;
+				document.getElementById('submitSpinner').style.display = 'none';
+				document.getElementById('idPiiSubmitButtonContainer').style.display = 'block';
+			}
+		
+			function wrapEndChat() {
+				// REMOVE EVENT LISTENER
+				document.getElementById('idSendEmailCheckbox').removeEventListener 
+					? document.getElementById('idSendEmailCheckbox').removeEventListener("click", emailCheckboxClickEvent, false) 
+					: document.getElementById('idSendEmailCheckbox').detachEvent("onclick", emailCheckboxClickEvent);
+				// DISABLE BUTTONS AND REMOVE LISTENERS
+				document.getElementById('idEndChatAcceptButton').disabled = true;
+				document.getElementById('idEndChatAcceptButton').removeEventListener
+					? document.getElementById('idEndChatAcceptButton').removeEventListener("click", endChatAccept, false) 
+					: document.getElementById('idEndChatAcceptButton').detachEvent("onclick", endChatAccept);
+				
+				document.getElementById('idEndChatRejectButton').disabled = true;
+				document.getElementById('idEndChatRejectButton').removeEventListener
+					? document.getElementById('idEndChatRejectButton').removeEventListener("click", endChatReject, false) 
+					: document.getElementById('idEndChatRejectButton').detachEvent("onclick", endChatReject);
+			}
+		
+			function wrapChat() {
+				wrapPiiForm();
+				wrapEndChat();
+				document.getElementById('idBlockInputs').style.display = 'none';
+			}
+
+			function endChatReject() {
+				document.getElementById('idEndChatModal').style.height = '0';
+				wrapEndChat();
+				// SET CURRENT CONTEXT
+				document.getElementById('idEndChatContext').value = 'CHAT_CONTINUE';
+			}
+
+			function toggleHideShow() {
+				console.log('toggleHideShow : ' + document.getElementById('idPiiContext').value);
+				var arrowElmt = document.getElementById('idArrowDiv');
+				if (document.getElementById('idPiiContext').value == 'PII_REQUESTED_OPEN') {
+					console.log('inside pii requested open');
+					document.getElementById('idPiiModal').style.height = '0';
+					document.getElementById('idToggleArrow').style.top = '15%';
+					arrowElmt.style.borderTop = arrowElmt.style.borderBottom;
+					arrowElmt.style.borderBottom = arrowElmt.style.borderWidth + ' ' + arrowElmt.style.borderStyle + ' transparent';
+					arrowElmt.style.top = 'calc(50% - ' + (parseInt(arrowElmt.style.borderWidth.replace('px', ''))/2).toString() + 'px)';
+					document.getElementById('idPiiContext').value = 'PII_REQUESTED_CLOSED';
+				} else if (document.getElementById('idPiiContext').value == 'PII_REQUESTED_CLOSED') {
+					console.log('inside pii requested closed');
+					document.getElementById('idPiiModal').style.height = '65%';
+					document.getElementById('idToggleArrow').style.top = '77.5%';
+					arrowElmt.style.borderBottom = arrowElmt.style.borderTop;
+					arrowElmt.style.borderTop = arrowElmt.style.borderWidth + ' ' + arrowElmt.style.borderStyle + ' transparent';
+					arrowElmt.style.top = 'calc(50% - ' + (parseInt(arrowElmt.style.borderWidth.replace('px', '')) 
+														   + parseInt(arrowElmt.style.borderWidth.replace('px', ''))/2).toString() + 'px)';
+					document.getElementById('idPiiContext').value = 'PII_REQUESTED_OPEN';
+				}
+			}
+
+			function piiSubmit() {
+				let validated = true;
+				let idFieldArray = document.getElementById('idPiiReqFields').value.split(';');
+				console.log('fields to validate : ' + idFieldArray);
+				// RETURN TO DEFAULT
+				document.getElementById('idPiiLabelTermsCond').style.color = '{!chatChannelContent.BrandSColor__c}';
+				changeStylingBackWithStyle(idFieldArray, 'background-color', '#FFFFFF');
+				let emailFieldIndex = idFieldArray.indexOf('idPiiEmail');
+				let emailField = emailFieldIndex != -1 ? idFieldArray.splice(emailFieldIndex, 1) : '';
+				let isAddress = idFieldArray.indexOf('idPiiPrimary_Address_Line_1__c') != -1 ? true : false;
+				// VALIDATION BEGINS
+				let idErrFieldArray = validateAllInput(idFieldArray, '');
+				if (idErrFieldArray.length > 0) {
+					console.log('INSIDE HERE : ' + idErrFieldArray);
+					changeStylingMandatoryWithStyle(idErrFieldArray, 'background-color', '#FEE69C');
+					validated = false;
+				}
+				if(!document.getElementById('idPiiTermsCond').checked) {
+					changeStylingMandatoryWithStyle(['idPiiTermsCond'], 'color', '#FF0000');
+					validated = false;
+				}
+				if (emailField && emailField !== '') {
+					let emailVal = document.getElementById(emailField).value;
+					if (!emailVal || emailVal === '') {
+						changeStylingMandatoryWithStyle([emailField], 'background-color', '#FEE69C');
+						validated = false;
+					} else {
+						if (isEmailValid(emailField)) {
+							changeStylingMandatoryWithStyle([emailField], 'background-color', '#FEE69C');
+							validated = false;
+						}
+					}
+				}
+				
+				console.log('validated : ' + validated);
+				if (validated) {
+					document.getElementById('idFieldRequiredText').style.display = 'none';
+					 console.log('hello : ' + isAddress);
+					if (isAddress) {
+						console.log('hello : ' + document.getElementById('idAddressCheck').value);
+						if(document.getElementById('idAddressCheck').value === 'NOT_DONE') validateAddress();
+						else submitPiiData();
+					} else {
+						submitPiiData();
+					}
+				} else {
+					document.getElementById('idFieldRequiredText').style.display = 'block';  
+				}
+
+				return validated;
+			}
+		
+			function createAddressStr() {
+				return document.getElementById('idPiiPrimary_Address_Line_1__c').value + ';'
+					+ document.getElementById('idPiiPrimary_Address_Line_2__c').value + ';'
+					+ document.getElementById('idPiiPrimary_City__c').value + ';'
+					+ document.getElementById('idPiiPrimary_State_Province__c').value + ';'
+					+ document.getElementById('idPiiPrimary_Country__c').value + ';'
+					+ document.getElementById('idPiiPrimary_Postal_Code__c').value;
+			 }
+		
+            function submitPiiData() {
+                document.getElementById('idPiiSubmitButtonContainer').style.display = 'none';
+                document.getElementById('submitSpinner').style.display = 'block';
+                console.log('function submitPiiData : ' + document.getElementById('idCaseId').value);
+                document.getElementById('idPiiErrText').style.display = 'none';
+                var piiCaseID;
+                if({!useChatbot}){
+                	piiCaseID = cId;
+                }else{
+                	piiCaseID = document.getElementById('idCaseId').value;
+                }
+                
+                if (piiCaseID && piiCaseID !== '') {
+                    Visualforce.remoting.Manager.invokeAction(
+                        "{!$RemoteAction.gcr_chatRedirectController.submitPiiData}", 
+                        document.getElementById('idPiiFirstName').value,
+                        document.getElementById('idPiiLastName').value,
+                        document.getElementById('idPiiEmail').value,
+                        document.getElementById('idPiiPhone').value,
+                        createAddressStr(),
+                        piiCaseID,
+                        agentTranscript, function (result, event) {
+                            console.log(event.status);
+                            console.log(event);
+                            if (event.status) {
+                                console.log('SUCCESS');
+                                pii_result = result;
+                                //createChatMsgElement('system', '{!chatChannelContent.PiiSubmitSuccessMsg__c}', '');
+                                if({!!useChatbot}){
+                                	document.getElementById('liveAgentChatTextArea').value = '{!chatChannelContent.PiiSubmitSuccessMsg__c}';
+                                	SfdcApp.LiveAgent.Chasitor.sendMessage();
+                                }else{
+                                	var newDiv = document.createElement('div');
+									var newMessage = document.createElement('span');
+									var chatWindow = document.getElementById('liveAgentChatLogText');
+									newDiv.appendChild(newMessage);
+									chatWindow.appendChild(newDiv);
+									newDiv.className = 'operatorContainer';
+									newMessage.innerHTML = '{!chatChannelContent.PiiSubmitSuccessMsg__c}';
+									newMessage.className = 'operator';
+									newMessage.scrollIntoView();
+                                }
+                                wrapPiiForm();
+                                document.getElementById('idToggleArrow').removeEventListener 
+                                    ? document.getElementById('idToggleArrow').removeEventListener("click", toggleHideShow, false) 
+                                    : document.getElementById('idToggleArrow').detachEvent("onclick", toggleHideShow);
+                            } else {
+                                console.log('EXCEPTION');
+                                document.getElementById('idPiiErrText').style.display = 'block';
+                                document.getElementById('idPiiSubmitButtonContainer').style.display = 'block';
+                                document.getElementById('submitSpinner').style.display = 'none';
+                            }
+                    });
+                } else {
+                    document.getElementById('idPiiErrText').style.display = 'block';
+                    document.getElementById('idPiiSubmitButtonContainer').style.display = 'block';
+                    document.getElementById('submitSpinner').style.display = 'none';
+                }
+            }
+
+			function createChatMsgElement(msgType, value, operatorName) {
+				let topSpan = document.createElement('SPAN');
+				
+				if (msgType === 'system') {
+					topSpan.setAttribute('class', 'system');
+					let emElm = document.createElement('EM');
+					emElm.innerHTML = value;
+					topSpan.appendChild(emElm);
+				} else {
+					let nameSpan = document.createElement('SPAN');
+					nameSpan.setAttribute('class', 'name');
+					let msgSpan = document.createElement('SPAN');
+					let nameElm = document.createElement('STRONG');
+					
+					if (msgType === 'client') {
+						topSpan.setAttribute('class', 'client');
+						nameElm.innerHTML = '{!chatChannelContent.VisitorLabel__c}';
+					} else if (msgType === 'operator') {
+						topSpan.setAttribute('class', 'operator');
+						nameElm.innerHTML = operatorName;
+					}
+					
+					nameSpan.appendChild(nameElm);
+					msgSpan.innerHTML = value;
+					topSpan.appendChild(nameSpan);
+					topSpan.appendChild(msgSpan);
+				}
+
+				document.getElementById('liveAgentChatLogText').appendChild(topSpan);
+				topSpan.scrollIntoView();
+			}
+		
+			function piiBack() {
+				document.getElementById('idAddressSelect').style.display = 'none';
+				document.getElementById('idPiiFields').style.display = 'block';
+				document.getElementById('idPiiBack').style.display = 'none';
+				document.getElementById('idPiiBack').disabled = true;
+			}
+			function validateAddress() {
+				let addressStr = document.getElementById('idPiiPrimary_Address_Line_1__c').value + ';'
+					+ document.getElementById('idPiiPrimary_Address_Line_2__c').value + ';'
+					+ document.getElementById('idPiiPrimary_City__c').value + ';'
+					+ document.getElementById('idPiiPrimary_State_Province__c').value + ';'
+					+ document.getElementById('idPiiPrimary_Country__c').value + ';'
+					+ document.getElementById('idPiiPrimary_Postal_Code__c').value;
+				document.getElementById('idEntereddAddText').innerHTML = addressStr;
+				Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.gcr_chatRedirectController.validateAddress}", createAddressStr()
+														  , function(result, event) {
+															  console.log('event.status : ' + event.status);
+															  if (event.status) {
+																  console.log('result : ' + result);
+																  // CREATE DIV ELEMENT
+																  let divElmt = document.createElement('DIV');
+																  divElmt.setAttribute('id', 'idSuggestedAddText');
+																  divElmt.setAttribute('class', 'addressText');
+																  
+																  let address = result.split(';')
+																  for (let itr = 0; itr < address.length; itr++) {
+																	  divElmt.innerHTML += address[itr];
+																	  divElmt.appendChild(document.createElement('BR'));
+																  }
+																  document.getElementById('idSuggestAddDiv').appendChild(divElmt);
+																  document.getElementById('idAddressCheck').value = 'DONE';
+																  document.getElementById('idAddressSelect').style.display = 'block';
+																  document.getElementById('idPiiBack').style.display = 'inline-block';
+																  document.getElementById('idPiiBack').disabled = false;
+																  document.getElementById('idPiiFields').style.display = 'none';
+															  } else {
+																  // TODO: ERROR HANDLING
+																  console.log('Error : ');
+															  }                                      
+														  });
+			}
+			// CREATE PII UTILITY EVENT LISTENER
+			if({!!useChatbot}){
+
+				liveagent.chasitor.addCustomEventListener('caseId', function(result) {
+					console.log('CASE DETAIL : ' + result.getData());
+					document.getElementById('idCaseId').value = result.getData();
+				});
+				// CREATE PII UTILITY EVENT LISTENER
+				liveagent.chasitor.addCustomEventListener('piievent', function(result) {
+					document.getElementById('idPiiReqFields').value = '';
+					// HIDE ALL PII FIELDS
+					document.getElementById('idPiiFirstNameDiv').style.display = 'none';
+					document.getElementById('idPiiLastNameDiv').style.display = 'none';
+					document.getElementById('idPiiEmailDiv').style.display = 'none';
+					document.getElementById('idPiiPrimary_Address_Line_1__cDiv').style.display = 'none';
+					document.getElementById('idPiiPrimary_Address_Line_2__cDiv').style.display = 'none';
+					document.getElementById('idPiiPrimary_City__cDiv').style.display = 'none';
+					document.getElementById('idPiiPrimary_State_Province__cDiv').style.display = 'none';
+					document.getElementById('idPiiPrimary_Postal_Code__cDiv').style.display = 'none';
+					document.getElementById('idPiiPrimary_Country__cDiv').style.display = 'none';
+					document.getElementById('idPiiPhoneDiv').style.display = 'none';
+					if (document.getElementById('idFirstName').value !== '' 
+					 && document.getElementById('idLastName').value !== ''
+					 && document.getElementById('idEmail').value !== '') {
+						document.getElementById('idPiiFirstName').value = document.getElementById('idFirstName').value;
+						document.getElementById('idPiiLastName').value = document.getElementById('idLastName').value;
+						document.getElementById('idPiiEmail').value = document.getElementById('idEmail').value;
+						document.getElementById('idPrivacyCbxCon').style.display = 'none';
+						document.getElementById('idPiiTermsCond').checked = 'checked';
+					}
+					// ATTACH CLICK EVENT TO TOGGLE DIV
+					// TODO: REMOVE WHEN PII REQUEST COMPLETED
+					document.getElementById('idToggleArrow').addEventListener 
+						? document.getElementById('idToggleArrow').addEventListener("click", toggleHideShow, false) 
+						: document.getElementById('idToggleArrow').attachEvent("onclick", toggleHideShow);
+					let fields = result.getData() ? result.getData().split(';') : [];
+					console.log('fields : ' + fields);
+					for (let itr = 0; itr < fields.length; itr++) {
+						if (fields[itr] && fields[itr] != '') {
+							let delimiter = itr !== 0 ? ';' : '';
+							console.log('each field : ' + fields[itr]);
+							if (fields[itr] !== 'Primary_Postal_Code__c'
+							&& fields[itr] !== 'Primary_State_Province__c'
+							&& fields[itr] !== 'Primary_Address_Line_2__c') {
+								document.getElementById('idPiiReqFields').value += delimiter + 'idPii' + fields[itr];
+							} else if ('idPii' + fields[itr] === 'idPiiPrimary_Postal_Code__c' && {!isZipMandatory}) {
+								document.getElementById('idPiiReqFields').value += delimiter + 'idPii' + fields[itr];
+							} else if ('idPii' + fields[itr] === 'idPiiPrimary_State_Province__c' && {!isStateMandatory}) {
+								document.getElementById('idPiiReqFields').value += delimiter + 'idPii' + fields[itr];
+							}
+							document.getElementById('idPii' + fields[itr] + 'Div').style.display = 'block';
+						}
+					}
+					initModal('idPiiModal', true, '65%', 'idPiiContext', 'PII_REQUESTED_OPEN');
+					// ENABLE SUBMIT BUTTON
+					document.getElementById('idPiiSubmit').disabled = false;
+				});
+
+					// EVENT LISTENER WHEN CHAT IS ESTABLISHED
+				liveagent.addEventListener(liveagent.chasitor.Events.CHAT_ESTABLISHED, function () {
+					processEventChatEstablishd();
+				});
+				// EVENT LISTENER FOR END CHAT BUTTON
+				document.getElementById('idEndChatBtn').onclick = function() {
+					document.getElementById('idSendEmailCheckbox').addEventListener 
+						? document.getElementById('idSendEmailCheckbox').addEventListener("click", emailCheckboxClickEvent, false) 
+						: document.getElementById('idSendEmailCheckbox').attachEvent("onclick", emailCheckboxClickEvent);
+					// ENABLE BUTTONS AND ATTACH LISTENERS
+					document.getElementById('idEndChatAcceptButton').disabled = false;
+					document.getElementById('idEndChatAcceptButton').addEventListener
+						? document.getElementById('idEndChatAcceptButton').addEventListener("click", endChatAccept, false)
+						: document.getElementById('idEndChatAcceptButton').attachEvent("onclick", endChatAccept);
+					document.getElementById('idEndChatRejectButton').disabled = false;
+					document.getElementById('idEndChatRejectButton').addEventListener
+						? document.getElementById('idEndChatRejectButton').addEventListener("click", endChatReject, false) 
+						: document.getElementById('idEndChatRejectButton').attachEvent("onclick", endChatReject);
+					// COLLAPSE MODAL
+					initModal('idEndChatModal', false, '100%', 'idEndChatContext', 'END_CHAT_REQUESTED');
+				};
+				// EVENT LISTENER FOR INITIATE FILE TRANSFER REQUEST
+				liveagent.addEventListener(liveagent.chasitor.Events.FILE_TRANSFER_REQUESTED, function () {
+					console.log('Attach file event captured');
+					document.getElementById('fileTransferProgress').style.textAlign = 'center';
+					document.getElementById('fileNameLabel').style.display = 'none';
+					// INSERT IMAGE IN DOM FOR ATTACH FILE
+					if (document.getElementById('idFileUploadContext').value
+					&& document.getElementById('idFileUploadContext').value == 'FT_INITIAL') {
+						var divElmt = document.createElement("DIV");
+						divElmt.setAttribute("id", "idUploadImageDiv");
+						divElmt.style.display = 'flex';
+						divElmt.style.justifyContent = 'center';
+						divElmt.style.alignItems = 'flex-end';
+						divElmt.style.width = '100%';
+						divElmt.style.height = '100%';
+						
+						var imgElmt = document.createElement("IMG");
+						imgElmt.src = "{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/Upload.svg')}";
+						imgElmt.style.maxHeight = '100%';
+						imgElmt.style.maxWidth = '12vw';
+						
+						divElmt.appendChild(imgElmt);
+						document.getElementById('fileDragArea').insertBefore(divElmt, document.getElementById('fileDragLabel'));
+						
+						// ADD WAITING SPINNER TO UPLOAD FILE BOX
+						let spinnerContiner = document.getElementById('idSpinnerContainer');
+						let uploadPrgDiv = document.createElement('DIV');
+						uploadPrgDiv.style.marginTop = '10px';
+						uploadPrgDiv.style.fontSize = '10pt';
+						uploadPrgDiv.innerHTML = '{!chatChannelContent.UploadProgressMsg__c}';
+						spinnerContiner.appendChild(uploadPrgDiv);
+						document.getElementById('fileTransferProgress').appendChild(spinnerContiner);
+						document.getElementById('idFileUploadContext').value = 'FT_TRIGGERED';
+					} else {
+						document.getElementById('idUploadImageDiv').style.display = 'flex';
+					}
+					document.getElementById('fileDragArea').style.display = 'flex';
+					document.getElementById('liveAgentChatFileTransfer').style.height = '20%';
+					document.getElementById('idAttachmentMsg').style.color = '#000000'
+				});
+
+				// EVENT LISTENER FOR ATTACHMENT CANCEL BUTTON AND HANDLE
+				document.getElementById('fileCancelButton').addEventListener ?
+					document.getElementById('fileCancelButton').addEventListener('click', cancelFileTransferHandle, false) :
+					document.getElementById('fileCancelButton').attachEvent('click', cancelFileTransferHandle);
+				function cancelFileTransferHandle() {
+					wrapFileTransfer();
+					document.getElementById('idFileUploadContext').value = 'FT_CANCELLED';
+				}
+				// EVENT LISTENER FOR DROP EVENT ON DRAGABLE AREA
+				document.getElementById('fileDragArea').addEventListener ?
+					document.getElementById('fileDragArea').addEventListener('drop', handleFileTransfer, false) :
+					document.getElementById('fileDragArea').attachEvent('ondrop', handleFileTransfer);
+				// EVENT LISTENER FOR FILE SELECT ONCHANGE
+				document.getElementById('fileSelectInput').addEventListener ?
+					document.getElementById('fileSelectInput').addEventListener('change', handleFileTransfer, false) :
+					document.getElementById('fileSelectInput').attachEvent('onchange', handleFileTransfer);
+				// FILE TRANSFER HANDLE
+				function handleFileTransfer(event) {
+					document.getElementById('idUploadImageDiv').style.display = 'none';
+					event.preventDefault();
+					// TIME OUT TO FINISH OFF DROP EVENT BEFORE STARTING CLICK EVENT
+					setTimeout(function() {
+						console.log('call send file');
+						var fileLabel = document.getElementById('fileNameLabel') ? document.getElementById('fileNameLabel').innerHTML : '';
+						console.log(' fileNameLabel : ' + fileLabel);
+						var flExtn = fileLabel && fileLabel != '' ? fileLabel.split('.').pop().toLowerCase() : '';
+						if ('{!chatChannelContent.InvalidAttachmentExtn__c}'.indexOf(flExtn) != -1) document.getElementById('fileSendButton').click();
+						else {
+							document.getElementById('idUploadImageDiv').style.display = 'flex';
+							document.getElementById('fileDragLabel').style.display = 'block';
+							document.getElementById('fileNameLabel').style.display = 'none';
+							document.getElementById('idAttachmentMsg').style.color = '#FF0000'
+						}
+					}, 1);
+					document.getElementById('fileNameLabel').style.display = 'none';
+				}
+			}
+			function processEventChatEstablishd(eve) {
+
+				document.getElementById('idBlockInputs').style.display = 'flex';
+				document.getElementById('idWaitingMessage').style.display = 'none';
+				if({!!useChatbot}){
+					document.getElementById('idEndChatBtn').style.display = 'block';
+				}
+				document.getElementById('idGreetText').style.display = 'block';
+				document.getElementById('idLogo').style.display = 'block'; //CDOY 04/08/2017
+				document.getElementById('idPrivacyContainer').style.display = 'inline-flex'; //CDOY 04/08/2017
+				document.getElementById('idFooterContainer').style.display = 'block'; //CDOY 04/08/2017
+
+				// ATTACH FILE COMPONENTS DISPLAY
+				document.getElementById('liveAgentChatFileTransfer').style.display = 'block';
+				document.getElementById('fileDragArea').style.display = 'none';
+				document.getElementById('fileCancelButton').style.display = 'none';
+				document.getElementById('fileSendButton').style.display = 'none';
+				
+				// ADD TEXT FOR UPLOAD FILE
+				var parentElmt = document.getElementById('fileDragLabel');
+				parentElmt.appendChild(document.createTextNode('{!chatChannelContent.DragFileLabel__c}'));
+				var divElmt = document.createElement("DIV");
+				divElmt.setAttribute('id', 'idAttachmentMsg');
+				divElmt.style.fontSize = '9pt';
+				divElmt.style.marginTop = '5px';
+				divElmt.innerHTML = '{!chatChannelContent.InvalidAttachmentMessage__c}'
+				parentElmt.appendChild(divElmt);
+				// MAP EMAIL TO END CHAT EMAIL BOX
+				console.log('@@@@ : ' + document.getElementById('idEmail').value);
+				document.getElementById('idEmailSendChat').value = document.getElementById('idEmail').value;
+				
+				//ADD Chatbot Transcript
+				if({!!useChatbot}){
+					var chatWindow = document.getElementById('liveAgentChatLogText');
+					var chatbotTranscript = document.getElementById('chatbotTranscriptContainer');
+					console.log('*** GUY *** in the script');
+					var trans = "{!HTMLENCODE(transcript)}";
+					console.log('trans: ' + trans);
+
+					document.getElementById('chatbotTranscriptContainer').style.display = 'block';
+					chatWindow.appendChild(chatbotTranscript);
+                    var chatLogElement = document.getElementById('liveAgentChatLog');
+                    chatLogElement.scrollTop = chatLogElement.scrollHeight;
+				}
+			}
+			if({!!useChatbot}){
+				liveagent.addEventListener(liveagent.chasitor.Events.FILE_TRANSFER_SUCCESS, function () {
+					console.log('FILE TRANSFER SUCCESSFUL...');
+					wrapFileTransfer();
+					document.getElementById('idFileUploadContext').value = 'FT_COMPLETED';
+				});
+				liveagent.addEventListener(liveagent.chasitor.Events.FILE_TRANSFER_FAILURE, function () {
+					console.log('FILE TRANSFER FAILED...');
+					wrapFileTransfer();
+					document.getElementById('idFileUploadContext').value = 'FT_FAILED';
+				});
+				liveagent.addEventListener(liveagent.chasitor.Events.FILE_TRANSFER_CANCELED, function () {
+					console.log('FILE TRANSFER CANCELLED...');
+					wrapFileTransfer();
+					document.getElementById('idFileUploadContext').value = 'FT_CANCELLED';
+				});
+				function wrapFileTransfer() {
+					document.getElementById('liveAgentChatFileTransfer').style.height = '0%';
+					document.getElementById('fileDragArea').style.display = 'none';
+				}
+
+				var element = document.getElementById("liveAgentChatTextArea");
+				element.onkeydown = (function (onkeydown) {
+					return function(evt) {
+						let shadowTa = document.getElementsByClassName("shadowTextArea")[0];
+						let swVsW = shadowTa.scrollWidth/shadowTa.clientWidth;
+						if (swVsW > 3 && swVsW < 4) {
+							//return "72px";
+							document.getElementById('liveAgentChatInput').style.height = "72px";
+						} else if (swVsW > 4) {
+							//return "90px";
+							document.getElementById('liveAgentChatInput').style.height = "90px";
+						}
+					}
+				})(element.onkeydown);
+			}
+
+			function wait(ms){
+			   var start = new Date().getTime();
+			   var end = start;
+			   while(end < start + ms) {
+				 end = new Date().getTime();
+				}
+			}
+
+			function handlePII_ChatBot(){
+				// PASS the VALUE AS FALSE SINCE THE AGENT HANDOFF DOESN'T HAPPENED IN THIS CASE
+		        Visualforce.remoting.Manager.invokeAction("{!$RemoteAction.gcr_chatRedirectController.updateCaseOnOOHHandOff}", client_id, agentTranscript,pii_result, function (result, event){
+							if(event.status){
+								if(!pii_result){
+		                        	pii_result = result;
+		                        }
+								console.log('AGENT SCRIPT IS UPDATED SUCCESSFULLY');
+		                        if(pii_result!='PII_OUT_OF_HOURS_HANDOFF_SUCCESS'){
+		                        	showPIIForm_OOHHandoff();
+		                        }
+
+		                    }else{
+								console.log('AGENT SCRIPT IS NOT UPDATED SUCCESSFULLY');
+							}
+		        });
+
+				
+			}
+
+			function showPIIForm_OOHHandoff(){
+				document.getElementById('idPiiReqFields').value = 'idPiiFirstName;idPiiLastName;idPiiEmail';
+				// HIDE ALL PII FIELDS
+				document.getElementById('idPiiFirstNameDiv').style.display = 'block';
+				document.getElementById('idPiiLastNameDiv').style.display = 'block';
+				document.getElementById('idPiiEmailDiv').style.display = 'block';
+				document.getElementById('idPiiPrimary_Address_Line_1__cDiv').style.display = 'none';
+				document.getElementById('idPiiPrimary_Address_Line_2__cDiv').style.display = 'none';
+				document.getElementById('idPiiPrimary_City__cDiv').style.display = 'none';
+				document.getElementById('idPiiPrimary_State_Province__cDiv').style.display = 'none';
+				document.getElementById('idPiiPrimary_Postal_Code__cDiv').style.display = 'none';
+				document.getElementById('idPiiPrimary_Country__cDiv').style.display = 'none';
+				document.getElementById('idPiiPhoneDiv').style.display = 'none';
+				initModal('idPiiModal', true, '65%', 'idPiiContext', 'PII_REQUESTED_OPEN');
+				
+				// ENABLE SUBMIT BUTTON
+				document.getElementById('idPiiSubmit').disabled = false;
+				
+				// ATTACH CLICK EVENT TO TOGGLE DIV
+				// TODO: REMOVE WHEN PII REQUEST COMPLETED
+				document.getElementById('idToggleArrow').addEventListener 
+					? document.getElementById('idToggleArrow').addEventListener("click", toggleHideShow, false) 
+					: document.getElementById('idToggleArrow').attachEvent("onclick", toggleHideShow);
+			}
+        	
+
+		</script>
+    
+    <!-- LOAD STYLESHEET - END OF PAGE TO OVERRIDE SF CSS -->
+    <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/chatPageStyling.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/chatbotChatPageStyling.css')}" />
+    
+</apex:page>

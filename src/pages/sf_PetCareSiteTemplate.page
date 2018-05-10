@@ -1,0 +1,28 @@
+<apex:page showHeader="false" sidebar="false">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    <!--<apex:stylesheet value="{!IF($CurrentPage.parameters.brand=='Eukanuba',$Resource.EukanubaStyleSheet,$Resource.IamsStyle)}"/>-->
+        <title>
+            <apex:insert name="title"/>
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <c:sf_PetCareStylesheet />
+        <apex:outputText rendered="{!IF(OR($CurrentPage.parameters.brand=='Eukanuba',$CurrentPage.parameters.brand=='Iams'),true,false)}">
+            <style type="text/css">
+            .eukanuba {
+            width:500px;
+            }
+            </style>
+        </apex:outputText>
+    </head>
+    <body>
+        <div class="eukanuba">
+            <apex:insert name="content"/>
+            <apex:outputPanel rendered="{!AND($CurrentPage.parameters.brand=='Eukanuba',$CurrentPage.parameters.country=='United Kingdom')}">
+                <p class="privacy">Please note that all advertising claims and copy for this website, as well as the website&#39;s <a href="http://www.pg.com/privacy/english/privacy_notice.html" target="_blank">Privacy Statement</a> and <a href="http://www.pg.com/terms.htm?rc=-5" target="_blank">Legal Terms and Conditions</a>, are directed solely to residents of the United Kingdom. If you are from outside of the United Kingdom and still want to send us an e-mail, your message will be forwarded to the appropriate consumer relations group for your geography.</p>
+                <div class="clear"></div>
+            </apex:outputPanel>
+        </div>
+    </body>
+</html>
+</apex:page>

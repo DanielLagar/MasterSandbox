@@ -1,0 +1,31 @@
+<apex:page standardController="One_Stop__c" extensions="OneStopCloseCon">
+    <script>
+    function validateData(){
+        if('{!One_Stop__c.OwnerId}'!='{!$User.Id}'){
+            alert('Take ownership before updating the record.');
+            return false;
+        }
+        else return true;
+    }
+    </script>
+        <apex:sectionHeader title="{!$ObjectType.One_Stop__c.label} Edit" subtitle="{!One_Stop__c.name}"/>
+        <apex:form >
+        <apex:pageBlock title="{!$ObjectType.One_Stop__c.label} Edit" mode="edit">
+            
+                <apex:pageBlockButtons >
+                        <apex:commandButton action="{!Save}" value="Save"/>
+                        <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:pageBlockButtons>
+                <apex:pageMessages ></apex:pageMessages>
+                <apex:pageBlockSection showHeader="true" title="Close Comments" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Comment</apex:outputLabel>
+                        <apex:inputTextarea required="true" value="{!xComment}" style="width:400px;height:100px;" label="Comments"/>
+                    </apex:pageBlockSectionItem>                                                               
+                        </apex:pageBlockSection>
+                <apex:pageBlockSection showHeader="true" title="Notification" columns="1">
+                        <apex:outputLabel >Notification will be sent automatically</apex:outputLabel>
+                </apex:pageBlockSection>
+        </apex:pageBlock>
+        </apex:form>
+</apex:page>

@@ -1,0 +1,348 @@
+<apex:component allowDML="true">
+<apex:attribute name="pkbCon" type="pkb_Controller" required="true" description="handle to the pkb controller" />
+<script type="text/javascript">
+
+// capture some data from the Apex controller and store in js vars
+var searchPrompt = "{!JSENCODE(HTMLENCODE(pkbCon.searchPrompt))}";
+var baseURL = "{!JSENCODE(HTMLENCODE(pkbCon.currentSiteUrl))}";
+var currSearch = jQuery.trim("{!JSENCODE(HTMLENCODE(pkbCon.urlSearchQuery))}");
+var currLanguage = jQuery.trim("{!JSENCODE(HTMLENCODE(pkbCon.selectedLanguage))}");
+var currCategories = jQuery.trim("{!JSENCODE(HTMLENCODE(pkbCon.selectedCategory))}");
+var chosenLanguage = jQuery.trim("{!JSENCODE(HTMLENCODE(pkbCon.chosenLanguage))}");
+var chosenCountry = jQuery.trim("{!JSENCODE(HTMLENCODE(pkbCon.chosenCountry))}");
+var selectedBrand = jQuery.trim("{!JSENCODE(HTMLENCODE(pkbCon.selectedBrand))}");
+
+var contactUs = {!pkbCon.displayContactUs};
+var viewingArticle = {!pkbCon.viewingArticle};
+var pkbHome = "{!IF(pkbCon.facebook,$Page.pkb_Home,$Page.pkb_Home)}";
+var openDialogWhenReady = false;
+
+// constants pointing to element ids used in the page
+var CATEGORY_SELECT_ID_PREFIX = 'categorySelect';
+var SEARCH_LINK_ID = 'searchAgainButton';
+var ASK_LINK_ID = 'searchAskButton';
+var NEXT_LINK_ID = 'nextLink';
+var SEARCH_TEXT_ID = 'searchAskInput';
+var RSS_RESULTS_LINK_ID = 'resultsRssLink';
+var RIGHT_COLUMN_ID = 'right_column';
+var MIN_CONTENT_HEIGHT = 650;
+var FEEDBACK_YESNO_FORM_ID = 'feedbackYesNoForm';
+var FEEDBACK_FORM_ID = 'feedbackForm';
+var FEEDBACK_YES_BUTTON = 'feedbackYesButton';
+var FEEDBACK_NO_BUTTON = 'feedbackNoButton';
+var FEEDBACK_DIALOG_ID = 'feedbackDialog';
+var FEEDBACK_COMMENTS_ID = 'feedbackComments';
+var FEEDBACK_TEXT_ID = 'feedbackTextArea';
+var CHARS_REMAINING_ID = 'charsRemaining';
+var FEATURED_ARTICLES_ID = 'featuredArticles';
+var IMMEDIATE_HELP_ID = 'immediateHelp';
+var CASE_ERROR_MSG_ID = 'createCaseErrorMsg';
+
+var CONTACT_NO_BUTTON_ID = 'contactUsNoButton';
+var CONTACT_YES_BUTTON_ID = 'contactUsYesButton';
+var CONTACT_US_FORM_ID = 'contactUsForm';
+var CONTACT_YES_NO_FORM_ID = 'contactYesNoForm';
+
+// will store each selected category string for later processing
+var selectedCategories = new Array();
+
+function setLanguage(e) {
+  currLanguage = e.options[e.selectedIndex].value;
+  buildSearchHref();
+  doSearch();
+}
+
+// called when page is rendered, uses the category data passed from the Apex controller to build the selectedCategories array
+// as well as to set the category selects to any previously-selected categories
+function setCurrCategories() {
+  var i, j, selects, catObjs;
+
+  if (currCategories != null && currCategories != '') {
+    selectedCategories = currCategories.split(',');
+
+    // build a hash of the categories for easy searching later
+    catObjs = new Object();
+    for (i = 0; i < selectedCategories.length; i++) {
+      catObjs[selectedCategories[i]] = true;
+    }
+
+    // go through each option in each select and select the option if it is in the hash
+    selects = document.getElementsByTagName('select');
+    for (i = 0; i < selects.length; i++) {
+      o = selects[i];
+      if (o.id.indexOf(CATEGORY_SELECT_ID_PREFIX) > -1) {
+        for (j = 0; j < o.options.length; j++) {
+          if (catObjs[o.options[j].value]) {
+            o.selectedIndex = j;
+          }
+        }
+      }
+    }
+  }
+}
+
+// called from the onchange handler in each of the category select picklists, this will rebuild the array of selected
+// categories, rebuild the search href,  and then call doSearch()
+function setCategory(e) {
+/*
+  var i;
+  var o;
+  var selects = document.getElementsByTagName('select');
+  selectedCategories = new Array();
+
+  // check all of the select lists in the narrow search section and pull out the selected values
+  for (i = 0; i < selects.length; i++) {
+    o = selects[i];
+    if (o.id.indexOf(CATEGORY_SELECT_ID_PREFIX) > -1 && o.selectedIndex > 0) {
+      selectedCategories.push(o.options[o.selectedIndex].value);
+    }
+  }
+  buildSearchHref();
+  doSearch();
+*/
+setBrand(e);
+}
+
+function setBrand(e) {
+  var brandSelect = $('#brandSelect')[0];
+  var brand = brandSelect.options[brandSelect.selectedIndex].value;
+  var joinChar = (document.location.href.indexOf('?')>-1) ? '&' : '?';
+  document.location.href = document.location.href + joinChar + brand.replace(':','=');
+}
+
+// grabs all of the relevant search details (query, category selections) and uses those to build the href of the search link
+// continuously updating the href property of the search link this way allows the "right-click and open in new tab/window..."
+// options to always work
+function buildSearchHref() {
+  var e = document.getElementById(SEARCH_LINK_ID);
+  if (!e) e = document.getElementById(ASK_LINK_ID);
+
+//  var url = baseURL + '?';
+  var url = pkbHome + '?';
+
+  var params = new Array();
+
+  if (validSearchQuery()) params.push("{!pkbCon.queryParam}=" +encodeURIComponent(currSearch));
+  params.push("l=" +encodeURIComponent(currLanguage));
+  if (selectedCategories.length) params.push("{!pkbCon.categoryParam}=" +encodeURIComponent(selectedCategories.join(',')));
+  if (contactUs) params.push("{!pkbCon.contactUsParam}={!URLENCODE(pkbCon.contactUsValue)}");
+  if (chosenCountry.length) params.push("country={!URLENCODE(pkbCon.chosenCountry)}");
+  if (chosenLanguage.length) params.push("language={!URLENCODE(pkbCon.chosenLanguage)}");
+  if (selectedBrand.length) params.push("brand={!JSENCODE(URLENCODE(pkbCon.selectedBrand))}");
+
+  url += params.join('&');
+
+  e.href = url;
+}
+
+// detects the pressing of the enter key while the search box is in focus and performs the search
+function checkForEnter(e, o) {
+  if (e.keyCode == 13) {
+    currSearch = jQuery.trim(o.value);
+    buildSearchHref();
+    searchButtonClicked();
+	e.preventDefault();
+	e.stopPropagation();
+  }
+}
+
+function searchButtonClicked() {
+	if (!validSearchQuery()){
+		errorMsg  = "{!$Label.PKB2_js_search_string_length}";
+		errorMsg = errorMsg.replace('NNN','3');
+		alert(errorMsg);
+	}else{
+		doSearch();
+	}
+}
+
+// udpates the search link url and then performs the search as long as a query has been entered
+function doSearch() {
+  freezeInputs();
+  var e = document.getElementById(SEARCH_LINK_ID);
+  if (!e) e = document.getElementById(ASK_LINK_ID);
+
+  window.location.href = e.href;
+}
+
+// freeze the category select options, if any, and search text box so that they cannot be changed while the search is loading
+function freezeInputs() {
+  var selects = document.getElementsByTagName('select');
+  var textarea = document.getElementById(SEARCH_TEXT_ID);
+  var i;
+
+  for (i = 0; i < selects.length; i++) {
+    if (selects[i].id.indexOf(CATEGORY_SELECT_ID_PREFIX) > -1) {
+      selects[i].disabled = true;
+    }
+  }
+  textarea.disabled = true;
+}
+
+// restores the search prompt if the search box is empty, otherwise copies the search query to the global var
+function restorePrompt(e) {
+  if (e.value == "" || e.value == null) {
+    e.value = searchPrompt;
+    currSearch = searchPrompt;
+    e.className = "default";
+  } else {
+    currSearch = jQuery.trim(e.value);
+  }
+}
+
+// clears the search box of the prompt text when a user clicks on it unless the prompt is being displayed
+function clearPrompt(e) {
+  if (e.value == searchPrompt) {
+    e.value = "";
+    e.className = "";
+  }
+}
+
+// clears the search box regardless of what text is in there
+function resetPrompt(e) {
+  currSearch = "";
+  e.value = "";
+  e.className = "";
+}
+
+function validSearchQuery() {
+	trimmmed = $.trim(currSearch);
+  return (currSearch != '' && currSearch != searchPrompt && trimmmed.length > 2);
+}
+
+// hides the "next" article link if there are no more articles
+// the more var is set in the VF "articles" component each time the articleList tag iterates
+var moreResults = false;
+function hideNext() {
+  e = document.getElementById(NEXT_LINK_ID);
+  if (!e) return;
+  if (!moreResults) e.style.display = 'none';
+}
+
+var noResultsFound = true;
+function hideResultsRss() {
+  e = document.getElementById(RSS_RESULTS_LINK_ID);
+  if (!e) return;
+  if (noResultsFound) e.style.display = 'none';
+}
+
+function hideImmediateHelp(noResults) {
+  if (noResults) {
+    var o = $('#' +IMMEDIATE_HELP_ID);
+    if (o.length) o[0].style.display = 'none';
+  }
+}
+
+function showFeedbackDialog() {
+  $('#' +FEEDBACK_DIALOG_ID).modal();
+}
+
+function copyComments() {
+  var o = $('[id$=' +FEEDBACK_COMMENTS_ID+ ']');
+  var p = $('#' +FEEDBACK_TEXT_ID);
+
+  if (o.length && p.length) o[0].value = p[0].value;
+}
+
+function toggleFeedbackYesNoButtons(isEnabled) {
+  var yes = $('[id$=' +FEEDBACK_YES_BUTTON+ ']')[0];
+  var no = $('[id$=' +FEEDBACK_NO_BUTTON+ ']')[0];
+
+  yes.disabled = !isEnabled;
+  no.disabled = !isEnabled;
+}
+
+function toggleContactYesNoButtons(isEnabled) {
+  var yes = $('[id$=' +CONTACT_YES_BUTTON_ID+ ']')[0];
+  var no = $('[id$=' +CONTACT_NO_BUTTON_ID+ ']')[0];
+
+  yes.disabled = !isEnabled;
+  no.disabled = !isEnabled;
+}
+
+function closeModal() {
+  $('#' +FEEDBACK_DIALOG_ID).modal('hide');
+}
+
+function countChars(event, o) {
+  var maxChars = 255;
+  var chars = document.getElementById(CHARS_REMAINING_ID);
+  var charsLeft = maxChars - o.value.length;
+
+  if (charsLeft <= 0) {
+    o.value = o.value.substring(0, maxChars-1);
+    charsLeft = 0;
+    return (event.keyCode == 8);
+    chars.innerHTML = charsLeft;
+  } else {
+    chars.innerHTML = charsLeft;
+    return true;
+  }
+}
+
+var atLeastOneFeatured = false;
+function hideFeatured() {
+  var e = document.getElementById(FEATURED_ARTICLES_ID);
+  if (!e) return;
+  if (!atLeastOneFeatured) e.style.display = 'none';
+}
+
+function adjustHeight() {
+  var o = $('#' +RIGHT_COLUMN_ID);
+
+  if (o.height() < MIN_CONTENT_HEIGHT) o.height(MIN_CONTENT_HEIGHT);
+}
+
+function rewriteContactUsFormAction() {
+  if (!contactUs) return;
+
+  var actionURL = pkbHome;
+  if (viewingArticle) actionURL += '?id={!pkbCon.theKad.id}';
+
+  var o = $('[id$=' +CONTACT_US_FORM_ID+ ']');
+  var p = $('[id$=' +CONTACT_YES_NO_FORM_ID+ ']');
+  if (o.length) o[0].action = actionURL;
+  if (p.length) p[0].action = actionURL;
+}
+
+function rewriteFeedbackFormAction() {
+  if (contactUs || !viewingArticle) return;
+
+  var actionURL = pkbHome + '?id={!pkbCon.theKad.id}';
+
+  var o = $('[id$=' +FEEDBACK_YESNO_FORM_ID+ ']');
+  var p = $('[id$=' +FEEDBACK_FORM_ID+ ']');
+
+  if (o.length) o[0].action = actionURL;
+  if (p.length) p[0].action = actionURL;
+
+}
+
+function clearCaseErrorMsg() {
+  var o = $('[id$=' +CASE_ERROR_MSG_ID+ ']');
+  if (o.length) o[0].style.display = 'none';
+}
+
+function prepareToRenderOverlay() {
+  openDialogWhenReady = true;
+}
+
+$('#' +FEEDBACK_DIALOG_ID).ready(function() {
+  if (openDialogWhenReady) showFeedbackDialog();
+});
+
+$('#' +SEARCH_TEXT_ID).ready(function() {
+  var o = $('#' +SEARCH_TEXT_ID)[0];
+  if (currSearch == "") {
+    o.value = searchPrompt;
+    o.className = "default";
+  }
+});
+
+$(window).load(function() {
+  if (viewingArticle) adjustHeight();
+  rewriteContactUsFormAction();
+  rewriteFeedbackFormAction();
+});
+</script>
+</apex:component>

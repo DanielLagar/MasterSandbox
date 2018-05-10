@@ -1,0 +1,80 @@
+<apex:page standardcontroller="Internal_Activity__c" extensions="sf_InternalActivityExt">
+
+<style type="text/css">
+	.sectionFields{
+            width: 197px;
+        }
+</style>
+
+
+<apex:outputText value="{!Internal_Activity__c.Case__c}" rendered="false"/>
+<apex:outputText value="{!Internal_Activity__c.ownerid}" rendered="false"/>
+
+	<apex:form id="myForm">
+	    <apex:pageblock title="{!$Label.Internal_Activity_New_Internal_Activity}" id="PageBlock"> 
+	    
+		    <apex:pageblockbuttons >
+		        <apex:commandbutton value="{!$Label.Internal_Activity_Save}" action="{!Save}"/>
+		        <apex:commandbutton value="{!$Label.Internal_Activity_Save_and_Reply}" action="{!saveAndReply}"/>
+		        <apex:commandbutton value="{!$Label.Internal_Activity_Cancel}" action="{!Cancel}"/>
+		    </apex:pageblockbuttons>
+		    
+		    <apex:pagemessages />
+			    
+			<apex:pageblocksection title="{!$Label.Internal_Activity_Task_Information}">
+				<apex:pageblocksectionitem >
+					<apex:outputlabel value="{!$Label.Internal_Activity_Assigned_To}"/>
+					<apex:inputField id="Owner" value="{!Internal_Activity__c.OwnerId}" styleClass="sectionFields"/>
+				</apex:pageblocksectionitem>
+				
+				<apex:pageblocksectionitem />
+				
+				<apex:inputField value="{!Internal_Activity__c.Type__c}" rendered="{!showStandardTaskType}" styleClass="sectionFields"/>
+				<apex:selectList value="{!Internal_Activity__c.Type__c}" size="1" rendered="{!!showStandardTaskType}" styleClass="sectionFields">
+				    <apex:selectOptions value="{!internalTasktypeValues}"/>
+				</apex:selectList>
+					
+				<apex:inputfield value="{!Internal_Activity__c.Status__c}" styleClass="sectionFields"/>
+				<apex:inputfield value="{!Internal_Activity__c.Due_Date__c}" styleClass="sectionFields"/>
+				<apex:inputfield value="{!Internal_Activity__c.Assessment__c}" styleClass="sectionFields"/>
+				<apex:inputfield value="{!Internal_Activity__c.Priority__c}" styleClass="sectionFields"/>
+				<apex:inputfield value="{!Internal_Activity__c.Assessment_Type__c}" styleClass="sectionFields"/>
+				<apex:inputfield value="{!Internal_Activity__c.Subject__c}" styleClass="sectionFields"/>
+				<apex:inputfield value="{!Internal_Activity__c.Assessment_Close_Date__c}" styleClass="sectionFields"/>
+				<apex:inputfield value="{!Internal_Activity__c.Case__c}" styleClass="sectionFields"/>
+				<apex:inputfield value="{!Internal_Activity__c.Category__c}" styleClass="sectionFields"/>
+				<apex:inputfield value="{!Internal_Activity__c.Article_ID__c}" styleClass="sectionFields"/>
+				
+				<apex:pageBlockSectionItem />
+				
+				<apex:inputfield value="{!Internal_Activity__c.Send_Email__c}"/>
+					
+				<apex:pageblocksectionitem rendered="{!showSentBy}">
+					<apex:outputlabel value="{!$Label.Internal_Activity_Sent_By}"/>
+					<apex:inputfield value="{!Internal_Activity__c.Createdby.Name}"/>
+				</apex:pageblocksectionitem>
+			</apex:pageblocksection>
+			
+			<apex:pageblocksection columns="1" title="{!$Label.Internal_Activity_Comments_Section}">
+			<apex:outputfield value="{!theCase.Summary__c}"/>
+			<apex:pageblocksectionitem >
+                
+			<apex:outputLabel value="{!$ObjectType.Internal_Activity__c.fields.Comments__c.Label}"/>
+			<apex:inputtextarea id="summary" value="{!Internal_Activity__c.Comments__c}" rows="7" cols="80" ></apex:inputtextarea>
+			</apex:pageblocksectionitem>
+			</apex:pageblocksection>
+			
+			    <apex:pageblocksection title="{!$Label.Internal_Activity_Reminder}" rendered="{!showReminder}">
+			        <apex:pageblockSectionitem >
+			        <apex:outputLabel value="{!$Label.Internal_Activity_Reminder}"/>
+			        <apex:outputpanel >
+			            <apex:inputfield value="{!Internal_Activity__c.Reminder__c}"/>
+			            <apex:inputfield value="{!Internal_Activity__c.Reminder_Date__c}"/>
+			        </apex:outputpanel>
+			        </apex:pageblocksectionitem>
+			    </apex:pageblocksection>
+			    
+		</apex:pageblock>
+	</apex:form>
+
+</apex:page>

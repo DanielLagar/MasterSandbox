@@ -1,0 +1,23 @@
+<!-- 
+#    COMPONENT FOR EMAIL US FORM OF GCR WIDGET
+#    
+#    @param:  NONE
+#    @author: ACCENTURE	
+#    @date:   18/11/2016
+#
+-->
+<apex:component layout="none">
+    <apex:attribute name="strInput" description="Input string" type="String" required="true" />
+    <apex:attribute name="strSepStart" description="Input seperator start string" type="String" required="true" />
+    <apex:attribute name="strSepEnd" description="Input seperator start string" type="String" />
+    <apex:attribute name="onClick" description="javascript for link click" type="String" />
+    <apex:attribute name="idAnchorLink" description="Id for anchor link" type="String" />
+    <apex:attribute name="style" description="color for link" type="String" />
+    
+    <apex:outputText escape="false" value="{!MID(strInput, 0, FIND(strSepStart, strInput) - 1)}" />
+    	<a id="{!idAnchorLink}" href="" onclick="{!onClick}" 
+           style="{!IF(ISBLANK(style),'cursor: pointer; text-decoration: underline; color: -webkit-link;', style)}">
+			{!MID(strInput, FIND(strSepStart, strInput) + 1, (FIND(IF(ISBLANK(strSepEnd), strSepStart, strSepEnd), strInput) - FIND(strSepStart, strInput)) - 1)}
+    	</a>
+    <apex:outputText escape="false" value="{!MID(strInput, FIND(IF(ISBLANK(strSepEnd), strSepStart, strSepEnd), strInput) + 1, LEN(strInput))}" />
+</apex:component>

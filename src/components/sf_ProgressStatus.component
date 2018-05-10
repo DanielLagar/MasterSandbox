@@ -1,0 +1,41 @@
+<apex:component selfClosing="true">
+
+    <apex:attribute name="labelText" description="Text displayed next to the spinning image." type="String" required="true"/>
+
+    <apex:actionStatus id="sf_ProgressStatus">
+        <apex:facet name="start">
+        	<apex:outputPanel layout="block" styleClass="waiting" id="el_loading">
+		        <apex:outputPanel layout="block" styleClass="waitingHolder">
+		            <img class="waitingImage" src="/img/loading.gif" title="{!labelText}" />
+		            <span class="waitingDescription">{!labelText}</span>
+		        </apex:outputPanel>
+		    </apex:outputPanel>
+        </apex:facet>
+    </apex:actionStatus>
+
+    <style type="text/css">
+    .waiting {
+
+    	height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        opacity: 0.7;
+        -moz-opacity: 0.7;
+        width: 100%;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+        filter: alpha(opacity=70);
+        background: #fff;
+        -khtml-opacity: 0.7;
+        z-index: 9000;
+
+    }
+
+    .waitingHolder {
+	    position: absolute;
+	    left: 50%;
+	    top: 50%;
+    }
+    </style>
+
+</apex:component>

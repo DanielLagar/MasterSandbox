@@ -1,0 +1,12 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false">
+    <apex:form >
+        <c:WhereToBuy brand="{!$CurrentPage.parameters.Brand}"
+            console="true"
+            country="{!$CurrentPage.parameters.Country}"
+            gtin="{!$CurrentPage.parameters.GTIN}"
+            lang="{!$CurrentPage.parameters.l}"
+            location="{!$CurrentPage.parameters.location}"
+            localeKey="{!$CurrentPage.parameters.locale}">
+        </c:WhereToBuy>
+    </apex:form>
+</apex:page>

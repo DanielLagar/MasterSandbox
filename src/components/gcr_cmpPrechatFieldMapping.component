@@ -1,0 +1,52 @@
+<!-- 
+#    Component for pre chat form field mapping
+#    
+#    @author: ACCENTURE
+#    @date:   11/01/2017
+# DATE              NAME                CHANGE DESCRIPTION
+# 11/01/2017       Accenture           Initial Draft
+-->
+<apex:component >
+    <!-- COMPONENT ATTRIBUTES -->
+    <apex:attribute name="brand" type="String" description="Selected brand" />
+    <apex:attribute name="country" type="String" description="Selected country" />
+    <apex:attribute name="language" type="String" description="Selected language" />
+    <apex:attribute name="fName" type="String" description="Selected First Name" />
+    <apex:attribute name="lName" type="String" description="Selected Last Name" />
+    <apex:attribute name="email" type="String" description="Selected Email Address" />
+    <apex:attribute name="chatType" type="String" description="Chat type for chat Proactive, Carehub, Version3, Standalone" />
+
+	<!-- PRECAHT API MAPPING VALUES COMING FROM PRE CHAT FORM -->
+    <apex:outputPanel rendered="{!NOT(AND(ISBLANK(fName), ISBLANK(lName), ISBLANK(email)))}">
+        <input type="hidden" name="liveagent.prechat:FirstNameDetail" value="{!$Currentpage.parameters.fname}" />
+        <input type="hidden" name="liveagent.prechat:LastNameDetail" value="{!$Currentpage.parameters.lname}" />
+        <input type="hidden" name="liveagent.prechat:EmailDetail" value="{!$Currentpage.parameters.email}" />
+        <!-- SET THE VISTOR NAME TO THE AGENT CONSOLE-->
+        <input type="hidden" id="setname" name="liveagent.prechat.name" value="{!$Currentpage.parameters.fname}" />
+        <input type="hidden" name="liveagent.prechat.findorcreate.map:Contact"
+               value="FirstName,FirstNameDetail;LastName,LastNameDetail;Email,EmailDetail;" />
+        <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Contact" value="FirstName,true; LastName,true; Email,true" />
+        <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Contact" value="Email,true" />
+        <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Contact" value="FirstName,true;LastName,true;Email,true;" /> 
+        <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Contact" value="true" />
+        <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Contact" value="ContactId" />
+        <input type="hidden" name="liveagent.prechat.findorcreate.linkToEntity:Contact" value="Case, ContactId" />
+    </apex:outputPanel>
+    
+    <!-- PRECAHT API MAPPING VALUES COMING OUTSIDE PRECHAT -->
+    <input type="hidden" name="liveagent.prechat:CaseOrigin" value="Chat" />
+    <input type="hidden" name="liveagent.prechat:CaseBrand" value="{!brand}" />
+	<input type="hidden" name="liveagent.prechat:CaseCountry" value="{!country}" />
+    <input type="hidden" name="liveagent.prechat:CaseLanguage" value="{!language}" />
+    <input type="hidden" name="liveagent.prechat:ChatTypeVal" value="{!chatType}" />
+    <!-- WR552 Added to map Loyalty ID to the case -->
+    <input type="hidden" name="liveagent.prechat:LoyaltyID" value="{!$Currentpage.parameters.loyaltyID}" />
+    <input type="hidden" name="liveagent.prechat:chatbotCase" value="{!$Currentpage.parameters.chatbotCase}" />
+    <!-- WR552 Added to map Loyalty ID to the case -->
+    <input type="hidden" name="liveagent.prechat.findorcreate.map:Case"
+           value="Origin,CaseOrigin; Language__c,CaseLanguage; Country__c,CaseCountry; Brand__c,CaseBrand; ChatType__c,ChatTypeVal;Loyalty_Id__c,LoyaltyID; Chatbot_Case_Id__c,chatbotCase" />
+    <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Case"
+           value="Origin,true; Language__c,true; Country__c,true; Brand__c,true; ChatType__c,true;Loyalty_Id__c,true; Chatbot_Case_Id__c,true" />
+    <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Case" value="CaseId" />
+    <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Case" value="true" />
+</apex:component>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Batch_Size__c</fullName>
+        <defaultValue>2000</defaultValue>
+        <description>Enter a number between 1 and 2000</description>
+        <externalId>false</externalId>
+        <label>Batch Size</label>
+        <precision>4</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Brandstore_Image_Token__c</fullName>
+        <defaultValue>&apos;Qbzrr3Nue4wvx4ysjrvfKGVPvC6KpHCh&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>Brandstore Image Token</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Brandstore_Retrieval_Notification_Emails__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma separated emails. No spaces.</inlineHelpText>
+        <label>Brandstore Retrieval Notification Emails</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Brandstore_Url__c</fullName>
+        <defaultValue>&quot;https://download.pgbrandstoreqa2.com&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Brandstore Url</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Dam_Image_Retrieval_Query__c</fullName>
+        <description>Only add where clause. For example Last_Dam_Request__c = null. Single quotes need to be escaped. Leave empty for default query.</description>
+        <externalId>false</externalId>
+        <label>Dam Image Retrieval Query</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>DAM Brandstore Settings</label>
+    <visibility>Protected</visibility>
+</CustomObject>

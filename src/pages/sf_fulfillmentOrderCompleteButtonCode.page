@@ -1,0 +1,179 @@
+<apex:page standardController="Fulfillment_Order__c" sidebar="false" showHeader="false" standardStylesheets="true">
+
+<apex:includeScript value="/soap/ajax/29.0/connection.js"/>
+<apex:includeScript value="/soap/ajax/29.0/apex.js"/>
+<apex:includeScript value="/support/console/30.0/integration.js"/>
+    
+    <script>
+    sforce.connection.sessionId = '{!$Api.Session_ID}';
+    window.onload=fulfillmentOrderComplete;
+    var intervalVariable;
+    function fulfillmentOrderComplete(){
+        try {        
+        var relatedCases = sforce.connection.query("SELECT Id, Country__c, Brand__c, Language__c,Locked_from_Editing__c,Contact_Center__c FROM Case WHERE Id='{!Fulfillment_Order__c.Case__c}'"); 
+        var records = relatedCases.getArray("records");
+        if(records.length==0){
+            alert('Related Case not found');
+            return;
+        }
+        var relatedCase = records[0]; 
+            //var country = relatedCase.Country__c; 
+            //var language = relatedCase.Language__c; 
+        var lock = relatedCase.Locked_from_Editing__c; 
+        var brand = '';
+        if(relatedCase.Brand__c != null) 
+            brand = relatedCase.Brand__c;
+        var contactCenter=relatedCase.Contact_Center__c; 
+        var ffid="{!Fulfillment_Order__c.Id}";
+        var ffname="{!Fulfillment_Order__c.name}";
+        var letterneeded= sforce.apex.execute("sf_FulfillmentUtility","checkForLetterGeneration",{forderId:ffid,contactCenter:contactCenter}); 
+        var FO = new sforce.SObject("Fulfillment_Order__c"); 
+        FO.id = "{!Fulfillment_Order__c.Id}" ; 
+        if (letterneeded=="0") {            
+            if(contactCenter!="AMR LA SY" && contactCenter!="AMR BR") { 
+                FO.PDF_Val__c = true; 
+            } 
+            FO.No_Letter_Needed__c=true; 
+            FO.PDF_Page_Count__c = 0;
+            result = sforce.connection.update([FO]); 
+            
+
+            //7/23/2015 - sfdc - post go live discovered that this should be removed.
+            //if(lock == 'false') 
+            //    caseComplete(); 
+            //else closeCurrentSubTab();
+
+            closeCurrentSubTab();
+            
+    
+        }//end if letterneeded="0"
+        else if(letterneeded=="1"){
+            var templateId = "{!Fulfillment_Order__c.Conga_Merge_Template_Id__c}"; 
+            if(templateId==""){
+                alert('No template selected');
+                openTab(ffid, ffname);
+            }
+            FO.Conga_Workflow_Trigger__c=true;
+            result = sforce.connection.update([FO]); 
+            //call timer method to check PDF is generated
+            window.setTimeout(timerCheckPDFGenerated, 3000);
+        }//end if letterneeded="1"
+        
+        }
+        catch(e){
+            alert('Exception: '+e);
+        }
+    }
+    
+    function caseComplete(){
+        var caseId = '{!Fulfillment_Order__c.Case__c}'; 
+        var caseDetailResult = sforce.connection.query("Select Id, Integration_Flag__c, NOT_HANDLED__c from Case where Id = '" + caseId + "'"); 
+        caseDetails = caseDetailResult.getArray('records'); 
+        var integrationFlag = caseDetails[0].Integration_Flag__c; 
+        var notHandledReason = caseDetails[0].NOT_HANDLED__c; 
+        var result = sforce.connection.query("Select Id from Case_Comment_Code__c where Case__c ='" + caseId + "'"); 
+        records1 = result.getArray('records'); 
+        var caseComments = records1.length; 
+        var result1 = sforce.connection.query("Select Id from Task where WhatId = '"+ caseId + "'"); 
+        records2 = result1.getArray('records'); 
+        var internalActivities = records2.length; 
+
+        if(integrationFlag == 'true' && (notHandledReason == '' || notHandledReason == null) && caseComments == 0) { 
+            alert('Please add a case comment code or enter not handled reason before closing the case.'); 
+            closeCurrentSubTab(); 
+        } 
+        else if(integrationFlag == 'true' && notHandledReason != null && internalActivities == 0) { 
+            var activity = new sforce.SObject("Task"); 
+            activity.Status = "Completed"; 
+            activity.WhatId = caseId; 
+            //NOTE - can clean up? recordtypeid not used in new implementation 
+            //activity.RecordTypeId = "012700000001Dsr"; 
+            activity.Subject = "Case closed - Not Handled"; 
+            var result3 = sforce.connection.create([activity]); 
+            closeCase('{!Fulfillment_Order__c.Case__c}'); 
+            closeCurrentSubTab(); 
+        } 
+        else if(integrationFlag == 'true' && notHandledReason == null & caseComments != 0 && internalActivities == 0) { 
+            var activity = new sforce.SObject("Task"); 
+            activity.Status = "Completed"; 
+            activity.WhatId = caseId; 
+            //NOTE - can clean up? recordtypeid not used in new implementation 
+            //activity.RecordTypeId = "012700000001Dsr"; 
+            activity.Subject = "Case closed - No Email Response to Consumer"; 
+            var result4 = sforce.connection.create([activity]); 
+            closeCase('{!Fulfillment_Order__c.Case__c}'); 
+            closeCurrentSubTab(); 
+        } 
+        else { 
+            closeCase('{!Fulfillment_Order__c.Case__c}'); 
+            closeCurrentSubTab(); 
+        } 
+    }
+
+    function closeCurrentSubTab(){ 
+        if (!sforce.console.isInConsole()) 
+            window.parent.location.replace('/{!Fulfillment_Order__c.Case__c}');
+        else {
+            sforce.console.getEnclosingTabId(function closeSubtab(result) {   
+                sforce.console.closeTab(result.id)
+            }); 
+        }
+    }
+    
+    function openTab(recid, recname) {
+          if ( !sforce.console.isInConsole() )
+            window.parent.location.replace('/'+recid);
+          else {
+              var primarytabid;
+              sforce.console.getEnclosingPrimaryTabId(function(primaryresult) {
+                  primarytabid=primaryresult.id;
+              });
+              
+              sforce.console.getEnclosingTabId(function(subtabresult) {
+                  sforce.console.openSubtab(primarytabid,'/'+recid , true, recname, subtabresult.id);
+              });              
+          }
+     }
+
+    function closeCase(caseId){ 
+        var closecaseobj = new sforce.SObject("Case"); 
+        closecaseobj.Status = "Closed"; 
+        closecaseobj.Id = caseId; 
+        sforce.connection.update([closecaseobj]); 
+    } 
+    
+    function timerCheckPDFGenerated() {
+        //write logic to check whether or not PDF is generated
+        var fforders = sforce.connection.query("SELECT Id,name,PDF_Generated__c FROM Fulfillment_Order__c WHERE Id='{!Fulfillment_Order__c.Id}'"); 
+        var fforderObjs = fforders.getArray("records");
+        if(fforderObjs.length==0){
+            closeCurrentSubTab();
+        } 
+        //alert(fforderObjs[0].PDF_Generated__c);
+        if(fforderObjs[0].PDF_Generated__c=="true"){ 
+            openTab(fforderObjs[0].Id, fforderObjs[0].name);
+        }
+        else {
+            //alert('Process is taking more time than expected. Please come back later.');
+            closeCurrentSubTab();
+        }
+    }
+    
+    </script>
+    <style>
+    .statusmessage {
+    height: 400px;
+    width: 500px;
+    font-style: oblique;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 200px;
+    line-height: 300px;
+    }
+    </style>
+    <!-- <div class="statusmessage" id="idStatusMsssage">
+        {!$Label.firstrun_helptext}
+    </div> -->
+    <br/>
+    <apex:pageMessage severity="info" strength="1" summary="{!$Label.Fulfillment_PDF_Generating}" />
+</apex:page>

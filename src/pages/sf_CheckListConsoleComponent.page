@@ -1,0 +1,421 @@
+<!-- sf_ChecklistConsoleComponent.page
+    
+    This page provides a way for agents to keep track of what information is needed before a case can be closed.
+    Depending on the state of the record, checkboxes will he displayed to show outstanding items.
+    
+    @param: Id - The Salesforce Id of the existing Case record
+    @Author: Chris Southworth 
+
+-->
+
+
+<apex:page standardController="Case" extensions="sf_ChecklistConsoleComponentCtrl" showHeader="false" sidebar="false" standardStylesheets="false">
+	<!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery1_10_4_CSS)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    	
+    <script type="text/javascript">
+    	if (!window.console) {console={log: function () {}}; }
+    	
+        var sfPrimaryTabId = null;
+        
+        //Get the primary tab id to be used for refreshes
+        var getTabId = function (result) {
+            sfPrimaryTabId = result.id;
+        };
+        sforce.console.getFocusedPrimaryTabId(getTabId);
+
+        //refresh the primary tab
+        function refreshSelectedCaseTab(){
+            sforce.console.getFocusedPrimaryTabId(function (result) {
+                if (result.success) {
+                    sforce.console.refreshPrimaryTabById(result.id, false, null);
+                }
+            });
+        }
+        
+        //refresh checklist when event is found
+        var refreshChecklist = function (result) {
+            window.location.reload();
+        };
+        sforce.console.addEventListener('sf_RefreshChecklistEvent', refreshChecklist);
+
+        //START - ContactInfo focus/refresh
+        var contactTab = 'contactInfo';
+
+        function navigateToContactInfo(){
+            //Can't use refreshSubtabByNameAndPrimaryTabId as 
+            //console.log('****** navigateToContactInfo primaryTabId: '+sfPrimaryTabId);
+            setTimeout(function(){sforce.console.focusSubtabByNameAndPrimaryTabId(contactTab, sfPrimaryTabId, null);}, 1800);  //wait for re-opening of subtabs to complete
+            reloadSubtabs();
+            //Timer to focus on ContactInfo
+        }
+        //END - ContactInfo focus/refresh
+        
+        function navigateToSurveySummary() {
+        	sforce.console.focusSubtabByNameAndPrimaryTabId('requiredInfo', sfPrimaryTabId,null);
+		}
+
+        function navigateToProductsSelected() {
+            sforce.console.focusSubtabByNameAndPrimaryTabId('productComment', sfPrimaryTabId,null);
+        }
+        
+        function navigateToFulfillment() {
+            sforce.console.focusSubtabByNameAndPrimaryTabId('fulfillment', sfPrimaryTabId,null);
+        }
+		
+		var reloadSubtabs = function() {
+		    sforce.console.getFocusedPrimaryTabId(function (result) {
+		      if(result.success) {
+		          sforce.console.fireEvent('sf_ReloadSubtabsEvent', result.id);
+		      }
+		    });
+		}
+		
+		function closeCaseTab(){
+			console.log('**Closing Tab: ' + sfPrimaryTabId);
+			var closeSubtab = function closeSubtab(result) {
+	            var tabId = result.id;
+	            sforce.console.closeTab(tabId);
+	        };
+			sforce.console.getFocusedPrimaryTabId(closeSubtab);
+		}
+		
+		function checkCaseStatusAndCloseTab(caseId){
+			sf_ChecklistConsoleComponentCtrl.verifyCaseStatus(caseId, function(result, event){
+				if(event.status){
+					console.log(result);
+					if(result){
+						closeCaseTab();
+					} else {
+						refreshSelectedCaseTab();
+					}
+				}
+			});
+		}
+            
+		var reloadFulfillments = function (result) {
+            
+            console.log('in reloadFulfillments function');
+            console.log('result.Id = '+result.id);
+
+            var subtabId = 'scc-st-6';
+
+            if(result.id==subtabId){
+                
+                sforce.console.refreshSubtabById(subtabId, true, refreshSuccess); 
+
+            }
+        };
+    
+        var refreshSuccess = function refreshSuccess(result) {
+
+            if (result.success == true) {
+                console.log('Subtab refreshed successfully');
+            } else {
+                console.log('Subtab did not refresh');
+            }
+        };
+    
+    	sforce.console.onFocusedSubtab(reloadFulfillments);
+    	//Chris: Workaround fin
+
+    </script>
+
+        <style>
+
+        .overrideCheckbox {
+            margin-left: 25px;
+            margin-top: 9px;
+        }
+
+        /*body {
+            font-family: Arial,Helvetica,sans-serif;
+            color: #222;
+            font-size: 71%;
+        }*/
+        
+        .checklistHeader{
+            position: absolute;
+            top: 30px;
+            left: 0px;
+            right: 0px;
+        }
+        
+        .checklist{
+            position: absolute;
+            top: 75px;
+            left: 0;
+            right: 0;
+            bottom: 35px;
+            overflow: scroll;
+        }
+        
+        .checklist a{
+            font-family: Arial;
+            font-weight: bold;
+            font-size: 10pt;
+            color: #1860ac;
+            text-decoration: underline;
+            text-align: left;
+            line-height: 16pt;
+            letter-spacing: 0em;
+            
+        }
+        
+        .agentChecklist{
+            font-family: Arial;
+            font-size: 13.25pt;
+            font-weight: bold;
+            color: #27282e;
+            text-align: left;
+            line-height: 16pt;
+            letter-spacing: -0.01em;
+            effect: none;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .noChecklistItems{
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+        
+        .hr-style{
+            height: 1px;
+            border-radius: 0px;
+            background: #e5e5e5;
+            border: none;
+            width: 100%;
+            margin-left: 0px;
+        }
+        
+        .contactInfo{
+            font-family: Arial;
+            font-weight: bold;
+            font-size: 12pt;
+            color: #27282e;
+            text-align: left;
+            line-height: 12pt;
+            letter-spacing: 0em;
+            margin-top: 14px;
+            margin-bottom: 18px;
+            margin-left: 10px;
+        }
+        
+        .requiredInfo{
+            font-family: Arial;
+            font-weight: bold;
+            font-size: 12pt;
+            color: #27282e;
+            text-align: left;
+            line-height: 12pt;
+            letter-spacing: 0em;
+            margin-top: 20px;
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+
+        .contactCheck{
+            margin-left: 10px;
+            margin-bottom: 18px;
+        }
+        
+        .addressCheck{
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .warningText{
+            margin-left: 10px;
+            margin-bottom: 20px;
+            color:red;
+            font-family: Arial;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+        
+        .surveySection{
+            margin-top: 20px;
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .mandatorySurveys,
+        .productionCodeVerification,
+        .mandatorySASSurveys{
+            margin-left: 10px;
+        }
+        
+        
+        .avaialbleForReturnVerification{
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .contactCheck,
+        .addressCheck,
+        .mandatorySurveys,
+        .mandatorySASSurveys,
+        .productionCodeVerification,
+        .avaialbleForReturnVerification,
+        .noChecklistItems{
+            font-family: Arial;
+            font-weight: bold;
+            font-size: 10pt;
+            color: #4a4a56;
+            text-align: left;
+            line-height: 16pt;
+            letter-spacing: 0em;
+        }
+        
+        .closeButton{
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            bottom: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    
+    </style>
+
+
+    <apex:form id="form">
+
+        <div >
+            <input onclick="reloadSubtabs()" value="{!$Label.AgentChecklist_ReloadSubtabs}" style="width: 100%" type="button"></input>
+        </div>            
+        <br/>
+    
+        <apex:actionFunction name="contactOverrideChanged" action="{!contactOverrideChanged}" onComplete="refreshSelectedCaseTab();" reRender="mandatoryContact, closeButton, errorMessages" status="sf_ProgressStatus"/>
+        <apex:actionFunction name="addressOverrideChanged" action="{!addressOverrideChanged}" onComplete="refreshSelectedCaseTab();" reRender="mandatoryAddress, closeButton, errorMessages" status="sf_ProgressStatus"/>
+        
+        <apex:pageMessages id="errorMessages"/>
+        
+        <div class="checklistHeader">
+			<div class="agentChecklist">
+				{!$Label.Agent_Checklist}
+			</div>
+	          	
+			<hr class="hr-style"/>
+        </div>
+       	
+       	<apex:outputPanel layout="block" styleClass="checklist" id="checklist">
+       	    <!--<apex:outputPanel rendered="{!If(( productComment != 0 && caseRecord.Product_Return_Status__c = 'Product Requested - Attempt 1' && (isBlank(caseRecord.Initial_Case_Submission_By__c))), true, false)}"> -->
+			<!--<apex:outputPanel rendered="{!If(( productComment != 0 && caseRecord.Product_Return_Status__c = 'Product Requested - Attempt 1' && (caseRecord.status = 'Open' || caseRecord.status = 'Reopened by User')), true, false)}"> -->
+			
+            <!--CR16 - alert advisor a return is required as soon as we know-->
+            <!--Replace with dynamic version below
+    		<apex:outputPanel rendered="{!returnRequired}">
+                
+			    <div class="contactInfo">
+			        {!$Label.AgentChecklist_MessageTitle}
+			    </div>
+			    <div class="warningText">
+			        {!$Label.AgentChecklist_MessagetoAgent}
+			    </div> 
+
+			    <hr class="hr-style"/>
+			</apex:outputPanel>-->
+
+            <apex:outputPanel id="messagePanel" rendered="{!returnRequired}">
+                <div class="warningText">
+                {!agentMessage}
+                </div>
+                <hr class="hr-style"/>
+            </apex:outputPanel>
+           	
+			<apex:outputPanel layout="block" styleClass="noChecklistItems" rendered="{!IF((!contactMandatory && surveyMax <= 0 && sasSurveyCount==0 && commentCodeRequiredCount == 0 && prodAvailForReturnRequiredCount==0), true, false)}" id="noChecklistItems">
+				{!$Label.Case_Checklist_No_Outstanding_Items}
+			</apex:outputPanel>
+			
+			<apex:outputPanel rendered="{!OR(surveyMax > 0, sasSurveyCount > 0, prodCodeRequiredCount > 0, commentCodeRequiredCount>0, prodAvailForReturnRequiredCount>0)}">
+				<div class="requiredInfo">
+	           		{!$Label.Required_Info}
+	           	</div>
+
+				<!--CR16 - Has product return type been set, if required-->
+	            <apex:outputPanel layout="block" rendered="{!returnCPS.size > 0}" styleClass="productionCodeVerification" id="setReturnTypeSection">
+	                <apex:inputCheckbox selected="{!returnTypeSet}" disabled="true"/> 
+	                <apex:commandLink onComplete="navigateToContactInfo();" >{!$Label.checklist_setReturnTypes}</apex:commandLink>
+				</apex:outputPanel>
+	           	
+                <!-- comment code entered verification -->
+                <apex:outputPanel layout="block" rendered="{!commentCodeRequiredCount>0}" styleClass="productionCodeVerification" id="commentCodeSection">
+                    <apex:inputCheckbox selected="{!commentCodeEnteredVerified}" disabled="true"/>{!commentCodeCompletedCount}/{!commentCodeRequiredCount}&nbsp;<apex:commandLink onComplete="navigateToProductsSelected();">{!$Label.Case_Checklist_Comment_Code_Mandatory}</apex:commandLink><br/>
+                </apex:outputPanel>
+
+				<apex:outputPanel layout="block" rendered="{!IF(surveyMax > 0, true, false)}" styleClass="mandatorySurveys" id="mandatorySurveys">
+					<apex:inputCheckbox value="{!surveysComplete}" selected="{!surveysComplete}" disabled="true"/>{!surveyCount}/{!surveyMax}&nbsp;<apex:commandLink onComplete="navigateToSurveySummary();">{!$Label.Case_Checklist_Mandatory_Surveys_Complete}</apex:commandLink><br/>
+				</apex:outputPanel>
+	
+				<apex:outputPanel layout="block" rendered="{!sasSurveyCount>0}" styleClass="mandatorySASSurveys" id="mandatorySASSurveys">
+					<apex:inputCheckbox value="{!sasSurveysComplete}" selected="{!sasSurveysComplete}" disabled="true"/>{!sasCompletedSurveyCount}/{!sasSurveyCount}&nbsp;<apex:commandLink onComplete="navigateToSurveySummary();">{!$Label.Case_Checklist_Mandatory_SASSurveys_Complete}</apex:commandLink><br/>
+				</apex:outputPanel>
+
+				<!-- US779 production code verification -->
+				<apex:outputPanel layout="block" rendered="{!prodCodeRequiredCount>0}" styleClass="productionCodeVerification" id="prodCodeSection">
+					<apex:inputCheckbox selected="{!productionCodesVerified}" disabled="true"/>{!prodCodeVerificationCompletedCount}/{!prodCodeRequiredCount}&nbsp;<apex:commandLink onComplete="navigateToProductsSelected();">{!$Label.Case_Checklist_Mandatory_Production_Code_Complete}</apex:commandLink><br/>
+				</apex:outputPanel>
+
+                <!-- product available for return verification -->
+                <apex:outputPanel layout="block" rendered="{!prodAvailForReturnRequiredCount>0}" styleClass="avaialbleForReturnVerification" id="returnSection">
+                    <apex:inputCheckbox selected="{!prodAvailForReturnVerified}" disabled="true"/>{!prodAvailForReturnCompletedCount}/{!prodAvailForReturnRequiredCount}&nbsp;<apex:commandLink onComplete="navigateToProductsSelected();">{!$Label.Case_Checklist_Mandatory_Production_AvailableForReturn_Complete}</apex:commandLink><br/>
+                </apex:outputPanel>
+	
+				<hr class="hr-style"/>
+			</apex:outputPanel>
+			
+			<apex:outputPanel rendered="{!contactMandatory || addressMandatory}">
+	           	<div class="contactInfo">
+	           		{!$Label.Contact_Info}
+	           	</div>
+	               
+				<apex:outputPanel layout="block" rendered="{!contactMandatory}" styleClass="contactCheck" id="mandatoryContact">
+					<apex:inputCheckbox value="{!linkedContact}" selected="{!linkedContact}" disabled="true"/>{!$Label.Case_Checklist_Mandatory_Contact}<br/>
+					<apex:outputPanel layout="block" rendered="{!!linkedContact || caseRecord.Consumer_declined_to_share_Contact_Info__c}">
+						<apex:inputCheckbox value="{!caseRecord.Consumer_declined_to_share_Contact_Info__c}" selected="{!caseRecord.Consumer_declined_to_share_Contact_Info__c}" disabled="{!caseClosed}" onchange="contactOverrideChanged();" styleClass="overrideCheckbox"/>{!$Label.Case_Checklist_Mandatory_Contact_Override}<br/>
+					</apex:outputPanel>
+				</apex:outputPanel>
+	
+				<apex:outputPanel layout="block" rendered="{!addressMandatory}" styleClass="addressCheck" id="mandatoryAddress">
+					<apex:inputCheckbox value="{!populatedAddress}" selected="{!populatedAddress}" disabled="true"/>{!$Label.Case_Checklist_Mandatory_Address}<br/>
+					<apex:outputPanel layout="block" rendered="{!!populatedAddress || caseRecord.Consumer_declined_to_share_Address__c}">
+						<apex:inputCheckbox value="{!caseRecord.Consumer_declined_to_share_Address__c}" selected="{!caseRecord.Consumer_declined_to_share_Address__c}" disabled="{!caseClosed}" onchange="addressOverrideChanged();" styleClass="overrideCheckbox"/>{!$Label.Case_Checklist_Mandatory_Address_Override}<br/>
+					</apex:outputPanel>
+				</apex:outputPanel>
+				
+				<hr class="hr-style"/> 
+			</apex:outputPanel>
+			
+				<!-- Cas: removed 1/29/15 no longer want to have agents wait for the PDF to generate
+				<apex:outputPanel rendered="{!pdfsNeeded}">
+	           	<div class="contactInfo">
+	           		{!$Label.Fulfillment}
+	           	</div>
+	           	<apex:outputPanel layout="block" styleClass="productionCodeVerification">
+					<apex:inputCheckbox selected="false" disabled="true"/>{!countPdfsCompleted}/{!countPdfsTotal}&nbsp;<apex:commandLink onComplete="navigateToFulfillment();">{!$Label.PDFs_Generated}</apex:commandLink><br/>
+				</apex:outputPanel>
+	            
+				
+				<hr class="hr-style"/>
+			</apex:outputPanel>-->
+			
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="block" styleClass="closeButton" id="closeButton">
+           <apex:commandButton action="{!closeCase}" value="{!$Label.Case_Checklist_SubmitCase}" disabled="{!!closeCaseButtonEnabled}" rendered="{!caseRecord.isClosed=false}" oncomplete="checkCaseStatusAndCloseTab('{!caseRecord.Id}');" rerender="errorMessages, checklist" style="width: 100%;" status="sf_ProgressStatus"/>
+        </apex:outputPanel>
+        
+        <apex:outputPanel layout="block" styleClass="closeButton" id="openButton">
+           <apex:commandButton action="{!openCase}" value="{!$Label.Case_Checklist_OpenCase}" rendered="{!caseRecord.isClosed=true}" oncomplete="checkCaseStatusAndCloseTab('{!caseRecord.Id}');reloadSubtabs();"  rerender="errorMessages, checklist" style="width: 100%;" status="sf_ProgressStatus"/>
+        </apex:outputPanel>
+
+        <c:sf_ProgressStatus labelText="Loading..."/>
+    </apex:form>
+
+</apex:page>

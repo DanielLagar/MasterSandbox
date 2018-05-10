@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Junction table that relates a Product to a Case</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ACR_Info__c</fullName>
+        <externalId>false</externalId>
+        <label>ACR Info</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACR_Return_Type__c</fullName>
+        <description>Return types supported by matching ACR:
+Digital = Digital + Physical 
+Physical = Physical only</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Return types supported by matching ACR:
+•Digital = Digital + Physical 
+•Physical = Physical only</inlineHelpText>
+        <label>ACR Return Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>ACR_Return_Type</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CCM_Retreival_Request__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>ALM 662</description>
+        <externalId>false</externalId>
+        <label>CCM Retreival Request</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CCM_Task_ID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>This is the CCM task ID.</description>
+        <externalId>true</externalId>
+        <label>CCM Task ID</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Case Products</relationshipLabel>
+        <relationshipName>Case_Products</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Change_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Change Reason</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Wrong Product Selected</fullName>
+                    <default>false</default>
+                    <label>Wrong Product Selected</label>
+                </value>
+                <value>
+                    <fullName>More Detail from Consumer</fullName>
+                    <default>false</default>
+                    <label>More Detail from Consumer</label>
+                </value>
+                <value>
+                    <fullName>Lower Level Available</fullName>
+                    <default>false</default>
+                    <label>Lower Level Available</label>
+                </value>
+                <value>
+                    <fullName>Product Received</fullName>
+                    <default>false</default>
+                    <label>Product Received</label>
+                </value>
+                <value>
+                    <fullName>Based on Production Code</fullName>
+                    <default>false</default>
+                    <label>Based on Production Code</label>
+                </value>
+                <value>
+                    <fullName>Initial Value</fullName>
+                    <default>false</default>
+                    <label>Initial Value</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Changed_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Changed By</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Consumer_Facing_Brand__c</fullName>
+        <externalId>false</externalId>
+        <formula>Local_Product__r.Consumer_Facing_Brand__c</formula>
+        <label>Consumer Facing Brand</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Consumer_Production_Code_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Consumer Production Code Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Consumer Verified</fullName>
+                    <default>false</default>
+                    <label>Consumer Verified</label>
+                </value>
+                <value>
+                    <fullName>Not Readable</fullName>
+                    <default>false</default>
+                    <label>Not Readable</label>
+                </value>
+                <value>
+                    <fullName>Not Available</fullName>
+                    <default>false</default>
+                    <label>Not Available</label>
+                </value>
+                <value>
+                    <fullName>Cannot Find</fullName>
+                    <default>false</default>
+                    <label>Cannot Find</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Country_of_Purchase__c</fullName>
+        <externalId>false</externalId>
+        <formula>Local_Product__r.Country__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Country of Purchase</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Digital_Return_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Unique Id generated for digital return form, set by code</description>
+        <externalId>true</externalId>
+        <inlineHelpText>Unique Id generated for digital return form, set by code</inlineHelpText>
+        <label>Digital Return Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Digital_Returns_Link__c</fullName>
+        <externalId>false</externalId>
+        <formula>$Setup.Global_Org_Settings__c.Base_Site_URL__c+&quot;ContactUs/siteDPRUploadForm?uid=&quot;+ Digital_Return_Id__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Digital Returns Link</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Expiration_Date__c</fullName>
+        <description>This is the date that this record Expires.</description>
+        <externalId>false</externalId>
+        <label>Expiration Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>GCR_LPID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Local_Product__r.GCR_LPID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GCR LPID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GCR_Product_ID__c</fullName>
+        <description>Pulled from the Global Product. GCR identifier. It is the external ID used by C3DB and SFDC.</description>
+        <externalId>false</externalId>
+        <formula>Local_Product__r.Global_Product__r.GCR_Product_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Pulled from the Global Product. GCR identifier. It is the external ID used by C3DB and SFDC.</inlineHelpText>
+        <label>GCR Product ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GTIN_Number__c</fullName>
+        <description>Deprecated. Do Not Use!</description>
+        <externalId>false</externalId>
+        <formula>Local_Product__r.GTIN_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Deprecated. Do Not Use!</inlineHelpText>
+        <label>Barcode (GTIN) deprecated</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GTIN__c</fullName>
+        <description>The GTIN of the selected product. Only populated if the agents picks the product at the from the GTIN object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The GTIN of the selected product. Only populated if the agents picks the product at the from the GTIN object.</inlineHelpText>
+        <label>GTIN</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Global_Product_ID__c</fullName>
+        <description>This is the Salesforce ID of the Global Product that this case product is associated with.</description>
+        <externalId>false</externalId>
+        <formula>Local_Product__r.Global_Product__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Global Product ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Global_Product_Path__c</fullName>
+        <externalId>false</externalId>
+        <formula>Local_Product__r.Global_Product__r.Path__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Global Product Path</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IPMS__c</fullName>
+        <description>The IPMS of the selected product. Only populated if the agents picks the product at the from the IPMS object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The IPMS of the selected product. Only populated if the agents picks the product at the from the IPMS object.</inlineHelpText>
+        <label>IPMS</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Local_Product__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Local Product</label>
+        <referenceTo>Local_Product__c</referenceTo>
+        <relationshipLabel>Case Products</relationshipLabel>
+        <relationshipName>Case_Products</relationshipName>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Adverse_Event_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Adverse Event Comments</label>
+        <summaryFilterItems>
+            <field>Case_Comment_Code__c.Comment_Code_Type__c</field>
+            <operation>equals</operation>
+            <value>Adverse Event</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Case_Comment_Code__c.Case_Product__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Comment_Codes__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Comment Codes</label>
+        <summaryForeignKey>Case_Comment_Code__c.Case_Product__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_PQC_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of PQC Comments</label>
+        <summaryFilterItems>
+            <field>Case_Comment_Code__c.Comment_Code_Type__c</field>
+            <operation>equals</operation>
+            <value>Product Quality Complaint</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Case_Comment_Code__c.Case_Product__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Product_Path__c</fullName>
+        <externalId>false</externalId>
+        <formula>Local_Product__r.Translated_Path__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Product Path</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_available_for_return__c</fullName>
+        <externalId>false</externalId>
+        <label>Product available for return</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes - Product is available</fullName>
+                    <default>false</default>
+                    <label>Yes - Product is available</label>
+                </value>
+                <value>
+                    <fullName>No - Consumer unwilling to return</fullName>
+                    <default>false</default>
+                    <label>No - Consumer unwilling to return</label>
+                </value>
+                <value>
+                    <fullName>No - Product discarded/unavailable</fullName>
+                    <default>false</default>
+                    <label>No - Product discarded/unavailable</label>
+                </value>
+                <value>
+                    <fullName>No - Product cannot be returned</fullName>
+                    <default>false</default>
+                    <label>No - Product cannot be returned</label>
+                </value>
+                <value>
+                    <fullName>Unknown - Written communication</fullName>
+                    <default>false</default>
+                    <label>Unknown - Written communication</label>
+                </value>
+                <value>
+                    <fullName>Consumer has sent</fullName>
+                    <default>false</default>
+                    <label>Consumer has sent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Product_in_Hand__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Product in Hand</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Production_Code_Verification__c</fullName>
+        <externalId>false</externalId>
+        <label>Production Code Verification</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Cannot Find</fullName>
+                    <default>false</default>
+                    <label>Cannot Find</label>
+                </value>
+                <value>
+                    <fullName>Consumer Verified</fullName>
+                    <default>false</default>
+                    <label>Consumer Verified</label>
+                </value>
+                <value>
+                    <fullName>Not Available</fullName>
+                    <default>false</default>
+                    <label>Not Available</label>
+                </value>
+                <value>
+                    <fullName>Not Readable</fullName>
+                    <default>false</default>
+                    <label>Not Readable</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Production_Code__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the production code?</inlineHelpText>
+        <label>Production Code</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Return_Request_Date__c</fullName>
+        <description>Date when Product Return Request is initiated.  Managed by Workflow Rule.</description>
+        <externalId>false</externalId>
+        <label>Return Request Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Same_Version__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you used this particular (exact same) version of the product before?</inlineHelpText>
+        <label>Used same version before?</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Search_Term__c</fullName>
+        <description>Search term used on email us page to find product</description>
+        <externalId>false</externalId>
+        <label>Search Term</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Product Requested - Attempt 1</fullName>
+                    <default>false</default>
+                    <label>Product Requested - Attempt 1</label>
+                </value>
+                <value>
+                    <fullName>Product Requested - Attempt 2</fullName>
+                    <default>false</default>
+                    <label>Product Requested - Attempt 2</label>
+                </value>
+                <value>
+                    <fullName>Product Requested - Attempt 3</fullName>
+                    <default>false</default>
+                    <label>Product Requested - Attempt 3</label>
+                </value>
+                <value>
+                    <fullName>Not Received after 3 Attempts</fullName>
+                    <default>false</default>
+                    <label>Not Received after 3 Attempts</label>
+                </value>
+                <value>
+                    <fullName>Consumer has sent</fullName>
+                    <default>false</default>
+                    <label>Consumer has sent</label>
+                </value>
+                <value>
+                    <fullName>Product Received</fullName>
+                    <default>false</default>
+                    <label>Product Received</label>
+                </value>
+                <value>
+                    <fullName>No - Consumer unwilling to return</fullName>
+                    <default>false</default>
+                    <label>No - Consumer unwilling to return</label>
+                </value>
+                <value>
+                    <fullName>No - Product discarded/unavailable</fullName>
+                    <default>false</default>
+                    <label>No - Product discarded/unavailable</label>
+                </value>
+                <value>
+                    <fullName>Photo - Attempt 1</fullName>
+                    <default>false</default>
+                    <label>Photo - Attempt 1</label>
+                </value>
+                <value>
+                    <fullName>Photo - Attempt 2</fullName>
+                    <default>false</default>
+                    <label>Photo - Attempt 2</label>
+                </value>
+                <value>
+                    <fullName>Photo - Attempt 3</fullName>
+                    <default>false</default>
+                    <label>Photo - Attempt 3</label>
+                </value>
+                <value>
+                    <fullName>Photo Received</fullName>
+                    <default>false</default>
+                    <label>Photo Received</label>
+                </value>
+                <value>
+                    <fullName>Photo Sufficient</fullName>
+                    <default>false</default>
+                    <label>Photo Sufficient</label>
+                </value>
+                <value>
+                    <fullName>Product/Photo no longer needed</fullName>
+                    <default>false</default>
+                    <label>Product/Photo no longer needed</label>
+                </value>
+                <value>
+                    <fullName>Photo Not Received</fullName>
+                    <default>false</default>
+                    <label>Photo Not Received</label>
+                </value>
+                <value>
+                    <fullName>Photo - Final Attempt</fullName>
+                    <default>false</default>
+                    <label>Photo - Final Attempt</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Where_Bought__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The store or location this product was purchased</inlineHelpText>
+        <label>Where Bought?</label>
+        <length>128</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>productstatus__c</fullName>
+        <description>This field indicates the status of the case product record</description>
+        <externalId>false</externalId>
+        <label>Product Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Added</fullName>
+                    <default>true</default>
+                    <label>Added</label>
+                </value>
+                <value>
+                    <fullName>Cancelled</fullName>
+                    <default>false</default>
+                    <label>Cancelled</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Case Product</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Return_Request_Date__c</columns>
+        <columns>NAME</columns>
+        <columns>Case__c</columns>
+        <columns>Number_of_Adverse_Event_Comments__c</columns>
+        <columns>Number_of_PQC_Comments__c</columns>
+        <columns>Product_Path__c</columns>
+        <columns>Expiration_Date__c</columns>
+        <columns>GTIN_Number__c</columns>
+        <columns>Local_Product__c</columns>
+        <columns>Global_Product_ID__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>CP-{000000}</displayFormat>
+        <label>Case Product Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Case Products</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Additional_Product_Information</fullName>
+        <active>true</active>
+        <description>This record type contains fields for additional product information.</description>
+        <label>Additional Product Information</label>
+        <picklistValues>
+            <picklist>Change_Reason__c</picklist>
+            <values>
+                <fullName>Based on Production Code</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Initial Value</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lower Level Available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>More Detail from Consumer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Received</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wrong Product Selected</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Consumer_Production_Code_Status__c</picklist>
+            <values>
+                <fullName>Cannot Find</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consumer Verified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Readable</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Product_available_for_return__c</picklist>
+            <values>
+                <fullName>No - Consumer unwilling to return</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No - Product cannot be returned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No - Product discarded%2Funavailable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown - Written communication</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes - Product is available</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Production_Code_Verification__c</picklist>
+            <values>
+                <fullName>Cannot Find</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consumer Verified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Readable</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Same_Version__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Consumer has sent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No - Consumer unwilling to return</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No - Product discarded%2Funavailable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Received after 3 Attempts</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Received</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Requested - Attempt 1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Requested - Attempt 2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product Requested - Attempt 3</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>productstatus__c</picklist>
+            <values>
+                <fullName>Added</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Case__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Change_Reason__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Expiration_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Global_Product_ID__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>GTIN_Number__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Local_Product__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Case__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Change_Reason__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Expiration_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Global_Product_ID__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>GTIN_Number__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Local_Product__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Case__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Change_Reason__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Expiration_Date__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Global_Product_ID__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>GTIN_Number__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Local_Product__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Case__c</searchFilterFields>
+        <searchFilterFields>Change_Reason__c</searchFilterFields>
+        <searchFilterFields>Expiration_Date__c</searchFilterFields>
+        <searchFilterFields>Global_Product_ID__c</searchFilterFields>
+        <searchFilterFields>GTIN_Number__c</searchFilterFields>
+        <searchFilterFields>Local_Product__c</searchFilterFields>
+        <searchResultsAdditionalFields>Case__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Change_Reason__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Expiration_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Global_Product_ID__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>GTIN_Number__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Local_Product__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

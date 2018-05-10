@@ -1,0 +1,38 @@
+<apex:page standardController="FAQ__kav" extensions="pkb_Controller,sf_ContactUsLanguageController" sidebar="false" showHeader="false" cache="false" standardStylesheets="true">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{!FAQ__kav.Title}</title>
+<!--     <script src="{!$Resource.pkb_jquery_simplemodal_1_4_1}" type="text/javascript" />  -->
+    <c:pkb_css />
+    <c:pkb_js pkbCon="{!pkbCon}" />
+    </head>
+    <apex:composition template="ContactUsTemplate">
+        <apex:define name="body">
+            <div class="row back-bar">
+                <a href="{!backToSearchUrl}" ><span class="back-caret">&lt;</span> {!language_config.Back_To_Results__c}</a>
+            </div>
+            <div class="contentCenter article-container">
+                <!--CDOY WR387 - Changed Tags below to H1 -->
+                <h1 class='article-title'>{!FAQ__kav.Title}</h1>
+                <apex:outputText rendered="{!NOT(ISBLANK(FAQ__kav.Answer__c))}">
+                    <div class="articlecontent"><apex:outputText value="{!FAQ__kav.Answer__c}" escape="false"></apex:outputText></div>
+                </apex:outputText>
+
+                <apex:outputPanel layout="block" styleClass="feedbackContainer">
+                    <c:pkb_feedbackyesno pkbCon="{!pkbCon}" />
+                </apex:outputPanel>
+
+
+                <apex:outputText rendered="{!NOT(ISBLANK(FAQ__kav.Helpful_Links__c))}">
+                    <div class='subtitle'>Helpful Links</div>
+                    <div class="articlecontent"><apex:outputLabel value="{!FAQ__kav.Helpful_Links__c}" escape="false"></apex:outputLabel></div>
+                </apex:outputText>
+
+                <apex:outputPanel >
+                    <!--<c:pkb_related pkbCon="{!pkbCon}" /> -->
+                </apex:outputPanel>
+
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

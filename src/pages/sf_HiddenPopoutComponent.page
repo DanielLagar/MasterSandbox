@@ -1,0 +1,148 @@
+<!--
+#    
+#    This page is placed as a hidden console component and controls case subtabs that are opened by default
+#    
+#    @param: Id - The Salesforce Id of the existing Case record
+#    @author: Oleg Rikkers
+#    @date: 7/21/2014
+#
+-->
+
+<apex:page showHeader="false" sidebar="false" standardController="Case">
+	
+	<apex:includeScript value="/support/console/30.0/integration.js"/>
+    <!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <script>
+        if (!window.console) {console={log: function () {}}; }
+
+		//CS: name for 'requiredInfo' tab is used in sf_ChecklistConsoleComponent to focus that tab when the surveys link is clicked.
+        var subtabs = [
+            {url: '/apex/sf_ProductSearchSubtab', title: '{!$Label.Product_Search}', icon: "{!URLFOR($Resource.sf_Icons, 'Icons/magnifying_small.png')}", name: 'productSearch'},
+            {url: '/apex/sf_ProductsAddedSubtab', title: '{!$Label.Product_Comment}', icon: "{!URLFOR($Resource.sf_Icons, 'Icons/product_comment.png')}", name: 'productComment'},
+            {url: '/apex/sf_CaseSurveySubtab', title: '{!$Label.Required_Info}', icon: "{!URLFOR($Resource.sf_Icons, 'Icons/required_Info.png')}", name: 'requiredInfo'},
+            {url: '/apex/sf_ContactInfo', title: '{!$Label.Contact_Info}', icon: "{!URLFOR($Resource.sf_Icons, 'Icons/contact_info.png')}", name: 'contactInfo'},
+            {url: '/apex/sf_FulfillmentOrderSubtab', title: '{!$Label.Fulfillment}', icon: "{!URLFOR($Resource.sf_Icons, 'Icons/fulfillment.png')}", name: 'fulfillment'} 
+        ];
+
+        var loadSubtab = function(sfPrimaryTabId, currentSubtabMap, caseId, index, finalCallback) {
+            if(index<0 || index>=subtabs.length) {return;}
+
+            var subtab = subtabs[index];
+            var url = subtab.url + '?id=' + caseId;
+            var callback;
+            var next = index+1;
+            if (next == subtabs.length) {
+                callback = finalCallback;
+            }
+            else {
+                callback = function() { loadSubtab(sfPrimaryTabId, currentSubtabMap, caseId, next, finalCallback); };
+            }
+            sforce.console.openSubtab(sfPrimaryTabId, url, false, subtab.title, null, function(result) {
+                sforce.console.setTabIcon(subtab.icon, result.id, null);
+                callback();
+            }, subtab.name);
+        };
+
+        var buildSubtabMap = function(idList, subtabMap, finalCallback) {
+            if(idList.length) {
+                var subtabId = idList.shift();
+                sforce.console.getTabLink(sforce.console.TabLink.TAB_ONLY, subtabId, function(result) {
+                    if(result && result.success) {
+                        var subtabUrl = decodeURIComponent(result.tabLink.split('console#')[1]).split('?')[0];
+                        subtabMap[subtabUrl] = subtabId;
+                    }
+                    buildSubtabMap(idList, subtabMap, finalCallback);
+                });
+            }
+            else {
+                finalCallback(subtabMap);
+            }
+        };
+
+        var getSubtabMap = function(sfPrimaryTabId, callback) {
+            sforce.console.getSubtabIds(sfPrimaryTabId, function(result) {
+                if(result && result.success) {
+                    buildSubtabMap(result.ids, {}, callback);
+                }
+            });
+        };
+
+        var closeSubtabs = function(currentSubtabMap) {
+            var index;
+            for (index = 0; index<subtabs.length; index++) {
+                var subtab = subtabs[index];
+            
+	            if(currentSubtabMap && currentSubtabMap[subtab.url]) {
+	                //close existing subtab
+	                sforce.console.closeTab(currentSubtabMap[subtab.url]);
+	            }
+            }
+        }
+
+        var reloadAllSubtabs = function(sfPrimaryTabId, caseId, callback) {
+            getSubtabMap(sfPrimaryTabId, function(subtabMap) {
+                closeSubtabs(subtabMap);
+                setTimeout(function(){loadSubtab(sfPrimaryTabId, subtabMap, caseId, 0, callback);}, 350);  //wait for closing of subtabs to complete
+            });
+           
+        };
+
+        var loadCaseSubtabsOnReady = function(tabId) {
+            sforce.console.getPageInfo(tabId, function(piResult) {
+                //console.log('&&& loadCaseSubtabsOnReady: getPageInfo('+ tabId +'): ' + JSON.stringify(piResult));
+                if(piResult.success) {
+                    var pageInfo = JSON.parse(piResult.pageInfo);
+                    if(pageInfo && pageInfo.objectId && pageInfo.objectId.substring(0,3) === '500') { //it's a case
+                        reloadAllSubtabs(tabId, pageInfo.objectId, function(){
+                            //console.log('All subtabs have been opened.');
+                        });
+                    }
+                    else if(pageInfo && pageInfo.url.substr(0,6) == '/500/e') {
+		                //new case still hasn't been saved yet
+		                setTimeout(function(){ loadCaseSubtabsOnReady(tabId); }, 3000);
+		            } //else not a case; don't (re)fire timer
+                } //else cannot get page info; don't (re)fire timer
+            });
+        }
+
+        var loadSubtabs = function(event) {
+            var i, tabId;
+            //console.log('OPEN_TAB event: ' + JSON.stringify(event));
+            if(event && event.id) {
+                tabId = event.id;
+                sforce.console.getSubtabIds(tabId, function(stResult) {
+                    //console.log('&&& getSubtabIds('+ tabId +'): ' + JSON.stringify(stResult));
+                    if(stResult && stResult.success && stResult.ids !== null) { //if we have subtabs, we must be a primary tab
+                        loadCaseSubtabsOnReady(tabId);
+                    }
+                });
+            }
+        };
+
+    </script>
+    
+	<script type="text/javascript">
+
+        //Grab tab id and case record id
+        var previousOnload = window.onload; 
+        window.onload = function() { 
+            //console.log("hidden tab is entering onload");
+            
+            if (previousOnload) { 
+                previousOnload(); 
+            }
+
+            //loadTabs();
+            sforce.console.addEventListener(sforce.console.ConsoleEvent.OPEN_TAB, loadSubtabs);
+            sforce.console.addEventListener('sf_ReloadSubtabsEvent', function(event) {
+                //console.log('&&& sf_ReloadSubtabsEvent fired');
+                loadSubtabs({id: event.message});
+            });
+        }; 
+
+        
+	</script>
+
+</apex:page>

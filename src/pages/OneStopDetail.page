@@ -1,0 +1,126 @@
+<apex:page standardController="One_Stop__c">
+    <style type="text/css">
+        .actionColumn {display:none; visibility:hidden}
+    </style>
+    <script src="../../soap/ajax/27.0/connection.js" type="text/javascript"></script> 
+    <script>
+    function makeMeOwner(){
+        try{
+        sforce.connection.sessionId = '{!$Api.Session_ID}';
+        var newRecords = []; 
+        var os = new sforce.SObject("One_Stop__c"); 
+        os.id ="{!One_Stop__c.Id}"; 
+        os.OwnerId = '{!$User.Id}'; 
+        os.Status__c = 'Working'; 
+        newRecords.push(os); 
+        var result = sforce.connection.update(newRecords); 
+        //alert(result);
+        location.reload();
+        }
+        catch(err){
+        alert(err);
+        }
+    }
+    </script>
+        <apex:sectionHeader title="{!$ObjectType.One_Stop__c.label}" subtitle="{!One_Stop__c.name}"/>
+        &nbsp;&nbsp;<apex:outputLink value="{!URLFOR($Action.One_Stop__c.Tab, $ObjectType.One_Stop__c)}"> Back to List: 1STOP Requests</apex:outputLink><br/><br/>
+        <apex:pageBlock title="{!$ObjectType.One_Stop__c.label} Detail">
+                <apex:pageBlockButtons >
+                <apex:form >
+                        <apex:commandButton action="{!edit}" value="Edit"/>
+                        <apex:commandButton action="{!delete}" value="Delete"/>
+                        <apex:commandButton action="{!URLFOR($Action.One_Stop__c.Approve,One_Stop__c)}" value="Approve" rendered="{!AND($User.X1STOP_Approver__c,(One_Stop__c.X1STOP_Approval__c = ''))}"/>
+                        <apex:commandButton value="Make Me Owner" onclick="makeMeOwner();return false;" rendered="{! AND($User.Id!=One_Stop__c.OwnerId, One_Stop__c.Status__c!='Closed')}"/>
+                        <apex:commandButton action="{!URLFOR($Action.One_Stop__c.Close_Request,One_Stop__c)}" value="Close Request" rendered="{! NOT(One_Stop__c.Status__c=='Closed')}"/>
+                        <!--<apex:commandButton value="Reopen" onclick="reopenrequest();return false;" rendered="{!One_Stop__c.Status__c=='Closed'}"/>-->
+                        <apex:commandButton action="{!URLFOR($Action.One_Stop__c.Reopen,One_Stop__c)}" value="Reopen" rendered="{!One_Stop__c.Status__c=='Closed'}"/>
+                        <apex:commandButton action="{!URLFOR($Action.One_Stop__c.Add_Comment,One_Stop__c)}" value="Add Comment" rendered="{! NOT(One_Stop__c.Status__c=='Closed')}"/>
+                       
+                </apex:form>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection showHeader="false" columns="2">
+                        <apex:outputField value="{!One_Stop__c.Name}"/>
+                        <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="1STOP Owner"/>
+                                <apex:outputPanel >
+                                        <apex:outputField value="{!One_Stop__c.OwnerId}"/>&nbsp;
+                                        <a href="/{!One_Stop__c.Id}/a?retURL={!One_Stop__c.Id}">[Change]</a>
+                                </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:outputField value="{!One_Stop__c.Subject__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Status__c}"/>                         
+                        <apex:outputField value="{!One_Stop__c.Sub_Status__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Case__c}"/> 
+                        <apex:outputField value="{!One_Stop__c.Request_Category__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Priority__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Request_Subcategory__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Flag__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Requested_Due_Date__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Reopened_Count__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Actual_Expected_Due_Date__c}"/>
+                        <apex:pageBlockSectionItem />                
+                        <apex:outputField value="{!One_Stop__c.Request_Description__c}"/>
+                        <apex:pageBlockSectionItem />
+                        <apex:outputField value="{!One_Stop__c.Due_Date_Comments__c}"/>
+                        <apex:pageBlockSectionItem />
+                        <apex:outputField value="{!One_Stop__c.Request_Closed_Date__c}"/>
+                        <apex:pageBlockSectionItem />
+                </apex:pageBlockSection>
+                <apex:pageBlockSection showHeader="true" title="Requestor Details" columns="2">
+                        <apex:outputField value="{!One_Stop__c.Requestor_Name__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Additional_To_Email_address_1__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Requestor_Email__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Additional_To_Email_address_2__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Requestor_Telephone_Number__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Additional_To_Email_address_3__c}"/>
+                        <apex:pageBlockSectionItem />                        
+                        <apex:outputField value="{!One_Stop__c.Additional_To_Email_address_4__c}"/>
+                        <apex:pageBlockSectionItem />
+                        <apex:outputField value="{!One_Stop__c.Additional_To_Email_address_5__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection showHeader="true" title="Admin Details" columns="1">
+                              <apex:outputField value="{!One_Stop__c.Work_Request__c}"/>
+                              <apex:outputField value="{!One_Stop__c.Admin_Notes__c}"/>
+                              <apex:outputField value="{!One_Stop__c.Reason_for_Passed_SLA__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection showHeader="true" title="Approval Details" columns="1">
+                        <apex:outputField value="{!One_Stop__c.Approver_Name__c}" />
+                        <apex:outputField value="{!One_Stop__c.Approver_Email__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Approval_Date__c}"/>
+                        <apex:outputField value="{!One_Stop__c.X1STOP_Approval__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Meets_Criteria__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Secondary_Approver_Date__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Secondary_Approver_Name__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Business_Reviewer_or_Approver__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Business_Review_or_Approved_Date__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Report_Provided__c}"/>
+                        <!--<apex:outputField value="{!One_Stop__c.IsItApproved__c}" />
+                        <apex:outputField value="{!One_Stop__c.IsItAdmin_handled__c}"/> -->                       
+                </apex:pageBlockSection>
+                 <apex:pageBlockSection showHeader="true" title="Comment Summary" columns="1">
+                        <apex:outputField value="{!One_Stop__c.Comment_Summary__c}"/>
+                        <apex:outputField value="{!One_Stop__c.Comment__c}" rendered="false"/>
+                        <apex:outputField value="{!One_Stop__c.Send_Email__c}" rendered="false"/>
+                        <apex:outputField value="{!One_Stop__c.Send_Notification_To_Approver__c }" rendered="false"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection showHeader="false" columns="2">                        
+                        <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Created By"></apex:outputLabel>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!One_Stop__c.CreatedById}"/>&nbsp;&nbsp;
+                                    <apex:outputField value="{!One_Stop__c.CreatedDate}"/>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Last Modified by"></apex:outputLabel>
+                                <apex:outputPanel >
+                                    <apex:outputField value="{!One_Stop__c.LastModifiedById}"/>&nbsp;&nbsp;
+                                    <apex:outputField value="{!One_Stop__c.LastModifiedDate}"/>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+         <apex:relatedList id="comments" list="X1STOPComments__r"  />        
+        <apex:relatedList subject="{!One_Stop__c}" list="NotesAndAttachments"/>
+        <c:OneStopHistoryTracking OneStopObj="{!One_Stop__c}" />      
+</apex:page>

@@ -1,0 +1,362 @@
+<apex:page standardController="Case" extensions="sf_ProductSearchConsoleComponentCtrl" showHeader="false" sidebar="false">
+  
+  	<!-- sf_ProductSearchConsoleComponent.page
+  	
+  	This page provides a way to search for Products and Case Comment Codes and add them to the existing Case Record.
+  	Products and Case Comment codes can be added and removed dynamically.
+  	
+  	@param: Id - The Salesforce Id of the existing Case record
+  	@Author: Oleg Rikkers, Chris Southworth	
+  	
+  	 -->
+
+    <!--<apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>-->
+    
+    <!--<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"/>-->
+    <!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+	<apex:stylesheet value="{!URLFOR($Resource.jQuery1_10_4_CSS)}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <!-- <apex:includeScript value="https://c.cs3.visual.force.com/support/api/30.0/interaction.js"/> -->
+
+    <script type="text/javascript">
+        var caseLanguage = '{!Case.Language__c}';
+
+        // var reloadPrimaryTab = function () {
+        //     sforce.console.getEnclosingPrimaryTabId (function (result) {
+        //         //sforce.console.refreshPrimaryTabById (result.id, false);
+        //         // sforce.interaction.entityFeed.refreshObject('{!case.id}', true, true, true, function(response) {
+        //         //     alert('Case was updated: ' + response.result);
+        //         // });
+        //     });
+        // };
+        var productSearchAutocomplete = function ($this, $country) {
+
+            $($this).autocomplete({
+                minLength: 3,
+                delay: 400,
+                source: function (request, response) {
+                    
+                    var startTime = new Date().getTime();
+                    sf_ProductSearchConsoleComponentCtrl.doSoslSearch (request.term, $country, function(result, event){
+                        
+                        if(event.status) {
+                            response (result);
+                            
+                            var searchTime = new Date().getTime() - startTime;
+                           
+                            //$('.processingTime').text('  ' + result.length + ' results (' + searchTime + 'ms)'); // Cas: removed time component
+                            $('.processingTime').text('  ' + result.length + ' results'); 
+                            $('.processingTime').css('color','green');
+                        } else {
+                            console.log (event);
+                            $('.processingTime').text('ERROR - ' + event.message);
+                            $('.processingTime').css('color','red');
+                        }
+                    });
+                },
+                
+                // focus: function (event, ui) {
+            //     //uncomment if you want to display result in the input field as you hover over
+            //     //j$($autoCompleteBox).val( ui.item.Name );
+            //      return false;
+               //  }, //end for focus
+
+                select: function (event, ui) {
+                    sf_ProductSearchConsoleComponentCtrl.addProduct (ui.item.Id, '{!Case.Id}', function(result, event){
+                        
+                        if(event.status) {
+                            refreshCaseProducts();  
+                        } else {
+                            alert (event); 
+                        }
+                    });
+                    $(this).blur(); // unfocus search box after selecting a product.
+                    return false;
+                }, //end select
+
+                close : function (event, ui) {
+                    return false;  
+                }, //end close
+
+                create: function () {
+                    $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+                        return $('<li>')
+                            .append('<a>' + item.Translated_Path__c + '</a>')
+                            .appendTo(ul);
+                    };
+                }// end create
+            }).focus(function() { // onfocus redo search
+                $(this).autocomplete("search");
+            });
+           
+        }; // end productSearchAutocomplete
+        
+		//case comment search methods
+        var caseCommentSearchAutocomplete = function ($element, $country, $productId){
+            $($element).autocomplete({
+                minLength: 3,
+                delay: 400,
+                source: function (request, response) {
+                    sf_ProductSearchConsoleComponentCtrl.doCaseCommentSoslSearch (request.term, $country, caseLanguage, function(result, event){
+                        if(event.status) {
+                            response (result);
+                        } else {
+                            alert.log (event);
+                        }
+                    });
+
+                },                
+                
+                select: function (event, ui) {
+                    sf_ProductSearchConsoleComponentCtrl.addCaseCommentCode('{!Case.Id}', ui.item.Id, $productId, function(result, event){
+                    	if(event.status){
+                    		refreshCaseProducts();
+                    	}else{
+                    		alert.log(event);
+                    	}
+                    });
+                    $(this).blur();
+                    return false;
+                }, //end select
+
+                close : function (event, ui) {
+                    return false;  
+                }, //end close
+
+                create: function () {
+                    $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+                        return $('<li>')
+                            .append('<a>' + item.Translated_Path__c + '</a>')
+                            .appendTo(ul);
+                    };
+                }// end create
+            }).focus(function() { // onfocus redo search
+                $(this).autocomplete("search");
+            });
+        }; // end caseCommentSearchAutocomplete
+    </script>
+
+    <apex:form id="form">
+        <apex:actionFunction name="refreshCaseProducts" action="{!refreshCaseProducts}" reRender="caseProductsSection, errorMessages" status="status"/>
+		<apex:actionFunction name="removeCommentCode" action="{!removeCommentCode}" oncomplete="refreshCaseProducts()" reRender="caseProductsSection, errorMessages" status="status">
+			<apex:param name="commentCodeId" value="" assignTo="{!commentCodeId}"/>
+		</apex:actionFunction>
+
+        <apex:pageMessages id="errorMessages"/>
+        <apex:outputPanel styleClass="errorMessages"/>
+        <apex:outputPanel styleClass="productSearchPanel">
+            <apex:pageBlock mode="mainDetail" rendered="{!!ISBLANK(Case.Id)}">
+                
+                <apex:outputPanel style="margin-bottom: 10px">
+                    <apex:outputPanel layout="block" styleClass="pageTitle">
+                    Product Search
+                    </apex:outputPanel>
+
+                    <apex:inputField value="{!Case.Country__c}" styleClass="country" style="margin-left:25px;"/>
+                    <apex:outputPanel layout="block" styleClass="searchBar">  
+                        <apex:inputText label="Enter Product Name" html-placeholder="Search..."
+                        onfocus="productSearchAutocomplete($(this), $('.country').val())"/>
+                        <apex:outputText styleClass="processingTime"/> 
+
+                    </apex:outputPanel>                   
+                </apex:outputPanel>
+                
+                <apex:pageBlockSection >
+                </apex:pageBlockSection>
+                
+                <apex:outputPanel layout="block" styleClass="caseProductsSection" id="caseProductsSection">
+                    <apex:repeat value="{!productCommentsList}" var="productList">
+                        <apex:outputPanel layout="block" styleClass="caseProductItem">
+                            <apex:commandLink value="[X] Remove" action="{!removeCaseProduct}" oncomplete="refreshCaseProducts()" style="text-decoration:none; color:red;" status="status">
+                                <apex:param value="{!productList.product.Id}" assignTo="{!localProductId}" name="localProductId"/>
+                            </apex:commandLink>
+                            
+                            <apex:outputPanel layout="block" styleClass="productName">
+                                {!productList.product.Local_Product__r.Translated_Path__c}
+                            </apex:outputPanel>
+                            
+                            <!-- <apex:outputText value="Search Comment Code: "/> -->
+                            <apex:inputText html-placeholder="Search Comment Code..." onfocus="caseCommentSearchAutocomplete($(this), $('.country').val(), '{!productList.product.Id}')" style="width:300px; padding:5px"/>
+                            <p/>
+                            <apex:outputPanel layout="block" styleClass="caseCommentCodeSection">
+                                <ul class="products tags">
+			                		<apex:repeat value="{!productList.caseCommentCodes}" var="commentCode" id="commentsList">
+			                			<li>
+			                				<a href="javascript:removeCommentCode('{!commentCode.Id}')">
+			                					[X] {!commentCode.Local_Comment_Code__r.Translated_Path__c}
+			                				</a>
+			                			</li>
+			                		</apex:repeat>
+                                </ul>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </apex:repeat>
+                </apex:outputPanel>
+
+            </apex:pageBlock>
+        </apex:outputPanel>
+        <apex:actionStatus id="status">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height: 100%;opacity:0.65;width:100%;">
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Loading...</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:form>
+
+    <style>
+    .ui-autocomplete-loading {
+        background: white url('/img/loading.gif') right center no-repeat;
+    }
+
+    .ui-autocomplete {
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 9999;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+    }
+
+    .ui-widget {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+    }
+      /* IE 6 doesn't support max-height
+       * we use height instead, but this forces the menu to always be this tall
+       */
+    * html .ui-autocomplete {
+        height: 200px;
+    }
+
+    .caseProductItem {
+        margin:10px 25px;
+        padding: 15px;
+        border-width: 3px;
+        border-color: #d0d0d0;
+
+        background: #e4f3f7;
+    }
+
+    .productName {
+        margin-top: 2px;
+        margin-bottom: 2px;
+        font-weight: bold;
+    }
+
+/* tags */
+      .tags{
+    margin:0;
+    padding:0;
+   /* position:absolute;*/
+    right:24px;
+    bottom:-12px;
+    list-style:none;
+    }
+
+    .tags li, .tags a{
+    float:left;
+    height:auto;
+    line-height:24px;
+    position:relative;
+    font-size:11px;
+    margin: 2px;
+    }
+
+    .tags a{
+    margin-left:0px;
+    padding:0 10px 0 10px;
+    background:#0089e0;
+    color:#fff;
+    text-decoration:none;
+    -moz-border-radius-bottomright:8px;
+    -webkit-border-bottom-right-radius:8px;
+    border-bottom-right-radius:8px;
+    
+    -moz-border-radius-bottomleft:8px;
+    -webkit-border-bottom-left-radius:8px;
+    border-bottom-left-radius:8px;
+    
+    -moz-border-radius-topright:8px;
+    -webkit-border-top-right-radius:8px;
+    border-top-right-radius:8px;
+
+    -moz-border-radius-topleft:8px;
+    -webkit-border-top-left-radius:8px;
+    border-top-left-radius:8px;
+    } 
+ 
+ 
+ /*
+    .tags a:before{
+    content:"";
+    float:left;
+    position:absolute;
+    top:0;
+    left:-12px;
+    width:0;
+    height:0;
+    border-color:transparent #0089e0 transparent transparent;
+    border-style:solid;
+    border-width:12px 12px 12px 0;      
+    }
+
+    .tags a:after{
+    content:"";
+    position:absolute;
+    top:10px;
+    left:0;
+    float:left;
+    width:4px;
+    height:4px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    background:#fff;
+    -moz-box-shadow:-1px -1px 2px #004977;
+    -webkit-box-shadow:-1px -1px 2px #004977;
+    box-shadow:-1px -1px 2px #004977;
+    }
+    
+    */
+
+
+    .tags a:hover {
+        color: white;
+        text-decoration: none;
+    } 
+
+    .tags a:hover:before{
+        border-color:transparent #0089e0 transparent transparent;
+    }
+
+    .caseCommentCodeSection {
+        overflow: hidden;
+    }
+
+    .pageTitle {
+        margin-top:25px; 
+        margin-left:25px; 
+        margin-bottom:5px; 
+        font-weight:bold; 
+        size: 16px;
+    }
+
+    .searchBar input{
+        width:250px; 
+        padding: 5px; 
+    }
+
+    .searchBar {
+        margin: 5px 25px;
+    }
+
+
+  </style>
+
+</apex:page>

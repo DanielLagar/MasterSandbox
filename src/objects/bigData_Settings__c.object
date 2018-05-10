@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Callout settings for Big Data/Product Availability service</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>GoogleAPIKey__c</fullName>
+        <description>This is the browser API key for the Javascript API, this is publically and needs to be protected using the http referrer function in the Google Developer Dashboard. For example to white list the care hub site in dev needs both of the below: 
+dev-pgconsumersupport.cs30.force.com/carehub* 
+*.dev-pgconsumersupport.cs30.force.com/carehub*</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the browser API key for the Javascript API</inlineHelpText>
+        <label>GoogleAPIKey</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Google_Server_Key__c</fullName>
+        <description>This is the Google Server key - it is not publically exposed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the Google Server key - it is not publically exposed.</inlineHelpText>
+        <label>Google Server Key</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Include_Siblings__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>On = big data response will include sibling products in JSON response</description>
+        <externalId>false</externalId>
+        <inlineHelpText>On = big data response will include sibling products in JSON response</inlineHelpText>
+        <label>Include Siblings</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Page_Size__c</fullName>
+        <description>Number of results displayed per page/map on where to buy tool</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of results displayed per page/map on where to buy tool</inlineHelpText>
+        <label>Page Size</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Test_GTIN__c</fullName>
+        <description>GTIN used to confirm bigdata service is up and available</description>
+        <externalId>false</externalId>
+        <inlineHelpText>GTIN used to confirm bigdata service is up and available</inlineHelpText>
+        <label>Test GTIN</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Test_Latitude__c</fullName>
+        <description>Latitude used to confirm bigdata service is up and available</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Latitude used to confirm bigdata service is up and available</inlineHelpText>
+        <label>Test Latitude</label>
+        <length>12</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Test_Longitude__c</fullName>
+        <description>Longitude used to confirm bigdata service is up and available</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Longitude  used to confirm bigdata service is up and available</inlineHelpText>
+        <label>Test Longitude</label>
+        <length>12</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Token__c</fullName>
+        <description>Token for calling big data with</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Token for calling big data with</inlineHelpText>
+        <label>Token</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>bigData_Endpoint__c</fullName>
+        <externalId>false</externalId>
+        <label>bigData Endpoint</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>bigData Settings</label>
+    <visibility>Protected</visibility>
+</CustomObject>

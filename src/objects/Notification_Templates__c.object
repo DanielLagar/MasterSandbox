@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Stores notification templates which can be used in the sending notifications to consumers.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Brand__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Leave this field empty if you want to insert a Notification template for the entire language. Our logic works like this...First searches for the &apos;Brand + Language&apos; combination, if matched record not found, then searches for &apos;Brand is empty + Language&apos;</inlineHelpText>
+        <label>Brand</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>E.g. English-US, Spanish...</inlineHelpText>
+        <label>Language</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Template_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Template Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Template_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Template Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Notification Templates</label>
+    <visibility>Public</visibility>
+</CustomObject>

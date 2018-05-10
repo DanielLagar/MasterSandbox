@@ -1,0 +1,30 @@
+<apex:page id="thankYouEmailUsPage" sidebar="false" showHeader="false" docType="html-5.0" standardStylesheets="false" controller="sf_ContactUsTemplateController" extensions="sf_EmailUsExt" applyHtmlTag="false" applyBodyTag="false" title="{!Brand}">
+    <title>{!Brand}</title>
+    <head>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{!brand_config.URL_Favicon__c}" type="image/x-icon" />
+    </head>
+    <body>
+        <apex:composition template="ContactUsTemplate">
+            <apex:define name="body">
+                <div class="innerForm" style="margin-top:0px !important">
+                    <!-- FIXME - pass name in -->
+                    <!-- Removed for WR236
+                    <div class="pull-left"><h2>{!lang_config.Thank_You_Part_1__c}{!IF(NOT(ISBLANK($CurrentPage.parameters.firstName)),', '+$CurrentPage.parameters.firstName,'')}{!lang_config.Thank_You_Part_2__c}</h2></div>
+                    -->
+                    <div class="pull-left"><h2>{!lang_config.Thank_You_Part_1__c}{!lang_config.Thank_You_Part_2__c}</h2></div>
+					<!-- FIXME - pass case number in  -->
+                    <div class="pull-right">{!lang_config.Thank_You_Case_Number__c}&nbsp;<span style="font-weight:bold">{!$CurrentPage.parameters.caseNumber}</span></div>
+                    <div class="clearfix"></div>
+                    
+                    <div><h2 style="font-weight:normal;">{!lang_config.Thank_You_Part_3__c}</h2></div>
+                    <div style="width:75%; margin-top:15px;">{!lang_config.Thank_You_Part_4__c} </div>
+                    
+                    <div class="emailDivider"></div>
+                    <!-- FIXME get helpful articles -->
+                    <div><a href="/ContactUs/pkb_Home?brand={!$CurrentPage.parameters.brand}&language={!$CurrentPage.parameters.language}">{!lang_config.Thank_You_Search_Articles__c}</a></div>
+                </div>
+            </apex:define>
+        </apex:composition>
+    </body>
+</apex:page>

@@ -1,0 +1,26 @@
+<!-- 
+* @author: Archana Sethuraman
+* @date: 08/19/2014
+* @description: Thankyou page for PII Site. 
+  Page migrated from Temp org
+ -->
+<apex:page showHeader="false" sidebar="false" language="{!$CurrentPage.parameters.lang}" controller="sf_PIIContactUsCon">
+    <apex:composition template="sf_PetCareSiteTemplate">
+	    <apex:define name="content">
+	        
+		    <script type="text/javascript">
+		       window.onload=function(){
+		          window.scrollTo(0,0);
+		       }
+		    </script>  
+		    <apex:image value="{!$Resource.PGHeaderLogo}" /> <br/><br/>
+		    <apex:outputPanel >      
+		       <h1 class="pink">{!$Label.Thank_You}</h1>
+		       <p>
+		          <apex:outputLabel value="{!$Label.PII_ThankyouMessage}" escape="false"/>
+		          <b>{!$CurrentPage.parameters.cn}</b>
+		      </p>
+		    </apex:outputPanel>
+	    </apex:define>
+    </apex:composition>
+</apex:page>

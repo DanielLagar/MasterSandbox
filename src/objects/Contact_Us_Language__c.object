@@ -1,0 +1,2775 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object is for configuring the language/countries for the contact us page</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Accept_Terms_and_Conditions_Label_Part_1__c</fullName>
+        <description>This is the part of the terms and conditions label that comes before the link to the terms and conditions.</description>
+        <externalId>false</externalId>
+        <label>Accept Terms and Conditions Label Part 1</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Accept_Terms_and_Conditions_Label_Part_2__c</fullName>
+        <description>This is the part of the terms and conditions label that will link to the terms and conditions</description>
+        <externalId>false</externalId>
+        <label>Accept Terms and Conditions Label Part 2</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Accept_Terms_and_Conditions_Label_Part_3__c</fullName>
+        <description>This is the part (can be empty) of the terms and conditions label that will come after the link to the terms and conditions</description>
+        <externalId>false</externalId>
+        <label>Accept Terms and Conditions Label Part 3</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Accept_Terms_and_Conditions_Label__c</fullName>
+        <description>label for accept Ts &amp; Cs checkbox</description>
+        <externalId>false</externalId>
+        <label>Accept Terms and Conditions Label</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_Questions__c</fullName>
+        <description>Label used for the &quot;Additional Questions&quot; header in the case summary.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Label used for the &quot;Additional Questions&quot; header in the case summary.</inlineHelpText>
+        <label>Additional Questions</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Age_Range_Please_Select__c</fullName>
+        <externalId>false</externalId>
+        <label>Age Range Please Select</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Article_Search_Button_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Article Search Button Label</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Article_Search_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Article Search Label</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Back_to_Results__c</fullName>
+        <externalId>false</externalId>
+        <label>Back to Results</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Barcode_Search_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Barcode Search Label</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Barcode_Tab__c</fullName>
+        <externalId>false</externalId>
+        <label>Barcode Tab</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BigData_Locale_Code__c</fullName>
+        <description>Specific locale code required for bigdata/where to buy/sibling finder support:
+https://msdn.microsoft.com/en-ca/library/ee825488(v=cs.20).aspx</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Specific locale code required for bigdata/where to buy/sibling finder support:
+https://msdn.microsoft.com/en-ca/library/ee825488(v=cs.20).aspx</inlineHelpText>
+        <label>BigData Locale Code</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Birthdate_field_validation_error__c</fullName>
+        <externalId>false</externalId>
+        <label>Birthdate field validation error</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Brand_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Brand Label</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Brand_Please_Select__c</fullName>
+        <externalId>false</externalId>
+        <label>Brand Please Select</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Button_Label_Submit__c</fullName>
+        <externalId>false</externalId>
+        <label>Button Label Submit</label>
+        <length>16</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CSAT_Alternate_Contact_Details__c</fullName>
+        <description>Holds translation for &quot;Please provide alternative contact details?&quot; label for CSAT Survey</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds translation for &quot;Please provide alternative contact details?&quot; label for CSAT Survey</inlineHelpText>
+        <label>CSAT Alternate Contact Details</label>
+        <length>1000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CSAT_Hear_Feedback__c</fullName>
+        <description>Holds translation/wording for line above survey when response has NOT been received</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds translation/wording for line above survey when response has NOT been received</inlineHelpText>
+        <label>CSAT Hear Feedback</label>
+        <length>1000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CSAT_No_Response_Received_Submission__c</fullName>
+        <description>Holds translation/wording to display on the post submission page on the CSAT Survey when the consumer provides alternative contact details</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds translation/wording to display on the post submission page on the CSAT Survey when the consumer provides alternative contact details</inlineHelpText>
+        <label>CSAT No Response Received Submission</label>
+        <length>1000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CSAT_Receive_Response__c</fullName>
+        <description>Holds translation for &quot;Did you receive our response?&quot; label for CSAT Survey</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds translation for &quot;Did you receive our response?&quot; label for CSAT Survey</inlineHelpText>
+        <label>CSAT Receive Response</label>
+        <length>1000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CSAT_Response_Below__c</fullName>
+        <description>Holds translation for &quot;Please find our response below:&quot; label for CSAT Survey</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds translation for &quot;Please find our response below:&quot; label for CSAT Survey</inlineHelpText>
+        <label>CSAT Response Below</label>
+        <length>1000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CSAT_Response_Help__c</fullName>
+        <description>Holds translation for &quot;Did the above response help?&quot; label for CSAT Survey</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds translation for &quot;Did the above response help?&quot; label for CSAT Survey</inlineHelpText>
+        <label>CSAT Response Help</label>
+        <length>1000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CSAT_Survey_Not_Found_Message__c</fullName>
+        <externalId>false</externalId>
+        <label>CSAT Survey Not Found Message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CSAT_Thank_you_message__c</fullName>
+        <externalId>false</externalId>
+        <label>CSAT Thank you message</label>
+        <length>5000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CSAT_Think_about_experience__c</fullName>
+        <description>Holds translation/wording for CSAT form to display above survey when response has been received</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds translation/wording for CSAT form to display above survey when response has been received</inlineHelpText>
+        <label>CSAT Think about experience</label>
+        <length>1000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CSAT_Welcome_Message__c</fullName>
+        <externalId>false</externalId>
+        <label>CSAT Welcome Message</label>
+        <length>5000</length>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Cancel__c</fullName>
+        <description>Cancel button label</description>
+        <externalId>false</externalId>
+        <label>Cancel</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Characters_Remaining__c</fullName>
+        <description>Text for &quot;xxx characters remaining&quot; dynamic label</description>
+        <externalId>false</externalId>
+        <label>Characters Remaining</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Close_Window__c</fullName>
+        <description>Link text to close feedback dialog</description>
+        <externalId>false</externalId>
+        <label>Close Window</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Address_Dialog_No__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Address Dialog No</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Address_Dialog_Yes__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Address Dialog Yes</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Address_Line_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Address Line 1</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Address_Line_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Address Line 2</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Address_Line_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Address Line 3</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Address_Verification__c</fullName>
+        <description>Address Verification Dialog Title</description>
+        <externalId>false</externalId>
+        <label>Contact Us Address Verification</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Age__c</fullName>
+        <description>Label for Age Range field on Contact Us form</description>
+        <externalId>false</externalId>
+        <label>Contact Us Age</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Allowed_Attachements__c</fullName>
+        <defaultValue>&quot;docx,pdf&quot;</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter comma separated values. No spaces. For example: &quot;docx,pdf&quot;</inlineHelpText>
+        <label>Contact Us Allowed Attachements</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Are_you_emailing_us__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Are you emailing us</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Attachements_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Attachements Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Attachements_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Attachements Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Attachements_Not_Supported__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Message on the page that will show up if attachments are not supported.</inlineHelpText>
+        <label>Contact Us Attachements Not Supported</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Attachment_is_too_big_message__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Attachment is too big message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Birth_Date_Placeholder__c</fullName>
+        <description>Placeholder text to show in birthdate field, e.g., MM/YYYY</description>
+        <externalId>false</externalId>
+        <label>Contact Us Birth Date Placeholder</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Birth_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Birth Date</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_City_Town__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us City / Town</label>
+        <length>112</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Comment_SubHeading__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Comment SubHeading</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Continue__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Continue</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Email_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Email Address</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_First_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us First Name</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Form_Text__c</fullName>
+        <description>Text that appears at the top of the form</description>
+        <externalId>false</externalId>
+        <label>Contact Us Form Text</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Gender__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Gender</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Invalid_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Invalid Address</label>
+        <length>112</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Invalid_Attachment_Message__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Invalid Attachment Message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Keep_Entered_Address__c</fullName>
+        <description>Displayed label for entered address in address verification dialog box</description>
+        <externalId>false</externalId>
+        <label>Contact Us Keep Entered Address</label>
+        <length>122</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Last Name</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Mandatory_Fields_Key__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Mandatory Fields Key</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Override_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Override Reason</label>
+        <length>110</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Phone_Placeholder__c</fullName>
+        <description>Placeholder text shown in the Contact Us Phone field</description>
+        <externalId>false</externalId>
+        <label>Contact Us Phone Placeholder</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Phone</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Please_Enter_Your_Comment__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Please Enter Your Comment</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Product_Not_Found_Checkbox__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Product Not Found Checkbox</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Product_Not_Found_Label__c</fullName>
+        <description>Label for product search that describes what to do if product not found.</description>
+        <externalId>false</externalId>
+        <label>Contact Us Product Not Found Label</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Product_Search_Header__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Product Search Header</label>
+        <length>128</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Reason_for_Writing__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Reason for Writing</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_State_Province_County__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us State/Province/County</label>
+        <length>112</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Suggested_Address__c</fullName>
+        <description>Displayed message for strikeIron address on address verification dialog</description>
+        <externalId>false</externalId>
+        <label>Contact Us Suggested Address</label>
+        <length>122</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Too_Young_Heading__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Too Young Heading</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Too_Young_Text__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Too Young Text</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Want_To_Continue__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Want To Continue</label>
+        <length>112</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Zip_Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Us Zip/Postal Code</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country_Filter_Label__c</fullName>
+        <description>label for country filter field</description>
+        <externalId>false</externalId>
+        <label>Country Filter Label</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Country Label</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country_Picklist_Label__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Text you want to appear in the picklist value when country list is created.</inlineHelpText>
+        <label>Country Picklist Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Andorra</fullName>
+                    <default>false</default>
+                    <label>Andorra</label>
+                </value>
+                <value>
+                    <fullName>Argentina</fullName>
+                    <default>false</default>
+                    <label>Argentina</label>
+                </value>
+                <value>
+                    <fullName>Australia</fullName>
+                    <default>false</default>
+                    <label>Australia</label>
+                </value>
+                <value>
+                    <fullName>Austria</fullName>
+                    <default>false</default>
+                    <label>Austria</label>
+                </value>
+                <value>
+                    <fullName>Bahrain</fullName>
+                    <default>false</default>
+                    <label>Bahrain</label>
+                </value>
+                <value>
+                    <fullName>Belarus</fullName>
+                    <default>false</default>
+                    <label>Belarus</label>
+                </value>
+                <value>
+                    <fullName>Belgium</fullName>
+                    <default>false</default>
+                    <label>Belgium</label>
+                </value>
+                <value>
+                    <fullName>Belize</fullName>
+                    <default>false</default>
+                    <label>Belize</label>
+                </value>
+                <value>
+                    <fullName>Bolivia</fullName>
+                    <default>false</default>
+                    <label>Bolivia</label>
+                </value>
+                <value>
+                    <fullName>Brazil</fullName>
+                    <default>false</default>
+                    <label>Brazil</label>
+                </value>
+                <value>
+                    <fullName>Canada</fullName>
+                    <default>false</default>
+                    <label>Canada</label>
+                </value>
+                <value>
+                    <fullName>Chile</fullName>
+                    <default>false</default>
+                    <label>Chile</label>
+                </value>
+                <value>
+                    <fullName>China</fullName>
+                    <default>false</default>
+                    <label>China</label>
+                </value>
+                <value>
+                    <fullName>Colombia</fullName>
+                    <default>false</default>
+                    <label>Colombia</label>
+                </value>
+                <value>
+                    <fullName>Costa Rica</fullName>
+                    <default>false</default>
+                    <label>Costa Rica</label>
+                </value>
+                <value>
+                    <fullName>Croatia</fullName>
+                    <default>false</default>
+                    <label>Croatia</label>
+                </value>
+                <value>
+                    <fullName>Cyprus</fullName>
+                    <default>false</default>
+                    <label>Cyprus</label>
+                </value>
+                <value>
+                    <fullName>Czech Republic</fullName>
+                    <default>false</default>
+                    <label>Czech Republic</label>
+                </value>
+                <value>
+                    <fullName>Denmark</fullName>
+                    <default>false</default>
+                    <label>Denmark</label>
+                </value>
+                <value>
+                    <fullName>Dominican Republic</fullName>
+                    <default>false</default>
+                    <label>Dominican Republic</label>
+                </value>
+                <value>
+                    <fullName>Ecuador</fullName>
+                    <default>false</default>
+                    <label>Ecuador</label>
+                </value>
+                <value>
+                    <fullName>Egypt</fullName>
+                    <default>false</default>
+                    <label>Egypt</label>
+                </value>
+                <value>
+                    <fullName>El Salvador</fullName>
+                    <default>false</default>
+                    <label>El Salvador</label>
+                </value>
+                <value>
+                    <fullName>Estonia</fullName>
+                    <default>false</default>
+                    <label>Estonia</label>
+                </value>
+                <value>
+                    <fullName>Finland</fullName>
+                    <default>false</default>
+                    <label>Finland</label>
+                </value>
+                <value>
+                    <fullName>France</fullName>
+                    <default>false</default>
+                    <label>France</label>
+                </value>
+                <value>
+                    <fullName>Germany</fullName>
+                    <default>false</default>
+                    <label>Germany</label>
+                </value>
+                <value>
+                    <fullName>Greece</fullName>
+                    <default>false</default>
+                    <label>Greece</label>
+                </value>
+                <value>
+                    <fullName>Guatemala</fullName>
+                    <default>false</default>
+                    <label>Guatemala</label>
+                </value>
+                <value>
+                    <fullName>Honduras</fullName>
+                    <default>false</default>
+                    <label>Honduras</label>
+                </value>
+                <value>
+                    <fullName>Hong Kong</fullName>
+                    <default>false</default>
+                    <label>Hong Kong</label>
+                </value>
+                <value>
+                    <fullName>Hungary</fullName>
+                    <default>false</default>
+                    <label>Hungary</label>
+                </value>
+                <value>
+                    <fullName>Iceland</fullName>
+                    <default>false</default>
+                    <label>Iceland</label>
+                </value>
+                <value>
+                    <fullName>India</fullName>
+                    <default>false</default>
+                    <label>India</label>
+                </value>
+                <value>
+                    <fullName>Indonesia</fullName>
+                    <default>false</default>
+                    <label>Indonesia</label>
+                </value>
+                <value>
+                    <fullName>Ireland</fullName>
+                    <default>false</default>
+                    <label>Ireland</label>
+                </value>
+                <value>
+                    <fullName>Israel</fullName>
+                    <default>false</default>
+                    <label>Israel</label>
+                </value>
+                <value>
+                    <fullName>Italy</fullName>
+                    <default>false</default>
+                    <label>Italy</label>
+                </value>
+                <value>
+                    <fullName>Japan</fullName>
+                    <default>false</default>
+                    <label>Japan</label>
+                </value>
+                <value>
+                    <fullName>Kazakhstan</fullName>
+                    <default>false</default>
+                    <label>Kazakhstan</label>
+                </value>
+                <value>
+                    <fullName>Kenya</fullName>
+                    <default>false</default>
+                    <label>Kenya</label>
+                </value>
+                <value>
+                    <fullName>Korea</fullName>
+                    <default>false</default>
+                    <label>Korea</label>
+                </value>
+                <value>
+                    <fullName>Kuwait</fullName>
+                    <default>false</default>
+                    <label>Kuwait</label>
+                </value>
+                <value>
+                    <fullName>Latvia</fullName>
+                    <default>false</default>
+                    <label>Latvia</label>
+                </value>
+                <value>
+                    <fullName>Lebanon</fullName>
+                    <default>false</default>
+                    <label>Lebanon</label>
+                </value>
+                <value>
+                    <fullName>Libya</fullName>
+                    <default>false</default>
+                    <label>Libya</label>
+                </value>
+                <value>
+                    <fullName>Lithuania</fullName>
+                    <default>false</default>
+                    <label>Lithuania</label>
+                </value>
+                <value>
+                    <fullName>Luxembourg</fullName>
+                    <default>false</default>
+                    <label>Luxembourg</label>
+                </value>
+                <value>
+                    <fullName>Malaysia</fullName>
+                    <default>false</default>
+                    <label>Malaysia</label>
+                </value>
+                <value>
+                    <fullName>Malta</fullName>
+                    <default>false</default>
+                    <label>Malta</label>
+                </value>
+                <value>
+                    <fullName>Mexico</fullName>
+                    <default>false</default>
+                    <label>Mexico</label>
+                </value>
+                <value>
+                    <fullName>Monaco</fullName>
+                    <default>false</default>
+                    <label>Monaco</label>
+                </value>
+                <value>
+                    <fullName>Morocco</fullName>
+                    <default>false</default>
+                    <label>Morocco</label>
+                </value>
+                <value>
+                    <fullName>Netherlands</fullName>
+                    <default>false</default>
+                    <label>Netherlands</label>
+                </value>
+                <value>
+                    <fullName>New Zealand</fullName>
+                    <default>false</default>
+                    <label>New Zealand</label>
+                </value>
+                <value>
+                    <fullName>Nicaragua</fullName>
+                    <default>false</default>
+                    <label>Nicaragua</label>
+                </value>
+                <value>
+                    <fullName>Nigeria</fullName>
+                    <default>false</default>
+                    <label>Nigeria</label>
+                </value>
+                <value>
+                    <fullName>Norway</fullName>
+                    <default>false</default>
+                    <label>Norway</label>
+                </value>
+                <value>
+                    <fullName>Oman</fullName>
+                    <default>false</default>
+                    <label>Oman</label>
+                </value>
+                <value>
+                    <fullName>Pakistan</fullName>
+                    <default>false</default>
+                    <label>Pakistan</label>
+                </value>
+                <value>
+                    <fullName>Panama</fullName>
+                    <default>false</default>
+                    <label>Panama</label>
+                </value>
+                <value>
+                    <fullName>Paraguay</fullName>
+                    <default>false</default>
+                    <label>Paraguay</label>
+                </value>
+                <value>
+                    <fullName>Parthia</fullName>
+                    <default>false</default>
+                    <label>Parthia</label>
+                </value>
+                <value>
+                    <fullName>Peru</fullName>
+                    <default>false</default>
+                    <label>Peru</label>
+                </value>
+                <value>
+                    <fullName>Philippines</fullName>
+                    <default>false</default>
+                    <label>Philippines</label>
+                </value>
+                <value>
+                    <fullName>Poland</fullName>
+                    <default>false</default>
+                    <label>Poland</label>
+                </value>
+                <value>
+                    <fullName>Portugal</fullName>
+                    <default>false</default>
+                    <label>Portugal</label>
+                </value>
+                <value>
+                    <fullName>Puerto Rico</fullName>
+                    <default>false</default>
+                    <label>Puerto Rico</label>
+                </value>
+                <value>
+                    <fullName>Qatar</fullName>
+                    <default>false</default>
+                    <label>Qatar</label>
+                </value>
+                <value>
+                    <fullName>Romania</fullName>
+                    <default>false</default>
+                    <label>Romania</label>
+                </value>
+                <value>
+                    <fullName>Russia</fullName>
+                    <default>false</default>
+                    <label>Russia</label>
+                </value>
+                <value>
+                    <fullName>Saudi Arabia</fullName>
+                    <default>false</default>
+                    <label>Saudi Arabia</label>
+                </value>
+                <value>
+                    <fullName>Singapore</fullName>
+                    <default>false</default>
+                    <label>Singapore</label>
+                </value>
+                <value>
+                    <fullName>Slovak Republic</fullName>
+                    <default>false</default>
+                    <label>Slovak Republic</label>
+                </value>
+                <value>
+                    <fullName>Slovenia</fullName>
+                    <default>false</default>
+                    <label>Slovenia</label>
+                </value>
+                <value>
+                    <fullName>South Africa</fullName>
+                    <default>false</default>
+                    <label>South Africa</label>
+                </value>
+                <value>
+                    <fullName>Spain</fullName>
+                    <default>false</default>
+                    <label>Spain</label>
+                </value>
+                <value>
+                    <fullName>Sweden</fullName>
+                    <default>false</default>
+                    <label>Sweden</label>
+                </value>
+                <value>
+                    <fullName>Switzerland</fullName>
+                    <default>false</default>
+                    <label>Switzerland</label>
+                </value>
+                <value>
+                    <fullName>Taiwan</fullName>
+                    <default>false</default>
+                    <label>Taiwan</label>
+                </value>
+                <value>
+                    <fullName>Thailand</fullName>
+                    <default>false</default>
+                    <label>Thailand</label>
+                </value>
+                <value>
+                    <fullName>Tunisia</fullName>
+                    <default>false</default>
+                    <label>Tunisia</label>
+                </value>
+                <value>
+                    <fullName>Turkey</fullName>
+                    <default>false</default>
+                    <label>Turkey</label>
+                </value>
+                <value>
+                    <fullName>UAE</fullName>
+                    <default>false</default>
+                    <label>UAE</label>
+                </value>
+                <value>
+                    <fullName>Ukraine</fullName>
+                    <default>false</default>
+                    <label>Ukraine</label>
+                </value>
+                <value>
+                    <fullName>United Kingdom</fullName>
+                    <default>false</default>
+                    <label>United Kingdom</label>
+                </value>
+                <value>
+                    <fullName>United States of America</fullName>
+                    <default>false</default>
+                    <label>United States of America</label>
+                </value>
+                <value>
+                    <fullName>Uruguay</fullName>
+                    <default>false</default>
+                    <label>Uruguay</label>
+                </value>
+                <value>
+                    <fullName>Venezuela</fullName>
+                    <default>false</default>
+                    <label>Venezuela</label>
+                </value>
+                <value>
+                    <fullName>Vietnam</fullName>
+                    <default>false</default>
+                    <label>Vietnam</label>
+                </value>
+                <value>
+                    <fullName>Yemen</fullName>
+                    <default>false</default>
+                    <label>Yemen</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Error_Message_Font_Size__c</fullName>
+        <defaultValue>&quot;16px&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Error Message Font Size</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ExternalId__c</fullName>
+        <externalId>false</externalId>
+        <label>ExternalId</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Featured_Articles__c</fullName>
+        <externalId>false</externalId>
+        <label>Featured Articles</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feedback_Intro__c</fullName>
+        <description>Intro text on feedback form</description>
+        <externalId>false</externalId>
+        <label>Feedback Intro</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feedback_Thanks__c</fullName>
+        <description>Message display after article feedback is submitted</description>
+        <externalId>false</externalId>
+        <label>Feedback Thanks</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feedback_Title__c</fullName>
+        <description>Title for feedback form</description>
+        <externalId>false</externalId>
+        <label>Feedback Title</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field_is_required_message__c</fullName>
+        <externalId>false</externalId>
+        <label>Field is required message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GCRCountryIsoCode__c</fullName>
+        <externalId>false</externalId>
+        <label>Country Alpha2 ISO Code</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GCRLanguageIsoCode__c</fullName>
+        <externalId>false</externalId>
+        <label>Language 639-1 Code</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gender_Female__c</fullName>
+        <externalId>false</externalId>
+        <label>Gender Female</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gender_Male__c</fullName>
+        <externalId>false</externalId>
+        <label>Gender Male</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gender_Not_Specified__c</fullName>
+        <externalId>false</externalId>
+        <label>Gender Not Specified</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gender_Please_Select__c</fullName>
+        <externalId>false</externalId>
+        <label>Gender Please Select</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Helpful_Links__c</fullName>
+        <description>Label for Helpful Links section</description>
+        <externalId>false</externalId>
+        <label>Helpful Links</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Helpful_No__c</fullName>
+        <description>Negative response to &quot;Was this article helpful?&quot;</description>
+        <externalId>false</externalId>
+        <label>Helpful No</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Helpful_Prompt__c</fullName>
+        <description>Text to ask if an article was helpful</description>
+        <externalId>false</externalId>
+        <label>Helpful Prompt</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Helpful_Yes__c</fullName>
+        <description>Positive response to &quot;Was this article helpful?&quot;</description>
+        <externalId>false</externalId>
+        <label>Helpful Yes</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>I_agree_URL__c</fullName>
+        <externalId>false</externalId>
+        <label>I agree URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Invalid_email_message__c</fullName>
+        <externalId>false</externalId>
+        <label>Invalid email message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Language Label</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language_Locale_Key__c</fullName>
+        <externalId>false</externalId>
+        <label>Language Locale Key</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language_Picklist_Label__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Language display label in the picklist. Eg. German - Deutsch</inlineHelpText>
+        <label>Language Picklist Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language__c</fullName>
+        <externalId>false</externalId>
+        <label>Language</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Country__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Arabic</fullName>
+                    <default>false</default>
+                    <label>Arabic</label>
+                </value>
+                <value>
+                    <fullName>Chinese</fullName>
+                    <default>false</default>
+                    <label>Chinese</label>
+                </value>
+                <value>
+                    <fullName>Chinese-T</fullName>
+                    <default>false</default>
+                    <label>Chinese-T</label>
+                </value>
+                <value>
+                    <fullName>Croatian</fullName>
+                    <default>false</default>
+                    <label>Croatian</label>
+                </value>
+                <value>
+                    <fullName>Czech</fullName>
+                    <default>false</default>
+                    <label>Czech</label>
+                </value>
+                <value>
+                    <fullName>Danish</fullName>
+                    <default>false</default>
+                    <label>Danish</label>
+                </value>
+                <value>
+                    <fullName>Dutch</fullName>
+                    <default>false</default>
+                    <label>Dutch</label>
+                </value>
+                <value>
+                    <fullName>English-GB</fullName>
+                    <default>false</default>
+                    <label>English-GB</label>
+                </value>
+                <value>
+                    <fullName>English-US</fullName>
+                    <default>false</default>
+                    <label>English-US</label>
+                </value>
+                <value>
+                    <fullName>Estonian</fullName>
+                    <default>false</default>
+                    <label>Estonian</label>
+                </value>
+                <value>
+                    <fullName>Farsi</fullName>
+                    <default>false</default>
+                    <label>Farsi</label>
+                </value>
+                <value>
+                    <fullName>Finnish</fullName>
+                    <default>false</default>
+                    <label>Finnish</label>
+                </value>
+                <value>
+                    <fullName>Flemish</fullName>
+                    <default>false</default>
+                    <label>Flemish</label>
+                </value>
+                <value>
+                    <fullName>French</fullName>
+                    <default>false</default>
+                    <label>French</label>
+                </value>
+                <value>
+                    <fullName>German</fullName>
+                    <default>false</default>
+                    <label>German</label>
+                </value>
+                <value>
+                    <fullName>Greek</fullName>
+                    <default>false</default>
+                    <label>Greek</label>
+                </value>
+                <value>
+                    <fullName>Hebrew</fullName>
+                    <default>false</default>
+                    <label>Hebrew</label>
+                </value>
+                <value>
+                    <fullName>Hindi</fullName>
+                    <default>false</default>
+                    <label>Hindi</label>
+                </value>
+                <value>
+                    <fullName>Hungarian</fullName>
+                    <default>false</default>
+                    <label>Hungarian</label>
+                </value>
+                <value>
+                    <fullName>Indonesian</fullName>
+                    <default>false</default>
+                    <label>Indonesian</label>
+                </value>
+                <value>
+                    <fullName>Italian</fullName>
+                    <default>false</default>
+                    <label>Italian</label>
+                </value>
+                <value>
+                    <fullName>Japanese</fullName>
+                    <default>false</default>
+                    <label>Japanese</label>
+                </value>
+                <value>
+                    <fullName>Kazakh</fullName>
+                    <default>false</default>
+                    <label>Kazakh</label>
+                </value>
+                <value>
+                    <fullName>Korean</fullName>
+                    <default>false</default>
+                    <label>Korean</label>
+                </value>
+                <value>
+                    <fullName>Latvian</fullName>
+                    <default>false</default>
+                    <label>Latvian</label>
+                </value>
+                <value>
+                    <fullName>Lithuanian</fullName>
+                    <default>false</default>
+                    <label>Lithuanian</label>
+                </value>
+                <value>
+                    <fullName>Malay</fullName>
+                    <default>false</default>
+                    <label>Malay</label>
+                </value>
+                <value>
+                    <fullName>Maltese</fullName>
+                    <default>false</default>
+                    <label>Maltese</label>
+                </value>
+                <value>
+                    <fullName>Norwegian</fullName>
+                    <default>false</default>
+                    <label>Norwegian</label>
+                </value>
+                <value>
+                    <fullName>Polish</fullName>
+                    <default>false</default>
+                    <label>Polish</label>
+                </value>
+                <value>
+                    <fullName>Portuguese</fullName>
+                    <default>false</default>
+                    <label>Portuguese</label>
+                </value>
+                <value>
+                    <fullName>Romanian</fullName>
+                    <default>false</default>
+                    <label>Romanian</label>
+                </value>
+                <value>
+                    <fullName>Russian</fullName>
+                    <default>false</default>
+                    <label>Russian</label>
+                </value>
+                <value>
+                    <fullName>Slovakian</fullName>
+                    <default>false</default>
+                    <label>Slovakian</label>
+                </value>
+                <value>
+                    <fullName>Slovenian</fullName>
+                    <default>false</default>
+                    <label>Slovenian</label>
+                </value>
+                <value>
+                    <fullName>Spanish</fullName>
+                    <default>false</default>
+                    <label>Spanish</label>
+                </value>
+                <value>
+                    <fullName>Swedish</fullName>
+                    <default>false</default>
+                    <label>Swedish</label>
+                </value>
+                <value>
+                    <fullName>Tagalog</fullName>
+                    <default>false</default>
+                    <label>Tagalog</label>
+                </value>
+                <value>
+                    <fullName>Thai</fullName>
+                    <default>false</default>
+                    <label>Thai</label>
+                </value>
+                <value>
+                    <fullName>Turkish</fullName>
+                    <default>false</default>
+                    <label>Turkish</label>
+                </value>
+                <value>
+                    <fullName>Ukrainian</fullName>
+                    <default>false</default>
+                    <label>Ukrainian</label>
+                </value>
+                <value>
+                    <fullName>Vietnamese</fullName>
+                    <default>false</default>
+                    <label>Vietnamese</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Latvia</controllingFieldValue>
+                <valueName>Latvian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>United States of America</controllingFieldValue>
+                <controllingFieldValue>Malaysia</controllingFieldValue>
+                <controllingFieldValue>Venezuela</controllingFieldValue>
+                <controllingFieldValue>Vietnam</controllingFieldValue>
+                <controllingFieldValue>Mexico</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>New Zealand</controllingFieldValue>
+                <controllingFieldValue>Chile</controllingFieldValue>
+                <controllingFieldValue>Nicaragua</controllingFieldValue>
+                <controllingFieldValue>Colombia</controllingFieldValue>
+                <controllingFieldValue>Costa Rica</controllingFieldValue>
+                <controllingFieldValue>Argentina</controllingFieldValue>
+                <controllingFieldValue>Australia</controllingFieldValue>
+                <controllingFieldValue>Belize</controllingFieldValue>
+                <controllingFieldValue>Bolivia</controllingFieldValue>
+                <controllingFieldValue>Panama</controllingFieldValue>
+                <controllingFieldValue>Peru</controllingFieldValue>
+                <controllingFieldValue>Ecuador</controllingFieldValue>
+                <controllingFieldValue>Philippines</controllingFieldValue>
+                <controllingFieldValue>Egypt</controllingFieldValue>
+                <controllingFieldValue>El Salvador</controllingFieldValue>
+                <controllingFieldValue>Guatemala</controllingFieldValue>
+                <controllingFieldValue>Saudi Arabia</controllingFieldValue>
+                <controllingFieldValue>Singapore</controllingFieldValue>
+                <controllingFieldValue>Honduras</controllingFieldValue>
+                <controllingFieldValue>Hong Kong</controllingFieldValue>
+                <controllingFieldValue>South Africa</controllingFieldValue>
+                <controllingFieldValue>India</controllingFieldValue>
+                <controllingFieldValue>Indonesia</controllingFieldValue>
+                <controllingFieldValue>Thailand</controllingFieldValue>
+                <valueName>English-US</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>United States of America</controllingFieldValue>
+                <controllingFieldValue>Uruguay</controllingFieldValue>
+                <controllingFieldValue>Venezuela</controllingFieldValue>
+                <controllingFieldValue>Mexico</controllingFieldValue>
+                <controllingFieldValue>Chile</controllingFieldValue>
+                <controllingFieldValue>Nicaragua</controllingFieldValue>
+                <controllingFieldValue>Colombia</controllingFieldValue>
+                <controllingFieldValue>Costa Rica</controllingFieldValue>
+                <controllingFieldValue>Argentina</controllingFieldValue>
+                <controllingFieldValue>Belize</controllingFieldValue>
+                <controllingFieldValue>Bolivia</controllingFieldValue>
+                <controllingFieldValue>Panama</controllingFieldValue>
+                <controllingFieldValue>Paraguay</controllingFieldValue>
+                <controllingFieldValue>Dominican Republic</controllingFieldValue>
+                <controllingFieldValue>Peru</controllingFieldValue>
+                <controllingFieldValue>Ecuador</controllingFieldValue>
+                <controllingFieldValue>El Salvador</controllingFieldValue>
+                <controllingFieldValue>Guatemala</controllingFieldValue>
+                <controllingFieldValue>Honduras</controllingFieldValue>
+                <controllingFieldValue>Spain</controllingFieldValue>
+                <valueName>Spanish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Lebanon</controllingFieldValue>
+                <controllingFieldValue>Libya</controllingFieldValue>
+                <controllingFieldValue>Yemen</controllingFieldValue>
+                <controllingFieldValue>Morocco</controllingFieldValue>
+                <controllingFieldValue>Oman</controllingFieldValue>
+                <controllingFieldValue>Bahrain</controllingFieldValue>
+                <controllingFieldValue>Egypt</controllingFieldValue>
+                <controllingFieldValue>Qatar</controllingFieldValue>
+                <controllingFieldValue>Saudi Arabia</controllingFieldValue>
+                <controllingFieldValue>UAE</controllingFieldValue>
+                <controllingFieldValue>Kuwait</controllingFieldValue>
+                <valueName>Arabic</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Lebanon</controllingFieldValue>
+                <controllingFieldValue>Yemen</controllingFieldValue>
+                <controllingFieldValue>Malta</controllingFieldValue>
+                <controllingFieldValue>Nigeria</controllingFieldValue>
+                <controllingFieldValue>Oman</controllingFieldValue>
+                <controllingFieldValue>Bahrain</controllingFieldValue>
+                <controllingFieldValue>Pakistan</controllingFieldValue>
+                <controllingFieldValue>Parthia</controllingFieldValue>
+                <controllingFieldValue>Egypt</controllingFieldValue>
+                <controllingFieldValue>Qatar</controllingFieldValue>
+                <controllingFieldValue>Romania</controllingFieldValue>
+                <controllingFieldValue>Saudi Arabia</controllingFieldValue>
+                <controllingFieldValue>Iceland</controllingFieldValue>
+                <controllingFieldValue>South Africa</controllingFieldValue>
+                <controllingFieldValue>Ireland</controllingFieldValue>
+                <controllingFieldValue>Kenya</controllingFieldValue>
+                <controllingFieldValue>UAE</controllingFieldValue>
+                <controllingFieldValue>Kuwait</controllingFieldValue>
+                <controllingFieldValue>United Kingdom</controllingFieldValue>
+                <valueName>English-GB</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Lebanon</controllingFieldValue>
+                <controllingFieldValue>Morocco</controllingFieldValue>
+                <controllingFieldValue>Canada</controllingFieldValue>
+                <controllingFieldValue>Belgium</controllingFieldValue>
+                <controllingFieldValue>France</controllingFieldValue>
+                <controllingFieldValue>Switzerland</controllingFieldValue>
+                <valueName>French</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Lithuania</controllingFieldValue>
+                <controllingFieldValue>Morocco</controllingFieldValue>
+                <valueName>Lithuanian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Malaysia</controllingFieldValue>
+                <controllingFieldValue>China</controllingFieldValue>
+                <controllingFieldValue>Singapore</controllingFieldValue>
+                <controllingFieldValue>Hong Kong</controllingFieldValue>
+                <valueName>Chinese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Malaysia</controllingFieldValue>
+                <valueName>Malay</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Vietnam</controllingFieldValue>
+                <valueName>Vietnamese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Malta</controllingFieldValue>
+                <valueName>Maltese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Brazil</controllingFieldValue>
+                <controllingFieldValue>Portugal</controllingFieldValue>
+                <valueName>Portuguese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Netherlands</controllingFieldValue>
+                <valueName>Dutch</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Norway</controllingFieldValue>
+                <valueName>Norwegian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Croatia</controllingFieldValue>
+                <valueName>Croatian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Cyprus</controllingFieldValue>
+                <controllingFieldValue>Greece</controllingFieldValue>
+                <valueName>Greek</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Czech Republic</controllingFieldValue>
+                <valueName>Czech</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Denmark</controllingFieldValue>
+                <valueName>Danish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Austria</controllingFieldValue>
+                <controllingFieldValue>Germany</controllingFieldValue>
+                <controllingFieldValue>Switzerland</controllingFieldValue>
+                <valueName>German</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Belarus</controllingFieldValue>
+                <controllingFieldValue>Russia</controllingFieldValue>
+                <controllingFieldValue>Kazakhstan</controllingFieldValue>
+                <controllingFieldValue>Ukraine</controllingFieldValue>
+                <valueName>Russian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Belgium</controllingFieldValue>
+                <valueName>Flemish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Parthia</controllingFieldValue>
+                <valueName>Farsi</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Philippines</controllingFieldValue>
+                <valueName>Tagalog</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Poland</controllingFieldValue>
+                <valueName>Polish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Estonia</controllingFieldValue>
+                <valueName>Estonian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Finland</controllingFieldValue>
+                <valueName>Finnish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Romania</controllingFieldValue>
+                <valueName>Romanian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Hong Kong</controllingFieldValue>
+                <controllingFieldValue>Taiwan</controllingFieldValue>
+                <valueName>Chinese-T</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Slovak Republic</controllingFieldValue>
+                <valueName>Slovakian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Hungary</controllingFieldValue>
+                <valueName>Hungarian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Slovenia</controllingFieldValue>
+                <valueName>Slovenian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>India</controllingFieldValue>
+                <valueName>Hindi</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Indonesia</controllingFieldValue>
+                <valueName>Indonesian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sweden</controllingFieldValue>
+                <valueName>Swedish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Israel</controllingFieldValue>
+                <valueName>Hebrew</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Italy</controllingFieldValue>
+                <controllingFieldValue>Switzerland</controllingFieldValue>
+                <valueName>Italian</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Japan</controllingFieldValue>
+                <valueName>Japanese</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Thailand</controllingFieldValue>
+                <valueName>Thai</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Turkey</controllingFieldValue>
+                <valueName>Turkish</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Korea</controllingFieldValue>
+                <valueName>Korean</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ukraine</controllingFieldValue>
+                <valueName>Ukrainian</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_Button_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Button Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_Connecting_Message__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Connecting Message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_Deployment_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Deployment Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_End_Chat_Button__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent End Chat Button</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_Request_Chat_Button__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Request Chat Button</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_Save_Chat_Button__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Save Chat Button</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_Send_Button__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Send Button</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Live_Agent_Starting_Message__c</fullName>
+        <externalId>false</externalId>
+        <label>Live Agent Starting Message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Next__c</fullName>
+        <description>Next Link Label</description>
+        <externalId>false</externalId>
+        <label>Next</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>No_Results__c</fullName>
+        <externalId>false</externalId>
+        <label>No Results</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_field_validation_error__c</fullName>
+        <externalId>false</externalId>
+        <label>Number field validation error</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PKB_Page_Intro__c</fullName>
+        <externalId>false</externalId>
+        <label>PKB Page Intro</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Page_Heading__c</fullName>
+        <externalId>false</externalId>
+        <label>Page Heading Contact Us</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone_Field_Validation_Error__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone Field Validation Error</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Previous__c</fullName>
+        <description>Previous link label</description>
+        <externalId>false</externalId>
+        <label>Previous</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy__c</fullName>
+        <externalId>false</externalId>
+        <label>Privacy</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Available_for_Return__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Available for Return</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Quantities__c</fullName>
+        <description>Header used when adding product quantities to the case summary.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Header used when adding product quantities to the case summary.</inlineHelpText>
+        <label>Product Quantities</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Results_No_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Results No Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Return_Disclosure__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Return Disclosure</label>
+        <length>1000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Product_Search_Add_Product__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Search Add Product</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Search_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Search Label</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Search_Placeholder__c</fullName>
+        <description>Translated placeholder for the product search field on the emailUs page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Translated placeholder for the product search field on the emailUs page</inlineHelpText>
+        <label>Product Search Placeholder</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Search_Products_Added_Count__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Message next to the products added count - e.g &apos;2 Added&apos;</inlineHelpText>
+        <label>Product Search Products Added Count</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Search_Tab__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Search Tab</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Products_Added_Expiration_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Products Added Expiration Date</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Products_Added_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Products Added Label</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Products_Added_Production_Code_Help__c</fullName>
+        <externalId>false</externalId>
+        <label>Products Added Production Code Help</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Products_Added_Production_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Products Added Production Code</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Products_Added_Quantity__c</fullName>
+        <externalId>false</externalId>
+        <label>Products Added Quantity</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Products_Added_Same_Version__c</fullName>
+        <externalId>false</externalId>
+        <label>Products Added Same Version</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Question__c</fullName>
+        <description>Label used for questions in the case summary.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Label used for questions in the case summary.</inlineHelpText>
+        <label>Question</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_1__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Testimonial</inlineHelpText>
+        <label>Reason 1</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_2__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Inquiry</inlineHelpText>
+        <label>Reason 2</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_3__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Availability</inlineHelpText>
+        <label>Reason 3</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_4__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Complaint</inlineHelpText>
+        <label>Reason 4</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_5__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Requests for Free Items</inlineHelpText>
+        <label>Reason 5</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_6__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Promotions</inlineHelpText>
+        <label>Reason 6</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_Please_Select__c</fullName>
+        <description>this is the default value on the reason select list - not an option to select - just the visible text.</description>
+        <externalId>false</externalId>
+        <label>Reason Please Select</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Response__c</fullName>
+        <description>Label used for responses in the case summary.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Label used for responses in the case summary.</inlineHelpText>
+        <label>Response</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Placeholder__c</fullName>
+        <description>Search placeholder text</description>
+        <externalId>false</externalId>
+        <label>Search Placeholder</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Related__c</fullName>
+        <description>Related articles label</description>
+        <externalId>false</externalId>
+        <label>Search Related</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Results__c</fullName>
+        <description>Search Results label</description>
+        <externalId>false</externalId>
+        <label>Search Results</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Select_Brand_Label__c</fullName>
+        <externalId>false</externalId>
+        <label>Select Brand Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submit__c</fullName>
+        <description>Submit button label</description>
+        <externalId>false</externalId>
+        <label>Submit</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Exceeded_Limit__c</fullName>
+        <externalId>false</externalId>
+        <label>Summary Exceeded Limit</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tab_Title_Chat_Live__c</fullName>
+        <externalId>false</externalId>
+        <label>Tab Title Chat Live</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tab_Title_Chat_Offline__c</fullName>
+        <defaultValue>&quot;Chat Offline&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Tab Title Chat Offline</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tab_Title_Email_Us__c</fullName>
+        <externalId>false</externalId>
+        <label>Tab Title Email Us</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tab_Title_Join_the_Community__c</fullName>
+        <externalId>false</externalId>
+        <label>Tab Title Join the Community</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tab_Title_KB__c</fullName>
+        <externalId>false</externalId>
+        <label>Tab Title KB</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tab_Title_Outside_of_Business_Hours__c</fullName>
+        <externalId>false</externalId>
+        <label>Tab Title Outside of Business Hours</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Terms_and_Conditions__c</fullName>
+        <externalId>false</externalId>
+        <label>Terms and Conditions</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Case_Number__c</fullName>
+        <description>&quot;Your case number is:&quot; text</description>
+        <externalId>false</externalId>
+        <inlineHelpText>&quot;Your case number is:&quot; text</inlineHelpText>
+        <label>Thank You Case Number</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Part_1__c</fullName>
+        <description>Text before name on the email thank you page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text before name on the email thank you page.</inlineHelpText>
+        <label>Thank You Part 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Part_2__c</fullName>
+        <description>Text after name on the email thank you page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text after name on the email thank you page.</inlineHelpText>
+        <label>Thank You Part 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Part_3__c</fullName>
+        <description>&quot;Your email was received.&quot; text.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>&quot;Your email was received.&quot; text.</inlineHelpText>
+        <label>Thank You Part 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Part_4__c</fullName>
+        <description>Text message to be displayed on the thank you page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text message to be displayed on the thank you page</inlineHelpText>
+        <label>Thank You Part 4</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Search_Articles__c</fullName>
+        <description>&quot;Search All Articles&quot; Text</description>
+        <externalId>false</externalId>
+        <inlineHelpText>&quot;Search All Articles&quot; Text</inlineHelpText>
+        <label>Thank You Search Articles</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>This_is_what_we_found__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Shows when search results come back</inlineHelpText>
+        <label>This is what we found</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Toggle_False__c</fullName>
+        <externalId>false</externalId>
+        <label>Toggle False</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Toggle_True__c</fullName>
+        <externalId>false</externalId>
+        <label>Toggle True</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Top_of_the_page_error_message__c</fullName>
+        <externalId>false</externalId>
+        <label>Top of the page error message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>URL_Privacy_Policy__c</fullName>
+        <description>Link to privacy policy in this language</description>
+        <externalId>false</externalId>
+        <label>URL Privacy Policy</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>URL_Terms_and_Conditions__c</fullName>
+        <description>Link to terms and conditions in this language</description>
+        <externalId>false</externalId>
+        <label>URL Terms and Conditions</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>isLastNameFirst__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This is used on the ContactUs page to display the Last Name before the First Name</description>
+        <externalId>false</externalId>
+        <label>Is Last Name First</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Contact Us Language</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Page_Heading__c</columns>
+        <columns>GCRLanguageIsoCode__c</columns>
+        <columns>GCRCountryIsoCode__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Birthdate_Validation</fullName>
+        <columns>NAME</columns>
+        <columns>Language__c</columns>
+        <columns>Birthdate_field_validation_error__c</columns>
+        <columns>Accept_Terms_and_Conditions_Label_Part_1__c</columns>
+        <columns>Accept_Terms_and_Conditions_Label_Part_2__c</columns>
+        <columns>Accept_Terms_and_Conditions_Label_Part_3__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Birthdate Validation</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>EMEA</fullName>
+        <booleanFilter>1 OR 2 or 3</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Language_Locale_Key__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>Austria,Denmark,Finland,France,Germany,Greece</value>
+        </filters>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>Belgium,Ireland,Netherlands,Norway,Portugal,Spain,Sweden,Switzerland</value>
+        </filters>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>Croatia,United Kingdom,Italy,Turkey,Poland,Russia,Ukraine,Israel,Hungary</value>
+        </filters>
+        <label>EMEA</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>French</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Product_Search_Placeholder__c</columns>
+        <columns>Contact_Us_Last_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Language__c</field>
+            <operation>equals</operation>
+            <value>French</value>
+        </filters>
+        <label>French</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>LA_Spanish</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Contact_Us_Last_Name__c</columns>
+        <columns>Country__c</columns>
+        <columns>Language__c</columns>
+        <columns>Product_Search_Placeholder__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Language__c</field>
+            <operation>equals</operation>
+            <value>Spanish</value>
+        </filters>
+        <label>LA Spanish</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Contact Us Language Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Contact Us Languages</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

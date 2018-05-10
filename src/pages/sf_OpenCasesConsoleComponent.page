@@ -1,0 +1,70 @@
+<apex:page showHeader="false" sidebar="false">
+
+    <apex:form id="form">
+    
+    	<apex:pageBlock >
+    		<apex:pageBlockSection columns="1">
+    			<apex:pageBlockSectionItem >
+    				<apex:outputLabel value="Case Number" for="caseNumber"/>
+    				<apex:outputText value="1234" id="caseNumber"/>
+    			</apex:pageBlockSectionItem>
+    			<apex:pageBlockSectionItem >
+    				<apex:outputLabel value="Subject" for="caseSubject"/>
+    				<apex:outputText value="Battery Exploded" id="caseSubject"/>
+    			</apex:pageBlockSectionItem>
+    			<apex:pageBlockSectionItem >
+    				<apex:outputLabel value="Time Open" for="caseTimeOpen"/>
+    				<apex:outputText value="(Red)" id="caseTimeOpen"/>
+    			</apex:pageBlockSectionItem>
+    		</apex:pageBlockSection>
+    	</apex:pageBlock>
+    	
+    	<apex:pageBlock >
+    		<apex:pageBlockSection columns="1">
+    			<apex:pageBlockSectionItem >
+    				<apex:outputLabel value="Case Number" for="caseNumber"/>
+    				<apex:outputText value="4567" id="caseNumber"/>
+    			</apex:pageBlockSectionItem>
+    			<apex:pageBlockSectionItem >
+    				<apex:outputLabel value="Subject" for="caseSubject"/>
+    				<apex:outputText value="Tide not cleaning" id="caseSubject"/>
+    			</apex:pageBlockSectionItem>
+    			<apex:pageBlockSectionItem >
+    				<apex:outputLabel value="Time Open" for="caseTimeOpen"/>
+    				<apex:outputText value="(Yellow)" id="caseTimeOpen"/>
+    			</apex:pageBlockSectionItem>
+    		</apex:pageBlockSection>
+    	</apex:pageBlock>
+    	
+    	<apex:pageBlock >
+    		<apex:pageBlockSection columns="1">
+    			<apex:pageBlockSectionItem >
+    				<apex:outputLabel value="Case Number" for="caseNumber"/>
+    				<apex:outputText value="6789" id="caseNumber"/>
+    			</apex:pageBlockSectionItem>
+    			<apex:pageBlockSectionItem >
+    				<apex:outputLabel value="Subject" for="caseSubject"/>
+    				<apex:outputText value="Battery Leaking" id="caseSubject"/>
+    			</apex:pageBlockSectionItem>
+    			<apex:pageBlockSectionItem >
+    				<apex:outputLabel value="Time Open" for="caseTimeOpen"/>
+    				<apex:outputText value="(Green)" id="caseTimeOpen"/>
+    			</apex:pageBlockSectionItem>
+    		</apex:pageBlockSection>
+    	</apex:pageBlock>
+    
+    </apex:form>
+    
+	<style>
+
+		.pageTitle {
+			margin-top:0px; 
+			margin-left:0px; 
+			margin-bottom:4px; 
+			font-weight:bold; 
+			size: 16px;
+		}
+	
+	</style>
+	
+</apex:page>

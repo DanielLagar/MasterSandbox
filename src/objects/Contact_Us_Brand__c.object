@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object is for configuring the brand options for the contact us page.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Background_Color_Article__c</fullName>
+        <description>Background color for articles and search results</description>
+        <externalId>false</externalId>
+        <label>Background Color Article</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Background_Color_Back_Bar__c</fullName>
+        <description>Background color for Back to Search Results bar</description>
+        <externalId>false</externalId>
+        <label>Background Color Back Bar</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Background_Color_Button_Disabled__c</fullName>
+        <description>background color for when button is disabled (before agreement to Ts &amp; Cs)</description>
+        <externalId>false</externalId>
+        <label>Background Color Button Disabled</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Background_Color_Button__c</fullName>
+        <description>Button background color in hexidecimal</description>
+        <externalId>false</externalId>
+        <label>Background Color Button</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Background_Color_Content_Area__c</fullName>
+        <description>Content area background color in hexidecimal</description>
+        <externalId>false</externalId>
+        <label>Background Color Content Area</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Background_Color_Header__c</fullName>
+        <description>Header background color in hexidecimal</description>
+        <externalId>false</externalId>
+        <label>Background Color Header</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Background_Color_Page__c</fullName>
+        <description>Page background color in hexidecimal</description>
+        <externalId>false</externalId>
+        <label>Background Color Page</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Background_Color_Tab_Not_Selected__c</fullName>
+        <description>Not selected tab background color in hexidecimal</description>
+        <externalId>false</externalId>
+        <label>Background Color Tab Not Selected</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Background_Color_Tab_Selected__c</fullName>
+        <description>Selected tab background color in hexidecimal</description>
+        <externalId>false</externalId>
+        <label>Background Color Tab Selected</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Background_Form_Color__c</fullName>
+        <externalId>false</externalId>
+        <label>Background Form Color</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Border_Color_Article__c</fullName>
+        <description>Color of border around article</description>
+        <externalId>false</externalId>
+        <label>Border Color Article</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Brand__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>This is the brand that is to be configured.</description>
+        <externalId>false</externalId>
+        <label>Brand</label>
+        <length>100</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Content_Border_Color__c</fullName>
+        <description>color for border box around main page content</description>
+        <externalId>false</externalId>
+        <label>Content Border Color</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disable_brand_filter_on_product_search__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Disable brand filter on product search</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ExternalId__c</fullName>
+        <externalId>false</externalId>
+        <label>ExternalId</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Article_Title__c</fullName>
+        <description>font to use for article title</description>
+        <externalId>false</externalId>
+        <label>Font Article Title</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Article__c</fullName>
+        <description>font to use for article</description>
+        <externalId>false</externalId>
+        <label>Font Article</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Back_Bar__c</fullName>
+        <description>Font for Back to Search Results bar</description>
+        <externalId>false</externalId>
+        <label>Font Back Bar</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Article_Title__c</fullName>
+        <description>font color of article title</description>
+        <externalId>false</externalId>
+        <label>Font Color Article Title</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Article__c</fullName>
+        <description>font color for article</description>
+        <externalId>false</externalId>
+        <label>Font Color Article</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Back_Bar__c</fullName>
+        <description>Font color for back to search results bar</description>
+        <externalId>false</externalId>
+        <label>Font Color Back Bar</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Content_Links__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Color Content Links</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Featured_Links__c</fullName>
+        <description>Font color for featured article links</description>
+        <externalId>false</externalId>
+        <label>Font Color Featured Links</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Footer_Link__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Color Footer Link</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Footer__c</fullName>
+        <description>font color for footer text</description>
+        <externalId>false</externalId>
+        <label>Font Color Footer</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Form_Label__c</fullName>
+        <description>Font color for form labels</description>
+        <externalId>false</externalId>
+        <label>Font Color Form Label</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Header_Dropdowns__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Color Header Dropdowns</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Header_Links__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Color Header Links</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Header__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Color Header</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Helpful_Answers__c</fullName>
+        <description>Font color for &quot;was this article helpful&quot; responses</description>
+        <externalId>false</externalId>
+        <label>Font Color Helpful Answers</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Intro__c</fullName>
+        <description>Font color for intro text</description>
+        <externalId>false</externalId>
+        <label>Font Color Intro</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Links__c</fullName>
+        <description>font color for links</description>
+        <externalId>false</externalId>
+        <label>Font Color Links</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Page_Title__c</fullName>
+        <description>font color for page title</description>
+        <externalId>false</externalId>
+        <label>Font Color Page Title</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Phone_Link__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Color Phone Link</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Color Phone</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Related_Article_Link__c</fullName>
+        <description>Font color for related article links</description>
+        <externalId>false</externalId>
+        <label>Font Color Related Article Link</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Related_Article__c</fullName>
+        <description>font color for related article</description>
+        <externalId>false</externalId>
+        <label>Font Color Related Article</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Search_Results__c</fullName>
+        <description>Font color for Search Results label</description>
+        <externalId>false</externalId>
+        <label>Font Color Search Results</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Search_Term__c</fullName>
+        <description>Font color for search term in search results</description>
+        <externalId>false</externalId>
+        <label>Font Color Search Term</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Section_Header__c</fullName>
+        <description>font color for section header</description>
+        <externalId>false</externalId>
+        <label>Font Color Section Header</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Tab_Not_Selected__c</fullName>
+        <description>Font Color for Non-Selected Tabs</description>
+        <externalId>false</externalId>
+        <label>Font Color Tab Not Selected</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Tab_Selected__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Color Tab Selected</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Color_Was_This_Article_Helpful__c</fullName>
+        <description>font color for was this article helpful</description>
+        <externalId>false</externalId>
+        <label>Font Color Was This Article Helpful</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Featured_Links__c</fullName>
+        <description>Font family for featured article links</description>
+        <externalId>false</externalId>
+        <label>Font Featured Links</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Footer__c</fullName>
+        <description>Font type for footer</description>
+        <externalId>false</externalId>
+        <label>Font Footer</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Form_Label__c</fullName>
+        <description>Font name for form labels</description>
+        <externalId>false</externalId>
+        <label>Font Form Label</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Header__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Header</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Intro__c</fullName>
+        <description>font name for intro text</description>
+        <externalId>false</externalId>
+        <label>Font Intro</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Links__c</fullName>
+        <description>Font to use for Links</description>
+        <externalId>false</externalId>
+        <label>Font Links</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Page_Title__c</fullName>
+        <description>font to use for page title</description>
+        <externalId>false</externalId>
+        <label>Font Page Title</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Phone</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Related_Article_Heading__c</fullName>
+        <description>font type for related article heading</description>
+        <externalId>false</externalId>
+        <label>Font Related Article Heading</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Search_Results__c</fullName>
+        <description>Font used for Search Results label</description>
+        <externalId>false</externalId>
+        <label>Font Search Results</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Search_Term__c</fullName>
+        <description>Font for search term in search results</description>
+        <externalId>false</externalId>
+        <label>Font Search Term</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Section_Header__c</fullName>
+        <description>Font type to use for section header</description>
+        <externalId>false</externalId>
+        <label>Font Section Header</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Article_Title__c</fullName>
+        <description>font size for article title</description>
+        <externalId>false</externalId>
+        <label>Font Size Article Title</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Article__c</fullName>
+        <description>font size article</description>
+        <externalId>false</externalId>
+        <label>Font Size Article</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Back_Bar__c</fullName>
+        <description>Font size for back to search results bar</description>
+        <externalId>false</externalId>
+        <label>Font Size Back Bar</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Featured_Links__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Size Featured Links</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Footer__c</fullName>
+        <description>Font size for footer</description>
+        <externalId>false</externalId>
+        <label>Font Size Footer</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Form_Label__c</fullName>
+        <description>Font size for form labels</description>
+        <externalId>false</externalId>
+        <label>Font Size Form Label</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Header__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Size Header</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Intro__c</fullName>
+        <description>Font size for intro text</description>
+        <externalId>false</externalId>
+        <label>Font Size Intro</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Links__c</fullName>
+        <description>font size for links</description>
+        <externalId>false</externalId>
+        <label>Font Size Links</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Page_Title__c</fullName>
+        <description>font size for page title</description>
+        <externalId>false</externalId>
+        <label>Font Size Page Title</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Phone_Hours__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Size Phone Hours</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Phone_Icon__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Size Phone Icon</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Phone_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Font Size Phone Number</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Related_Article_Heading__c</fullName>
+        <description>font size for related article heading</description>
+        <externalId>false</externalId>
+        <label>Font Size Related Article Heading</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Search_Results__c</fullName>
+        <description>Font size for Search Results label</description>
+        <externalId>false</externalId>
+        <label>Font Size Search Results</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Search_Term__c</fullName>
+        <description>Font size for search term in search results</description>
+        <externalId>false</externalId>
+        <label>Font Size Search Term</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Section_Header__c</fullName>
+        <description>font size for section header</description>
+        <externalId>false</externalId>
+        <label>Font Size Section Header</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Tab__c</fullName>
+        <description>font size for tabs</description>
+        <externalId>false</externalId>
+        <label>Font Size Tab</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Size_Was_This_Article_Helpful__c</fullName>
+        <description>font size was this article helpful</description>
+        <externalId>false</externalId>
+        <label>Font Size Was This Article Helpful</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Tab__c</fullName>
+        <description>font type to use for tab labels</description>
+        <externalId>false</externalId>
+        <label>Font Tab</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Font_Was_This_Article_Helpful__c</fullName>
+        <description>font type to use for &apos;was this article helpful&apos;</description>
+        <externalId>false</externalId>
+        <label>Font Was This Article Helpful</label>
+        <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Header_Bottom_Border_Color__c</fullName>
+        <externalId>false</externalId>
+        <label>Header Bottom Border Color</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>URL_Favicon__c</fullName>
+        <externalId>false</externalId>
+        <label>URL Favicon</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>URL_Header_Image__c</fullName>
+        <externalId>false</externalId>
+        <label>URL Header Image</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <label>Contact Us Brand</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Brand__c</columns>
+        <columns>NAME</columns>
+        <columns>URL_Header_Image__c</columns>
+        <columns>Disable_brand_filter_on_product_search__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Contact Us Brand Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Contact Us Brands</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

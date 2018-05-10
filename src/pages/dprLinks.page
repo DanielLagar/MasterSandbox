@@ -1,0 +1,17 @@
+<!--
+CR16 - DPR
+Provides button to get all DPR links for the current Case for the advisor
+Nice to have: click on link to copy to clipboard examples:
+		https://paulund.co.uk/jquery-copy-clipboard
+		https://paulund.co.uk/javascript-copy-and-paste
+-->
+<apex:page standardController="Case" extensions="dprLinks_ext" showHeader="false" sidebar="false">
+    <apex:pageBlock >
+		<apex:sectionHeader title="{!$ObjectType.Case.Label}" subtitle="{!currentCase.CaseNumber}"/>
+        <apex:pageBlockTable value="{!cps}" var="cp" rendered="{!!cps.empty}">
+            <apex:column id="nameCol" value="{!cp.Local_Product__r.Consumer_Facing_Name__c}"/>
+            <apex:column id="linkCol" value="{!cp.Digital_Returns_Link__c}" onclick="CopyToClipboard(linkCol);" />
+        </apex:pageBlockTable>
+        <apex:outputText rendered="{!cps.empty}">{!$Label.No_Products_Found}</apex:outputText>
+    </apex:pageBlock>
+</apex:page>

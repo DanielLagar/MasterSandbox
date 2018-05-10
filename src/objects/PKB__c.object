@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>settings container for the Public Knowledge Base</description>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Add_Case_Id__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Send Case number detail with the phone call.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Case number wil be used in the phone call for CTI integration.</inlineHelpText>
+        <label>Add Case Number</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CTI_configuration__c</fullName>
+        <description>CTI integration setup</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This keywords will enable to build complex CTI integration</inlineHelpText>
+        <label>CTI configuration</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Category_Group_1__c</fullName>
+        <description>Group name that should be displayed under the &quot;Narrow Search&quot; section of the PKB home page. The field named Root Category 1 must have a value that is a category in this group.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Group name that should be displayed under the &quot;Narrow Search&quot; section of the PKB home page. The field named Root Category 1 must have a value that is a category in this group.</inlineHelpText>
+        <label>Category Group 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Category_Group_2__c</fullName>
+        <description>Group name that should be displayed under the &quot;Narrow Search&quot; section of the PKB home page. The field named Root Category 2 must have a value that is a category in this group.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Group name that should be displayed under the &quot;Narrow Search&quot; section of the PKB home page. The field named Root Category 2 must have a value that is a category in this group.</inlineHelpText>
+        <label>Category Group 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Category_Group_3__c</fullName>
+        <description>Group name that should be displayed under the &quot;Narrow Search&quot; section of the PKB home page. The field named Root Category 3 must have a value that is a category in this group.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Group name that should be displayed under the &quot;Narrow Search&quot; section of the PKB home page. The field named Root Category 3 must have a value that is a category in this group.</inlineHelpText>
+        <label>Category Group 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Us_Available__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>When checked,  the &quot;Contact Us&quot;  form will be available</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When checked,  the &quot;Contact Us&quot;  form will be available</inlineHelpText>
+        <label>Contact Us Available</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Create_Contact_and_Account__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>When checked, will cause a Contact and an Account to be created when a user submits a question. (If email address is found on another Contact, it will use that Contact and account.) Unchecking this box will put all of the submitted data into the Case.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When checked, will cause a Contact and an Account to be created when a user submits a question. (If email address is found on another Contact, it will use that Contact and account.) Unchecking this box will put all of the submitted data into the Case.</inlineHelpText>
+        <label>Create Contact and Account</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Display_Article_Summary__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>When checked, the Article Summary will appear anywhere a list of articles is displayed, such as search results and most popular.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When checked, the Article Summary will appear anywhere a list of articles is displayed, such as search results and most popular.</inlineHelpText>
+        <label>Display Article Summary?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FBAppId__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If you are using public knowledge base embedded in facebook, you need to add the facebook application ID in the settings.</inlineHelpText>
+        <label>Facebook Application ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveAgent_ChatButtonId__c</fullName>
+        <description>Id for the corresponding Live Agent Chat Button</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Id for the corresponding Live Agent Chat Button</inlineHelpText>
+        <label>Live Agent ChatButtonId</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveAgent_ChatEnabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>When checked, will display  Live Agent Chat buttons . Actual Chat wil also depend on live Agent availability</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When checked, will display  Live Agent Chat buttons . Actual Chat wil also depend on live Agent availability</inlineHelpText>
+        <label>Live Agent Chat Enabled</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LiveAgent_ChatServerURL__c</fullName>
+        <description>Url for the saleforce LiveAgent server</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Url for the saleforce LiveAgent server</inlineHelpText>
+        <label>Live Agent Chat Server URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>LiveAgent_DeploymentId__c</fullName>
+        <description>Id of the corresponding Live Agent deployment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Id of the corresponding Live Agent deployment</inlineHelpText>
+        <label>Live Agent Deployment Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LiveAgent_DeploymentURL__c</fullName>
+        <description>Url for the saleforce LiveAgent deployment javascript library</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Url for the saleforce LiveAgent deployment javascript library</inlineHelpText>
+        <label>Live Agent Deployment URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>MBusinessHours__c</fullName>
+        <description>Name of the BusinessHours record.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the BusinessHours record, by leaving this field blank, business hours will be 24/7</inlineHelpText>
+        <label>Business Hours Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MCResults_Page_Size__c</fullName>
+        <defaultValue>3</defaultValue>
+        <description>Number of articles to display  on the ContactUs search results. Should not be set to more than 10-15 to ensure a visually manageable number of results per page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of articles to display  on the ContactUs search results. Should not be set to more than 10-15 to ensure a visually manageable number of results per page.</inlineHelpText>
+        <label>Contact Results Page Size</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MCategory_Group_1__c</fullName>
+        <description>Group name that should be displayed in filters section of the PKB mobile page. The field named Root Category 1 must have a value that is a category in this group.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Group name that should be displayed in filters section of the PKB mobile page. The field named Root Category 1 must have a value that is a category in this group.</inlineHelpText>
+        <label>Category Group 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MCategory_Group_2__c</fullName>
+        <description>Group name that should be displayed in filters section of the PKB mobile page. The field named Root Category 1 must have a value that is a category in this group.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Group name that should be displayed in filters section of the PKB mobile page. The field named Root Category 1 must have a value that is a category in this group.</inlineHelpText>
+        <label>Category Group 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MCategory_Group_3__c</fullName>
+        <description>Group name that should be displayed in filters section of the PKB mobile page. The field named Root Category 1 must have a value that is a category in this group.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Group name that should be displayed in filters section of the PKB mobile page. The field named Root Category 1 must have a value that is a category in this group.</inlineHelpText>
+        <label>Category Group 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MEnableCall__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Enable call button in mobile site</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable / Disable Call button in mobile site</inlineHelpText>
+        <label>Enable Call</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MPhoneNumber__c</fullName>
+        <description>Phone Number</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Phone Number</inlineHelpText>
+        <label>Phone Number</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>MResults_Page_Size__c</fullName>
+        <defaultValue>5</defaultValue>
+        <description>Number of articles to display per page of search results. Should not be set to more than 10-15 to ensure a visually manageable number of results per page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of articles to display per page of search results. Should not be set to more than 10-15 to ensure a visually manageable number of results per page.</inlineHelpText>
+        <label>Results Page Size</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MRoot_Category_1__c</fullName>
+        <description>Root Category name that will be used as the root category in the category group&apos;s displayed in filters menu of the PKB mobile page. The value for this field must be a category of the group named in the Category Group 1 field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Root Category name that will be used as the root category in the category group&apos;s displayed in filters menu of the PKB mobile page. The value for this field must be a category of the group named in the Category Group 1 field.</inlineHelpText>
+        <label>Root Category 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MRoot_Category_2__c</fullName>
+        <description>Root Category name that will be used as the root category in the category group&apos;s displayed in filters menu of the PKB mobile page. The value for this field must be a category of the group named in the Category Group 2 field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Root Category name that will be used as the root category in the category group&apos;s displayed in filters menu of the PKB mobile page. The value for this field must be a category of the group named in the Category Group 2 field.</inlineHelpText>
+        <label>Root Category 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MRoot_Category_3__c</fullName>
+        <description>Root Category name that will be used as the root category in the category group&apos;s displayed in filters menu of the PKB mobile page. The value for this field must be a category of the group named in the Category Group 3 field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Root Category name that will be used as the root category in the category group&apos;s displayed in filters menu of the PKB mobile page. The value for this field must be a category of the group named in the Category Group 3 field.</inlineHelpText>
+        <label>Root Category 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Max_Cache_Age__c</fullName>
+        <defaultValue>600</defaultValue>
+        <description>How long before the cache for this page expires, in seconds. Default is 600.</description>
+        <externalId>false</externalId>
+        <label>Max Cache Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maximum_Attachment_Upload_Per_Case__c</fullName>
+        <defaultValue>1</defaultValue>
+        <description>Maximun number of  attachments to upload for a single case.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximun number of  attachments to upload for a single case.</inlineHelpText>
+        <label>Maximum attachment upload per case</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Multi_Language_Enabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This checkbox indicates whether the multi-language capability is enabled for this knowledge base. Among other things, this checkbox will affect how the Article URLs are constructed in the PKB.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This checkbox indicates whether the multi-language capability is enabled for this knowledge base. Among other things, this checkbox will affect how the Article URLs are constructed in the PKB.</inlineHelpText>
+        <label>Multi-Language Enabled?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Popular_Articles_Size__c</fullName>
+        <defaultValue>3</defaultValue>
+        <description>The number of articles that will appear in the popular articles section. Should not be set to greater than 5 to maintain the page&apos;s structure.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The number of articles that will appear in the popular articles section. Should not be set to greater than 5 to maintain the page&apos;s structure.</inlineHelpText>
+        <label>Popular Articles Size</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_Articles_Size__c</fullName>
+        <defaultValue>5</defaultValue>
+        <description>Number of related articles that will display when viewing an article. Recommended maximum value is 5.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of related articles that will display when viewing an article. Recommended maximum value is 5.</inlineHelpText>
+        <label>Related Articles Size</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Results_Page_Size__c</fullName>
+        <defaultValue>5</defaultValue>
+        <description>Number of articles to display per page of search results. Should not be set to more than 10-15 to ensure a visually manageable number of results per page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of articles to display per page of search results. Should not be set to more than 10-15 to ensure a visually manageable number of results per page.</inlineHelpText>
+        <label>Results Page Size</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Root_Category_1__c</fullName>
+        <description>Root Category name that will be used as the root category in the category group&apos;s picklist in the &quot;Narrow Search&quot; section of the PKB home page. The value for this field must be a category of the group named in the Category Group 1 field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Root Category name that will be used as the root category in the category group&apos;s picklist in the &quot;Narrow Search&quot; section of the PKB home page. The value for this field must be a category of the group named in the Category Group 1 field.</inlineHelpText>
+        <label>Root Category 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Root_Category_2__c</fullName>
+        <description>Root Category name that will be used as the root category in the category group&apos;s picklist in the &quot;Narrow Search&quot; section of the PKB home page. The value for this field must be a category of the group named in the Category Group 2 field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Root Category name that will be used as the root category in the category group&apos;s picklist in the &quot;Narrow Search&quot; section of the PKB home page. The value for this field must be a category of the group named in the Category Group 2 field.</inlineHelpText>
+        <label>Root Category 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Root_Category_3__c</fullName>
+        <description>Root Category name that will be used as the root category in the category group&apos;s picklist in the &quot;Narrow Search&quot; section of the PKB home page. The value for this field must be a category of the group named in the Category Group 3 field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Root Category name that will be used as the root category in the category group&apos;s picklist in the &quot;Narrow Search&quot; section of the PKB home page. The value for this field must be a category of the group named in the Category Group 3 field.</inlineHelpText>
+        <label>Root Category 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Selected_Languages__c</fullName>
+        <description>Contains a semi-colon delimited list of language keys that specify which languages the admin wants to be shown in the language picklist on the main PKB search page. This field should not be on a page layout; it is populated via the pkb_Settings page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Contains a semi-colon delimited list of language keys that specify which languages the admin wants to be shown in the language picklist on the main PKB search page. This field should not be on a page layout; it is populated via the pkb_Settings page.</inlineHelpText>
+        <label>Selected Languages</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>PKB</label>
+    <visibility>Public</visibility>
+</CustomObject>

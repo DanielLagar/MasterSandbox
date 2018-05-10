@@ -1,0 +1,7 @@
+<apex:page standardController="Fulfillment_Order__c" sidebar="false" showHeader="false" >
+
+<!-- {!Fulfillment_Order__c.RTL_CSS_Style__c} --> 
+
+<apex:outputText value="{!Fulfillment_Order__c.Letter_Body__c}" escape="false" />
+
+</apex:page>

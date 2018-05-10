@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Localized versions of the Global Products.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>ProductSearchResults</fullName>
+        <description>Used in gcr_cmpProdcutList component to dynamically select the columns</description>
+        <displayedFields>
+            <field>Image_Url_Thumb__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Consumer_Facing_Name__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Product Search Results</label>
+    </fieldSets>
+    <fields>
+        <fullName>Brand__c</fullName>
+        <externalId>true</externalId>
+        <label>Brand</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Consumer_Facing_Brand__c</fullName>
+        <externalId>true</externalId>
+        <label>Consumer Facing Brand</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Consumer_Facing_Name__c</fullName>
+        <description>Used for ContactUs page.</description>
+        <externalId>false</externalId>
+        <label>Consumer Facing Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Consumer_Facing__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used for ContactUs page.</description>
+        <externalId>false</externalId>
+        <label>Consumer Facing</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>true</externalId>
+        <label>Country</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DAM_Error_Message__c</fullName>
+        <externalId>false</externalId>
+        <label>DAM Error Message</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Do_Not_Override_Images__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field is used by DAM process when new images need to be added. Batch job from SFDC side excludes these records from the process that sends request to DAM</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field is used by DAM process when new images need to be added. Batch job from SFDC side excludes these records from the process that sends request to DAM</inlineHelpText>
+        <label>Do Not Override Images</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>GCR_LPID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>This is the external ID for  GCR Local Product.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>External ID for GCR Local Product</inlineHelpText>
+        <label>GCR LPID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>GCR_Product_ID__c</fullName>
+        <description>GCR Product ID pulled from the Global Product</description>
+        <externalId>false</externalId>
+        <formula>Global_Product__r.GCR_Product_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>GCR Product ID pulled from the Global Product</inlineHelpText>
+        <label>GCR Product ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GPID__c</fullName>
+        <description>GPID pulled from the Global Product</description>
+        <externalId>false</externalId>
+        <formula>Global_Product__r.GPID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>GPID pulled from the Global Product</inlineHelpText>
+        <label>GPID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GTIN_Number__c</fullName>
+        <description>This is the GTIN Number</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter the GTIN Number</inlineHelpText>
+        <label>GTIN</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Global_Product__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Global Product</label>
+        <referenceTo>Global_Product__c</referenceTo>
+        <relationshipName>Local_Products</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Image_Url_2_Thumb__c</fullName>
+        <description>Back of product thumbnail.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Back of product thumbnail.</inlineHelpText>
+        <label>Image Url 2 Thumb</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Image_Url_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Image Url 2</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Image_Url_3_Thumb__c</fullName>
+        <description>Right side of product thumbnail.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Right side of product thumbnail.</inlineHelpText>
+        <label>Image Url 3 Thumb</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Image_Url_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Image Url 3</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Image_Url_4_Thumb__c</fullName>
+        <description>Left side of product thumbnail.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Left side of product thumbnail.</inlineHelpText>
+        <label>Image Url 4 Thumb</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Image_Url_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Image Url 4</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Image_Url_Thumb__c</fullName>
+        <description>Front of product thumbnail.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Front of product thumbnail.</inlineHelpText>
+        <label>Image Url Thumb</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Image_Url__c</fullName>
+        <externalId>false</externalId>
+        <label>Image Url</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Images_Not_Found__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Flag that indicates that images were not returned after 2 days from the DAM service.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Flag that indicates that images were not returned after 2 days from the DAM service.</inlineHelpText>
+        <label>Images Not Found</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Inactive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used for ContactUs page.</description>
+        <externalId>false</externalId>
+        <label>Inactive</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_DAM_Request__c</fullName>
+        <externalId>false</externalId>
+        <label>Last DAM Request</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>New_Path_Level__c</fullName>
+        <externalId>false</externalId>
+        <label>New Path Level</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Path_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF
+(
+FIND(&quot;/&quot;, Translated_Path__c) = 0,
+&quot;BRAND&quot;,
+IF
+(
+AND
+(
+FIND(&quot;/&quot;, Translated_Path__c, FIND(&quot;/&quot;, Translated_Path__c) + 1 ) = 0,
+FIND(&quot;/&quot;, Translated_Path__c) &gt; 0
+),
+&quot;SEGMENT&quot;,
+&quot;LOWER-LEVEL&quot;
+)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Path Level</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Description</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Retrieve_Images__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Retrieve Images</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Translated_Path__c</fullName>
+        <externalId>false</externalId>
+        <label>Translated Path</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Local Product</label>
+    <listViews>
+        <fullName>Ange</fullName>
+        <booleanFilter>1 and 2 and 3</booleanFilter>
+        <columns>Product_Description__c</columns>
+        <columns>Consumer_Facing_Name__c</columns>
+        <columns>Country__c</columns>
+        <columns>Image_Url__c</columns>
+        <columns>NAME</columns>
+        <columns>Consumer_Facing__c</columns>
+        <columns>Retrieve_Images__c</columns>
+        <columns>Translated_Path__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Translated_Path__c</field>
+            <operation>contains</operation>
+            <value>Pampers/Baby Wipes</value>
+        </filters>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>united states of america,canada</value>
+        </filters>
+        <filters>
+            <field>Consumer_Facing__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>PAMPERS WIPES</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Brands</fullName>
+        <columns>Brand__c</columns>
+        <columns>GCR_LPID__c</columns>
+        <columns>NAME</columns>
+        <columns>Global_Product__c</columns>
+        <columns>Product_Description__c</columns>
+        <columns>Translated_Path__c</columns>
+        <columns>Inactive__c</columns>
+        <columns>GTIN_Number__c</columns>
+        <columns>Image_Url__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>united states of america</value>
+        </filters>
+        <filters>
+            <field>Translated_Path__c</field>
+            <operation>contains</operation>
+            <value>Always/Liners</value>
+        </filters>
+        <label>Brands</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Chile</fullName>
+        <columns>Country__c</columns>
+        <columns>NAME</columns>
+        <columns>Global_Product__c</columns>
+        <columns>Translated_Path__c</columns>
+        <columns>GTIN_Number__c</columns>
+        <columns>Image_Url__c</columns>
+        <columns>Image_Url_2__c</columns>
+        <columns>Image_Url_3__c</columns>
+        <columns>Image_Url_4__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>Chile</value>
+        </filters>
+        <filters>
+            <field>Brand__c</field>
+            <operation>equals</operation>
+            <value>tide</value>
+        </filters>
+        <label>Chile</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>GTIN</fullName>
+        <columns>GTIN_Number__c</columns>
+        <columns>NAME</columns>
+        <columns>Translated_Path__c</columns>
+        <columns>Product_Description__c</columns>
+        <columns>Inactive__c</columns>
+        <columns>Image_Url__c</columns>
+        <columns>Consumer_Facing__c</columns>
+        <columns>Country__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Translated_Path__c</field>
+            <operation>contains</operation>
+            <value>pampers,size 3</value>
+        </filters>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>united states of america</value>
+        </filters>
+        <label>GTIN</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Lowest_Level1</fullName>
+        <columns>Country__c</columns>
+        <columns>Consumer_Facing__c</columns>
+        <columns>Translated_Path__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Translated_Path__c</field>
+            <operation>contains</operation>
+            <value>CoverGirl/Eye Color Cosmetics/Mascara/Lash Blast/-/Regular Straight/Black - 805</value>
+        </filters>
+        <label>Lowest Level</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Lowest_Level2</fullName>
+        <booleanFilter>1 and 2</booleanFilter>
+        <columns>GCR_LPID__c</columns>
+        <columns>Country__c</columns>
+        <columns>NAME</columns>
+        <columns>GTIN_Number__c</columns>
+        <columns>Translated_Path__c</columns>
+        <columns>Image_Url__c</columns>
+        <columns>Consumer_Facing_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Consumer_Facing_Name__c</field>
+            <operation>startsWith</operation>
+            <value>Oral-B Pro-Expert Premium Floss,Unflavored,200 m</value>
+        </filters>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>united kingdom</value>
+        </filters>
+        <label>Lowest Level</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>PAMPERS_WIPES</fullName>
+        <booleanFilter>1 and 2 and 3</booleanFilter>
+        <columns>Product_Description__c</columns>
+        <columns>Consumer_Facing_Name__c</columns>
+        <columns>Country__c</columns>
+        <columns>Image_Url__c</columns>
+        <columns>NAME</columns>
+        <columns>Consumer_Facing__c</columns>
+        <columns>Retrieve_Images__c</columns>
+        <columns>Translated_Path__c</columns>
+        <columns>GTIN_Number__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Translated_Path__c</field>
+            <operation>contains</operation>
+            <value>Pampers/Baby Wipes</value>
+        </filters>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>united states of america,canada</value>
+        </filters>
+        <filters>
+            <field>Consumer_Facing__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>PAMPERS WIPES</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Specific</fullName>
+        <columns>Inactive__c</columns>
+        <columns>NAME</columns>
+        <columns>Translated_Path__c</columns>
+        <columns>Country__c</columns>
+        <columns>Global_Product__c</columns>
+        <columns>GTIN_Number__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Translated_Path__c</field>
+            <operation>contains</operation>
+            <value>Fusion,gillette,pro</value>
+        </filters>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>United States of America</value>
+        </filters>
+        <label>Specific</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>United_Kingdom</fullName>
+        <columns>Country__c</columns>
+        <columns>NAME</columns>
+        <columns>Global_Product__c</columns>
+        <columns>Translated_Path__c</columns>
+        <columns>GTIN_Number__c</columns>
+        <columns>Image_Url__c</columns>
+        <columns>Image_Url_2__c</columns>
+        <columns>Image_Url_3__c</columns>
+        <columns>Image_Url_4__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>united kingdom</value>
+        </filters>
+        <filters>
+            <field>Translated_Path__c</field>
+            <operation>contains</operation>
+            <value>Bold</value>
+        </filters>
+        <label>United Kingdom</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>United_States_of_America</fullName>
+        <columns>Country__c</columns>
+        <columns>Brand__c</columns>
+        <columns>NAME</columns>
+        <columns>Global_Product__c</columns>
+        <columns>Translated_Path__c</columns>
+        <columns>GTIN_Number__c</columns>
+        <columns>Image_Url__c</columns>
+        <columns>Image_Url_2__c</columns>
+        <columns>Image_Url_3__c</columns>
+        <columns>Image_Url_4__c</columns>
+        <columns>Consumer_Facing_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>United States of America</value>
+        </filters>
+        <filters>
+            <field>Consumer_Facing__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Translated_Path__c</field>
+            <operation>contains</operation>
+            <value>Laundry additive</value>
+        </filters>
+        <filters>
+            <field>Brand__c</field>
+            <operation>equals</operation>
+            <value>tide</value>
+        </filters>
+        <label>United States of America</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Local Product Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Local Products</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Global_Product__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Brand__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Consumer_Facing_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>GCR_Product_ID__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>GTIN_Number__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Product_Description__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Translated_Path__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Brand__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Global_Product__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>GCR_Product_ID__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>GTIN_Number__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Product_Description__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>Global_Product__c</lookupFilterFields>
+        <lookupFilterFields>NAME</lookupFilterFields>
+        <lookupFilterFields>Country__c</lookupFilterFields>
+        <lookupFilterFields>GCR_Product_ID__c</lookupFilterFields>
+        <lookupFilterFields>Translated_Path__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>Global_Product__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Brand__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>GCR_Product_ID__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>GTIN_Number__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Country__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Brand__c</searchFilterFields>
+        <searchFilterFields>CREATEDBY_USER</searchFilterFields>
+        <searchFilterFields>CREATED_DATE</searchFilterFields>
+        <searchFilterFields>UPDATEDBY_USER</searchFilterFields>
+        <searchFilterFields>LAST_UPDATE</searchFilterFields>
+        <searchResultsAdditionalFields>GTIN_Number__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Brand__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Product_Description__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Image_Url__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Consumer_Facing_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Country__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

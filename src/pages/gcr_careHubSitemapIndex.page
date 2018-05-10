@@ -1,0 +1,19 @@
+<!-- 
+#    Site map index for care hub
+#
+#    @author: ACCENTURE
+#    @date:   17/01/2017
+# DATE              NAME                CHANGE DESCRIPTION
+# 17/01/2017        Accenture           Initial Draft
+-->
+<apex:page controller="gcr_careHubSitemapIndexController" contentType="text/xml" standardStylesheets="false" sidebar="false" showHeader="false">
+    <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        {!$System.OriginDateTime}
+        <apex:repeat value="{!mSitemaps}" var="eachSite">
+            <sitemap>
+                <loc>{!$Site.CurrentSiteUrl}{!eachSite}</loc>
+                <lastmod>{!mSitemaps[eachSite]}</lastmod>
+            </sitemap>
+        </apex:repeat>
+    </sitemapindex>
+</apex:page>

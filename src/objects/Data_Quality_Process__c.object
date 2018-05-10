@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Used for agent case quality scoring.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>AE_Captured__c</fullName>
+        <externalId>false</externalId>
+        <label>AE Captured</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Adverse_Event_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Adverse Event Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Agent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Agent</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Data_Quality_Processes1_del</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Auditor_Name__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Name of the auditor</description>
+        <externalId>false</externalId>
+        <label>Auditor Name</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Data_Quality_Processes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Blank_Feilds__c</fullName>
+        <externalId>false</externalId>
+        <label>Blank Feilds</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Call_Listened_To__c</fullName>
+        <description>Does not factor in scoring.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Does not factor in scoring.</inlineHelpText>
+        <label>Call Listened To</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Case_Summary_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Case Summary Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Case_Summary__c</fullName>
+        <externalId>false</externalId>
+        <label>Case Summary</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>100</fullName>
+                    <default>false</default>
+                    <label>100</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <description>The case that the DQP Score is on.</description>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Data Quality Process</relationshipLabel>
+        <relationshipName>Data_Quality_Process</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Comment_Code_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment Code Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Comment_Codes__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment Codes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>100</fullName>
+                    <default>false</default>
+                    <label>100</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Critical_Complaint_Captured__c</fullName>
+        <externalId>false</externalId>
+        <label>Critical Complaint Captured</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Critical_Complaints_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Critical Complaints Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>DQP_Results_Calibrated__c</fullName>
+        <description>To be completed by second review only - to calibrate scores</description>
+        <externalId>false</externalId>
+        <inlineHelpText>To be completed by second review only - to calibrate scores</inlineHelpText>
+        <label>DQP Results Calibrated</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>true</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Denominator__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+OR(
+(((TEXT(AE_Captured__c)) = &apos;no&apos;)),(TEXT(Critical_Complaint_Captured__c))=&apos;no&apos;) , 1,
+(IF(TEXT(Comment_Codes__c) = &apos;N/A&apos;, 0, 20)) +
+(IF(TEXT(Local_Products__c) = &apos;N/A&apos;, 0, 20)) +
+(IF(TEXT(Probe_Safety_Assessment__c) = &apos;N/A&apos;, 0, 20)) +
+(IF(TEXT(Probe_Survey__c) = &apos;N/A&apos;, 0, 7.5)) +
+(IF(TEXT(Production_Code__c) = &apos;N/A&apos;, 0, 5)) +
+(IF(TEXT(Case_Summary__c) = &apos;N/A&apos;, 0, 20)) +
+(IF(TEXT(Used_same_version_before__c) = &apos;N/A&apos;, 0, 2.5)) +
+(IF(TEXT(Where_Bought__c) = &apos;N/A&apos;, 0, 2.5)) +
+(IF(TEXT(Expiration_Date__c) = &apos;N/A&apos;, 0, 2.5))
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Denominator</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Expiration_Date_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Expiration Date Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Expiration_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Expiration Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>100</fullName>
+                    <default>false</default>
+                    <label>100</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Final_Score_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Final Score Notes</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Final_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Blank_Feilds__c = &apos;TRUE&apos;, 0,(Numerator__c / Denominator__c)*100)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Final Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Inspection_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Inspection Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Sample</fullName>
+                    <default>false</default>
+                    <label>Sample</label>
+                </value>
+                <value>
+                    <fullName>Prediction Model</fullName>
+                    <default>false</default>
+                    <label>Prediction Model</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Unable to Complete - Language</fullName>
+                    <default>false</default>
+                    <label>Unable to Complete - Language</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Local_Product_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Local Product Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Local_Products__c</fullName>
+        <externalId>false</externalId>
+        <label>Local Products</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>100</fullName>
+                    <default>false</default>
+                    <label>100</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Numerator__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+OR(
+(((TEXT(AE_Captured__c)) = &apos;no&apos;)),(TEXT(Critical_Complaint_Captured__c))=&apos;no&apos;) , 0,
+(IF(TEXT(Comment_Codes__c) = &apos;N/A&apos;, 0, VALUE(TEXT(Comment_Codes__c)))*IF(TEXT(Comment_Codes__c) = &apos;N/A&apos;, 0, 0.20)) +
+(IF(TEXT(Local_Products__c) = &apos;N/A&apos;, 0, VALUE(TEXT(Local_Products__c)))*IF(TEXT(Local_Products__c) = &apos;N/A&apos;, 0, 0.20)) +
+(IF(TEXT(Probe_Safety_Assessment__c) = &apos;N/A&apos;, 0, VALUE(TEXT(Probe_Safety_Assessment__c)))*IF(TEXT(Probe_Safety_Assessment__c) = &apos;N/A&apos;, 0, 0.20)) +
+(IF(TEXT(Probe_Survey__c) = &apos;N/A&apos;, 0, VALUE(TEXT(Probe_Survey__c)))*IF(TEXT(Probe_Survey__c) = &apos;N/A&apos;, 0, 0.075)) +
+(IF(TEXT(Production_Code__c) = &apos;N/A&apos;, 0, VALUE(TEXT(Production_Code__c)))*IF(TEXT(Production_Code__c) = &apos;N/A&apos;, 0, 0.05)) +
+(IF(TEXT(Case_Summary__c) = &apos;N/A&apos;, 0, VALUE(TEXT(Case_Summary__c)))*IF(TEXT(Case_Summary__c) = &apos;N/A&apos;, 0, 0.20)) +
+(IF(TEXT(Used_same_version_before__c) = &apos;N/A&apos;, 0, VALUE(TEXT(Used_same_version_before__c)))*IF(TEXT(Used_same_version_before__c) = &apos;N/A&apos;, 0, 0.025)) +
+(IF(TEXT(Where_Bought__c) = &apos;N/A&apos;, 0, VALUE(TEXT(Where_Bought__c)))*IF(TEXT(Where_Bought__c) = &apos;N/A&apos;, 0, 0.025)) +
+(IF(TEXT(Expiration_Date__c) = &apos;N/A&apos;, 0, VALUE(TEXT(Expiration_Date__c)))*IF(TEXT(Expiration_Date__c) = &apos;N/A&apos;, 0, 0.025)) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Numerator</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Probe_Safety_Assessment_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Probe – Safety Assessment Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Probe_Safety_Assessment__c</fullName>
+        <externalId>false</externalId>
+        <label>Probe - Safety Assessment</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>100</fullName>
+                    <default>false</default>
+                    <label>100</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Probe_Survey_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Probe - Survey Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Probe_Survey__c</fullName>
+        <externalId>false</externalId>
+        <label>Probe - Survey</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>100</fullName>
+                    <default>false</default>
+                    <label>100</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Production_Code_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Production Code Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Production_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Production Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>100</fullName>
+                    <default>false</default>
+                    <label>100</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Used_Same_Version_Before_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Used Same Version Before Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Used_same_version_before__c</fullName>
+        <externalId>false</externalId>
+        <label>Used same version before?</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>100</fullName>
+                    <default>false</default>
+                    <label>100</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Where_Bought_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Where Bought Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Where_Bought__c</fullName>
+        <externalId>false</externalId>
+        <label>Where Bought</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>100</fullName>
+                    <default>false</default>
+                    <label>100</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Data Quality Process</label>
+    <listViews>
+        <fullName>Angie_View_2</fullName>
+        <columns>NAME</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Final_Score__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>Case_Summary_Notes__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>Angie View 2</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>DQP-{0000000}</displayFormat>
+        <label>Data Quality Process Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Data Quality Processes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>New</fullName>
+        <availability>online</availability>
+        <description>Custom button to create a new Data Quality Process Record in a new window - for side-by-side view with case</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/*dev1*/
+/* window.open(&quot;{!URLFOR( $Action.Data_Quality_Process__c.New , null, 
+[CF00NQ0000001LIpI=Case.CaseNumber, CF00NQ0000001LIpK = User.FirstName + &apos; &apos; + User.LastName  ])}&quot;); */
+/*DEV*/
+/*window.open(&quot;{!URLFOR( $Action.Data_Quality_Process__c.New , null, 
+[CF00NS0000001LpT5=Case.CaseNumber, CF00NS0000001LpT8 = User.FirstName + &apos; &apos; + User.LastName ])}&quot;);  */
+/*ACC*/
+/*window.open(&quot;{!URLFOR( $Action.Data_Quality_Process__c.New , null, 
+[CF00NS0000001LpT5=Case.CaseNumber, CF00NV0000000kczb = User.FirstName + &apos; &apos; + User.LastName ])}&quot;); */
+/*Prod*/
+window.open(&quot;{!URLFOR( $Action.Data_Quality_Process__c.New , null, 
+[CF00N80000005Z4eW=Case.CaseNumber, CF00N80000005Z4or = User.FirstName + &apos; &apos; + User.LastName ])}&quot;);</url>
+    </webLinks>
+</CustomObject>

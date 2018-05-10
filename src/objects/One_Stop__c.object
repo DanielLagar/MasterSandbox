@@ -1,0 +1,1591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>OneStopEdit</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>OneStopNew</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>OneStopHome</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>OneStopDetail</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Actual_Expected_Due_Date__c</fullName>
+        <description>Value should default the Requested Due Date and be editable by person handling the ticket</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Value should default the Requested Due Date and be editable by person handling the ticket</inlineHelpText>
+        <label>Actual Expected Due Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Additional_To_Email_address_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional To Email 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_To_Email_address_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional To Email 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_To_Email_address_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional To Email 3</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_To_Email_address_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional To Email 4</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_To_Email_address_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional To Email 5</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Admin_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Admin Notes</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Approval_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Approved_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>User object of the Approver</description>
+        <externalId>false</externalId>
+        <label>Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>One_Stop</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Approver_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Approver Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approver_Name__c</fullName>
+        <description>Name of the Approver</description>
+        <externalId>false</externalId>
+        <label>Approver Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Business_Review_or_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Review or Approved Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Business_Reviewer_or_Approver__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Reviewer or Approver</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>1STOP</relationshipLabel>
+        <relationshipName>X1STOP</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Comment_Summary__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment Summary</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment</label>
+        <length>2000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Created_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Created Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Due_Date_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Due Date Comments</label>
+        <length>2000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Flag1__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(now()&lt; Actual_Expected_Due_Date__c ,&apos;Green&apos;,  IF( OR(Request_Closed_Date__c &lt; Actual_Expected_Due_Date__c, ISBLANK(Actual_Expected_Due_Date__c ) ), &apos;Green&apos;, &apos;Red&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Flag</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(now()&lt; Actual_Expected_Due_Date__c ,IMAGE(&apos;https://c.na6.content.force.com/servlet/servlet.FileDownload?file=01580000001szWG&amp;oid=&apos;+$Organization.Id,&apos;Green&apos;), IF( OR(Request_Closed_Date__c &lt; Actual_Expected_Due_Date__c, ISBLANK(Actual_Expected_Due_Date__c ) ) , IMAGE(&apos;https://c.na6.content.force.com/servlet/servlet.FileDownload?file=01580000001szWG&amp;oid=&apos;+$Organization.Id,&apos;Green&apos;), IMAGE(&apos;https://c.na6.content.force.com/servlet/servlet.FileDownload?file=01580000001szWL&amp;oid=&apos;+$Organization.Id,&apos;Red&apos;)) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>RED Flag indicates that the current date time is exceeded &apos;Actual Expected Due Date&apos;, and still the request is not closed.</inlineHelpText>
+        <label>Flag</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsItApproved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is It Approved?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Modified_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>LastModifiedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Last Modified Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Meets_Criteria__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Meets Criteria</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Priority__c</fullName>
+        <externalId>false</externalId>
+        <label>Priority</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>1</fullName>
+                    <default>false</default>
+                    <label>1</label>
+                </value>
+                <value>
+                    <fullName>2</fullName>
+                    <default>false</default>
+                    <label>2</label>
+                </value>
+                <value>
+                    <fullName>3</fullName>
+                    <default>false</default>
+                    <label>3</label>
+                </value>
+                <value>
+                    <fullName>4</fullName>
+                    <default>false</default>
+                    <label>4</label>
+                </value>
+                <value>
+                    <fullName>5</fullName>
+                    <default>false</default>
+                    <label>5</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Passed_SLA__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason for Passed SLA</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Clarification with Systems Team</fullName>
+                    <default>false</default>
+                    <label>Clarification with Systems Team</label>
+                </value>
+                <value>
+                    <fullName>Clarification with Requestor</fullName>
+                    <default>false</default>
+                    <label>Clarification with Requestor</label>
+                </value>
+                <value>
+                    <fullName>Ticket Reopened by User</fullName>
+                    <default>false</default>
+                    <label>Ticket Reopened by User</label>
+                </value>
+                <value>
+                    <fullName>Weekend Hours</fullName>
+                    <default>false</default>
+                    <label>Weekend Hours</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Reopening__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason for Reopening</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Incorrect Resolution Provided</fullName>
+                    <default>false</default>
+                    <label>Incorrect Resolution Provided</label>
+                </value>
+                <value>
+                    <fullName>Ticket Not Completed</fullName>
+                    <default>false</default>
+                    <label>Ticket Not Completed</label>
+                </value>
+                <value>
+                    <fullName>Ticket Partially Completed</fullName>
+                    <default>false</default>
+                    <label>Ticket Partially Completed</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Reopened_Count__c</fullName>
+        <description>It tells how many times a request has been reopened</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This number tells how many times the request has been reopened.</inlineHelpText>
+        <label>Reopened Count</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Report_Provided__c</fullName>
+        <externalId>false</externalId>
+        <label>Report Provided</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Request_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Request Category</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>AutoResponse</fullName>
+                    <default>false</default>
+                    <label>AutoResponse</label>
+                </value>
+                <value>
+                    <fullName>Case Data</fullName>
+                    <default>false</default>
+                    <label>Case Data</label>
+                </value>
+                <value>
+                    <fullName>Chat</fullName>
+                    <default>false</default>
+                    <label>Chat</label>
+                </value>
+                <value>
+                    <fullName>CX</fullName>
+                    <default>false</default>
+                    <label>CX</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Fulfillment</fullName>
+                    <default>false</default>
+                    <label>Fulfillment</label>
+                </value>
+                <value>
+                    <fullName>Internal Activities</fullName>
+                    <default>false</default>
+                    <label>Internal Activities</label>
+                </value>
+                <value>
+                    <fullName>Knowledge</fullName>
+                    <default>false</default>
+                    <label>Knowledge</label>
+                </value>
+                <value>
+                    <fullName>Reporting</fullName>
+                    <default>false</default>
+                    <label>Reporting</label>
+                </value>
+                <value>
+                    <fullName>System Troubleshooting</fullName>
+                    <default>false</default>
+                    <label>System Troubleshooting</label>
+                </value>
+                <value>
+                    <fullName>User Request</fullName>
+                    <default>false</default>
+                    <label>User Request</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Request_Closed_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date and Time when the request was closed</inlineHelpText>
+        <label>Request Closed Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Request_Description__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Write more details about your request(include examples if apply) to get it resolved quickly, avoid confusions and delays.</inlineHelpText>
+        <label>Request Description</label>
+        <length>2000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Request_Subcategory__c</fullName>
+        <externalId>false</externalId>
+        <label>Request Subcategory</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Request_Category__c</controllingField>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Add Queues</fullName>
+                    <default>false</default>
+                    <label>Add Queues</label>
+                </value>
+                <value>
+                    <fullName>Add Source codes</fullName>
+                    <default>false</default>
+                    <label>Add Source codes</label>
+                </value>
+                <value>
+                    <fullName>Add Users to Queue</fullName>
+                    <default>false</default>
+                    <label>Add Users to Queue</label>
+                </value>
+                <value>
+                    <fullName>Advice/Questions/How to Use</fullName>
+                    <default>false</default>
+                    <label>Advice/Questions/How to Use</label>
+                </value>
+                <value>
+                    <fullName>Assign to email queue</fullName>
+                    <default>false</default>
+                    <label>Assign to email queue</label>
+                </value>
+                <value>
+                    <fullName>Block Chat Visitor</fullName>
+                    <default>false</default>
+                    <label>Block Chat Visitor</label>
+                </value>
+                <value>
+                    <fullName>Case Data Correction</fullName>
+                    <default>false</default>
+                    <label>Case Data Correction</label>
+                </value>
+                <value>
+                    <fullName>Case Deletion</fullName>
+                    <default>false</default>
+                    <label>Case Deletion</label>
+                </value>
+                <value>
+                    <fullName>Change Case Country/Owner</fullName>
+                    <default>false</default>
+                    <label>Change Case Country/Owner</label>
+                </value>
+                <value>
+                    <fullName>Change Existing Template</fullName>
+                    <default>false</default>
+                    <label>Change Existing Template</label>
+                </value>
+                <value>
+                    <fullName>Change User Permissions/Profile/Role</fullName>
+                    <default>false</default>
+                    <label>Change User Permissions/Profile/Role</label>
+                </value>
+                <value>
+                    <fullName>Create queue/groups</fullName>
+                    <default>false</default>
+                    <label>Create queue/groups</label>
+                </value>
+                <value>
+                    <fullName>CX IVR Results Load</fullName>
+                    <default>false</default>
+                    <label>CX IVR Results Load</label>
+                </value>
+                <value>
+                    <fullName>Deactivate</fullName>
+                    <default>false</default>
+                    <label>Deactivate</label>
+                </value>
+                <value>
+                    <fullName>Deactivate User and remove from groups/queues</fullName>
+                    <default>false</default>
+                    <label>Deactivate User and remove from groups/queues</label>
+                </value>
+                <value>
+                    <fullName>Delete queue/groups</fullName>
+                    <default>false</default>
+                    <label>Delete queue/groups</label>
+                </value>
+                <value>
+                    <fullName>Deployment</fullName>
+                    <default>false</default>
+                    <label>Deployment</label>
+                </value>
+                <value>
+                    <fullName>Edit/Corrections</fullName>
+                    <default>false</default>
+                    <label>Edit/Corrections</label>
+                </value>
+                <value>
+                    <fullName>Edit Existing AutoResponse</fullName>
+                    <default>false</default>
+                    <label>Edit Existing AutoResponse</label>
+                </value>
+                <value>
+                    <fullName>Featured Articles</fullName>
+                    <default>false</default>
+                    <label>Featured Articles</label>
+                </value>
+                <value>
+                    <fullName>GCR Training Website</fullName>
+                    <default>false</default>
+                    <label>GCR Training Website</label>
+                </value>
+                <value>
+                    <fullName>Kardia System Error</fullName>
+                    <default>false</default>
+                    <label>Kardia System Error</label>
+                </value>
+                <value>
+                    <fullName>Locked object data corrections</fullName>
+                    <default>false</default>
+                    <label>Locked object data corrections</label>
+                </value>
+                <value>
+                    <fullName>Mass Email</fullName>
+                    <default>false</default>
+                    <label>Mass Email</label>
+                </value>
+                <value>
+                    <fullName>New AutoResponse</fullName>
+                    <default>false</default>
+                    <label>New AutoResponse</label>
+                </value>
+                <value>
+                    <fullName>New Email Template</fullName>
+                    <default>false</default>
+                    <label>New Email Template</label>
+                </value>
+                <value>
+                    <fullName>New PROD User</fullName>
+                    <default>false</default>
+                    <label>New PROD User</label>
+                </value>
+                <value>
+                    <fullName>New Report/Dashboard</fullName>
+                    <default>false</default>
+                    <label>New Report/Dashboard</label>
+                </value>
+                <value>
+                    <fullName>New TRAIN User</fullName>
+                    <default>false</default>
+                    <label>New TRAIN User</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Password reset</fullName>
+                    <default>false</default>
+                    <label>Password reset</label>
+                </value>
+                <value>
+                    <fullName>Quick Text</fullName>
+                    <default>false</default>
+                    <label>Quick Text</label>
+                </value>
+                <value>
+                    <fullName>Reactivate User</fullName>
+                    <default>false</default>
+                    <label>Reactivate User</label>
+                </value>
+                <value>
+                    <fullName>Remove from email queue</fullName>
+                    <default>false</default>
+                    <label>Remove from email queue</label>
+                </value>
+                <value>
+                    <fullName>Set-Up New</fullName>
+                    <default>false</default>
+                    <label>Set-Up New</label>
+                </value>
+                <value>
+                    <fullName>Sprinklr/Kardia Integration</fullName>
+                    <default>false</default>
+                    <label>Sprinklr/Kardia Integration</label>
+                </value>
+                <value>
+                    <fullName>Synonyms</fullName>
+                    <default>false</default>
+                    <label>Synonyms</label>
+                </value>
+                <value>
+                    <fullName>Troubleshooting</fullName>
+                    <default>false</default>
+                    <label>Troubleshooting</label>
+                </value>
+                <value>
+                    <fullName>Troubleshooting/Issue</fullName>
+                    <default>false</default>
+                    <label>Troubleshooting/Issue</label>
+                </value>
+                <value>
+                    <fullName>Unable to Submit Case</fullName>
+                    <default>false</default>
+                    <label>Unable to Submit Case</label>
+                </value>
+                <value>
+                    <fullName>Update Existing Report/Dashboard</fullName>
+                    <default>false</default>
+                    <label>Update Existing Report/Dashboard</label>
+                </value>
+                <value>
+                    <fullName>Users</fullName>
+                    <default>false</default>
+                    <label>Users</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Reporting</controllingFieldValue>
+                <valueName>Advice/Questions/How to Use</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Reporting</controllingFieldValue>
+                <valueName>New Report/Dashboard</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Reporting</controllingFieldValue>
+                <controllingFieldValue>Case Data</controllingFieldValue>
+                <controllingFieldValue>CX</controllingFieldValue>
+                <controllingFieldValue>System Troubleshooting</controllingFieldValue>
+                <controllingFieldValue>Email</controllingFieldValue>
+                <controllingFieldValue>Fulfillment</controllingFieldValue>
+                <controllingFieldValue>Internal Activities</controllingFieldValue>
+                <controllingFieldValue>Chat</controllingFieldValue>
+                <controllingFieldValue>Knowledge</controllingFieldValue>
+                <controllingFieldValue>AutoResponse</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Reporting</controllingFieldValue>
+                <valueName>Troubleshooting/Issue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Reporting</controllingFieldValue>
+                <valueName>Update Existing Report/Dashboard</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Case Data</controllingFieldValue>
+                <valueName>Add Source codes</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Case Data</controllingFieldValue>
+                <valueName>Case Data Correction</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Case Data</controllingFieldValue>
+                <valueName>Case Deletion</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Case Data</controllingFieldValue>
+                <valueName>Change Case Country/Owner</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Case Data</controllingFieldValue>
+                <valueName>Locked object data corrections</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Case Data</controllingFieldValue>
+                <valueName>Unable to Submit Case</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CX</controllingFieldValue>
+                <valueName>CX IVR Results Load</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>System Troubleshooting</controllingFieldValue>
+                <valueName>Kardia System Error</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>System Troubleshooting</controllingFieldValue>
+                <valueName>Sprinklr/Kardia Integration</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Email</controllingFieldValue>
+                <valueName>Change Existing Template</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Email</controllingFieldValue>
+                <valueName>Mass Email</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Email</controllingFieldValue>
+                <valueName>New Email Template</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>Assign to email queue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>Change User Permissions/Profile/Role</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>Create queue/groups</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>Deactivate User and remove from groups/queues</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>Delete queue/groups</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>GCR Training Website</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>New PROD User</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>New TRAIN User</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>Password reset</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>Reactivate User</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Request</controllingFieldValue>
+                <valueName>Remove from email queue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Fulfillment</controllingFieldValue>
+                <valueName>Deactivate</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Fulfillment</controllingFieldValue>
+                <valueName>Edit/Corrections</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Fulfillment</controllingFieldValue>
+                <valueName>Set-Up New</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Internal Activities</controllingFieldValue>
+                <valueName>Add Queues</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Internal Activities</controllingFieldValue>
+                <valueName>Add Users to Queue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Chat</controllingFieldValue>
+                <valueName>Block Chat Visitor</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Chat</controllingFieldValue>
+                <valueName>Deployment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Chat</controllingFieldValue>
+                <valueName>Quick Text</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Chat</controllingFieldValue>
+                <valueName>Troubleshooting</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Chat</controllingFieldValue>
+                <valueName>Users</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Knowledge</controllingFieldValue>
+                <valueName>Featured Articles</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Knowledge</controllingFieldValue>
+                <valueName>Synonyms</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>AutoResponse</controllingFieldValue>
+                <valueName>Edit Existing AutoResponse</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>AutoResponse</controllingFieldValue>
+                <valueName>New AutoResponse</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Requested_Due_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This date is the requested date and may change based on SLA agreement or priority against other work</inlineHelpText>
+        <label>Requested Due Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Requestor_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Requestor Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Requestor_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Requestor Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Requestor_Telephone_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Requestor Telephone Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>SLA_Handling_Time__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Request_Closed_Date__c -  Actual_Expected_Due_Date__c)*24</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SLA Handling Time (Hours)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SLA__c</fullName>
+        <externalId>false</externalId>
+        <label>SLA</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_Approver_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Secondary Approver Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Secondary_Approver_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Secondary Approver Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Send_Email__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>It includes Approver, Owner, Requestor and Additional To Emails. 
+If this is a new request and needs approval, then notification includes members of queue.</inlineHelpText>
+        <label>Send Notification To Everyone</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Send_Notification_To_Approver__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Send Notification To Approver/Owner</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Open</fullName>
+                    <default>false</default>
+                    <label>Open</label>
+                </value>
+                <value>
+                    <fullName>Closed</fullName>
+                    <default>false</default>
+                    <label>Closed</label>
+                </value>
+                <value>
+                    <fullName>Working</fullName>
+                    <default>false</default>
+                    <label>Working</label>
+                </value>
+                <value>
+                    <fullName>Return to Requestor - Incomplete</fullName>
+                    <default>false</default>
+                    <label>Return to Requestor - Incomplete</label>
+                </value>
+                <value>
+                    <fullName>Return to Requestor - Clarification</fullName>
+                    <default>false</default>
+                    <label>Return to Requestor - Clarification</label>
+                </value>
+                <value>
+                    <fullName>Return to Infosys</fullName>
+                    <default>false</default>
+                    <label>Return to Infosys</label>
+                </value>
+                <value>
+                    <fullName>Return to Approver - Incomplete</fullName>
+                    <default>false</default>
+                    <label>Return to Approver - Incomplete</label>
+                </value>
+                <value>
+                    <fullName>Return to Approver - Clarification</fullName>
+                    <default>false</default>
+                    <label>Return to Approver - Clarification</label>
+                </value>
+                <value>
+                    <fullName>Reopened</fullName>
+                    <default>false</default>
+                    <label>Reopened</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Sub_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Sub Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Return to Requestor - Incomplete</fullName>
+                    <default>false</default>
+                    <label>Return to Requestor - Incomplete</label>
+                </value>
+                <value>
+                    <fullName>Return to Requestor - Clarification</fullName>
+                    <default>false</default>
+                    <label>Return to Requestor - Clarification</label>
+                </value>
+                <value>
+                    <fullName>Return to 1STOP</fullName>
+                    <default>false</default>
+                    <label>Return to 1STOP</label>
+                </value>
+                <value>
+                    <fullName>Return to Approver - Incomplete</fullName>
+                    <default>false</default>
+                    <label>Return to Approver - Incomplete</label>
+                </value>
+                <value>
+                    <fullName>Return to Approver - Clarification</fullName>
+                    <default>false</default>
+                    <label>Return to Approver - Clarification</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Subject__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Short description of the request. It states what’s inside the actual description.</inlineHelpText>
+        <label>Subject</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Handling_Time__c</fullName>
+        <externalId>false</externalId>
+        <formula>( Request_Closed_Date__c -   Approval_Date__c  )*24</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Handling Time (Hours)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>User_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>User Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Contact Center</fullName>
+                    <default>true</default>
+                    <label>Contact Center</label>
+                </value>
+                <value>
+                    <fullName>Social Care</fullName>
+                    <default>false</default>
+                    <label>Social Care</label>
+                </value>
+                <value>
+                    <fullName>All Other</fullName>
+                    <default>false</default>
+                    <label>All Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Work_Request__c</fullName>
+        <externalId>false</externalId>
+        <label>Work Request</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X1STOP_Approval__c</fullName>
+        <externalId>false</externalId>
+        <label>1STOP Approval</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+                <value>
+                    <fullName>Admin Handled</fullName>
+                    <default>false</default>
+                    <label>Admin Handled</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>1STOP</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Created_Date__c</columns>
+        <columns>Requestor_Name__c</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Status__c</columns>
+        <columns>Subject__c</columns>
+        <columns>Flag1__c</columns>
+        <columns>Flag__c</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>X1STOP_Approval__c</columns>
+        <columns>Request_Description__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Closed</fullName>
+        <columns>NAME</columns>
+        <columns>Created_Date__c</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Request_Subcategory__c</columns>
+        <columns>Status__c</columns>
+        <columns>Subject__c</columns>
+        <columns>Request_Description__c</columns>
+        <columns>Comment_Summary__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Flag__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Closed</value>
+        </filters>
+        <filters>
+            <field>Approver_Name__c</field>
+            <operation>contains</operation>
+            <value>schoch</value>
+        </filters>
+        <label>Closed</label>
+        <language>en_US</language>
+        <sharedTo>
+            <group>GCR_Admins</group>
+            <group>GCR_IDS_Admins</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X1STOP_AAI_Approval_Queue_One_Stop</fullName>
+        <columns>Requestor_Name__c</columns>
+        <columns>NAME</columns>
+        <columns>Created_Date__c</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Request_Subcategory__c</columns>
+        <columns>Request_Description__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Queue</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filters>
+        <label>1STOP AAI Approval Queue</label>
+        <language>en_US</language>
+        <queue>X1STOP_AAI_Approval_Queue</queue>
+        <sharedTo>
+            <group>GCR_Admins</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X1STOP_AMR_Approval_Queue_One_Stop</fullName>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>Sub_Status__c</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Request_Subcategory__c</columns>
+        <columns>Subject__c</columns>
+        <columns>Request_Description__c</columns>
+        <columns>Flag__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Queue</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filters>
+        <label>1STOP AMR Approval Queue</label>
+        <language>en_US</language>
+        <queue>X1STOP_AMR_Approval_Queue</queue>
+        <sharedTo>
+            <group>GCR_Admins</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X1STOP_Approved_One_Stop</fullName>
+        <columns>Flag__c</columns>
+        <columns>NAME</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Status__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Requested_Due_Date__c</columns>
+        <columns>Actual_Expected_Due_Date__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Subject__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filters>
+        <filters>
+            <field>X1STOP_Approval__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </filters>
+        <filters>
+            <field>OWNER.FIRST_NAME</field>
+            <operation>notEqual</operation>
+            <value>Vanessa,Paul,Charles,ChadT,Sue,Sarah,Rachel,Vivien,Maria</value>
+        </filters>
+        <label>1STOP Approved</label>
+        <language>en_US</language>
+        <sharedTo>
+            <group>GCR_Admins</group>
+            <group>GCR_IDS_Admins</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X1STOP_China_Approval_Queue_One_Stop</fullName>
+        <columns>NAME</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Request_Subcategory__c</columns>
+        <columns>Request_Description__c</columns>
+        <columns>Subject__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Queue</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filters>
+        <label>1STOP China Approval Queue</label>
+        <language>en_US</language>
+        <queue>X1STOP_China_Approval_Queue</queue>
+        <sharedTo>
+            <group>GCR_Admins</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X1STOP_EMEA_Approval_Queue_One_Stop</fullName>
+        <columns>Requestor_Name__c</columns>
+        <columns>NAME</columns>
+        <columns>Created_Date__c</columns>
+        <columns>Actual_Expected_Due_Date__c</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Request_Description__c</columns>
+        <columns>Status__c</columns>
+        <columns>Sub_Status__c</columns>
+        <filterScope>Queue</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filters>
+        <label>1STOP EMEA Approval Queue</label>
+        <language>en_US</language>
+        <queue>X1STOP_EMEA_Approval_Queue</queue>
+        <sharedTo>
+            <group>GCR_Admins</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X1STOP_GLOBAL_Needs_Approval</fullName>
+        <columns>NAME</columns>
+        <columns>Requestor_Name__c</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Request_Description__c</columns>
+        <filterScope>Queue</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filters>
+        <label>1STOP GLOBAL Needs Approval</label>
+        <language>en_US</language>
+        <queue>X1STOP_Needs_Approval</queue>
+        <sharedTo>
+            <group>GCR_Admins</group>
+            <group>GCR_IDS_Admins</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X1STOP_Japan_Approval_Queue_One_Stop</fullName>
+        <columns>NAME</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Request_Subcategory__c</columns>
+        <columns>Request_Description__c</columns>
+        <columns>Subject__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Queue</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filters>
+        <label>1STOP Japan Approval Queue</label>
+        <language>en_US</language>
+        <queue>X1STOP_Japan_Approval_Queue</queue>
+        <sharedTo>
+            <group>GCR_Admins</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X1STOP_Korea_Approval_Queue_One_Stop</fullName>
+        <columns>NAME</columns>
+        <columns>Subject__c</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Request_Subcategory__c</columns>
+        <columns>Request_Description__c</columns>
+        <columns>Requested_Due_Date__c</columns>
+        <filterScope>Queue</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filters>
+        <label>1STOP Korea Approval Queue</label>
+        <language>en_US</language>
+        <queue>X1STOP_Korea_Approval_Queue</queue>
+        <sharedTo>
+            <group>GCR_Admins</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>X1STOP_Reporting_One_Stop</fullName>
+        <columns>NAME</columns>
+        <columns>Requestor_Name__c</columns>
+        <columns>Created_Date__c</columns>
+        <columns>Actual_Expected_Due_Date__c</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Request_Description__c</columns>
+        <columns>Status__c</columns>
+        <columns>Sub_Status__c</columns>
+        <columns>Subject__c</columns>
+        <filterScope>Queue</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filters>
+        <label>1STOP Reporting</label>
+        <language>en_US</language>
+        <queue>X1STOP_Reporting</queue>
+    </listViews>
+    <listViews>
+        <fullName>X1STOP_User_Review</fullName>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>Sub_Status__c</columns>
+        <columns>Request_Category__c</columns>
+        <columns>Request_Subcategory__c</columns>
+        <columns>Subject__c</columns>
+        <columns>Request_Description__c</columns>
+        <columns>Flag__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Queue</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filters>
+        <label>1STOP User Review</label>
+        <language>en_US</language>
+        <queue>X1STOP_User_Review</queue>
+        <sharedTo>
+            <group>GCR_Admins</group>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>Request Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>1STOP</pluralLabel>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Request_Category__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Request_Subcategory__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Subject__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Add_Comment</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Add Comment</masterLabel>
+        <openType>replace</openType>
+        <page>OneStopAddComment</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Approve</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Approve</masterLabel>
+        <openType>sidebar</openType>
+        <page>OneStopApprove</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Close_Request</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Close Request</masterLabel>
+        <openType>sidebar</openType>
+        <page>OneStopRequestClose</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Make_Me_Owner</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Make Me Owner</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/27.0/connection.js&quot;)} 
+
+var newRecords = []; 
+var os = new sforce.SObject(&quot;One_Stop__c&quot;); 
+os.id =&quot;{!One_Stop__c.Id}&quot;; 
+os.OwnerId = &apos;{!User.Id}&apos;; 
+os.Status__c = &apos;Working&apos;;
+newRecords.push(os); 
+result = sforce.connection.update(newRecords);
+
+location.reload();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Reopen</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Reopen</masterLabel>
+        <openType>sidebar</openType>
+        <page>OneStopReopen</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

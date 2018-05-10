@@ -1,0 +1,72 @@
+<!--
+#    
+#    Displays Probing questions on case survey subtab
+#    
+#    @param: Id - The Salesforce Id of the existing Case record
+#    @author: Oleg Rikkers
+#    @date: 7/11/2014
+#
+-->
+
+
+<apex:page showHeader="false" sidebar="false" standardController="Case" extensions="sf_CaseSurveyProbingQuestionsCtrl">
+	<style type="text/css">
+		.lastSavedText{
+			color: green;
+		}
+	</style>
+	<apex:form id="pqForm" rendered="{!surveys.size>0}">
+
+		<apex:commandButton value="Save Questions" action="{!saveQuestions}" status="sf_ProgressStatus" reRender="pqForm, lastSavedTimeTop, lastSavedTimeBottom, errorMessages" style="float:right; margin-bottom: 10px;" oncomplete="trackPQSavedChanges(); refreshChecklist();"/>
+	    <apex:outputPanel id="lastSavedTimeTop" styleClass="savedTime" style="float: right; margin-top: 5px; margin-right: 5px;">
+			<apex:outputPanel rendered="{!lastSavedTime != ''}">
+				<apex:outputText styleClass="lastSavedText" value="{!$Label.AgentConsole_Saved_As_Of} {!lastSavedTime}"/>
+			</apex:outputPanel>
+		</apex:outputPanel>
+		<div style="clear:both"/>
+
+		<apex:repeat value="{!surveys}" var="survey">
+		<apex:outputPanel layout="block" styleClass="surveyContainer" id="probingQuestions">
+			<apex:outputPanel layout="block" styleClass="section">
+				<apex:outputPanel layout="block" styleClass="sectionHeader">
+					<apex:outputLabel >{!survey.Survey_Type__c}</apex:outputLabel>
+				</apex:outputPanel>
+
+				<apex:outputPanel layout="block" styleClass="sectionContent">
+					<apex:repeat value="{!uniqueFieldsSet[survey.Survey_Type__c]}" var="ufs">
+						<div class="question">
+							<apex:outputLabel value="{!$ObjectType.Survey__c.fields[ufs].inlineHelpText}" rendered="{!$ObjectType.Survey__c.fields[ufs].inlineHelpText != null}"/>
+							<apex:outputLabel value="{!$ObjectType.Survey__c.fields[ufs].Label}" rendered="{!$ObjectType.Survey__c.fields[ufs].inlineHelpText = null}"/>
+						</div>
+						<div class="answer">
+							<apex:inputField value="{!survey[ufs]}"/>
+						</div>
+					</apex:repeat>
+				</apex:outputPanel>
+			</apex:outputPanel>
+		</apex:outputPanel>	
+		</apex:repeat>
+
+		<apex:commandButton value="Save Questions" action="{!saveQuestions}" status="sf_ProgressStatus" reRender="pqForm, lastSavedTimeTop, lastSavedTimeBottom, errorMessages" style="float:right;" oncomplete="trackPQSavedChanges(); refreshChecklist();"/>
+	    <apex:outputPanel id="lastSavedTimeBottom" styleClass="savedTime" style="float: right; margin-top: 5px; margin-right: 5px;">
+			<apex:outputPanel rendered="{!lastSavedTime != ''}">
+				<apex:outputText styleClass="lastSavedText" value="{!$Label.AgentConsole_Saved_As_Of} {!lastSavedTime}"/>
+			</apex:outputPanel>
+		</apex:outputPanel>
+		<div style="clear:both"/>
+	</apex:form>
+
+	<script type="text/javascript">
+		var showProbingQustionsTab = {!surveys.size>0};
+		//console.log ('showProbingQustionsTab', showProbingQustionsTab);
+
+
+        if (showProbingQustionsTab) {
+            $('.probingQuestions').show();
+            $('.pqTab').show();
+        } else {
+            $('.probingQuestions').hide();
+            $('.pqTab').hide();
+        }
+	</script>
+</apex:page>

@@ -1,0 +1,50 @@
+<apex:page standardController="One_Stop__c" extensions="OneStopApprove">
+    <script>
+    function validateData(){
+        if('{!One_Stop__c.OwnerId}'!='{!$User.Id}'){
+            alert('Take ownership before updating the record.');
+            return false;
+        }
+        else return true;
+    }
+    
+    </script>
+        <apex:sectionHeader title="{!$ObjectType.One_Stop__c.label} Edit" subtitle="{!One_Stop__c.name}"/>
+        <apex:form >
+        <apex:pageBlock title="{!$ObjectType.One_Stop__c.label} Edit" mode="edit" rendered="{!One_Stop__c.IsItApproved__c==false}">
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+       
+                <apex:pageBlockButtons >
+                        <apex:commandButton action="{!save}" value="Save" rerender="showmsg" />
+                        <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:pageBlockButtons>
+                 
+                    <apex:pageBlockSection showHeader="true" title="Information" columns="1">
+                       <apex:inputField value="{!One_Stop__c.X1STOP_Approval__c}" required="true" />
+                       
+                        <apex:inputField value="{!One_Stop__c.Priority__c}"/>
+                      
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Comment</apex:outputLabel> 
+                        <apex:inputTextarea value="{!xComment}" style="width:400px;height:100px;" id="Comm" label="Comments" />
+                        
+                        </apex:pageBlockSectionItem>                                        
+                </apex:pageBlockSection>
+            
+                <apex:pageBlockSection showHeader="true" title="Notification" columns="1">
+                        <apex:outputLabel >Notification will be sent automatically</apex:outputLabel>
+                </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock title="{!$ObjectType.One_Stop__c.label} Edit" mode="edit" rendered="{!One_Stop__c.IsItApproved__c==true}">
+                <apex:pageBlockButtons >
+                        <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection showHeader="true" title="Information" columns="1">
+                        <apex:outputLabel style="font-weight:bold;color:red;">NOTE:</apex:outputLabel>
+                        <apex:outputLabel style="font-weight:bold;">This request has already been approved by '{!One_Stop__c.Approver_Name__c}' on '{!One_Stop__c.Approval_Date__c}'</apex:outputLabel> 
+                        <br/>
+                        <br/>                                      
+                </apex:pageBlockSection>
+        </apex:pageBlock>
+        </apex:form>
+</apex:page>

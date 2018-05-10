@@ -1,0 +1,164 @@
+<!-- 
+#    VF Comonent referenced in gcr_cmpemailUsComponent. This is used to display products when the consumer selects 'Product Vailability/Where To Buy'
+#    
+#    @param:  iHandshake
+#    @author: ACCENTURE
+#    @date:   20/03/2017
+#
+-->
+<apex:component id="idEmailUsWTBCmp" controller="gcr_emailUsPrbController" layout="none">
+    <style>
+        .noProductImage {
+        	height: 60%;
+        	width: 60%;
+        	capacity: 0.2;
+        }
+    </style>
+    <apex:outputPanel rendered="{!NOT(isRightToLeft)}">
+		<apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubEmailUsPrbCmpStyling.css')}" />
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!isRightToLeft}">
+		<apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubEmailUsPrbCmpStyling_rtl.css')}" />
+    </apex:outputPanel>
+    <!-- ATTRIBUTES FOR COMPONENT -->
+    <apex:attribute name="handshake" assignTo="{!iHandshake}" description="Handshaks Instance" type="gcr_WidgetHandshake" required="true" />
+    <apex:attribute name="channelContent" assignTo="{!chlContentRec}" description="Email us channel content" type="GCRChannelContent__c" required="true" />
+    <apex:attribute name="rightToLeft" assignTo="{!isRightToLeft}" description="Email us channel content" type="Boolean" />
+
+    <!-- ACTION FUNCTIONS FOR THIS COMPONENT ACTIONS -->
+    <!-- ACTION FUNCTION FOR PRODUCT LIST TO SELECT PRODUCTS -->
+    <apex:actionRegion >
+        <apex:actionFunction name="acnSelectedProd" action="{!actionSelectProduct}" reRender="opProductList,opSelectedProdList">
+            <apex:param name="paramProduct" assignTo="{!selectedProduct}" value="" />
+        </apex:actionFunction>
+    </apex:actionRegion>
+    <!-- ACTION FUNCTION FOR PRODUCT LIST TO DESELECT PRODUCTS -->
+    <apex:actionRegion >
+        <apex:actionFunction name="acnRemoveProd" action="{!actionRemoveProduct}" reRender="opSelectedProdList">
+            <apex:param name="paramProduct" assignTo="{!selectedProduct}" value="" />
+        </apex:actionFunction>
+    </apex:actionRegion>
+    <apex:outputText value="{!chlContentRec.EmailAdditionalDetails__c}" />
+
+    <!-- COMPONENTS FOR SELECTED PRODUCTS -->
+    <apex:outputPanel id="idProductSearch" layout="none">
+        <apex:outputPanel layout="block" id="opSelectedProdList">
+    	<apex:outputPanel layout="block" rendered="{!AND(iHandshake.lCaseProduct != null, iHandshake.lCaseProduct.size > 0)}">
+            <apex:outputText value="{!chlContentRec.ProductLimitMessage__c}" rendered="{!isProdLimit}" style="color:red;" /><BR/>
+            <apex:outputText value="{!chlContentRec.SelectedProductLabel__c}" />
+			<apex:outputPanel layout="block" id="idDateFormatMsg" style="display:none;color:red;">{!chlContentRec.DateFormatError__c}</apex:outputPanel>
+            <apex:outputPanel layout="block" styleClass="addedProductListContainer">
+                <apex:repeat var="eachProd" value="{!iHandshake.lCaseProduct}">
+                	<apex:outputPanel layout="block" styleClass="addedProductRow">
+                        <apex:outputPanel layout="block" styleClass="addedProductImage">
+                            <apex:image id="idAddedProductImage" styleClass="{!IF(OR(ISNULL(eachProd.imageUrl), eachProd.imageUrl == ''), 'noProductImage', '')}"
+                                        url="{!IF(OR(ISNULL(eachProd.imageUrl), eachProd.imageUrl == ''), URLFOR($Resource.GCRWidgetContent, 'contacts/svg/no-product-image.svg'), eachProd.imageUrl)}"/>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" styleClass="opDivCell" id="idAddedProductText">
+                            <apex:outputText id="opPrdName" value="{!eachProd.productName}" />
+                        </apex:outputPanel> 
+                        <!-- COLUMN FOR REMOVE ICON -->
+                        <apex:outputPanel layout="block" styleClass="productRemove">
+                            <apex:commandLink styleClass="productRemove" onclick="acnRemoveProd('{!eachProd.uniqueId}'); return false;">
+                                <apex:image url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/Remove_Product.svg')}" />
+                            </apex:commandLink>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:repeat>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        </apex:outputPanel>
+        <!-- CDOY Removed <apex:outputPanel layout="block" styleClass="cmpInputStyle inputOptional" id="rerenderComponent" rendered="{!iHandshake.isProductSearch}"> -->
+        <apex:outputPanel layout="block" styleClass="cmpInputStyle inputOptional" id="rerenderComponent">
+            <apex:outputPanel layout="block" styleClass="searchBarContainer">
+                <!-- ACTION FUNCATION FOR PRODUCT SEARCH -->
+                <apex:actionRegion >
+                    <apex:actionFunction name="searchProduct" action="{!searchProducts}" reRender="opProductList,idSearchError" status="idSearchProd" />
+                    <apex:inputText id="txtInputProdSearch" styleClass="cmpInputheight" value="{!strProdSearch}"
+                                    html-placeholder=" {!chlContentRec.EmailProdSearchLabel__c}" />
+                    <button type="submit" id="searchButton"
+                            onclick="searchProduct();
+                                     ga('send', 'pageview', '/{!$Site.Name}/{!chlContentRec.RecordType.Name}?q=' + document.getElementById('{!$Component.txtInputProdSearch}').value);
+                                     return false;">
+                        <apex:actionStatus id="idSearchProd">
+                            <apex:facet name="stop">
+                                <span class="fa fa-search" />
+                            </apex:facet>
+                            <apex:facet name="start">
+                                <span class="fa fa-cog fa-spin fa-2x progressSpinner" />
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </button>
+                </apex:actionRegion>
+                <apex:outputPanel id="idSearchError">
+				<apex:outputText rendered="{!isMinCharError}" value="{!chlContentRec.CareHub__r.SearchMinCharMsg__c}" style="color:red;" />
+            </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <!-- Removed CDOY<apex:outputPanel layout="block" id="opProductList" rendered="{!iHandshake.isProductSearch}">-->
+        <apex:outputPanel layout="block" id="opProductList">
+            <!-- PRODUCT LIST FOR PRODUCT SEARCH RESULTS -->
+            <c:gcr_cmpProductList productList="{!lProduct}" fieldSetName="ProductSearchResults"
+                                  actionJs="acnSelectedProd('[param1]'); return false;"
+                                  rendered="{!AND(NOT(ISBLANK(strProdSearch)), NOT(ISNULL(lProduct)), lProduct.size > 0)}"
+                                  sObjectName="Local_Product__c" iconType="add" />
+            <!-- MESSAGE WHEN NO SEARCH RESULTS OR NOT ENOUGH CHARACTERS FOR SEARCH -->
+            <apex:outputText value="{!chlContentRec.SearchResultMessage__c} '{!strProdSearch}'"
+                             rendered="{!AND(NOT(ISBLANK(strProdSearch)), isSearch, OR(ISNULL(lProduct), lProduct.size <= 0))}" />
+            <!-- PAGINATION RELATED COMPONENTS -->
+            <apex:actionRegion >
+                <apex:panelGrid style="margin-left: auto; margin-right: auto; max-width: 100%;" columns="7" rendered="{!intTotalPages > 1}" id="thePanelGrid">
+                    <!-- COMMAND LINK FOR FIRST PAGE -->
+                    <apex:commandLink action="{!firstPage}" rendered="{!intCurrentPage > 1}" reRender="opProductList">
+                    	<apex:image styleClass="page paginationIcon pageEnable"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationFPageIcon.svg')}" />
+                    </apex:commandLink>
+                    <!-- OUTPUT PANEL FOR FIRST PAGE DISPLAYED WHEN ON FIRST PAGE -->
+                    <apex:outputPanel rendered="{!NOT(intCurrentPage > 1)}">
+                    	<apex:image styleClass="page paginationIcon pageDisable"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationFPageIcon.svg')}" />
+                    </apex:outputPanel>
+                    <!-- COMMAND LINK FOR PREVIOUS PAGE -->
+                    <apex:commandLink action="{!previous}" rendered="{!intCurrentPage > 1}" reRender="opProductList">
+						<apex:image styleClass="page paginationIcon pageEnable)}"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationPrvIcon.svg')}" />
+                    </apex:commandLink>
+					<!-- OUTPUT PANEL FOR PREVIOUS PAGE DISPLAYED WHEN ON FIRST PAGE -->
+                    <apex:outputPanel rendered="{!NOT(intCurrentPage > 1)}">
+						<apex:image styleClass="page paginationIcon pageDisable"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationPrvIcon.svg')}" />
+                    </apex:outputPanel>
+                    <!-- COMMAND LINKS FOR VISIBLE PAGES -->
+                    <apex:repeat var="eachPage" value="{!lPageNumbers}">
+                        <apex:commandLink rendered="{!eachPage != intCurrentPage}" action="{!displaySelectedPage}"
+                                          value="{!eachPage}" reRender="opProductList" styleClass="page">
+                            <apex:param name="paramVal" value="{!eachPage}" assignTo="{!intCurrentPage}" />
+                        </apex:commandLink>
+                        <apex:outputPanel styleClass="pageDisable" rendered="{!eachPage == intCurrentPage}">{!eachPage}</apex:outputPanel>
+                    </apex:repeat>
+                    <!-- COMMAND LINK FOR NEXT PAGE -->
+                    <apex:commandLink rendered="{!intCurrentPage < intTotalPages}" action="{!next}" reRender="opProductList">
+                    	<apex:image styleClass="page paginationIcon pageEnable}"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationNextIcon.svg')}" />
+                    </apex:commandLink>
+                    <!-- OUTPUT PANEL FOR NEXT PAGE DISPLAYED WHEN ON LAST PAGE -->
+                    <apex:outputPanel rendered="{!NOT(intCurrentPage < intTotalPages)}">
+                    	<apex:image styleClass="page paginationIcon pageDisable"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationNextIcon.svg')}" />
+                    </apex:outputPanel>
+                    <!-- COMMAND LINK FOR LAST PAGE -->
+                    <apex:commandLink rendered="{!intCurrentPage < intTotalPages}" action="{!lastPage}" reRender="opProductList">
+                    	<apex:image styleClass="page paginationIcon pageEnable)}"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationLPageIcon.svg')}" />
+                    </apex:commandLink>
+                    <!-- OUTPUT PANEL FOR LAST PAGE DISPLAYED WHEN ON LAST PAGE -->
+                    <apex:outputPanel rendered="{!NOT(intCurrentPage < intTotalPages)}">
+                    	<apex:image styleClass="page paginationIcon pageDisable"
+                                    url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/paginationLPageIcon.svg')}" />
+                    </apex:outputPanel>
+                </apex:panelGrid>
+            </apex:actionRegion>
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:component>

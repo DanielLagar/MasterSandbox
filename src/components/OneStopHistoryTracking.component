@@ -1,0 +1,19 @@
+<apex:component controller="OneStopHistoryRelatedListController" >
+<apex:attribute name="OneStopObj" description="" type="One_Stop__c" required="true" assignTo="{!oneStop}"></apex:attribute>
+    <apex:pageBlock id="thePageBlock" title="1STOP History">            
+        <apex:pageBlockTable styleClass="list" value="{!HistoryDetails}" var="t">
+            <apex:column headerValue="{!$ObjectType.One_Stop__History.fields.Field.label}" width="20%">
+                <apex:outputText rendered="{!NOT(t.Field = 'created')}" value="{!t.fieldLabel}"/>
+                <apex:outputText rendered="{!t.Field = 'created'}" value="Request Created"/>
+            </apex:column>              
+            <apex:column headerValue="{!$ObjectType.One_Stop__History.fields.OldValue.label}" value="{!t.OldValue}" width="25%"/>
+            <apex:column headerValue="{!$ObjectType.One_Stop__History.fields.NewValue.label}" value="{!t.NewValue}" width="25%"/>
+            <apex:column headervalue="Updated By" width="15%">
+                <apex:outputLink value="/{!t.updatedbyid}">{!t.updatedby}</apex:outputLink>
+            </apex:column>
+            <apex:column headervalue="Updated On" width="15%">
+                <apex:outputText value=" {!t.updatedon}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>     
+</apex:component>

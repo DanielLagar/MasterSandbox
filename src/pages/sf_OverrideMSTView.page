@@ -1,0 +1,301 @@
+<!--#
+#    @Author: Oleg Rikkers
+#    @Date: 05/14/14
+#    @Description: overrides new and edit pages for MST object
+#-->
+
+
+<apex:page showHeader="true" sidebar="true" standardController="Metadata_Survey_Trigger__c" extensions="sf_OverrideMSTViewExt"
+title="{!$ObjectType.Metadata_Survey_Trigger__c.Label} Setup" readOnly="true">
+
+
+    <apex:variable var="mst" value="{!Metadata_Survey_Trigger__c}"/>
+    <apex:sectionHeader title="{!$ObjectType.Metadata_Survey_Trigger__c.Label}" subtitle="{!IF (ISBLANK(mst.Id), 'New ' + $ObjectType.Metadata_Survey_Trigger__c.Label, mst.Name)}"/>
+
+        <apex:pageMessages id="errorMessages"/>
+        <apex:pageBlock title="Details" mode="mainDetail">
+            <apex:pageBlockButtons >
+                <apex:form >
+                	<apex:commandButton value="Edit" status="sf_ProgressStatus" action="{!Edit}"/>
+                    <apex:commandButton value="Delete" status="sf_ProgressStatus" action="{!Delete}"/>
+                </apex:form>
+
+               <!--  <input type="submit" onclick="window.open('{!URLFOR($Action.Metadata_Survey_Trigger__c.Edit, mst.Id)}')" value="Edit" />
+                <input type="submit" onclick="window.open('{!URLFOR($Action.Metadata_Survey_Trigger__c.Delete, mst.Id)}')" value="Delete" /> -->
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection columns="2" collapsible="true" title="Record Info" rendered="{!!ISBLANK(mst.Id)}">
+                <apex:outputField value="{!mst.Name}"/>
+                <apex:outputField value="{!mst.Active__c}"/>
+                <apex:outputField value="{!mst.Lifetime_Trigger_Count__c}"/>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last 30 Days Trigger Count"/>
+                    <apex:outputText value="{!mst.Last_30_Day_Count__c}"/>
+                </apex:pageBlockSectionItem> 
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last 60 Days Trigger Count"/>
+                    <apex:outputText value="{!mst.Last_60_Day_Count__c}"/>
+                </apex:pageBlockSectionItem> 
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last 90 Days Trigger Count"/>
+                    <apex:outputText value="{!mst.Last_90_Day_Count__c}"/>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:outputField value="{!mst.Trigger_Count_Last_Updated__c}"/>
+                
+                <apex:outputField value="{!mst.Expiration_Date__c}"/>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Created By"/>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!mst.CreatedById}"/>&nbsp; 
+                        <apex:outputField value="{!mst.CreatedDate}"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last Modified By"/>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!mst.LastModifiedById}"/> &nbsp;
+                        <apex:outputField value="{!mst.LastModifiedDate}" />
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="Main Settings" collapsible="false">
+              
+                <apex:outputField value="{!mst.Survey_Object__c}"/>
+               
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Survey_Fieldset__c.Label}"/>
+                   
+                    <apex:outputPanel >
+                        <apex:repeat value="{!selectedFieldsets}" var="o">
+                            <div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{!mst.Type__c}"/>
+                <apex:outputField value="{!mst.Trigger_Type__c}"/>
+                 
+             
+                <!-- Direction -->
+                <apex:outputField value="{!mst.Direction__c}" rendered="false"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Direction__c.Label}"/>
+                   
+                    <apex:outputPanel >
+                    	<apex:repeat value="{!selectedDirections}" var="o">
+                    		<div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                    	</apex:repeat>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <!-- Contact Method -->
+                <apex:outputField value="{!mst.Contact_Method__c}" rendered="false"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Contact_Method__c.Label}"/>
+        
+
+                    <apex:outputPanel >
+                    	<apex:repeat value="{!selectedContactMethods}" var="o">
+                    		<div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                    	</apex:repeat>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+
+               <!-- Level Settings Panel -->
+            <apex:outputPanel layout="block" id="LevelSettingsPanel">
+                <apex:pageBlockSection title="Configure Level Parameters" collapsible="false" columns="1" rendered="{!mst.Trigger_Type__c == 'Level'}">
+                    
+                    <!-- Country -->
+                    <apex:outputField value="{!mst.Country__c}" rendered="false"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Country__c.Label}"/>
+                           
+                        <apex:outputPanel >
+                        	<apex:repeat value="{!selectedCountries}" var="o">
+                        		<div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                        	</apex:repeat>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                    <!-- Language -->
+                    <apex:outputField value="{!mst.Language__c}" rendered="false"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Language__c.Label}"/>
+                         
+                        <apex:outputPanel >
+                        	<apex:repeat value="{!selectedLanguages}" var="o">
+                        		<div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                        	</apex:repeat>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                    <!-- Segment -->
+                    <apex:outputField value="{!mst.Segment__c}" rendered="false"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Segment__c.Label}"/>
+                      
+                         <apex:outputPanel >
+                        	<apex:repeat value="{!selectedSegments}" var="o">
+                        		<div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                        	</apex:repeat>
+                        </apex:outputPanel>
+
+                    </apex:pageBlockSectionItem>
+
+                    <!-- Brand -->
+                    <apex:outputField value="{!mst.Brand__c}" rendered="false"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Brand__c.Label}"/>
+                           
+                        <apex:outputPanel >
+                        	<apex:repeat value="{!selectedBrands}" var="o">
+                        		<div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                        	</apex:repeat>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                    <!-- Comment Code L1 -->
+                    <apex:outputField value="{!mst.Comment_Code_L1__c}" rendered="false"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Comment_Code_L1__c.Label}"/>
+                           
+                        <apex:outputPanel >
+                        	<apex:repeat value="{!selectedL1}" var="o">
+                        		<div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                        	</apex:repeat>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                    <!-- Comment Code L2 -->
+                    <apex:outputField value="{!mst.Comment_Code_L2__c}" rendered="false"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Comment_Code_L2__c.Label}"/>
+                        
+                        <apex:outputPanel >
+                        	<apex:repeat value="{!selectedL2}" var="o">
+                        		<div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                        	</apex:repeat>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                    <!-- Comment Code L3 -->
+                    <apex:outputField value="{!mst.Comment_Code_L3__c}" rendered="false"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Comment_Code_L3__c.Label}"/>
+                       
+                        <apex:outputPanel >
+                        	<apex:repeat value="{!selectedL3}" var="o">
+                        		<div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                        	</apex:repeat>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+
+
+            <!-- PATH SETTINGS -->
+            <apex:outputPanel layout="block" id="PathSettingsPanel">
+                <apex:pageBlockSection title="Configure Path Parameters" collapsible="false" columns="2" rendered="{!mst.Trigger_Type__c == 'Path'}">
+                    <apex:outputField value="{!mst.Product_Path__c}"/>
+                    <apex:outputField value="{!mst.Comment_Code_Path__c}"/>
+                    
+                    <!--ChrisM Adding Country/Language support to "Path" matching" March2016-->
+                    <!-- Country -->
+                    <apex:outputField value="{!mst.Country__c}" rendered="false"/>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$ObjectType.Metadata_Survey_Trigger__c.fields.Country__c.Label}"/>
+                               
+                        <apex:outputPanel >
+                            <apex:repeat value="{!selectedCountries}" var="o">
+                                <div class="choices"><span>{!IF (o='*', 'ALL', o)}</span></div>
+                            </apex:repeat>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+
+
+            <!-- FIELDSETS PREVIEW -->
+            <apex:outputPanel layout="block" id="fieldSetPreviewPanel">
+                <apex:pageBlockSection title="Fieldset preview" collapsible="true" columns="1" rendered="{!NOT(ISBLANK(mst.Survey_Object__c)) && NOT(ISBLANK(mst.Survey_Fieldset__c))}">
+                    <apex:outputPanel layout="block">
+                        <apex:outputLink target="_blank" value="/p/setup/custent/FieldSetListUI/d?tableEnumOrId={!$ObjectType[mst.Survey_Object__c]}&setupid=CustomObjects&retURL={!$Page.sf_OverrideMSTNewEdit}?id={!mst.Id}" style="color:white">Preview Field Set</apex:outputLink><p/>
+                        <apex:repeat value="{!selectedFieldSets}" var="selFs">
+
+                            <apex:repeat value="{!$ObjectType[mst.Survey_Object__c].fieldSets[selFs]}" var="f" >
+                                <apex:outputPanel layout="block" styleClass="field">
+                                    {!f.label} [{!f.fieldPath}] ({!f.type}) <apex:outputPanel style="color:red; margin: 0px 2px;" rendered="{!f.required}">*</apex:outputPanel>
+                                    <br/>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            <!-- END FIELDSETS PREVIEW -->
+
+            <!-- ChrisM - Removing these sections as no longer required and heavily impact page load time-->
+            <!--
+            <apex:pageBlockSection collapsible="true" columns="1" title="Matched Local Products ({!products.size} record{!IF (products.size!=1, 's','')} )">
+                <apex:pageBlockTable value="{!products}" var="p">
+                    <apex:column value="{!p.Name}"/>
+                    <apex:column value="{!p.Translated_Path__c}"/>
+                    <apex:column value="{!p.Global_Product__r.Path__c}"/>
+                    <apex:column value="{!p.Country__c}"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection collapsible="true" columns="1" title="Matched Local Comments ({!comments.size} record{!IF (comments.size!=1, 's','')} )">
+                <apex:pageBlockTable value="{!comments}" var="p">
+                    <apex:column value="{!p.Name}"/>
+                    <apex:column value="{!p.Global_Comment_Code__r.Full_Comment_Path__c}"/>
+                    <apex:column value="{!p.Translated_Language__c}"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+			-->
+
+        </apex:pageBlock>
+
+        <!-- <div id="myGrid" style="width:800px;height:500px;"></div> -->
+        
+
+    <style type="text/css">
+        .field {
+            background-color: #1797C0;
+            color: white;
+            font-weight: bold;
+            padding: 5px;
+            border: 2px solid #a1a1a1;
+            width: 30%;
+            margin: 0px 0px 15px 0px;
+            border-radius:5px;
+        }
+
+        .choices {
+        	position: relative;
+			margin: 3px 0px 3px 5px;
+			padding: 3px 20px 3px 5px;
+			border: 1px solid #AAA;
+			border-radius: 3px;
+			background-color: #E4E4E4;
+			background-image: linear-gradient(#F4F4F4 20%, #F0F0F0 50%, #E8E8E8 52%, #EEE 100%);
+			background-clip: padding-box;
+			box-shadow: 0px 0px 2px #FFF inset, 0px 1px 0px rgba(0, 0, 0, 0.05);
+			line-height: 13px;
+			cursor: default;
+			color: #333;
+			float: left;
+        }
+    </style>
+    
+</apex:page>

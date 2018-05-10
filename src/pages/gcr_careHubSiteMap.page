@@ -1,0 +1,27 @@
+<!-- 
+#    Site map for care hub
+#
+#    @author: ACCENTURE
+#    @date:   16/01/2017
+# DATE              NAME                CHANGE DESCRIPTION
+# 16/01/2017       Accenture           Initial Draft
+-->
+<apex:page controller="gcr_careHubSiteMapController" contentType="text/xml" standardStylesheets="false" sidebar="false" showHeader="false">
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                              http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+        <url>
+            <loc>{!$Site.CurrentSiteUrl}</loc>
+            <lastmod>{!strDate}</lastmod>
+            <priority>1.00</priority>
+        </url>
+        <!-- Replace the following URLs with your site's actual URLs -->
+        <apex:repeat value="{!lKaExtUrl}" var="eachUrl">
+            <url>
+                <loc>{!$Site.CurrentSiteUrl}{!eachUrl}</loc>
+                <lastmod>{!strDate}</lastmod>
+                <priority>1.00</priority>
+            </url>
+        </apex:repeat>
+    </urlset>
+</apex:page>

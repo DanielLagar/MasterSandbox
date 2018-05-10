@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Settings controlling if the State/County AND ZIP/Postal code are mandatory fields in the console and contact us pages</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Uses_Postal_Codes__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Uses Postal Codes</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Uses_States__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Uses States</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Country Status</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Uses_Postal_Codes__c</columns>
+        <columns>Uses_States__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>China_Hong_Kong_taiwan</fullName>
+        <columns>NAME</columns>
+        <columns>Uses_Postal_Codes__c</columns>
+        <columns>Uses_States__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>NAME</field>
+            <operation>equals</operation>
+            <value>China,Hong Kong,taiwan</value>
+        </filters>
+        <label>China, Hong Kong, taiwan</label>
+        <language>en_US</language>
+    </listViews>
+    <visibility>Protected</visibility>
+</CustomObject>

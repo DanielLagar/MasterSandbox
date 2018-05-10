@@ -1,0 +1,25 @@
+<!-- 
+#    Component for contact us page of GCR Widget
+#    
+#    @author: ACCENTURE
+#    @date:   01/11/2016
+#
+-->
+<apex:component layout="block">
+    
+    <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubMain.css')}" />
+    
+    <!-- COMPONENT ATTRIBUTES -->
+    <apex:attribute name="bannerImageUrl" description="Banner image url" type="String" required="true" />
+    <apex:attribute name="bannerText" description="Banner text" type="String" required="true" />
+    <apex:attribute name="bannerLink" description="Banner link url" type="String" />
+
+    <apex:outputLink styleClass="bannerAnchor" onclick="window.open('{!bannerLink}', '_blank');return false;">
+        <apex:outputPanel layout="block" styleClass="bannerImageDiv">
+			<apex:image styleClass="bannerImage" url="{!bannerImageUrl}" />
+        </apex:outputPanel>
+        <apex:outputPanel layout="block" styleClass="bannerTextOuterDiv">
+            <apex:outputPanel styleClass="bannerTextDiv" layout="block">{!bannerText}</apex:outputPanel>
+        </apex:outputPanel>
+    </apex:outputLink>
+</apex:component>

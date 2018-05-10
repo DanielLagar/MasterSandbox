@@ -1,0 +1,145 @@
+<apex:page showHeader="false" sidebar="false" standardController="Case" extensions="sf_CaseSummaryPopoutCompExt">
+	<apex:includeScript value="/support/console/30.0/integration.js"/>
+    <!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+	<!--<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"/>-->
+
+	<script type="text/javascript">
+		if (!window.console) {console={log: function () {}} };
+		var caseId = '';
+		var sfPrimaryTabId = null;
+		var jsTimer = null;
+
+		/** 
+		* This function disables the product search when a tab is closed. 
+		* onFocusedPrimaryTab then determines if the Product Search should be enabled.
+		*/
+
+		//Grab tab id and case record id
+		var previousOnload = window.onload; 
+
+		window.onload = function() { 
+		    //console.log("caseSummary is entering onload");
+		    
+		    if (previousOnload) { 
+		        previousOnload(); 
+		    }
+		    getPrimaryTabId();
+
+		} 
+
+		sforce.console.addEventListener(sforce.console.ConsoleEvent.CLOSE_TAB, function (result) {
+			console.log("CLOSE_TAB result", result);
+			
+			hideSummaryPanel();
+			
+
+		});
+
+		sforce.console.onFocusedPrimaryTab(function (result) {
+			//console.log("onFocusedPrimaryTab function entered");
+			getPrimaryTabId();
+		});
+
+
+
+
+		var getPrimaryTabId = function () {
+			//console.log('getting primary tab id');
+		    //Get the primary tab id to be used for refreshes
+		    sforce.console.getFocusedPrimaryTabId(function (result) {
+		    
+		    console.log('result', result);
+		        
+
+		        if (result.success) {
+		        	sfPrimaryTabId = result.id;
+
+		        	sforce.console.getPageInfo(sfPrimaryTabId, function (result){
+		        		var pageInfo = JSON.parse(result.pageInfo);
+		        		//console.log('pageInfo', result.pageInfo);
+			        	
+
+			        	if(typeof pageInfo.objectId != 'undefined') {
+			        		//console.log('objectId', pageInfo.objectId);
+				        	//console.log('object', pageInfo.object);
+				        	if (pageInfo.objectId.substring(0,3) == '500') {
+				        		caseId = pageInfo.objectId;
+		                        setCaseId(caseId);
+		                      //  console.log('setting case id: ', caseId);
+		                      	showSummaryPanel();
+		                      	
+				        	} else {
+				        		hideSummaryPanel();
+				        	}
+			        	} else {
+			        		hideSummaryPanel();
+			        	}
+			        	
+			        });
+		        } else {
+		        	hideSummaryPanel();
+		        }	
+
+		    });
+		};
+
+		var showSummaryPanel = function () {
+		    if(jsTimer != null){
+		        clearInterval(jsTimer);
+		        jsTimer = null;     
+		    }
+			$('.summaryPanel').show();
+		}
+
+		var hideSummaryPanel = function () {
+			if(jsTimer == null){
+		        jsTimer = setInterval(function(){
+		        	getPrimaryTabId(); 
+		        	//console.log("TimerHit");
+		        },3000);
+		    }
+			$('.summaryPanel').hide();
+		}
+
+		//refresh the primary tab
+	function refreshSelectedCaseTab(){
+	    var refreshSuccess = function (result) {
+	        if (result.success) {
+	            //console.log('Primary tab refreshed successfully');
+	        } else {
+	            //console.log('Primary did not refresh');
+	        }
+	    };
+
+
+		sforce.console.getSubtabIds(sfPrimaryTabId, function(result){ 
+			//console.log('refreshSelectedTab ', result);
+			sforce.console.refreshSubtabById(result.ids[0], false, refreshSuccess);
+
+		});
+		
+
+	    //sforce.console.refreshPrimaryTabById(sfPrimaryTabId, true, refreshSuccess);
+	}
+
+	</script>
+
+	<apex:form >
+		<apex:actionFunction name="setCaseId" action="{!setCaseId}" oncomplete="showSummaryPanel()" reRender="SummaryPanel" status="sf_ProgressStatus">
+        	<apex:param name="caseId" value="" assignTo="{!caseId}"/>
+    	</apex:actionFunction>
+		<apex:outputPanel layout="block" styleClass="summaryPanel" id="SummaryPanel">
+			<apex:outputPanel layout="block" style="margin: 5px 15px; width: 100%;">
+			 	<apex:outputField value="{!CaseRecord.CaseNumber}"/>
+				<apex:commandButton action="{!saveSummary}" value="{!$Label.caseSummaryPopoutComponent_Save}" status="sf_ProgressStatus" oncomplete="refreshSelectedCaseTab()" reRender="" style="margin: 5px 10px;"/>
+			</apex:outputPanel>
+			<apex:inputTextarea value="{!CaseRecord.Summary__c}" rows="10" cols="50" style="margin: 10px"/>
+		</apex:outputPanel>
+
+		<c:sf_ProgressStatus labelText="Loading..."/>
+	</apex:form>
+
+</apex:page>

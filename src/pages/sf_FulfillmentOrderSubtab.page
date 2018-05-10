@@ -1,0 +1,121 @@
+<apex:page standardController="Case" extensions="sf_FulfillmentOrderSubtabController"  showHeader="false" sidebar="false">
+<apex:includeScript value="{!$Resource.jquery151}"/>
+<apex:includeScript value="/support/console/30.0/integration.js"/>
+    <script type="text/javascript">
+      var j$ = jQuery.noConflict();
+      var caseId = '{!Case.Id}';
+      var currentFulfillmentId;
+      function getSelectedOrder(){
+         j$('#errors').hide();
+         var radio = j$('input[name=group1]:checked');
+         var id = radio.attr('id');
+         if (typeof id === 'undefined') {
+           id = null;
+         }
+         sf_FulfillmentOrderSubtabController.addFulfillmentLineItem(id, function(result, event){
+                if(event.status){
+                    if (result.returnURL != null) {
+                         sforce.console.getEnclosingPrimaryTabId(function(result2) {
+                          callBackopenTab(result2.id,result.returnURL, 'New Fulfillment Line Item');
+                        });
+                    } else if (result.errorMessage != null) {
+                       alert(result.errorMessage);
+                       
+                    }
+                }
+            }, {escape: false}
+          ); 
+
+      }
+      
+      function newFulfillmentOrder(){
+        
+         sf_FulfillmentOrderSubtabController.createNewFulfillmentOrder(caseId, 
+            function(result, event){
+                console.log(result);
+                console.log('decoded ' + decodeURI(result.returnURL));
+                    if(event.status && (result.returnURL != null )){
+                         sforce.console.getEnclosingPrimaryTabId(function(result2) {
+                          callBackopenTab(result2.id,decodeURI(result.returnURL), 'New Fulfillment Order');
+                        });
+                    } else if (result.errorMessage != null) {
+                           alert(result.errorMessage);
+                   }
+            }, {escape: false}
+        );
+
+      }
+      
+      function openTab(recid, recname) {
+          if ( !sforce.console.isInConsole() )
+            window.parent.location.replace('/'+recid);
+          else {
+            sforce.console.getEnclosingPrimaryTabId(function(result) {
+              callBackopenTab(result.id, '/'+recid, recname);
+            });
+          }
+        }
+        
+        function callBackopenTab(resultId, recordid, recordname) {
+          
+          sforce.console.openSubtab(resultId,recordid , true, recordname, null);
+        }; 
+        
+        //START: Added by Ashok to reload the page onFocus
+        sforce.console.getEnclosingTabId(function(result3){
+            currentFulfillmentId = result3.id;
+        });
+        
+        var reloadFulfillments = function (result) {
+            if(result.id==currentFulfillmentId){
+                window.location.reload(true);
+            }
+        };
+    	
+    sforce.console.onFocusedSubtab(reloadFulfillments);
+        //END: Added by Ashok
+        
+        
+   </script>
+    <apex:form id="fulfillmentForm">
+    <apex:pageBlock title="{!$Label.FulfillmentOrders_Title}">
+       <apex:pageBlockButtons >
+            <apex:commandButton onclick="newFulfillmentOrder(); return false" value="{!$Label.FulfillmentOrders_NewFFOrder}" rerender="fulfillmentForm,errors" />
+            <apex:commandButton onclick="getSelectedOrder(); return false" value="{!$Label.FulfillmentOrders_AddNewLineItem}" id="addNewLineItem" rerender="fulfillmentForm,errors">
+            </apex:commandButton>
+        </apex:pageBlockButtons>
+        <div id="errors"> </div>
+       <apex:pageBlockTable var="fo" value="{!FulfillmentOrders}" id="list">
+          <apex:column >
+               <apex:facet name="header"></apex:facet>
+               <input type="radio" name="group1" id="{!fo.Id}" />
+            </apex:column>
+            <apex:column headerValue="{!$Label.FulfillmentOrders_ColHeading_Name}">
+                <A HREF="#" onClick="openTab('{!fo.id}','{!fo.name}');return false">{!fo.name}</A>
+            </apex:column>
+            <apex:column headerValue="{!$Label.FulfillmentOrders_ColHeading_ConLookup}">
+                <A HREF="#" onClick="openTab('{!fo.Contact__c}','{!fo.contact__r.name}');return false">{!fo.contact__r.name}</A>
+            </apex:column>
+            <apex:column value="{!fo.Status__c}" /> 
+            <apex:column value="{!fo.PDF_Generated__c}" /> 
+            <apex:column value="{!fo.Date_Created__c}" />
+       </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock title="{!$ObjectType.Fulfillment_Order_Line_Item__c.labelPlural}" id="orderLines">
+       <apex:pageBlockTable var="fol" value="{!FulfillmentOrderLineItems}" id="list">
+            <apex:column headerValue="{!$Label.FulfillmentOrders_ColHeading_FFOrderLineItemName}" value="{!fol.name}" />
+            <apex:column headerValue="{!$Label.FulfillmentOrder_ColHeading_FulfillmentOrder}">
+                <A HREF="#" onClick="openTab('{!fol.Fulfillment_Order__c}','{!fol.Fulfillment_Order__r.name}');return false">{!fol.Fulfillment_Order__r.name}</A>
+            </apex:column>
+            <apex:column value="{!fol.CreatedDate}" /> 
+            <apex:column value="{!fol.Amount_Currency__c}" /> 
+            <apex:column value="{!fol.Quantity__c}" />
+            <apex:column headerValue="{!$Label.FulfillmentOrders_ColHeading_FFItem}">
+                <A HREF="#" onClick="openTab('{!fol.Fulfillment_Item__c}','{!fol.Fulfillment_Item__r.name}');return false">{!fol.Fulfillment_Item__r.name}</A>
+            </apex:column>
+            <apex:column value="{!fol.Description__c}" />
+            
+       </apex:pageBlockTable>
+   </apex:pageBlock>
+   </apex:form> 
+</apex:page>

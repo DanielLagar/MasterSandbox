@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Stores the fulfillment item excluded for each contact center while generating letters</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Fulfillment_Item_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Fulfillment Item Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>Fulfillment Type Exclusion</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Fulfillment_Item_Type__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <visibility>Public</visibility>
+</CustomObject>

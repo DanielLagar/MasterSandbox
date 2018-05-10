@@ -1,0 +1,19 @@
+<!-- 
+#    Landing Component for care hub.
+#    
+#    @author: ACCENTURE
+#    @date:   01/11/2016
+#
+-->
+<apex:component layout="none">
+    <!-- COMPONENTS ATTRIBUTES -->
+    <apex:attribute name="landingText" description="This is text for the landing component." type="String" required="true"/>
+    <apex:attribute name="landingImage" description="This is url for landing page image." type="String" required="true"/>
+
+    <apex:outputPanel layout="block" styleClass="welcomeLogoCenter cssCmpHeightLanding">
+    	<apex:outputPanel layout="block" styleClass="welcomeText">{!landingText}</apex:outputPanel>
+    </apex:outputPanel>
+    <apex:outputPanel layout="block" styleClass="imgDiv cssCmpHeightLanding">
+    	<apex:image styleClass="imageMain cssCmpHeightLanding" url="{!landingImage}" />
+    </apex:outputPanel>
+</apex:component>

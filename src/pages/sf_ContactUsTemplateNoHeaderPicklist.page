@@ -1,0 +1,675 @@
+<apex:page showHeader="false" id="ContactUsTemplate" language="{!$CurrentPage.parameters.lang}" controller="sf_ContactUsTemplateController" applyHtmlTag="false" applyBodyTag="false" doctype="html-5.0">
+<html><head>
+    <link rel="stylesheet" href="{!$Resource.bootstrapMinCss}" />
+    <link rel="stylesheet" href="{!$Resource.bootstrapThemeMinCss}" />
+    <meta name="viewport" content="initial-scale=1" />
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{!brand_config.URL_Favicon__c}" type="image/x-icon" />
+
+    <style>
+        *, *:before, *:after {
+          -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+        }
+
+    /* this section of styles is where brand configuration is applied */
+        /* begin button css */
+        .btn-custom {
+          color: #ffffff;
+          background-color: #{!brand_config.Background_Color_Button__c};
+          border: none;
+          background: #{!brand_config.Background_Color_Button__c};
+          padding: 14px 24px;
+            font-size: 18px;
+            line-height: normal;
+            -webkit-border-radius: 8px;
+               -moz-border-radius: 8px;
+                    border-radius: 8px;
+        }
+        .btn-custom:hover,
+        .btn-custom:focus,
+        .btn-custom:active,
+        .btn-custom.active,
+        .open .dropdown-toggle.btn-custom {
+          color: #97F9EC;
+          background-color: #{!brand_config.Background_Color_Button__c};
+          border: none;
+        }
+        .btn-custom:active,
+        .btn-custom.active,
+        .open .dropdown-toggle.btn-custom {
+          background-image: none;
+        }
+        .btn-custom.disabled,
+        .btn-custom[disabled],
+        fieldset[disabled] .btn-custom,
+        .btn-custom.disabled:hover,
+        .btn-custom[disabled]:hover,
+        fieldset[disabled] .btn-custom:hover,
+        .btn-custom.disabled:focus,
+        .btn-custom[disabled]:focus,
+        fieldset[disabled] .btn-custom:focus,
+        .btn-custom.disabled:active,
+        .btn-custom[disabled]:active,
+        fieldset[disabled] .btn-custom:active,
+        .btn-custom.disabled.active,
+        .btn-custom[disabled].active,
+        fieldset[disabled] .btn-custom.active {
+          background-color: #{!brand_config.Background_Color_Button_Disabled__c};
+          border: none;
+        }
+        /* end button css */
+
+        .brand-header {
+            background-color: #{!brand_config.Background_Color_Header__c} !important;
+            font-family: "{!brand_config.Font_Header__c}";
+            font-size: {!brand_config.Font_Size_Header__c};
+            color: #{!brand_config.Font_Color_Header__c};
+            /*padding: 10px;*/
+            margin:0px;
+            border-bottom:2px solid #{!brand_config.Header_Bottom_Border_Color__c}; 
+        }
+
+        .brand-header a, .brand-header a:hover, .brand-header a:active {
+            color: #{!brand_config.Font_Color_Header__c};
+        }
+
+        .brand-header .floatRight, .brand-header .floatLeft, .brand-header td {
+            color: #{!brand_config.Font_Color_Header__c};
+            font-family: "{!brand_config.Font_Header__c}";
+            font-size: {!brand_config.Font_Size_Header__c};
+        }
+
+        .brand-header td {
+            /*vertical-align: middle;*/
+        }
+
+        body {
+            background-color: #{!brand_config.Background_Color_Page__c};
+        }
+
+        .main {
+            background-color: #{!brand_config.Background_Color_Content_Area__c};
+        }
+
+        .page-title {
+            padding-top:20px;
+            margin:0px;
+            color: #{!brand_config.Font_Color_Page_Title__c};
+            font-family: "{!brand_config.Font_Page_Title__c}";
+            font-size: {!brand_config.Font_Size_Page_Title__c};
+        }
+
+        .section-title {
+            color: #{!brand_config.Font_Color_Section_Header__c};
+            font-family: "{!brand_config.Font_Section_Header__c}";
+            font-size: {!brand_config.Font_Size_Section_Header__c};
+        }
+
+        .innerForm label {
+            color: #{!brand_config.Font_Color_Form_Label__c};
+            font-size: {!brand_config.Font_Size_Form_Label__c};
+        	width: calc(100% - 60px);
+        	margin-left: 5px;
+        }
+
+
+        a {
+            color: #{!brand_config.Font_Color_Links__c};
+            font-family: "{!brand_config.Font_Links__c}";
+            font-size: {!brand_config.Font_Size_Links__c};
+        }
+        
+        #page-footer a {
+            color: #{!brand_config.Font_Color_Footer_Link__c};
+        }
+
+        #page-header a {
+            color: #{!brand_config.Font_Color_Header_Links__c};
+        }
+        
+        #page-body a {
+            color: #{!brand_config.Font_Color_Content_Links__c};
+        }        
+        
+        .article {
+            color: #{!brand_config.Font_Color_Article__c};
+            font-family: "{!brand_config.Font_Article__c}";
+            font-size: {!brand_config.Font_Size_Article__c};
+        }
+
+        .article-title {
+            color: #{!brand_config.Font_Color_Article_Title__c};
+            font-family: "{!brand_config.Font_Article_Title__c}";
+            font-size: {!brand_config.Font_Size_Article_Title__c};
+        }
+
+        .related-article {
+            color: #{!brand_config.Font_Color_Related_Article__c};
+            font-family: "{!brand_config.Font_Related_Article_Heading__c}";
+            font-size: {!brand_config.Font_Size_Related_Article_Heading__c};
+        }
+
+        .helpful-article {
+            color: #{!brand_config.Font_Color_Was_This_Article_Helpful__c};
+            font-family: "{!brand_config.Font_Was_This_Article_Helpful__c}";
+            font-size: {!brand_config.Font_Size_Was_This_Article_Helpful__c};
+        }
+
+        .innerForm {
+            background:#{!brand_config.Background_Form_Color__c};
+            padding:30px;
+        }
+
+        .emailDivider{
+            border-top: 1px dashed #aaa;
+            margin: 30px 0px 30px 0px;
+        }
+
+        .copyright {
+
+        }
+
+        .glyph, .contact-header {
+            margin-right: 10px;
+        }
+
+        .glyph a:link,
+        .glyph a:visited,
+        .glyph a:hover,
+        .glyph a:active
+        {
+            text-decoration: none;
+        }
+
+        #page-footer a:link,
+        #page-footer a:visited
+        {
+            text-decoration: underline;
+        }
+
+        .page-header .glyph {
+            font-size: 1.5em;
+        }
+
+/* comps measures to top of letters, no margin */
+/*
+        .row label {
+            margin-top: 5px;
+        }
+        */
+
+        /* Country Language Styling */
+        #countryLanguageContainer{
+            margin: 15px 5px 0px 0px;
+        }
+
+        div.header-dropdown {
+            padding-left:10px;
+        }
+        
+        .header-dropdown select {
+            color: #{!brand_config.Font_Color_Header_Dropdowns__c};
+        }
+        
+        .countryLanguageDivider{
+            background:#ffffff;
+            width:1px;
+            height:154px;
+            margin:10px 15px 10px 15px;
+        }
+
+        .countryLanguageDividerSmall{
+            background:#ffffff;
+            width:1px;
+            height:105px;
+            margin:10px 15px 5px 15px;
+        }
+        #countryLanguageTable .glyph{
+            padding-right:10px;
+        }
+        #socialMediaIcons{
+            padding-top:51px;
+        }
+
+        /* Phone Number and Nav Styling */
+        #nav {
+            margin-top:24px;
+            white-space: nowrap;
+        }
+
+        .active.fa-tab  {
+            color: #{!brand_config.Font_Color_Tab_Selected__c} !important;
+        }
+
+        .fa-tab {
+            color: #{!brand_config.Font_Color_Tab_Not_Selected__c} !important;
+        }
+
+        .navtab{
+            background-color: #{!brand_config.Background_Color_Tab_Not_Selected__c};
+            border:1px solid #{!brand_config.Background_Color_Tab_Not_Selected__c};
+
+            font-family: "{!brand_config.Font_Tab__c}";
+            color: #{!brand_config.Font_Color_Tab_Not_Selected__c};
+            font-size: {!brand_config.Font_Size_Tab__c};
+            padding: 15px 0px 15px 0px;
+        }
+
+        #nav .active {
+            background-color: #{!brand_config.Background_Color_Tab_Selected__c} !important;
+            border:1px solid #{!brand_config.Background_Color_Tab_Not_Selected__c} !important;
+            color: #{!brand_config.Background_Color_Tab_Not_Selected__c} !important;
+        }
+
+        #page-nav, #page-body, #page-footer, #page-footer2{
+            /*width:924px;*/
+            margin-right:auto;
+            margin-left:auto;
+        }
+
+        #phoneNumbers{
+            padding-top:10px;
+            font-family: {!brand_config.Font_Phone__c};
+            color: #{!brand_config.Font_Color_Phone__c};
+            font-style: normal;
+            font-weight: normal;
+            line-height: 24pt;
+            letter-spacing: 0;
+        }
+        
+        #phoneNumbers .phone-hours {
+            font-size: {!brand_config.Font_Size_Phone_Hours__c};
+        }
+        
+        #phoneNumbers .phone-number {
+            font-size: {!brand_config.Font_Size_Phone_Number__c};
+            font-weight: bold;
+        }
+        
+        #phoneNumbers .phone-number .icon-Phone {
+            font-size: {!brand_config.Font_Size_Phone_Icon__c};
+            font-weight: normal;
+        }
+
+        #phoneNumbers a {
+            color: #{!brand_config.Font_Color_Phone_Link__c};
+        }
+                
+        .icon-Phone:before {
+            content: "\e611";
+        }
+        
+        .italic {font-style:italic}
+        .required {font-color: #757575} /* TODO: add color to config */
+
+        /* hack override select style from boostrap */
+        select[multiple] /*, select[size] not needed, form-control class has this */ {
+            height: 34px;
+        }
+
+        /* Body Styling */
+        #page-body{
+        	background-color: #{!brand_config.Background_Color_Content_Area__c};
+            margin-top:15px;
+            border: 1px solid #{!brand_config.Content_Border_Color__c}; 
+            padding:30px;
+        }
+
+        /*footer Styling */
+        #page-footer {
+            margin-top:40px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        #page-footer2 {
+            margin-top:3px;
+            border-top: 1px solid #e5e5e5;
+            padding-top:30px;
+            color: #{!brand_config.Font_Color_Footer__c};
+            font-family: "{!brand_config.Font_Footer__c}";
+            font-size: {!brand_config.Font_Size_Footer__c};
+            margin-bottom:40px;
+        }
+        
+        /* Guy's CRM Banner */
+        
+        .crm-banner{
+            width:100%;
+            min-height: 65px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+            border-top: 2px solid #e5e5e5;
+        }
+        
+         .left{
+            margin-top: 10px;
+            display: inline-block;
+            width: 25%;
+            text-align:center;
+            height: 100%;
+            width: 25%;
+            position: absolute;
+            text-align:center; /* Align center inline elements */
+            font: 0/0 a;
+        }
+        
+        .left img{
+	        vertical-align: middle;
+            display: inline-block;
+        }
+        
+        .left:before {
+            content: ' ';
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+        }
+        
+        .centre{
+            display: inline-block;
+            width: 50%;
+            text-align: center; 
+            position: relative;
+            top: 0;
+            bottom: 0;
+            left: 25%;
+            right: 0;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .signup{
+            margin-top: 10px;
+            display: inline-block;
+            width: 25%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 75%;
+            right: 0;
+            text-align:center; /* Align center inline elements */
+        	/*font: 0/0 a;*/
+        }
+        
+        .signup img{
+	        vertical-align: middle;
+            display: inline-block;
+        }
+        
+        .signup:before {
+            content: ' ';
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+        }
+        
+        .action.btn {
+            background: #{!brand_config.Background_Color_Button__c};
+            font-family: {!brand_config.Font_Form_Label__c};
+            font-size: {!brand_config.Font_Size_Form_Label__c};
+            color: #ffffff;
+            text-align: center;
+            font-style: normal;
+            font-weight: bold;
+            line-height: 24pt;
+            letter-spacing: 0.03em;
+            padding-left:30px;
+            padding-right:30px;
+            height: 34px;
+            margin: 0;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        
+        /* End of Guy's CRM banner */
+
+        /******************************
+         PRODUCT SEARCH
+        ******************************/
+
+        #searchContainer{
+            border:1px solid #bbbbbb;
+            background:#ffffff;
+            padding:20px;
+        }
+
+        /******************************
+        MARGINS/PADDING
+        ******************************/
+        .pad5 { padding: 5px;}
+        .pad10{ padding: 10px;}
+        .pad20{ padding: 20px;}
+        .margin10 { margin: 10px;}
+        .mt5 { margin-top:5px; }
+        .mt10 { margin-top:10px; }
+        .mt20 { margin-top:20px; }
+        .mt30 { margin-top:30px; }
+        .mt50 { margin-top:50px; }
+        .mr5 { margin-right: 5px; }
+        .mr15 { margin-right: 15px; }
+        .ml10 { margin-left:10px; }
+        .ml15 { margin-left:15px; }
+        .ml20 { margin-left:20px; }
+        .pt5 { padding-top:5px; }
+        .pb5 { padding-bottom: 5px; }
+        .pt10 { padding-top:10px; }
+        .pl10 { padding-left:10px; }
+        .pt20 { padding-top:20px; }
+
+    /* change up col width to fit design */
+    @media (min-width: 1200px) {
+        .col-md-6-cust {
+            width: 48.5%;
+            float: left;
+        }
+    }
+    @media (min-width: 992px) {
+        .col-sm-6-cust {
+            width: 48%;
+            float: left;
+        }
+        .col-md-3-cust {
+            width: 24%;
+            float: left;
+        }
+
+        .navRightBorder {
+            margin-right: 1.25%;
+        }
+
+        .navLeftBorder{
+            margin-left: 1.25%;
+        }
+    }
+    @media (max-width: 991px) {
+        .navRightBorder {
+            margin-right: 0;
+        }
+        .navLeftBorder {
+            margin-left: 0;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .col-sm-6-cust {
+            width: 47%;
+            float: left;
+        }
+
+    }
+
+    @media (max-width: 767px) {
+        .col-xs-12.mr15 {
+            margin-right: 0;
+        }
+        .col-xs-12.ml15 {
+            margin-left: 0;
+        }
+    }
+
+        .nav {
+            margin-top: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-justified>li+li {
+                padding-left:4px;
+            }
+        }
+
+        .nav-justified>li {
+            margin-left: 0;
+        }
+
+        @media (max-width: 767px) {
+            .nav-pills>li+li {
+                margin-left: 0;
+            }
+        
+        	.left{
+                padding-top: 5px;
+                width: 100%;
+                text-align:center;
+                padding-left: 0px;
+                position: static;
+            }
+            .centre{
+                width: 100%;
+                text-align:center;
+                padding-bottom: 10px;
+                padding-top: 0px;
+                position: static;
+                padding-right: 5px;
+                margin-bottom: 0px;
+            }
+            .signup{
+                width: 100%;
+                text-align:center;
+                padding-top: 0px;
+                padding-bottom: 5px;
+                position: static;
+            }
+        }
+        
+        /* Guy's Mobile Optimization Style */
+        
+        .preChatInput {
+        	padding: 15px;
+        }
+        
+        @media (max-width: 480px) {
+            .innerForm {
+                padding: 0;
+        		margin-top: 0;
+            }
+        
+            #page-body {
+            	padding: 15px;
+        		margin-top: 0;
+        	}
+        
+        	.col-md-7 img {
+        		max-height: 60px;
+        	}
+        
+        	.page-header {
+        		padding-bottom: 0px;
+        	}
+        
+        	.col-xs-6 {
+        		padding: 7px !important; 
+        	}
+        
+        	#prechat_submit {
+        		float: right;
+    			margin-right: 15px;
+        		font-size: 1em;
+        		margin-bottom: 5px; 
+        	}
+        
+        	.preChatInput {
+        		padding: 5px;
+        	}
+        }
+        
+        /* End Guy's Mobile Optimization Style */
+
+        .nav>li>a {
+            background-color: #{!brand_config.Background_Color_Tab_Not_Selected__c};
+            border: 1px solid #{!brand_config.Background_Color_Tab_Selected__c};
+            font-family: {!brand_config.Font_Tab__c};
+            color: #{!brand_config.Font_Color_Tab_Not_Selected__c};
+            font-size: {!brand_config.Font_Size_Tab__c};
+            border-radius: 0;
+            padding: 15px 0px 15px 0px;
+        }
+
+        .nav>li.active>a,body .nav>li>a:hover {
+            background-color: #{!brand_config.Background_Color_Tab_Selected__c} !important;
+            border: 1px solid #{!brand_config.Background_Color_Tab_Not_Selected__c} !important;
+            color: #{!brand_config.Font_Color_Tab_Selected__c} !important;
+        }
+
+		.socialmedia-brand{
+			color: #{!brand_config.Font_Color_Header_Links__c} !important;
+            margin-left: 20px;
+		}
+
+		.socialmedia-brand a, .socialmedia-brand a:hover, .socialmedia-brand a:active {
+            color: #{!brand_config.Font_Color_Header_Links__c};
+        }
+    </style>
+
+    </head>
+    <body>
+
+	<!-- page styling -->
+	<!-- <apex:stylesheet value="{!URLFOR($Resource.ContactUsResources, 'css/main.css')}"/>-->
+	<!-- icons -->
+	<apex:stylesheet value="{!URLFOR($Resource.ContactUsResources, 'css/style.css')}"/>
+
+	<!-- jQuery for Bootstrap -->
+    <!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+	<apex:stylesheet value="{!URLFOR($Resource.jQuery1_10_4_CSS)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <!--<apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>
+	<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"/>-->
+	<!-- END jQuery -->
+
+	<!-- jQuery validate -->
+	<apex:includeScript value="{!URLFOR($Resource.jquery_validate, '/dist/jquery.validate.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jquery_validate, '/dist/additional-methods.min.js')}"/>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<!-- END Twitter Bootstrap -->
+
+	<apex:insert name="header">
+		<div class="container">
+			<apex:insert name="header"/>
+		</div>
+	</apex:insert>
+
+	<div class="container">
+		<div id="page-body">
+
+			<apex:insert name="body"/>
+
+		</div><!--  end main -->
+	</div>
+
+	<apex:insert name="footer">
+		<div class="container">
+			<c:ContactUsFooter />
+		</div>
+		<site:googleAnalyticsTracking />
+	</apex:insert>
+
+    </body>
+</html>
+
+</apex:page>

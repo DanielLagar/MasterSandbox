@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>allows admins to push articles into the &quot;Featured&quot; section, or, alternatively, by specifying a keyword or keywords, allows admins to push articles to the top of searches for those keywords.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Article_Number__c</fullName>
+        <description>The article number of the article being linked to as a keyword or featured article. Not the same as the Article or Knowledge Article Version record ID.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The article number of the article being linked to as a keyword or featured article. Not the same as the Article or Knowledge Article Version record ID.</inlineHelpText>
+        <label>Article Number</label>
+        <length>9</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Expiration__c</fullName>
+        <description>Date after which the article will no longer appear in the &quot;Featured&quot; section. A empty value means no expiration date. Does not apply to records with the &quot;Is Keyword Article&quot; checked.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Date after which the article will no longer appear in the &quot;Featured&quot; section. A empty value means no expiration date. Does not apply to records with the &quot;Is Keyword Article&quot; checked.</inlineHelpText>
+        <label>Featured Expiration</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Is_Keyword_Article__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this field if this article is linked to a keyword. When checked, this article will not appear in the Featured Articles section of the PKB and will instead appear as a Recommended article whenever the keyword(s) specified on this record are searched for.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this field if this article is linked to a keyword. When checked, this article will not appear in the Featured Articles section of the PKB and will instead appear as a Recommended article whenever the keyword(s) specified on this record are searched</inlineHelpText>
+        <label>Is Keyword Article?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Keyword__c</fullName>
+        <description>Enter the keyword or keywords here so that, when those keywords are entered into a search on the PKB, this article will appear at the top of the search results as a recommended article.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the keyword or keywords here so that, when those keywords are entered into a search on the PKB, this article will appear at the top of the search results as a recommended article.</inlineHelpText>
+        <label>Keyword</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <defaultValue>1</defaultValue>
+        <description>Specifies the order that this article will appear when being displayed with other articles as part of the featured or recommended sections. Lower numbers appear towards the top.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Specifies the order that this article will appear when being displayed with other articles as part of the featured or recommended sections. Lower numbers appear towards the top.</inlineHelpText>
+        <label>Order</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PKB_Name__c</fullName>
+        <description>This must match one of the API names of the Sites that are configured to use the PKB package.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This must match one of the API names of the Sites that are configured to use the PKB package.</inlineHelpText>
+        <label>PKB Name</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>PKB Featured</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Article_Number__c</columns>
+        <columns>Expiration__c</columns>
+        <columns>Is_Keyword_Article__c</columns>
+        <columns>Keyword__c</columns>
+        <columns>PKB_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>PKBF-{000000}</displayFormat>
+        <label>PKB Featured Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>PKB Featured</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Article_Number__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Expiration__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Is_Keyword_Article__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Keyword__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Order__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>PKB_Name__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Check_Article_Number_have_9_digits</fullName>
+        <active>true</active>
+        <errorConditionFormula>LEN(Article_Number__c ) &lt; 9</errorConditionFormula>
+        <errorDisplayField>Article_Number__c</errorDisplayField>
+        <errorMessage>Article Number should be 9 digits (eg: 00001000).</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,45 @@
+<apex:component allowDML="true">
+<apex:attribute name="pkbCon" type="pkb_Controller" required="true" description="handle to the pkb controller" />
+<apex:attribute name="langCon" type="sf_ContactUsLanguageController" required="true" description="handle to the language controller" />
+<apex:attribute name="showBackLinks" type="Boolean" required="false" description="flag to indicate if 'back to...' buttons should be shown" />
+
+<apex:variable var="pageNum" value="{!pkbCon.pageNumParam}={!pkbCon.currPage}" />
+
+  <form>
+    <!--<div class="left">-->
+    <!--<div id="searchbarandbtn" style="border-style:dotted; border-width:3px">-->
+
+        <!--<label for="searchAskInput">{!langCon.language_config.Article_Search_Label__c}
+
+        </label>-->
+        <div id="searchAskInputContainer">
+             <input
+              onfocus="clearPrompt(this);"
+              onblur="restorePrompt(this); buildSearchHref();"
+              onkeypress="checkForEnter(event, this);"
+              title="{!pkbCon.searchPrompt}"
+              tabindex="1"
+              type="text"
+              name="inputboxform"
+              class="{!IF(pkbCon.enteredSearchQuery == pkbCon.searchPrompt, 'default', '')}"
+              id="searchAskInput"
+              value="{!pkbCon.enteredSearchQuery}"
+              />                 
+                <!-- <a href="#" id="resetButton" class="reset" onclick="resetPrompt($$('#' +SEARCH_TEXT_ID)[0]); return false;">{!$Label.PKB2_Reset_Search}</a>-->
+              <a href="#" id="searchAskButton" tabindex="2" class="action btn" onclick="searchButtonClicked(); return false;">
+                <span title="{!langcon.language_config.Article_Search_Button_Label__c}" class="tip">{!langCon.language_config.Article_Search_Button_Label__c}</span>
+              </a>                 
+        </div>
+    <!--</div>-->
+
+  </form>
+<script type="text/javascript">
+    buildSearchHref();
+
+    //place initial language
+    if ('{!pkbCon.selectedLanguage}' != '' && document.getElementById('langFilter'))
+      document.getElementById('langFilter').value = '{!pkbCon.selectedLanguage}';
+
+
+</script>
+</apex:component>

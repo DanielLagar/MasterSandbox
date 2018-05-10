@@ -1,0 +1,205 @@
+<apex:page controller="ctr_knowledgeReview" sidebar="false">
+	<!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+    <!--<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>-->
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>    
+	<!-- Using jQuery to pass selected value to hidden input field-->
+    <script>
+        function sendProdCat(parameter){
+        	jQuery('[id$=selectedProdCat]').val(parameter);
+        	console.log(jQuery('[id$=selectedProdCat]').val());
+        }
+        function sendBrandCat(parameter){
+        	jQuery('[id$=selectedBrandCat]').val(parameter);
+        	console.log(jQuery('[id$=selectedBrandCat]').val());
+        }
+        function sendRegCat(parameter){
+        	jQuery('[id$=selectedRegCat]').val(parameter);
+        	console.log(jQuery('[id$=selectedRegCat]').val());
+        }
+        function sendPromCat(parameter){
+        	jQuery('[id$=selectedPromCat]').val(parameter);
+        	console.log(jQuery('[id$=selectedPromCat]').val());
+        }
+    </script>
+    
+	<style type="text/css">
+	.searchFilters {
+		width: 20%;
+        float: left;
+	}
+    .searchResults {
+		width: 80%;
+        float: right;
+    }
+        
+    .articleView{
+        width: 100%;
+        float: left;
+    }
+	.fyi{
+		color:black;
+		font-style:italic;
+		font-size: 200%
+	}
+	</style>
+    
+    <apex:form >
+        
+	<apex:outputPanel id="msgs">
+		<apex:pageMessages />
+	</apex:outputPanel> 
+        
+    <!-- Use hidden fields to pass selected categories back to controller -->
+	<apex:inputHidden value="{!prodCat}" id="selectedProdCat"/>
+	<apex:inputHidden value="{!brandCat}" id="selectedBrandCat"/>
+	<apex:inputHidden value="{!regCat}" id="selectedRegCat"/>
+	<apex:inputHidden value="{!promCat}" id="selectedPromCat"/>
+
+	<div id="leftPanel" class="searchFilters">
+		<apex:pageBlock title="Filters">
+
+		<apex:outputPanel id="searchPanel">
+		<!-- Search button-->
+		<apex:actionStatus id="searching">
+			<apex:facet name="stop">
+				<apex:commandButton value="Search" action="{!executeSearch}" status="searching" reRender="msgs,resultsPB,reviewArticle">
+				</apex:commandButton>
+			</apex:facet>
+                                
+			<apex:facet name="start">
+				<apex:outputPanel >
+					<apex:image value="{!$Resource.Default_Loading_Image}" style="height: 15px"/>
+					<apex:commandButton value="Searching..." status="searching" disabled="true"/>
+				</apex:outputPanel>
+			</apex:facet>                       
+		</apex:actionStatus>
+		<br/>
+
+		<apex:outputLabel value="Keyword Search:"></apex:outputLabel><br/>
+		<apex:inputText value="{!searchString}" label="Search:"/>
+		<br/>
+        
+		<!-- should default to English on first load-->
+		<apex:outputLabel value="Article Language"></apex:outputLabel><br/>
+		<apex:selectList label="Article Language" value="{!searchLang}" multiselect="false" size="1">
+			<apex:selectOptions value="{!languages}" />
+		</apex:selectList> 
+		<br/>
+                    
+		<!-- should default to Published on first load-->
+		<apex:outputLabel value="Publish Status"></apex:outputLabel><br/>
+		<apex:selectList label="Publish Status" value="{!searchStatus}" multiselect="false" size="1">
+			<apex:selectOptions value="{!pubStatuses}" />
+		</apex:selectList> 
+		<br/>
+                     
+		<apex:outputLabel value="Product"></apex:outputLabel><br/>
+		<select name="Product Category" id="prodCat" onchange="sendProdCat(document.getElementById('prodCat').options[document.getElementById('prodCat').selectedIndex].value); return false;">
+			<option value=""></option>
+			<knowledge:categoryList categoryVar="c" categoryGroup="Product" rootCategory="All" level="-1">
+				<option value="{!c.name}">{!c.label}</option>
+			</knowledge:categoryList>
+		</select>
+		<br/>
+                    
+		<apex:outputLabel value="Brand"></apex:outputLabel><br/>
+		<select name="Brand Category" id="brandCat" onchange="sendBrandCat(document.getElementById('brandCat').options[document.getElementById('brandCat').selectedIndex].value); return false;">
+			<option value=""></option>
+			<knowledge:categoryList categoryVar="category" categoryGroup="Brand" rootCategory="All" level="-1">
+				<option value="{!category.name}">{!category.label}</option>
+			</knowledge:categoryList>
+		</select>
+		<br/>
+                    
+		<apex:outputLabel value="Region"></apex:outputLabel><br/>
+		<select name="Region Category" id="regCat" onchange="sendRegCat(document.getElementById('regCat').options[document.getElementById('regCat').selectedIndex].value); return false;">
+		<option value=""></option>
+			<knowledge:categoryList categoryVar="c" categoryGroup="Region" rootCategory="All" level="-1">
+				<option value="{!c.name}">{!c.label}</option>
+		</knowledge:categoryList>
+		</select>
+		<br/>
+                    
+		<apex:outputLabel value="Promotion"></apex:outputLabel><br/>
+		<select name="Promotion Category" id="promCat" onchange="sendPromCat(document.getElementById('promCat').options[document.getElementById('promCat').selectedIndex].value); return false;">
+			<option value=""></option>
+			<knowledge:categoryList categoryVar="c" categoryGroup="Promotion" rootCategory="All" level="-1">
+				<option value="{!c.name}">{!c.label}</option>
+			</knowledge:categoryList>
+		</select>
+		<br/><br/>
+
+		</apex:outputPanel>
+
+		</apex:pageBlock>
+
+	</div>
+
+        <div id="rightPanel" class="searchResults">
+			<!-- Results table here-->
+            <apex:pageBlock title="Search Results" id="resultsPB">
+				<apex:outputPanel id="noResults" >
+					<apex:outputPanel id="noResultsMsg" rendered="{!resultKAVs.size==0}" styleClass="fyi">
+						No results
+					</apex:outputPanel>
+                </apex:outputPanel>
+                <apex:pageBlockTable value="{!resultKAVs}" var="article" id="pbt" rendered="{!resultKAVs.size>0}">
+                    <!--Preview button-->
+                    <apex:column >
+                        <apex:actionStatus id="previewing">
+                            <apex:facet name="stop">
+                                <apex:commandButton value="Preview" action="{!reviewArticle}" status="previewing" reRender="reviewArticle">
+                                    <apex:param name="PreviewIdParam" value="{!article['Id']}" assignTo="{!reviewArticleId}"/>
+                                </apex:commandButton>
+                            </apex:facet>
+                                        
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                    <apex:image value="{!$Resource.Default_Loading_Image}" style="height: 15px"/>
+                                    <apex:commandButton value="Previewing..." status="previewing" disabled="true"/>
+                                </apex:outputPanel>
+                            </apex:facet>                       
+                        </apex:actionStatus>                        
+                    </apex:column>
+                    
+                    <!--Clone button-->
+                    <apex:column >
+						<apex:actionStatus id="cloning">
+                            <apex:facet name="stop">
+                                <apex:commandButton value="Clone" action="{!cloneArticle}" status="cloning" reRender="msgs">
+                                    <apex:param name="CloneIdParam" value="{!article['ArticleNumber']}" assignTo="{!cloneArticleNumber}"/>
+                                </apex:commandButton>
+                            </apex:facet>
+                                        
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                    <apex:image value="{!$Resource.Default_Loading_Image}" style="height: 15px"/>
+                                    <apex:commandButton value="Cloning..." status="cloning" disabled="true"/>
+                                </apex:outputPanel>
+                            </apex:facet>                       
+                        </apex:actionStatus>    
+                        
+                    </apex:column>
+                    <!--Fields to display-->
+                    <apex:column value="{!article['ArticleNumber']}" />
+                    <apex:column value="{!article['Title']}"/>
+                    <apex:column value="{!article['ArticleType']}"/>
+                    <apex:column value="{!article['PublishStatus']}"/>
+                    <apex:column value="{!article['CreatedBy.Name']}"/>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+        </div>
+        
+		<!--Article preview section - saves user having to navigate away from page-->
+		<div id='reviewArticleDIV' class='articleView'>
+			<apex:pageBlock title="Preview Article">
+				<apex:outputPanel id="reviewArticle">
+					<apex:outputPanel id="reviewIframe" rendered="{!reviewArticleId != ''}">
+						<apex:iframe src="{!iframeURL}" scrolling="true" />
+					</apex:outputPanel>
+				</apex:outputPanel>
+			</apex:pageBlock>
+		</div>
+        
+	</apex:form>
+</apex:page>

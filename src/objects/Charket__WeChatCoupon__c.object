@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Charket__BrandName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Brand Name</label>
+        <length>36</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__Campaign__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Campaign</label>
+        <referenceTo>Campaign</referenceTo>
+        <relationshipLabel>WeChat Coupons</relationshipLabel>
+        <relationshipName>WeChatCoupons</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Charket__CardId__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>Card ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__CodeType__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Code Type</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Barcode</fullName>
+                    <default>false</default>
+                    <label>Barcode</label>
+                </value>
+                <value>
+                    <fullName>QR Code</fullName>
+                    <default>false</default>
+                    <label>QR Code</label>
+                </value>
+                <value>
+                    <fullName>QR Code Only</fullName>
+                    <default>false</default>
+                    <label>QR Code Only</label>
+                </value>
+                <value>
+                    <fullName>Barcode Only</fullName>
+                    <default>false</default>
+                    <label>Barcode Only</label>
+                </value>
+                <value>
+                    <fullName>None</fullName>
+                    <default>false</default>
+                    <label>None</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Charket__Color__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Color</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Color010</fullName>
+                    <default>true</default>
+                    <label>Color010</label>
+                </value>
+                <value>
+                    <fullName>Color020</fullName>
+                    <default>false</default>
+                    <label>Color020</label>
+                </value>
+                <value>
+                    <fullName>Color030</fullName>
+                    <default>false</default>
+                    <label>Color030</label>
+                </value>
+                <value>
+                    <fullName>Color040</fullName>
+                    <default>false</default>
+                    <label>Color040</label>
+                </value>
+                <value>
+                    <fullName>Color050</fullName>
+                    <default>false</default>
+                    <label>Color050</label>
+                </value>
+                <value>
+                    <fullName>Color060</fullName>
+                    <default>false</default>
+                    <label>Color060</label>
+                </value>
+                <value>
+                    <fullName>Color070</fullName>
+                    <default>false</default>
+                    <label>Color070</label>
+                </value>
+                <value>
+                    <fullName>Color080</fullName>
+                    <default>false</default>
+                    <label>Color080</label>
+                </value>
+                <value>
+                    <fullName>Color081</fullName>
+                    <default>false</default>
+                    <label>Color081</label>
+                </value>
+                <value>
+                    <fullName>Color082</fullName>
+                    <default>false</default>
+                    <label>Color082</label>
+                </value>
+                <value>
+                    <fullName>Color090</fullName>
+                    <default>false</default>
+                    <label>Color090</label>
+                </value>
+                <value>
+                    <fullName>Color100</fullName>
+                    <default>false</default>
+                    <label>Color100</label>
+                </value>
+                <value>
+                    <fullName>Color101</fullName>
+                    <default>false</default>
+                    <label>Color101</label>
+                </value>
+                <value>
+                    <fullName>Color102</fullName>
+                    <default>false</default>
+                    <label>Color102</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Charket__DateType__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Date Type</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Fixed Time Range</fullName>
+                    <default>true</default>
+                    <label>Fixed Time Range</label>
+                </value>
+                <value>
+                    <fullName>Fixed Term</fullName>
+                    <default>false</default>
+                    <label>Fixed Term</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Charket__DealDetail__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Deal Detail</label>
+        <length>3072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Charket__DefaultDetail__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Default Detail</label>
+        <length>3072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Charket__Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>3072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Charket__Discount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Discount (%)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__EndTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>End Time</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Charket__FixedDaysValidAfter__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Fixed Begin Term</description>
+        <externalId>false</externalId>
+        <label>Fixed Days Valid After</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__FixedDaysValidFor__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Fixed Days Valid For</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__GiftDescription__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Gift Description</label>
+        <length>3072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Charket__IconImage__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Icon Image</label>
+        <referenceTo>Charket__WeChatMessage__c</referenceTo>
+        <relationshipLabel>WeChat Coupons (Icon Image)</relationshipLabel>
+        <relationshipName>WeChat_Coupons</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Charket__IsExpired__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Charket__EndTime__c &lt; NOW()</formula>
+        <label>Expired</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Charket__LimitPerFollower__c</fullName>
+        <defaultValue>50</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Limit / Follower</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__Logo__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Logo</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$Source.Charket__WeChatAccount__c</field>
+                <operation>equals</operation>
+                <valueField>Charket__WeChatMessage__c.Charket__WeChatAccount__c</valueField>
+            </filterItems>
+            <filterItems>
+                <field>Charket__WeChatMessage__c.Charket__Type__c</field>
+                <operation>equals</operation>
+                <value>Image</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Charket__WeChatMessage__c</referenceTo>
+        <relationshipLabel>WeChat Coupons</relationshipLabel>
+        <relationshipName>WeChatCoupons</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Charket__MinimumRequiredExpense__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Least Cost</description>
+        <externalId>false</externalId>
+        <label>Minimum Required Expense (Cent)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__Notice__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Notice</label>
+        <length>48</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__Quantity__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Quantity</label>
+        <precision>8</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__SavedAmount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Reduce Cost</description>
+        <externalId>false</externalId>
+        <label>Saved Amount (Cent)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__ServicePhone__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Service Phone</label>
+        <length>24</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__ShortDescription__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Abstract</description>
+        <externalId>false</externalId>
+        <label>Short Description</label>
+        <length>24</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__StartTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Charket__Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>true</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>Pending</fullName>
+                    <default>false</default>
+                    <label>Pending</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+                <value>
+                    <fullName>Delivered</fullName>
+                    <default>false</default>
+                    <label>Delivered</label>
+                </value>
+                <value>
+                    <fullName>Expired</fullName>
+                    <default>false</default>
+                    <label>Expired</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Charket__SubTitle__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Sub Title</label>
+        <length>24</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Cash</fullName>
+                    <default>true</default>
+                    <label>Cash</label>
+                </value>
+                <value>
+                    <fullName>Discount</fullName>
+                    <default>false</default>
+                    <label>Discount</label>
+                </value>
+                <value>
+                    <fullName>General Coupon</fullName>
+                    <default>false</default>
+                    <label>General Coupon</label>
+                </value>
+                <value>
+                    <fullName>Gift</fullName>
+                    <default>false</default>
+                    <label>Gift</label>
+                </value>
+                <value>
+                    <fullName>Groupon</fullName>
+                    <default>false</default>
+                    <label>Groupon</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Charket__WeChatAccount__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WeChat Account</label>
+        <referenceTo>Charket__WeChatAccount__c</referenceTo>
+        <relationshipLabel>WeChat Coupons</relationshipLabel>
+        <relationshipName>WeChatCoupons</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>WeChat Coupon</label>
+    <nameField>
+        <label>Title</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>WeChat Coupons</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Charket__Cash_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISPICKVAL( Charket__Type__c ,&apos;Cash&apos;), ISBLANK(Charket__MinimumRequiredExpense__c))</errorConditionFormula>
+        <errorDisplayField>Charket__MinimumRequiredExpense__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Cash_ReduceCost_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISPICKVAL( Charket__Type__c ,&apos;Cash&apos;), ISBLANK(Charket__SavedAmount__c))</errorConditionFormula>
+        <errorDisplayField>Charket__SavedAmount__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Date_Type_Fix_Begin_Term_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISPICKVAL( Charket__DateType__c  ,&apos;Fixed Term&apos;), ISBLANK(Charket__FixedDaysValidAfter__c))</errorConditionFormula>
+        <errorDisplayField>Charket__FixedDaysValidAfter__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Date_Type_Fixed_Term_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISPICKVAL( Charket__DateType__c  ,&apos;Fixed Term&apos;), ISBLANK(Charket__FixedDaysValidFor__c))</errorConditionFormula>
+        <errorDisplayField>Charket__FixedDaysValidFor__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Date_Type_Fixed_Time_Range_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISPICKVAL( Charket__DateType__c  ,&apos;Fixed Time Range&apos;), ISBLANK(Charket__StartTime__c))</errorConditionFormula>
+        <errorDisplayField>Charket__StartTime__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Discount_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISPICKVAL( Charket__Type__c ,&apos;Discount&apos;), ISBLANK(Charket__Discount__c))</errorConditionFormula>
+        <errorDisplayField>Charket__Discount__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Fixed_Term_Time_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>Charket__StartTime__c  &gt; Charket__EndTime__c</errorConditionFormula>
+        <errorDisplayField>Charket__StartTime__c</errorDisplayField>
+        <errorMessage>The coupon end time should not be before the start time.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__General_Coupon_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISPICKVAL( Charket__Type__c ,&apos;General Coupon&apos;), ISBLANK(Charket__DefaultDetail__c))</errorConditionFormula>
+        <errorDisplayField>Charket__DefaultDetail__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Gift_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISPICKVAL( Charket__Type__c ,&apos;Gift&apos;), ISBLANK(Charket__GiftDescription__c))</errorConditionFormula>
+        <errorDisplayField>Charket__GiftDescription__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Groupon_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISPICKVAL( Charket__Type__c ,&apos;GroupOn&apos;), ISBLANK(Charket__DealDetail__c))</errorConditionFormula>
+        <errorDisplayField>Charket__DealDetail__c</errorDisplayField>
+        <errorMessage>You must enter a value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Quantity_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>Charket__LimitPerFollower__c &gt; Charket__Quantity__c</errorConditionFormula>
+        <errorMessage>The Limit Per Follower can&apos;t larger than Quantity.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Title_Length_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>LEN(Name) &gt; 27</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>The Title value can contain 27 characters at most.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Update_Advanced_Info_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+          OR(ISPICKVAL(Charket__Status__c, &apos;Approved&apos;), ISPICKVAL(Charket__Status__c, &apos;Delivered&apos;)),
+          OR( ISCHANGED(Charket__ShortDescription__c),ISCHANGED(Charket__IconImage__c))
+        )</errorConditionFormula>
+        <errorMessage>These fields (Short Description, Icon Image) can&apos;t be edit when this coupon has been approved.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Charket__Update_Base_Info_Limit</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+              OR(ISPICKVAL(Charket__Status__c, &apos;Approved&apos;), ISPICKVAL(Charket__Status__c, &apos;Delivered&apos;)),
+              OR( ISCHANGED(Charket__WeChatAccount__c),IsCHANGED(Charket__Type__c), ISCHANGED(Name),ISCHANGED(Charket__BrandName__c),
+                ISCHANGED(Charket__CardId__c),ISCHANGED(Charket__Quantity__c),
+                ISCHANGED(Charket__DealDetail__c),ISCHANGED(Charket__DefaultDetail__c),
+                ISCHANGED(Charket__Discount__c),ISCHANGED(Charket__GiftDescription__c),
+                ISCHANGED(Charket__MinimumRequiredExpense__c),ISCHANGED(Charket__SavedAmount__c),
+                ISCHANGED(Charket__FixedDaysValidAfter__c),ISCHANGED(Charket__FixedDaysValidFor__c),ISCHANGED(Charket__DateType__c),
+                ISCHANGED(Charket__StartTime__c), ISCHANGED(Charket__EndTime__c))
+            )</errorConditionFormula>
+        <errorMessage>These fields (WeChat Account, Type, Title, Brand Name, Card Id, Quantity, Deal Detail, Default Detail, Discount, Gift, Least Cost, Reduce Cost, Fixed Begin Term, Fixed Term, Date Type, Start Time,End Time) can&apos;t be edit when this coupon has been approved.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

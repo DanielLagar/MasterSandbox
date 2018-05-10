@@ -1,0 +1,15 @@
+<apex:component controller="sf_ContactUsHeaderComponentCtrl" >
+    <!-- CHANGES CHAT REVAMP -->
+    <style>
+    	.preChatHeaderCss {
+        	padding:20px;
+        	min-height: 50px;
+        }
+    </style>
+    <div class="page-header brand-header">
+        <div class="col-xs-6"><div class="col-md-7">
+            <img src="{!headerImageURL}" alt="{!langCon.brand_language_config.Logo_Hover_Text__c}" title="{!langCon.brand_language_config.Logo_Hover_Text__c}" />
+        </div></div>
+    	<div class="clearfix"></div>
+	</div>
+</apex:component>

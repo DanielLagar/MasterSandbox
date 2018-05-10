@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>APXTConga4__Comments__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Conga_Email_Template_Group__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>APXTConga4__Conga_Email_Template__r.APXTConga4__Template_Group__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Conga Email Template Group</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Conga_Email_Template_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>APXTConga4__Conga_Email_Template__r.APXTConga4__Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Conga Email Template Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Conga_Email_Template__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Conga Email Template</label>
+        <referenceTo>APXTConga4__Conga_Email_Template__c</referenceTo>
+        <relationshipLabel>Conga Solution Email Templates</relationshipLabel>
+        <relationshipName>Conga_Solution_Email_Templates</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Conga_Solution__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Conga Solution</label>
+        <referenceTo>APXTConga4__Conga_Solution__c</referenceTo>
+        <relationshipLabel>Conga Solution Email Templates</relationshipLabel>
+        <relationshipName>Conga_Solution_Email_Templates</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>Conga Solution Email Template</label>
+    <nameField>
+        <displayFormat>CSET-{0000}</displayFormat>
+        <label>Conga Solution Email Template Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Conga Solution Email Templates</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>APXTConga4__CET_Count_Validator</fullName>
+        <active>false</active>
+        <description>Only one CET is allowed per solution</description>
+        <errorConditionFormula>APXTConga4__Conga_Solution__r.APXTConga4__CongaEmailTemplateCount__c != 0</errorConditionFormula>
+        <errorDisplayField>APXTConga4__Conga_Email_Template__c</errorDisplayField>
+        <errorMessage>Only one Conga Email Template is allowed per Conga Solution. To make changes, either modify the existing record or delete it and add a new one.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

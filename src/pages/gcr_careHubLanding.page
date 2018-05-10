@@ -1,0 +1,96 @@
+<!-- 
+#    Main page of GCR Widget
+#    
+#    @param:  brand, country, language
+#    @author: ACCENTURE
+#    @date:   18/07/2016
+# DATE                  NAME                    CHANGE DESCRIPTION
+# 18/07/2016            Accenture               Initial Draft
+# 22/02/2017            Accenture               WR467 - Added additional check if default channel exists. Also added analytics tracking for articleId
+-->
+<apex:page controller="gcr_careHubLandingController" showHeader="false" applyHtmlTag="false"
+           applyBodyTag="false" standardStylesheets="false" cache="false" doctype="html-5.0" language="{!$CurrentPage.parameters.language}">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- SCRIPTS INCLUDE -->
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/analyticsTracking.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/analyticsScript.js')}" />
+    <!-- SCRIPT FOR GOOGLE ANALYTICS TRACKING -->
+    <script>
+        ga('create', '{!$Site.AnalyticsTrackingCode}', 'auto');
+        //console.log('***CDOY*** strKaUrlName = '+ "{!handshakeInstance.strKaUrlName}");
+        if("{!handshakeInstance.strKaUrlName}"){
+            trackPageData('landingPage'
+            , '{!$Site.Name}?brand={!$CurrentPage.parameters.brand}&country={!$CurrentPage.parameters.country}&language={!$CurrentPage.parameters.language}&articleId={!handshakeInstance.strKaUrlName}');
+        } else {
+            if (!{!isDefault}) {
+                trackPageData('landingPage'
+                , '{!$Site.Name}?brand={!$CurrentPage.parameters.brand}&country={!$CurrentPage.parameters.country}&language={!$CurrentPage.parameters.language}');
+            }
+        }
+    </script>
+    <!-- LOAD STYLESHEETS BASED ON LANGUAGE WRITING SYSTEM RTL OR LTR -->
+    <apex:outputPanel rendered="{!NOT(handshakeInstance.isRightToLeft)}">
+        <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubMain.css')}" />
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!handshakeInstance.isRightToLeft}">
+        <apex:stylesheet value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/css/careHubMain_rtl.css')}" />
+    </apex:outputPanel>
+    <apex:form id="idForm" style="overflow-x: hidden;">
+        <apex:outputPanel id="idMainDiv" layout="block" styleClass="deFiller">
+            <!--style="height: 587px;overflow-y: auto; overflow-x: hidden;"-->
+            <apex:pageMessages />
+            <!-- SIDEBAR COMPONENT OF CARE HUB FOR CHANNEL NEVIGATION -->
+            <apex:outputPanel id="idSidebarPanel" layout="block">
+                <c:gcr_cmpSidebar handshake="{!handshakeInstance}"/>
+            </apex:outputPanel>
+            <!-- RIGHT COMPONENT TO SHOW CHANNEL CONTENT -->
+            <apex:outputPanel id="idRightPanel" layout="block">
+                <apex:outputPanel id="rightPanelCmp">
+                    <c:gcr_cmpAnswers html-class="cmpStyleClass" rendered="{!handshakeInstance.gcrFunctionality == 'answers'}"
+                                      channelContentId="{!handshakeInstance.mGcrContentId['answers']}" />
+                    <c:gcr_cmpLanding rendered="{!OR(ISNULL(handshakeInstance.gcrFunctionality), ISBLANK(handshakeInstance.gcrFunctionality))}"
+                                      landingText="{!handshakeInstance.lCareHub[0].LandingPageText__c}"
+                                      landingImage="{!handshakeInstance.lCareHub[0].BackgroundImgLanding__c}" />
+                    <c:gcr_cmpEmailUs html-class="cmpStyleClass" channelContentId="{!handshakeInstance.mGcrContentId['email us']}"
+                                      rightToLeft="{!handshakeInstance.isRightToLeft}" refererUrl="{!handshakeInstance.referer}"
+                                      rendered="{!handshakeInstance.gcrFunctionality == 'email us'}" />
+                    <!--Chris M changing to get correct country format LanguageLocaleKey__c used for custom labels -->
+                    <c:WhereToBuy html-class="cmpStyleClass" rendered="{!handshakeInstance.gcrFunctionality == 'locate'}"
+                                  brand="{!handshakeInstance.lCareHub[0].Brand__c}"
+                                  console="false"
+                                  country="{!handshakeInstance.lCareHub[0].Country__c}"
+                                  lang="{!handshakeInstance.lCareHub[0].LanguageLocaleKey__c}"
+                               	  localeKey="{!handshakeInstance.lCareHub[0].BigData_Locale_Code__c}"/>
+                    <c:gcr_cmpKnowledgeArticleSearch html-class="cmpStyleClass"
+                                                     channelContentId="{!handshakeInstance.mGcrContentId['faq']}"
+                                                     defaultKa="{!handshakeInstance.strKaUrlName}"
+                                                     rightToLeft="{!handshakeInstance.isRightToLeft}"
+                                                     rendered="{!handshakeInstance.gcrFunctionality == 'faq'}" />
+                    <c:gcr_cmpChat html-class="cmpStyleClass" channelContentId="{!handshakeInstance.mGcrContentId['chat']}"
+                                   buttonAvailable="{!handshakeInstance.isChatVisited}"
+                                   rightToLeft="{!handshakeInstance.isRightToLeft}"
+                                   rendered="{!handshakeInstance.gcrFunctionality == 'chat'}" />
+                    <c:gcr_cmpCallUs html-class="cmpStyleClass" brand="{!handshakeInstance.lCareHub[0].Brand__c}"
+                                     country="{!handshakeInstance.lCareHub[0].Country__c}"
+                                     language="{!handshakeInstance.lCareHub[0].Language__c}"
+                                     channelContentId="{!handshakeInstance.mGcrContentId['call us']}"
+                                     rightToLeft="{!handshakeInstance.isRightToLeft}"
+                                     rendered="{!handshakeInstance.gcrFunctionality == 'call us'}" />
+
+                    <!--CDOY QA Widget Added-->
+                    <c:gcr_cmpQAWidget html-class="cmpStyleClass" 
+                                       channelContentId="{!handshakeInstance.mGcrContentId['qa widget']}"
+                                       rendered="{!handshakeInstance.gcrFunctionality == 'qa widget'}" />
+                    <!--CDOY QA Widget Added-->    
+
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" styleClass="seperatorDiv" style="margin-left: 10px;" />
+                <!-- BANNER COMPONENT -->
+                <c:gcr_cmpCareHubBanner html-class="bannerConainer"
+                                        bannerImageUrl="{!handshakeInstance.lCareHub[0].BannerImageUrl__c}"
+                                        bannerText="{!handshakeInstance.lCareHub[0].BannerText__c}" 
+                                        bannerLink="{!handshakeInstance.lCareHub[0].BannerLink__c}" />
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

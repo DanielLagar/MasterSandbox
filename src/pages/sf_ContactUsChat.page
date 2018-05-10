@@ -1,0 +1,150 @@
+<!-- 
+/**
+* @author: salesforce.com
+* @date: 02/10/2015
+*
+* @description: live agent chat page for public site
+* 
+*/
+ -->
+<apex:page showHeader="false" controller="sf_ContactUsTemplateController" extensions="sf_ContactUsLanguageController">
+    <script type="text/javascript">
+       $(document).ready(function(){
+            $('.liveAgentEndButton').click(function (){
+                //window.opener.location = "{!$Setup.ContactUsURL__c.URL__c}/pkb_home?brand=P%26G&country=United+States+of+America&language=English-US";
+                window.close();
+            });
+       });
+        
+    </script>
+    <apex:composition template="sf_ContactUsTemplateNoHeaderPicklist">
+            <apex:define name="header">
+                <c:sf_ContactUsHeaderSimple />
+            </apex:define>
+            <apex:define name="body">
+            <div>
+                <div class="innerForm">
+                    <liveAgent:clientchat >
+                        <div>
+                            <liveAgent:clientChatSaveButton label="{!langCon.language_config.Live_Agent_Save_Chat_Button__c}" />
+                            <liveAgent:clientChatEndButton label="{!langCon.language_config.Live_Agent_End_Chat_Button__c}" />
+                        </div><br/>
+                        <div>
+                            <liveAgent:clientChatAlertMessage />
+                            <liveAgent:clientChatStatusMessage />
+                            <table id="waitingMessage" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td><i class="fa fa-circle-o-notch fa-spin fa-3x"></i> {!langCon.language_config.Live_Agent_Connecting_Message__c}</td>
+                                </tr>
+                            </table>
+                            <div>
+                                <liveAgent:clientChatLog />
+                            </div>
+                            <div>
+                                <!--CHANGES CHAT REVAMP-->
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td>
+                                        	<liveagent:clientChatInput useMultiline="true" />
+                                        </td>
+                                        <td>
+                                        	<liveAgent:clientChatSendButton label="{!langCon.language_config.Live_Agent_Send_Button__c}" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!--<liveagent:clientChatInput useMultiline="true" />
+                                <liveAgent:clientChatSendButton label="{!langCon.language_config.Live_Agent_Send_Button__c}" />-->
+                                <!--WR323 Start-->
+                                <div class="pull-left">
+                                    <liveAgent:clientChatFileTransfer />
+                                </div>
+                                <!--WR323 Fin-->
+                            </div>
+                        </div>
+                    </liveAgent:clientchat>
+                </div>
+            </div>
+    
+        </apex:define>
+    </apex:composition>
+	<style type="text/css">
+            /*chat style*/
+        #waitingMessage { 
+            height: 100%; 
+            width: 100%; 
+            vertical-align: middle; 
+            text-align: center; 
+            display: none;
+        }
+        body { overflow: auto; width: 100%; height: 100%; padding: 0; margin: 0 }
+
+        #liveAgentClientChat.liveAgentStateWaiting #waitingMessage { display: table; }
+        #liveAgentSaveButton, #liveAgentEndButton { z-index: 2; }
+
+        .liveAgentChatInput {
+            height: auto;
+            padding: 6px 12px;
+            background: #fff;
+            display: block;
+            width: 100%;
+            border: 1px solid #CCC;
+        }
+        .liveAgentSendButton {
+            display: block;
+            width: 60px;
+            height: 33px;
+        }
+        
+        .liveAgentEndButton{ 
+            float: right;
+        }
+        
+        #liveAgentChatLog {
+            width: auto;
+            max-height: 50vh;
+            top: 0px;
+            padding: 6px 12px;
+            overflow-y: auto;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 1px solid #CCC;
+            margin: 25px 0px;
+        }
+
+        #page-body {
+            max-width: 550px;
+        	/*CHANGES CHAT REVAMP*/
+        	padding: 15px;
+        	background-color: transparent;
+    		border-color: transparent;
+        }
+        /*CHANGES CHAT REVAMP*/
+    	.col-xs-6 {
+        	width:35%;
+        }
+		.page-header {
+        	padding-bottom:0px;
+        }
+    	.liveAgentChatElement {
+    		background-color:white;
+    	}
+    	.liveAgentSendButton {
+			height: 28px;
+            float: right;
+        /*margin-top: -30px;*/
+    	}
+    	.innerForm {
+    		padding: 20px 30px 20px 30px;
+		}
+        #page-footer {	
+            margin-top: 0px;
+        }
+    	#page-footer2 {
+    		padding: 10px 10px 0px 10px;
+    	}
+		#page-footer a:link {
+    		font-size:14px;
+    	}
+    </style>
+</apex:page>

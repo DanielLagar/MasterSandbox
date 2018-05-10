@@ -1,0 +1,5 @@
+<apex:page standardController="One_Stop__c">
+  <br/>
+  &nbsp;&nbsp;<apex:outputLink value="{!URLFOR($Action.One_Stop__c.Tab, $ObjectType.One_Stop__c)}"> Back to List: 1STOP Requests</apex:outputLink><br/><br/>
+  <apex:listviews id="onestop" Type="One_Stop__c"/>
+</apex:page>

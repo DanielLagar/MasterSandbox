@@ -1,0 +1,33 @@
+<apex:component >
+    <!-- 
+    #    Chat Footercomponent of V4 chat
+    #    
+    #    @param:  brand, country
+    #    @author: ACCENTURE
+    #    @date:   10/08/2017
+    #    DATE               NAME                CHANGE DESCRIPTION
+    #    10/08/2017         Accenture           Initial Draft
+    -->
+
+    <!--Attributes Needed-->
+    <apex:attribute name="TC" description="Url for brand logo" type="String" required="true" />
+    <apex:attribute name="TClink" description="Button text and title" type="String" />
+    <apex:attribute name="PP" description="Greeting text" type="String" />
+    <apex:attribute name="PPlink" description="Button text and title" type="String" />
+    <apex:attribute name="CurrentYear" description="Button text and title" type="String" />
+
+    
+
+<div id="idFooterContainer">
+    <div id="idPrivacyContainer">
+        <div id="idTsAndCs"> 
+            <a href="{!TCLink}" target="_blank"> {!TC}</a>
+        </div>
+        <div id="idPrivacyPolicy" >
+            <c:gcr_cmpLinkSeperator strInput="{!PP}" strSepStart="[" strSepEnd="]"
+                        onClick="window.open('{!PPlink}', '_blank', 'height=600,width=600'); return false;" />
+        </div>
+    </div>
+    <div id="idLogo" style="float:right">&copy; {!CurrentYear} Procter and Gamble </div>
+</div>
+</apex:component>

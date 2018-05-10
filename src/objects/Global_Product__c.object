@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This hosts the global products</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Brand__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (
+FIND (&quot;/&quot;, Path__c) == 0, Path__c, 
+
+LEFT(Path__c, FIND ( &quot;/&quot;, Path__c)-1)
+
+)</formula>
+        <label>Brand</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Consumer_Facing_Brand__c</fullName>
+        <externalId>false</externalId>
+        <label>Consumer Facing Brand</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Consumer_Facing_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Consumer Facing Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Consumer_Facing_Product_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Consumer Facing Product Description</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>GCR_Product_ID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>This is the GCR Product ID being used as an external ID</description>
+        <externalId>true</externalId>
+        <label>GCR Product ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>GPID__c</fullName>
+        <externalId>false</externalId>
+        <label>GPID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Inactive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this box if this Product is now inactive</inlineHelpText>
+        <label>Inactive</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>New_Path_Level__c</fullName>
+        <externalId>false</externalId>
+        <label>New Path Level</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Product__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>This is the parent global product going up to Brand. A Brand will have an empty parent product.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please populate with the parent Global Product</inlineHelpText>
+        <label>Parent Product</label>
+        <referenceTo>Global_Product__c</referenceTo>
+        <relationshipLabel>Global Products</relationshipLabel>
+        <relationshipName>Global_Products</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Path_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF
+(
+FIND(&quot;/&quot;, Path__c) = 0,
+&quot;BRAND&quot;,
+IF
+( 
+AND 
+(
+FIND(&quot;/&quot;, Path__c, FIND(&quot;/&quot;, Path__c) + 1 ) = 0, 
+FIND(&quot;/&quot;, Path__c) &gt; 0
+),
+&quot;SEGMENT&quot;,
+&quot;LOWER-LEVEL&quot;
+)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Path Level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Path__c</fullName>
+        <description>This is the full path for the product starting at Brand</description>
+        <externalId>false</externalId>
+        <label>Path</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Postal_Restriction__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Postal Restriction</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Product_Level_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Level Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Product_Level_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Level Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (FIND(&quot;/&quot;, Path__c) == 0, &quot;&quot;, 
+
+IF (FIND ( &quot;/&quot;, Path__c, FIND ( &quot;/&quot;, Path__c)+1) == 0, 
+
+
+RIGHT(Path__c, 
+LEN (Path__c)
+-
+FIND(&quot;/&quot;, Path__c)
+
+)
+
+,
+
+
+RIGHT(LEFT(Path__c, FIND ( &quot;/&quot;, Path__c, FIND ( &quot;/&quot;, Path__c)+1)-1), 
+LEN (LEFT(Path__c, FIND ( &quot;/&quot;, Path__c, FIND ( &quot;/&quot;, Path__c)+1)-1))
+-
+FIND(&quot;/&quot;, LEFT(Path__c, FIND ( &quot;/&quot;, Path__c, FIND ( &quot;/&quot;, Path__c)+1)-1))
+
+)
+
+
+
+)
+
+)</formula>
+        <label>Segment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Global Product</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Parent_Product__c</columns>
+        <columns>Path__c</columns>
+        <columns>Product_Level_Name__c</columns>
+        <columns>Inactive__c</columns>
+        <columns>GCR_Product_ID__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>GPID_Search</fullName>
+        <columns>NAME</columns>
+        <columns>Path__c</columns>
+        <columns>Segment__c</columns>
+        <columns>Parent_Product__c</columns>
+        <columns>Path_Level__c</columns>
+        <columns>Brand__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>GPID__c</field>
+            <operation>equals</operation>
+            <value>101153395</value>
+        </filters>
+        <label>GPID Search</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Specific_Path_Search</fullName>
+        <columns>NAME</columns>
+        <columns>Path__c</columns>
+        <columns>Segment__c</columns>
+        <columns>Parent_Product__c</columns>
+        <columns>Path_Level__c</columns>
+        <columns>Brand__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Path__c</field>
+            <operation>contains</operation>
+            <value>5+1</value>
+        </filters>
+        <label>Specific Path Search</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>test</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>Path__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brand__c</field>
+            <operation>contains</operation>
+            <value>Oral-B Power</value>
+        </filters>
+        <label>test</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>GP-{0000}</displayFormat>
+        <label>Global Product</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Global Products</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Parent_Product__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Path__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Product_Level_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Product_Level_Number__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>GCR_Product_ID__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>GPID__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Parent_Product__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Path__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Product_Level_Name__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>NAME</lookupFilterFields>
+        <lookupFilterFields>GCR_Product_ID__c</lookupFilterFields>
+        <lookupFilterFields>GPID__c</lookupFilterFields>
+        <lookupFilterFields>Parent_Product__c</lookupFilterFields>
+        <lookupFilterFields>Path__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>Parent_Product__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>GCR_Product_ID__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>GPID__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Path__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Product_Level_Name__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Product_Level_Number__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>GCR_Product_ID__c</searchFilterFields>
+        <searchFilterFields>GPID__c</searchFilterFields>
+        <searchFilterFields>Parent_Product__c</searchFilterFields>
+        <searchFilterFields>Path__c</searchFilterFields>
+        <searchFilterFields>Product_Level_Name__c</searchFilterFields>
+        <searchFilterFields>Product_Level_Number__c</searchFilterFields>
+        <searchResultsAdditionalFields>GCR_Product_ID__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>GPID__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Parent_Product__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Product_Level_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Product_Level_Number__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Path__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

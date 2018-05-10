@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Case_Comment_Code_Summary</fullName>
+        <fields>Name</fields>
+        <fields>Case_Product__c</fields>
+        <fields>Comment_Code_Path__c</fields>
+        <fields>Comment_Code_Type__c</fields>
+        <fields>Case__c</fields>
+        <label>Case Comment Code Summary</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Master Detail relationship from Case</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ACR_Info__c</fullName>
+        <externalId>false</externalId>
+        <label>ACR Info</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCM_Task_ID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>CCM Task ID</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Account_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case__r.AccountId</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Account Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Contact_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case__r.ContactId</formula>
+        <label>Case Contact Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Contact_Method__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Case__r.Origin)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Contact Method</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Direction__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Case__r.Direction__c)</formula>
+        <label>Case_Direction</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Product__c</fullName>
+        <externalId>false</externalId>
+        <label>Case Product</label>
+        <referenceTo>Case_Product__c</referenceTo>
+        <relationshipLabel>Case Comment Code</relationshipLabel>
+        <relationshipName>Case_Comment_Code</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <description>Master Detail relationship from Case</description>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Case Comment Code</relationshipLabel>
+        <relationshipName>Case_Comment_Code</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Change_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Change Reason</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Changed_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Changed By</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comment_Code_Path__c</fullName>
+        <externalId>false</externalId>
+        <formula>Local_Comment_Code__r.Translated_Path__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Comment Code Path</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comment_Code_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment Code Type</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comment_Language__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Local_Comment_Code__r.Translated_Language__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Comment Language</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Has_Address__c</fullName>
+        <description>Formula Field. True if Contact on the parent Case has a Primary Address.</description>
+        <externalId>false</externalId>
+        <formula>/*Pre WR349
+AND( 
+  IF(Case__r.Contact.Primary_Address_Line_1__c  != null, True, False) , 
+  IF(Case__r.Contact.Primary_City__c != null, True, False), 
+  IF(Case__r.Contact.Primary_State_Province__c != null, True, False), 
+  IF(Case__r.Contact.Primary_Postal_Code__c != null, True, False)
+)*/
+AND( 
+  IF(Case__r.Contact.Primary_Address_Line_1__c  != null, True, False) , 
+  IF(Case__r.Contact.Primary_City__c != null, True, False) 
+)</formula>
+        <inlineHelpText>Formula Field. True if Contact on the parent Case has a Primary Address.</inlineHelpText>
+        <label>Contact Has Address?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>GCC_Level_1__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Local_Comment_Code__r.Global_Comment_Code__r.Level_1__c)</formula>
+        <label>GCC Level 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GCC_Level_2__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Local_Comment_Code__r.Global_Comment_Code__r.Level_2__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GCC Level 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GCC_Level_3__c</fullName>
+        <externalId>false</externalId>
+        <formula>Local_Comment_Code__r.Global_Comment_Code__r.Level_3__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GCC Level 3</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GCR_CID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Local_Comment_Code__r.Global_Comment_Code__r.GCR_CID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GCR CID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Global_Comment_Path__c</fullName>
+        <externalId>false</externalId>
+        <formula>Local_Comment_Code__r.Global_Comment_Code__r.Full_Comment_Path__c</formula>
+        <label>Global Comment Path</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Global_Product_Path__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case_Product__r.Local_Product__r.Global_Product__r.Path__c</formula>
+        <label>Global Product Path</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Global_Product_Segment__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case_Product__r.Local_Product__r.Global_Product__r.Segment__c</formula>
+        <label>Global Product Segment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Deletable__c</fullName>
+        <externalId>false</externalId>
+        <formula>OR( 
+   ISBLANK(Case__r.CCM_Initial_Pull__c), 
+   AND(
+      NOT(ISBLANK(Case__r.CCM_Initial_Pull__c)),
+      NOT(Local_Comment_Code__r.GCC_Level_1__c = &apos;Product Quality Complaint&apos;), 
+      NOT(Local_Comment_Code__r.GCC_Level_1__c = &apos;Adverse Event&apos;)
+   )
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is Deletable</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Local_Comment_Code__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Local Comment Code</label>
+        <referenceTo>Local_Comment_Code__c</referenceTo>
+        <relationshipLabel>Case Comment Code</relationshipLabel>
+        <relationshipName>Case_Comment_Code</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Adverse_Event__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of Adverse Event</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Availability_Comments__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of Availability Comments</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Complaints_Other__c</fullName>
+        <description>This will record if this is a Complaints Other Type</description>
+        <externalId>false</externalId>
+        <label>Number of Complaints Other</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Inquiry_Comments__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of Inquiry Comments</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_PQC_Comments__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of PQC Comments</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Testimonial_Comments__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of Testimonial Comments</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Brand__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case_Product__r.Local_Product__r.Global_Product__r.Brand__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Product Brand</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Country__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case_Product__r.Local_Product__r.Country__c</formula>
+        <label>Product Country</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Postal_Restriction__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case_Product__r.Local_Product__r.Global_Product__r.Postal_Restriction__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Product Postal Restriction</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Quantity_Affected__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <label>Quantity Affected</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quantity_Purchased__c</fullName>
+        <externalId>false</externalId>
+        <label>Quantity Purchased</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Active</fullName>
+                    <default>true</default>
+                    <label>Active</label>
+                </value>
+                <value>
+                    <fullName>Cancelled</fullName>
+                    <default>false</default>
+                    <label>Cancelled</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>Local_Comment_Code__r.GCC_Level_1__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Unable_To_Classify_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Unable To Classify Reason</label>
+        <length>128</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Case Comment Code</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Case__c</columns>
+        <columns>NAME</columns>
+        <columns>Case_Product__c</columns>
+        <columns>Comment_Code_Path__c</columns>
+        <columns>Comment_Code_Type__c</columns>
+        <columns>Local_Comment_Code__c</columns>
+        <columns>Quantity_Affected__c</columns>
+        <columns>Quantity_Purchased__c</columns>
+        <columns>GCC_Level_1__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>CCC-{000000}</displayFormat>
+        <label>Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Case Comment Code</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Case__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Case_Product__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Comment_Code_Path__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Comment_Code_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Local_Comment_Code__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Quantity_Affected__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Quantity_Purchased__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Case_Product__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Comment_Code_Path__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Comment_Code_Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Local_Comment_Code__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Quantity_Affected__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Quantity_Purchased__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>NAME</lookupFilterFields>
+        <lookupFilterFields>Case__c</lookupFilterFields>
+        <lookupFilterFields>Case_Product__c</lookupFilterFields>
+        <lookupFilterFields>Comment_Code_Path__c</lookupFilterFields>
+        <lookupFilterFields>Comment_Code_Type__c</lookupFilterFields>
+        <lookupFilterFields>Local_Comment_Code__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>Case__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Case_Product__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Comment_Code_Path__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Comment_Code_Type__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Local_Comment_Code__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Number_of_Testimonial_Comments__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Quantity_Affected__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Quantity_Purchased__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>Case__c</searchFilterFields>
+        <searchFilterFields>Case_Product__c</searchFilterFields>
+        <searchFilterFields>GCC_Level_1__c</searchFilterFields>
+        <searchFilterFields>Local_Comment_Code__c</searchFilterFields>
+        <searchResultsAdditionalFields>Case__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Case_Product__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Comment_Code_Path__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Comment_Code_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Local_Comment_Code__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Quantity_Affected__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Quantity_Purchased__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Case_Product_Status_Received</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+ISPICKVAL( Case_Product__r.Status__c , &apos;Received&apos;),
+$Setup.Global_Org_Settings__c.System_Administrator_Profile_Id__c &lt;&gt; $Profile.Id , 
+$Profile.Name &lt;&gt; &quot;Integration User&quot; 
+)</errorConditionFormula>
+        <errorMessage>Case Comments cannot be updated when Case Product Status is set to Received.Please contact your system administrator for any changes.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Quantity_Affected_Greater_Than_1</fullName>
+        <active>true</active>
+        <description>Validation rule created to prevent agents/advisers from creating case comment codes with a value of zero</description>
+        <errorConditionFormula>(Quantity_Affected__c &lt; 1) || ISBLANK(Quantity_Affected__c)</errorConditionFormula>
+        <errorMessage>The quantity field cannot be blank or less than 1</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

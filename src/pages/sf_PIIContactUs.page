@@ -1,0 +1,233 @@
+<apex:page sidebar="false" showHeader="false" controller="sf_PIIContactUsCon" language="{!piisettingsobj.language}" cache="false" id="thePage" >
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <c:sf_PetCareStylesheet />
+        <style>
+            div.cont {}
+            .privacy2{
+	            font-size: 90%;
+	            color:black;
+            }
+            div.divider{
+            	height:5px;
+            	display:block;
+            }
+            .labelFont{
+	            font-family : Arial;
+	            font-weight: Bold;
+	            font-size: 12px;
+            }
+            .subFont{
+	            font-family : Helvetica;
+	            font-size: 18.5pt;
+            }
+            .disclaimerFont{
+	            font-family : Arial;
+	            font-size: 11px;
+            }
+            .textFieldSize{
+            	width:265pt;
+            }
+            .disHLink{
+	            font-family : Arial;
+	            font-size: 11px;
+	            color: blue;
+            }
+            .btnStyle{
+	            width:100pt;
+	            height:20pt;
+            }
+            .txtStyle{
+	            height:20pt;
+	            font-size: 14px;
+            }
+            .mandatorycls{
+	            display:inline;
+	            float:none;
+	            color:red !important;
+	            font-weight:bold;
+            }
+        </style>
+        <script type="text/javascript">
+        //No jQuery?
+        /*$(document).ready(function() {
+            var agileUploaderSWFsubmitted = false;
+            $('.btnStyle').click(function(){
+              $('.btnStyle').attr('value','Please Wait...');
+              if ( false == agileUploaderSWFsubmitted ){
+                agileUploaderSWFsubmitted = true;
+                if ( $.browser.msie && $.browser.version == '6.0' ){
+                    //window.document.agileUploaderSWF.submit();
+                    $('form.piiform').submit();
+                }
+                else{
+                    $('form.piiform').submit();
+                }
+              }
+              return false;
+            });
+          });*/
+        </script>  
+        </head>
+        <body id="theBody">
+        	  <apex:form id="theForm" styleClass="piiform">
+        	     <apex:image value="{!$Resource.PGHeaderLogo}" />
+        
+				<apex:outputPanel style="width:600px;" layout="block">
+            		<br/><apex:pageMessages escape="false" /> 
+				</apex:outputPanel>
+        		  <apex:outputPanel id="piiContainer" styleClass="eukanuba" rendered="{!isActive}" layout="block">
+              			<apex:outputLabel value="{!$Label.ContactUs_RequiredFields}" styleClass="labelFont" escape="false"/>
+              			<br/><br/>
+            			<div id="resultdiv"></div>
+            			<!--5.First name-->           
+			            <apex:outputPanel styleClass="contLastName" rendered="{!piisettingsobj.isFirstnameVisible}" layout="block">
+			                <div><apex:outputLabel value="{!$Label.First_Name}" for="first_name" styleClass="labelFont"/><div class="mandatorycls">*</div></div>
+			                <div><apex:inputText value="{!piisettingsobj.conWrapper.firstName}" id="first_name" size="65" maxlength="40"/></div>
+			                <div class="divider"></div>
+			            </apex:outputPanel>
+			            <!--6.Last name-->
+			            <apex:outputPanel styleClass="contLastName" rendered="{!piisettingsobj.isLastnameVisible}" layout="block">
+			                <div><apex:outputLabel value="{!$Label.PG_Last_Name}" for="last_name" styleClass="labelFont"/><div class="mandatorycls">*</div></div>
+			                <div><apex:inputText value="{!piisettingsobj.conWrapper.lastName}" id="last_name" size="65" maxlength="80" /></div>
+			                <div class="divider"></div>
+			            </apex:outputPanel>    
+			            <!--1.Email-->
+			            <apex:outputPanel styleClass="contEmail" rendered="{!piisettingsobj.isEmailVisible}" layout="block">
+			                <div><apex:outputLabel value="{!$Label.Email}" for="email" title="Needed for sending you a response to your question" styleClass="labelFont"/><div class="mandatorycls">*</div></div>
+			                <div><apex:inputText value="{!piisettingsobj.conWrapper.email}" id="email" size="65"/></div>
+			                <div class="divider"></div>
+			            </apex:outputPanel>  
+                 
+			            <!--7.Add line1-->
+			            <apex:outputPanel styleClass="contAddressLine1" rendered="{!piisettingsobj.isAddress1Visible}" layout="block">
+			                <div><apex:outputLabel value="{!$Label.Address_Line_1}" for="address_line_1" styleClass="labelFont"/><div class="mandatorycls">*</div></div>
+			                <div>
+			                    <apex:inputText value="{!piisettingsobj.conWrapper.address1}" maxlength="50" id="address_line_1" styleClass="textFieldSize"/>
+			                </div>
+			                <div class="divider"></div>
+			            </apex:outputPanel>
+			            <!--8.Add line2--> 
+			            <apex:outputPanel styleClass="contAddressLine2" rendered="{!piisettingsobj.isAddress2Visible}" layout="block">
+			                <div><apex:outputLabel value="{!$Label.Address_Line_2}" for="address_line_2" styleClass="labelFont"/></div>
+			                <div>
+			                    <apex:inputText value="{!piisettingsobj.conWrapper.address2}" maxlength="50" id="address_line_2" styleClass="textFieldSize"/>
+			                </div>
+			                <div class="divider"></div>
+			            </apex:outputPanel>
+			            <!--9.city-->
+			            <apex:outputPanel styleClass="contCity" rendered="{!piisettingsobj.isCityVisible}" layout="block">
+			                <div><apex:outputLabel value="{!$Label.City}" for="city" styleClass="labelFont"/><div class="mandatorycls">*</div></div>
+			                <div>
+			                    <apex:inputText value="{!piisettingsobj.conWrapper.city}" maxlength="40" id="city" styleClass="textFieldSize"/>
+			                </div>
+			                <div class="divider"></div>
+			            </apex:outputPanel>
+			            <!--10.state province-->
+			            <apex:outputPanel styleClass="contState" rendered="{!piisettingsobj.isStateVisible}" layout="block">
+			                <div><apex:outputLabel value="{!$Label.PG_State_Province}" for="state_province" styleClass="labelFont"/><div class="mandatorycls">*</div></div>
+			                <div>
+			                    <apex:inputText value="{!piisettingsobj.conWrapper.state}" maxlength="20" id="state_province" styleClass="textFieldSize"/>
+			                </div>
+			                <div class="divider"></div> 
+			            </apex:outputPanel>
+			            <!--11.postal code-->
+			            <apex:outputPanel styleClass="contPostalCode" rendered="{!piisettingsobj.isPostalCodeVisible}" layout="block">
+			                <div><apex:outputLabel value="{!$Label.PG_Postal_Code}" for="postal_code" styleClass="labelFont"/><div class="mandatorycls">*</div></div>
+			                <div>
+			                    <apex:inputText value="{!piisettingsobj.conWrapper.postalcode}" maxlength="15" id="postal_code" styleClass="textFieldSize"/>
+			                </div>
+			                <div class="divider"></div>
+			            </apex:outputPanel>
+			            <!--3.Country-->
+			            <apex:outputPanel styleClass="contCountry" rendered="{!piisettingsobj.isCountryVisible}" layout="block">
+			                <div><apex:outputLabel value="{!$Label.Country}" for="country" styleClass="labelFont"/><div class="mandatorycls">*</div></div>
+			                <div>
+			                    <apex:selectList id="country" value="{!piisettingsobj.conWrapper.country}" size="1" multiselect="false" styleClass="countrypicklist">
+			                        <apex:selectOptions value="{!countries}"/>
+			                    </apex:selectList>
+			                </div>
+			                <div class="divider"></div>
+			            </apex:outputPanel>
+			            <!--12.phone-->
+			            <apex:outputPanel styleClass="contPhone" rendered="{!piisettingsobj.isTelephoneVisible}" layout="block">
+			                <div><apex:outputLabel value="{!$Label.Phone}" for="phone" styleClass="labelFont"/><div class="mandatorycls">*</div></div>
+			                <div><apex:inputText value="{!piisettingsobj.conWrapper.phone}" id="phone" styleClass="textFieldSize"/></div>
+			                <div class="divider"></div>
+			            </apex:outputPanel>
+                      
+						<!--START CR16 DPR Support-->
+						<!-- Removed repeat - 1CP only
+						<apex:outputPanel id="dprForm" rendered="{!isDPRVisible}" layout="Block">
+                              <apex:repeat id="theRepeat" value="{!dprUIDs}" var="theUId">
+								<br/>
+                              	<c:DPRUploadForm id="dpr" cpuid="{!theUId}" piiForm="True">
+                                </c:DPRUploadForm>
+								<br/>
+                              </apex:repeat>
+						</apex:outputPanel>-->
+						<!--New one CP only approach-->
+						<apex:outputPanel id="dprPanel" rendered="{!isDPRVisible}" layout="Block">
+                            <!--Where to store/get CP Id from?-->
+							<c:DPRUploadForm id="dpr" cpuid="{!dprUID}" piiForm="True">
+							</c:DPRUploadForm>
+						</apex:outputPanel>
+						<!--END CR16 DPR Support-->
+
+						<apex:actionFunction name="submitPII" action="{!Submit}" reRender="">
+                            <apex:param name="withDPR" id="withDPR" value=""/>
+						</apex:actionFunction>
+						<apex:actionFunction name="partialDPR" action="{!partialUploadErr}" />
+                      
+            			<br/>
+            			<!--<apex:commandButton action="{!Submit}" value="{!$Label.Submit}" id="submit_button" styleClass="btnStyle"/>--> 
+                      		<button type="button" id="submit_button" styleClass="btnStyle" onclick="submitPiiForm();" >{!$Label.Submit}</button>
+            			<br/>                     
+            			<div class="privacy2">
+                			<br/><apex:outputLabel value="{!$Label.PII_PrivacyStatement}" escape="false" />
+            			</div>
+            			<br/> 
+        			</apex:outputPanel>    
+<script type="text/javascript">
+                              
+    function submitPiiForm(){
+        console.log("***DPR Visible? "+{!isDPRVisible});
+    	if({!isDPRVisible}){
+            console.log("***Submit DPR and PII");
+            var requestCount = Number(document.getElementById("thePage:theForm:dpr:dprComp:reqPhotoCount").innerHTML.match(/\d/g));//gets digit only
+			var uploadedCount = Number(document.getElementById("thePage:theForm:dpr:dprComp:ulPhotoCount").innerHTML.match(/\d/g));//gets digit only
+            //Validate photo uploaded count = requested count, or 0
+            //If 0 uploaded submit PII only
+            if(uploadedCount == 0){
+                console.log("***DPR No uploads submit PII Only");
+                submitPII();
+            }
+            //If uploaded count matches requested account allow full submit
+            else if(requestCount === uploadedCount){
+                console.log("***DPR All photos uploaded - you can proceed!");
+                //Can't call two action functions, only the last one actually gets run
+                submitPII("True");
+            }
+            //Partial upload message
+            else{
+                console.log("***DPR More photos required!");
+                partialDPR();
+            }
+        }
+        else{
+            console.log("*** No DPR Submit PII Only");
+            submitPII("False");
+        }
+    }
+</script>
+        </apex:form>
+        
+    </body>
+</html>
+    
+
+        
+</apex:page>

@@ -1,0 +1,235 @@
+<apex:component layout="none" >
+    <apex:stylesheet value="{!URLFOR ($Resource.ContactInfoCSS)}"/>
+    <apex:includeScript value="{!URLFOR ($Resource.ContactInfoJS)}"/>
+    <apex:attribute name="handshake" description="Handshake instance" type="sf_ContactInfoController" required="true" /> 
+    <apex:outputPanel layout="block" styleClass="addressPanel">
+        <apex:tabPanel switchType="client" tabClass="activeTab" inactiveTabClass="inactiveTab" contentClass="tabContent" onclick="preventEnterPress();">
+            <apex:tab label="{!$Label.Contact_Info_Primary_Address_Info}" name="primaryAddressInfoName" id="primaryAddressInfoId">
+                
+                    <div class="addressContainer">
+                        <div class="topPanel">
+                            <apex:outputPanel layout="block" styleClass="addressPanelInsideSection">
+                            <apex:outputPanel >
+                                        <apex:pageBlock mode="mainDetail">
+                                            <apex:pageBlockSection columns="2">
+        
+                                                <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                    <apex:outputLabel value="{!$ObjectType.Contact.fields.Override_Primary_Address__c.Label}"/>
+                                                    <apex:inputField taborderhint="90" value="{!handshake.contactInfo.Override_Primary_Address__c}" onchange="setUnverifiedPrimaryAddress(this); overridePrimaryAddress();">
+                                                        <apex:actionFunction name="overridePrimaryAddress" reRender="sfContactForm" status="status" action="{!handshake.overridePrimaryAddress}"/>
+                                                    </apex:inputField>
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem />
+                                                
+                                                <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;" rendered="{!handshake.contactInfo.Override_Primary_Address__c}">
+                                                    <apex:outputLabel value="{!$ObjectType.Contact.fields.Primary_Address_Override_Reason__c.Label}"/>
+                                                    <apex:inputField value="{!handshake.contactInfo.Primary_Address_Override_Reason__c}"  styleClass="sectionFields"/>
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem rendered="{!handshake.contactInfo.Override_Primary_Address__c}"/>
+                                                
+                                                <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                    <apex:outputLabel value="{!$ObjectType.Contact.fields.Primary_Country__c.Label}"/>
+                                                    
+                                                    <apex:selectList size="1" value="{!handshake.contactInfo.Primary_Country__c}" id="primaryAddressCountry" styleClass="sectionFields {!IF(handshake.addressFieldManuallyUpdatedMap['Primary_Address_Valid'] == true, 'verifiedField', '')}" onchange="setUnverifiedPrimaryAddress(this);">
+                                                        <apex:selectOptions value="{!handshake.countryOptions}" />
+                                                    </apex:selectList>
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                    <apex:outputLabel value="{!$ObjectType.Contact.fields.Primary_Address_Line_1__c.Label}"/>
+                                                    
+                                                    <apex:outputPanel id="primaryAddressLine1Validation">
+                                                        <apex:inputField html-tabindex="23" value="{!handshake.contactInfo.Primary_Address_Line_1__c}" id="primaryAddressLine1" styleClass="sectionFields {!IF(handshake.mapPrimaryAddressFieldValidation['Address'] == 'false', 'invalidField', IF(handshake.mapPrimaryAddressFieldValidation['Address'] == 'true', 'validField verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);"/>
+                                                        <img src="{!URLFOR($Resource.sf_ContactInfoValidAddress)}" class="{!IF(handshake.mapPrimaryAddressFieldValidation['Address'] == 'true', 'validIcon', 'hideAddressIcon')}"/>
+                                                        <apex:outputText value="{!$Label.Contact_Info_Invalid_Email_Address}" rendered="{!IF(handshake.mapPrimaryAddressFieldValidation['Address'] == 'false', 'true', 'false')}" styleClass="invalidFieldText"/>
+                                                    </apex:outputPanel>
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                    <apex:outputLabel value="{!$ObjectType.Contact.fields.Primary_Postal_Code__c.Label}"/>
+                                                    
+                                                    <apex:outputPanel id="primaryZipCodeValidation">
+                                                        <apex:inputField html-tabindex="19" value="{!handshake.contactInfo.Primary_Postal_Code__c}" id="primaryPostalCode" styleClass="firstColumnAddressField {!IF(handshake.mapPrimaryAddressFieldValidation['Zip_Code'] == 'false', 'invalidField', IF(handshake.mapPrimaryAddressFieldValidation['Zip_Code'] == 'true', 'validField verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);" onkeypress="lookupPrimaryZipCode(event);"/>
+                                                        <apex:commandButton tabindex="20" value="{!$Label.ContactInfo_lookup}" action="{!handshake.lookUpPrimaryPostalCode}" status="status" reRender="sfContactForm" styleClass="lookupClass lookupPrimary" onComplete="scrollToTop();" disabled="{!handshake.caseClosed}"/>
+                                                        <img src="{!URLFOR($Resource.sf_ContactInfoValidAddress)}" class="{!IF(handshake.mapPrimaryAddressFieldValidation['Zip_Code'] == 'true', 'validIcon', 'hideAddressIcon')}"/>
+                                                        <apex:outputText value="{!$Label.Contact_Info_Invalid_Email_Address}" rendered="{!IF(handshake.mapPrimaryAddressFieldValidation['Zip_Code'] == 'false', 'true', 'false')}" styleClass="invalidFieldText"/>
+                                                    </apex:outputPanel>
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                    <apex:outputLabel value="{!$ObjectType.Contact.fields.Primary_Address_Line_2__c.Label}"/>
+                                                    <apex:inputField html-tabindex="24" value="{!handshake.contactInfo.Primary_Address_Line_2__c}" id="primaryAddressLine2" styleClass="sectionFields {!IF(handshake.mapPrimaryAddressFieldValidation['Address'] == 'false', '', IF(handshake.mapPrimaryAddressFieldValidation['Address'] == 'true', 'verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);"/>
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                    <apex:outputLabel value="{!$ObjectType.Contact.fields.Primary_City__c.Label}"/>
+                                                    
+                                                    <apex:outputPanel id="primaryCityValidation">
+                                                        <apex:selectList id="primaryCityPicklist" tabindex="21" multiselect="false" size="1" rendered="{!IF(handshake.cityOptions.size > 1 && !handshake.contactInfo.Override_Primary_Address__c, 'true', 'false')}" value="{!handshake.contactInfo.Primary_City__c}" styleClass="sectionFields {!IF(handshake.mapPrimaryAddressFieldValidation['City'] == 'false', 'invalidField', IF(handshake.mapPrimaryAddressFieldValidation['City'] == 'true', 'validField verifiedField', ''))}" onchange="setUnverifiedPrimaryAddress(this);">
+                                                            <apex:selectOptions value="{!handshake.cityOptions}"/>
+                                                        </apex:selectList>
+                                                        <apex:inputField value="{!handshake.contactInfo.Primary_City__c}" html-tabindex="21" id="primaryCity" rendered="{!IF(handshake.cityOptions.size < 2 || handshake.contactInfo.Override_Primary_Address__c, 'true', 'false')}" styleClass="sectionFields {!IF(handshake.mapPrimaryAddressFieldValidation['City'] == 'false', 'invalidField', IF(handshake.mapPrimaryAddressFieldValidation['City'] == 'true', 'validField verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);"/>
+                                                        <img src="{!URLFOR($Resource.sf_ContactInfoValidAddress)}" class="{!IF(handshake.mapPrimaryAddressFieldValidation['City'] == 'true', 'validIcon', 'hideAddressIcon')}"/>
+                                                        <apex:outputText value="{!$Label.Contact_Info_Invalid_Email_Address}" rendered="{!IF(handshake.mapPrimaryAddressFieldValidation['City'] == 'false', 'true', 'false')}" styleClass="invalidFieldText"/>
+                                                    </apex:outputPanel>
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                    <apex:outputLabel value="{!$ObjectType.Contact.fields.Primary_Address_Line_3__c.Label}"/>
+                                                    
+                                                    <apex:inputField html-tabindex="25" value="{!handshake.contactInfo.Primary_Address_Line_3__c}" id="primaryAddressLine3" styleClass="sectionFields {!IF(handshake.mapPrimaryAddressFieldValidation['Address'] == 'false', '', IF(handshake.mapPrimaryAddressFieldValidation['Address'] == 'true', 'verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);">
+                                                        <!-- apex:actionSupport event="onchange" action="{!setUnverifiedPrimaryAddress}" reRender="sfContactForm"/-->
+                                                    </apex:inputField>
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                    <apex:outputLabel value="{!$ObjectType.Contact.fields.Primary_State_Province__c.Label}"/>
+                                                    
+                                                    <apex:outputPanel id="primaryStateProvinceValidation">
+                                                        <apex:inputField html-tabindex="22" value="{!handshake.contactInfo.Primary_State_Province__c}" id="primaryState" styleClass="sectionFields {!IF(handshake.mapPrimaryAddressFieldValidation['State'] == 'false', 'invalidField', IF(handshake.mapPrimaryAddressFieldValidation['State'] == 'true', 'validField verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);"/>
+                                                        <img src="{!URLFOR($Resource.sf_ContactInfoValidAddress)}" class="{!IF(handshake.mapPrimaryAddressFieldValidation['State'] == 'true', 'validIcon', 'hideAddressIcon')}"/>
+                                                        <apex:outputText value="{!$Label.Contact_Info_Invalid_Email_Address}" rendered="{!IF(handshake.mapPrimaryAddressFieldValidation['State'] == 'false', 'true', 'false')}" styleClass="invalidFieldText"/>
+                                                    </apex:outputPanel>
+                                                </apex:pageBlockSectionItem>
+                                                
+                                                <apex:pageBlockSectionItem />
+                                                
+                                                <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                    <apex:outputText value="{!$Label.Contact_Info_Shipping_Address}"/>
+                                                    <apex:inputCheckbox tabindex="36" value="{!handshake.isPrimaryAddressShipping}" id="isPrimaryAddressShippingId">
+                                                        <apex:actionSupport event="onchange" action="{!handshake.setPrimaryAsShippingAddress}" reRender="sfContactForm"/>
+                                                    </apex:inputCheckbox>
+                                                </apex:pageBlockSectionItem>
+                                            </apex:pageBlockSection>
+                                        </apex:pageBlock>
+                            </apex:outputPanel>
+                            </apex:outputPanel>
+                        </div>
+                        
+                        <div class="bottomPanel">
+                            <div class="button-wrapper">
+                                <apex:commandButton value="{!$Label.ContactInfo_VerifyAddress}" action="{!handshake.validatePrimaryAddress}" status="status" styleClass="savebtn" reRender="sfContactForm" tabindex="26" onComplete="scrollToTop();" disabled="{!handshake.caseClosed}"/>
+                            </div>
+                        </div>
+                    </div>
+
+            </apex:tab>
+            
+                                        
+            <apex:tab label="{!$Label.Contact_Info_Other_Address_Info}" name="otherAddressInfoName" id="otherAddressInfoTab">
+                <div class="addressContainer">
+                    <div class="topPanel">
+                            <apex:outputPanel layout="block" styleClass="addressPanelInsideSection">
+                                <apex:outputPanel >
+                                            <apex:pageBlock mode="mainDetail">
+                                                <apex:pageBlockSection columns="2">
+                                                
+                                                    <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                        <apex:outputLabel value="{!$ObjectType.Contact.fields.Override_Other_Address__c.Label}"/>
+                                                        <apex:inputField value="{!handshake.contactInfo.Override_Other_Address__c}" onchange="setUnverifiedPrimaryAddress(this); overrideOtherAddress();">
+                                                            <apex:actionFunction name="overrideOtherAddress" reRender="sfContactForm" status="status" action="{!handshake.overrideOtherAddress}"/>
+                                                        </apex:inputField>
+                                                    </apex:pageBlockSectionItem>
+                                                    
+                                                    <apex:pageBlockSectionItem />
+                                                    
+                                                    <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;" rendered="{!handshake.contactInfo.Override_Other_Address__c}">
+                                                        <apex:outputLabel value="{!$ObjectType.Contact.fields.Other_Address_Override_Reason__c.Label}"/>
+                                                        <apex:inputField value="{!handshake.contactInfo.Other_Address_Override_Reason__c}" styleClass="sectionFields"/>
+                                                    </apex:pageBlockSectionItem>
+                                                    
+                                                    <apex:pageBlockSectionItem rendered="{!handshake.contactInfo.Override_Other_Address__c}"/>
+                                                    
+                                                    <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                        <apex:outputLabel value="{!$ObjectType.Contact.fields.Other_Country__c.Label}"/>
+                                                        <apex:selectList size="1" value="{!handshake.contactInfo.Other_Country__c}" id="primaryAddressCountry" styleClass="sectionFields {!IF(handshake.addressFieldManuallyUpdatedMap['Other_Address_Valid'] == true, 'verifiedField', '')}" onchange="setUnverifiedPrimaryAddress(this);">
+                                                            <apex:selectOptions value="{!handshake.countryOptions}" />
+                                                            <!-- apex:actionSupport event="onchange" action="{!setUnverifiedOtherAddress}" reRender="sfContactForm"/-->
+                                                        </apex:selectList>
+                                                    </apex:pageBlockSectionItem>
+                                                    
+                                                    <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                        <apex:outputLabel value="{!$ObjectType.Contact.fields.Other_Address_Line_1__c.Label}"/>
+                                                        
+                                                        <apex:outputPanel id="otherAddressLine1Validation">
+                                                            <apex:inputField html-tabindex="23" value="{!handshake.contactInfo.Other_Address_Line_1__c}" id="otherAddressLine1" styleClass="sectionFields {!IF(handshake.mapOtherAddressFieldValidation['Address'] == 'false', 'invalidField', IF(handshake.mapOtherAddressFieldValidation['Address'] == 'true', 'validField verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);"/>
+                                                            <img src="{!URLFOR($Resource.sf_ContactInfoValidAddress)}" class="{!IF(handshake.mapOtherAddressFieldValidation['Address'] == 'true', 'validIcon', 'hideAddressIcon')}"/>
+                                                            <apex:outputText value="{!$Label.Contact_Info_Invalid_Email_Address}" rendered="{!IF(handshake.mapOtherAddressFieldValidation['Address'] == 'false', 'true', 'false')}" styleClass="invalidFieldText"/>
+                                                        </apex:outputPanel>
+                                                    </apex:pageBlockSectionItem>
+                                                    
+                                                    <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                        <apex:outputLabel value="{!$ObjectType.Contact.fields.Other_Postal_Code__c.Label}"/>
+                                                        
+                                                        <apex:outputPanel id="otherZipCodeValidation">
+                                                            <apex:inputField html-tabindex="19" value="{!handshake.contactInfo.Other_Postal_Code__c}" id="otherPostalCode" styleClass="firstColumnAddressField {!IF(handshake.mapOtherAddressFieldValidation['Zip_Code'] == 'false', 'invalidField', IF(handshake.mapOtherAddressFieldValidation['Zip_Code'] == 'true', 'validField verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);" onkeypress="lookupOtherZipCode(event);"/>
+                                                            <apex:commandButton tabindex="20" value="Lookup" action="{!handshake.lookUpOtherPostalCode}" status="status" reRender="sfContactForm" styleClass="lookupClass lookupOther" onComplete="scrollToTop();" disabled="{!handshake.caseClosed}"/>
+                                                            <img src="{!URLFOR($Resource.sf_ContactInfoValidAddress)}" class="{!IF(handshake.mapOtherAddressFieldValidation['Zip_Code'] == 'true', 'validIcon', 'hideAddressIcon')}"/>
+                                                            <apex:outputText value="{!$Label.Contact_Info_Invalid_Email_Address}" rendered="{!IF(handshake.mapOtherAddressFieldValidation['Zip_Code'] == 'false', 'true', 'false')}" styleClass="invalidFieldText"/>
+                                                        </apex:outputPanel>
+                                                    </apex:pageBlockSectionItem>
+                                                    
+                                                    <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                        <apex:outputLabel value="{!$ObjectType.Contact.fields.Other_Address_Line_2__c.Label}"/>
+                                                        <apex:inputField html-tabindex="24" value="{!handshake.contactInfo.Other_Address_Line_2__c}" id="otherAddressLine2" styleClass="sectionFields {!IF(handshake.mapOtherAddressFieldValidation['Address'] == 'false', '', IF(handshake.mapOtherAddressFieldValidation['Address'] == 'true', 'verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);">
+                                                            <!-- apex:actionSupport event="onchange" action="{!setUnverifiedOtherAddress}" reRender="sfContactForm"/-->
+                                                        </apex:inputField>
+                                                    </apex:pageBlockSectionItem>
+                                                    
+                                                    <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                        <apex:outputLabel value="{!$ObjectType.Contact.fields.Other_City__c.Label}"/>
+                                                        
+                                                        <apex:outputPanel id="otherCityValidation">
+                                                            <apex:selectList tabindex="21" id="otherCityPicklist" multiselect="false" size="1" rendered="{!IF(handshake.cityOtherOptions.size > 1 && !handshake.contactInfo.Override_Other_Address__c, 'true', 'false')}" value="{!handshake.contactInfo.Other_City__c}" styleClass="sectionFields {!IF(handshake.mapOtherAddressFieldValidation['City'] == 'false', 'invalidField', IF(handshake.mapOtherAddressFieldValidation['City'] == 'true', 'validField', ''))}" onchange="setUnverifiedPrimaryAddress(this);">
+                                                                <apex:selectOptions value="{!handshake.cityOtherOptions}"/>
+                                                            </apex:selectList>
+                                                            <apex:inputField html-tabindex="21" value="{!handshake.contactInfo.Other_City__c}" id="otherCity" rendered="{!IF(handshake.cityOtherOptions.size < 2 || handshake.contactInfo.Override_Other_Address__c, 'true', 'false')}" styleClass="sectionFields {!IF(handshake.mapOtherAddressFieldValidation['City'] == 'false', 'invalidField', IF(handshake.mapOtherAddressFieldValidation['City'] == 'true', 'validField verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);"/>
+                                                            <img src="{!URLFOR($Resource.sf_ContactInfoValidAddress)}" class="{!IF(handshake.mapOtherAddressFieldValidation['City'] == 'true', 'validIcon', 'hideAddressIcon')}"/>
+                                                            <apex:outputText value="{!$Label.Contact_Info_Invalid_Email_Address}" rendered="{!IF(handshake.mapOtherAddressFieldValidation['City'] == 'false', 'true', 'false')}" styleClass="invalidFieldText"/>
+                                                        </apex:outputPanel>
+                                                    </apex:pageBlockSectionItem>
+                                                    
+                                                    <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                        <apex:outputLabel value="{!$ObjectType.Contact.fields.Other_Address_Line_3__c.Label}"/>
+                                                        <apex:inputField html-tabindex="25" value="{!handshake.contactInfo.Other_Address_Line_3__c}" id="otherAddressLine3" styleClass="sectionFields {!IF(handshake.mapOtherAddressFieldValidation['Address'] == 'false', '', IF(handshake.mapOtherAddressFieldValidation['Address'] == 'true', 'verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);">
+                                                            <!-- apex:actionSupport event="onchange" action="{!setUnverifiedOtherAddress}" reRender="sfContactForm"/-->
+                                                        </apex:inputField>
+                                                    </apex:pageBlockSectionItem>
+                                                    
+            
+                                                    <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                        <apex:outputLabel value="{!$ObjectType.Contact.fields.Other_State_Province__c.Label}"/>
+                                                        
+                                                        <apex:outputPanel id="otherStateProvinceValidation">
+                                                            <apex:inputField html-tabindex="22" value="{!handshake.contactInfo.Other_State_Province__c}" id="otherState" styleClass="sectionFields {!IF(handshake.mapOtherAddressFieldValidation['State'] == 'false', 'invalidField', IF(handshake.mapOtherAddressFieldValidation['State'] == 'true', 'validField verifiedField', ''))}" onclick="setUnverifiedPrimaryAddress(this);"/>
+                                                            <img src="{!URLFOR($Resource.sf_ContactInfoValidAddress)}" class="{!IF(handshake.mapOtherAddressFieldValidation['State'] == 'true', 'validIcon', 'hideAddressIcon')}"/>
+                                                            <apex:outputText value="{!$Label.Contact_Info_Invalid_Email_Address}" rendered="{!IF(handshake.mapOtherAddressFieldValidation['State'] == 'false', 'true', 'false')}" styleClass="invalidFieldText"/>
+                                                        </apex:outputPanel>
+                                                    </apex:pageBlockSectionItem>
+                                                    
+                                                    <apex:pageBlockSectionItem />
+                                                    
+                                                    <apex:pageBlockSectionItem dataStyle="border:0px;" labelStyle="border:0px;">
+                                                        <apex:outputText value="{!$Label.Contact_Info_Shipping_Address}"/>
+                                                        <apex:inputCheckbox tabindex="36" value="{!handshake.isOtherAddressShipping}" id="isOtherAddressShippingId">
+                                                            <apex:actionSupport event="onchange" action="{!handshake.setOtherAsShippingAddress}" reRender="sfContactForm"/>
+                                                        </apex:inputCheckbox>
+                                                    </apex:pageBlockSectionItem>
+                                                </apex:pageBlockSection>
+                                            </apex:pageBlock>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                        
+                        </div>
+                        <div class="bottomPanel">
+                            <div class="button-wrapper">
+                                <apex:commandButton tabindex="26" value="{!$Label.ContactInfo_VerifyAddress}" action="{!handshake.validateOtherAddress}" status="status" styleClass="savebtn" reRender="sfContactForm" onComplete="scrollToTop();" disabled="{!handshake.caseClosed}"/>
+                            </div>
+                        </div>
+                </div>
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:outputPanel>
+</apex:component>

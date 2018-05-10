@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Care hub object for contact us v4</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>AddressFieldSet__c</fullName>
+        <description>Field to hold name of the field set to identify the sequence of address/first/last name fields</description>
+        <externalId>false</externalId>
+        <label>Address Field Set</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BCL__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Unique field to prevent carehub creation with existing Brand Country Language</description>
+        <externalId>false</externalId>
+        <label>Brand Country Language</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>BackgroundImgLanding__c</fullName>
+        <description>Background image for landing page</description>
+        <externalId>false</externalId>
+        <label>Landing Page Background Image</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>BannerImageUrl__c</fullName>
+        <description>Image url for care hub banner</description>
+        <externalId>false</externalId>
+        <label>Banner Image Url</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>BannerLink__c</fullName>
+        <description>Anchor link for banner</description>
+        <externalId>false</externalId>
+        <label>Banner Link</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>BannerText__c</fullName>
+        <description>Text translations for care hub banner</description>
+        <externalId>false</externalId>
+        <label>Banner Text</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BigData_Locale_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>BrandCountryLanguage__r.Contact_Us_Language__r.BigData_Locale_Code__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>BigData Locale Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BrandCountryLanguage__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>Country for Brand Country Language</description>
+        <externalId>false</externalId>
+        <label>Contact Us Brand Language</label>
+        <referenceTo>Contact_Us_Brand_Language__c</referenceTo>
+        <relationshipLabel>Care Hubs</relationshipLabel>
+        <relationshipName>CareHubs</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Brand__c</fullName>
+        <externalId>false</externalId>
+        <formula>BrandCountryLanguage__r.Contact_Us_Brand__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Brand</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CountryIsoCode__c</fullName>
+        <externalId>false</externalId>
+        <formula>BrandCountryLanguage__r.Contact_Us_Language__r.GCRCountryIsoCode__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Country Iso Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(BrandCountryLanguage__r.Contact_Us_Language__r.Country__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Country</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ExternalId__c</fullName>
+        <externalId>false</externalId>
+        <label>ExternalId</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FAQCountry__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(BrandCountryLanguage__r.Contact_Us_Language__r.Country__c, &apos;United States of America&apos;), &apos;United_States&apos;, SUBSTITUTE(TEXT(BrandCountryLanguage__r.Contact_Us_Language__r.Country__c), &apos; &apos;, &apos;_&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>FAQ Country</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GCRLabelNext__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Page Label</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GCRLabelPrevious__c</fullName>
+        <externalId>false</externalId>
+        <label>Previous Page Label</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LandingPageText__c</fullName>
+        <defaultValue>&apos;How can we help?&apos;</defaultValue>
+        <description>Landing text for GCR Widget</description>
+        <externalId>false</externalId>
+        <label>Landing Page Text</label>
+        <length>150</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LanguageIsoCode__c</fullName>
+        <externalId>false</externalId>
+        <formula>BrandCountryLanguage__r.Contact_Us_Language__r.GCRLanguageIsoCode__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Language Iso Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LanguageLocaleKey__c</fullName>
+        <externalId>false</externalId>
+        <formula>BrandCountryLanguage__r.Contact_Us_Language__r.Language_Locale_Key__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Language Locale Key</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(BrandCountryLanguage__r.Contact_Us_Language__r.Language__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Language</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OrgWideEmail__c</fullName>
+        <description>Field to contain Organization Wide Email address used as From address for the care hub</description>
+        <externalId>false</externalId>
+        <label>Org Wide Email Address</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrivacyPolicyLabel__c</fullName>
+        <externalId>false</externalId>
+        <label>Privacy Policy Label</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrivacyPolicyLink__c</fullName>
+        <description>Contains link to privacy policy</description>
+        <externalId>false</externalId>
+        <label>Privacy Policy Link</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Privacy_Policy_Label_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Privacy Policy Label 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SearchMinCharMsg__c</fullName>
+        <externalId>false</externalId>
+        <label>Search Minimum Character Message</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ValidationErrorMessage__c</fullName>
+        <externalId>false</externalId>
+        <label>Validation Error Message</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>isLastNameFirst__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Field to determine if last name should be rendered first</description>
+        <externalId>false</externalId>
+        <label>isLastNameFirst</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Care Hub</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>PrivacyPolicyLabel__c</columns>
+        <columns>Privacy_Policy_Label_2__c</columns>
+        <columns>CountryIsoCode__c</columns>
+        <columns>PrivacyPolicyLink__c</columns>
+        <columns>FAQCountry__c</columns>
+        <columns>Language__c</columns>
+        <columns>LanguageIsoCode__c</columns>
+        <columns>LanguageLocaleKey__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>China</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>PrivacyPolicyLabel__c</columns>
+        <columns>Privacy_Policy_Label_2__c</columns>
+        <columns>CountryIsoCode__c</columns>
+        <columns>PrivacyPolicyLink__c</columns>
+        <columns>FAQCountry__c</columns>
+        <columns>Language__c</columns>
+        <columns>LanguageIsoCode__c</columns>
+        <columns>LanguageLocaleKey__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>contains</operation>
+            <value>China</value>
+        </filters>
+        <label>China</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Created_Today</fullName>
+        <columns>NAME</columns>
+        <columns>Country__c</columns>
+        <columns>Brand__c</columns>
+        <columns>Language__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>TODAY</value>
+        </filters>
+        <label>Created Today</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Japan</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>PrivacyPolicyLabel__c</columns>
+        <columns>Privacy_Policy_Label_2__c</columns>
+        <columns>CountryIsoCode__c</columns>
+        <columns>PrivacyPolicyLink__c</columns>
+        <columns>FAQCountry__c</columns>
+        <columns>Language__c</columns>
+        <columns>LanguageIsoCode__c</columns>
+        <columns>LanguageLocaleKey__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>Indonesia</value>
+        </filters>
+        <label>Japan</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>USA</fullName>
+        <columns>NAME</columns>
+        <columns>Brand__c</columns>
+        <columns>PrivacyPolicyLabel__c</columns>
+        <columns>Privacy_Policy_Label_2__c</columns>
+        <columns>CountryIsoCode__c</columns>
+        <columns>PrivacyPolicyLink__c</columns>
+        <columns>FAQCountry__c</columns>
+        <columns>Language__c</columns>
+        <columns>LanguageIsoCode__c</columns>
+        <columns>LanguageLocaleKey__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Country__c</field>
+            <operation>equals</operation>
+            <value>United States of AMerica</value>
+        </filters>
+        <label>USA</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>SCH-{00000000}</displayFormat>
+        <label>Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Care Hubs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

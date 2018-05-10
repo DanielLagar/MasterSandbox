@@ -1,0 +1,177 @@
+<apex:page standardController="Fulfillment_Order__c" recordSetVar="Fulfillment Orders" tabStyle="Case" extensions="sf_FulfillmentOrderCtrl" showheader="false" sidebar="false" docType="html-5.0">
+	<apex:includeScript value="/support/console/30.0/integration.js"/>
+	
+	<apex:sectionHeader title="{!$Label.Fulfillment_Search}" subtitle="{!$Label.Fulfillment_Case}-{!cNum}" />
+	<apex:form id="fulfillmentForm">
+
+		<apex:actionFunction action="{!redirect}" name="redirect" />
+		<apex:pageBlock id="block">
+			<apex:pageBlockTable value="{!display}" var="global" columns="2">
+				<apex:column >
+					<b>{!$Label.Fulfillment_Topic}</b>
+				</apex:column>
+				<apex:column >
+					<apex:outputLabel value="{!localproductPath}" for="prod" />
+					<br />
+					<apex:outputLabel value="{!localcommentPath}" for="comment" />
+					<br />
+					<apex:outputLabel value="[ " />
+					<apex:commandLink action="{!changeProductComment}" value="{!$Label.Change}" id="changeProduct"></apex:commandLink>
+					<apex:outputLabel value=" ]" />
+				</apex:column>
+			</apex:pageBlockTable>
+			<hr style="height: 0.1px; border-width: 0.1px; color: #CC9900" />
+			<br />
+
+			<table width="50%">
+				<tr>
+					<td align="right"><b> <apex:outputLabel value="{!$Label.Fulfillment_ConsumerCountry}:" /></b></td>
+					<td><apex:outputLabel value="{!country}"/ ></td>
+					<td rowspan="3"><b> <apex:outputLabel value="{!$ObjectType.Fulfillment_Order_Line_Item__c.fields.Type__c.Label}:" /></b></td>
+					<td rowspan="6"><apex:selectList id="itemType1"
+							value="{!itemTypeList2}" size="12" multiselect="true">
+							<apex:selectoptions value="{!itemTypesNew}"></apex:selectoptions>
+						</apex:selectList></td>
+				</tr>
+				<tr>
+					<td align="right"><b> <apex:outputLabel value="{!$Label.Fulfillment_ConsumerLanguage}:" /></b></td>
+					<td><apex:outputLabel value="{!agentLanguage}"/ ></td>
+				</tr>
+                
+				<!--START - multi contact support-->
+                <tr align="center">
+                    <td align="right"><b> <apex:outputLabel value="{!$Label.Fulfillment_Select_Contact}:" /></b></td>
+                    <td align="left">
+						<apex:selectList id="contactList" label="" value="{!selectedConId}" multiselect="false" size="1">
+							<apex:selectOptions value="{!contactOptions}" />
+							<!--<apex:actionSupport event="onchange" action="{!setContactId}" reRender="sfContactForm" status="status"/>-->
+						</apex:selectList>   
+                    </td>
+                </tr>
+                <!--FIN - multi contact support -->
+                
+				<tr align="center">
+					<td align="right"><b> <apex:outputLabel value="{!$ObjectType.Case.fields.Brand__c.Label}:" /></b></td>
+					<td align="left"><apex:inputText id="Text1" value="{!brand}" /></td>
+
+				</tr>
+				<tr align="center">
+					<td align="right"><b> <apex:outputLabel value="{!$ObjectType.Case.fields.Segment__c.Label}:" /></b></td>
+					<td align="left"><apex:inputText id="Text2" value="{!segment}" />
+					</td>
+				</tr>
+				<tr align="center">
+					<td align="right"><b> <apex:outputLabel value="{!$Label.Name}:" /></b></td>
+					<td align="left"><apex:inputText id="Text3" value="{!desc1}" /></td>
+				</tr>
+
+				<tr align="center">
+					<td align="right"><b> <apex:outputLabel value="{!$ObjectType.Case.fields.Description.Label}:" /></b></td>
+					<td align="left"><apex:inputText id="Text4"
+							value="{!description}" /></td>
+				</tr>
+			</table>
+
+
+			<table width="50%">
+				<tr align="center">
+					<td><apex:commandButton value="{!$Label.Search}"
+							rerender="block" status="status"
+							action="{!searchFulfillmentItems}" /></td>
+				</tr>
+			</table>
+
+			<br />
+			<apex:actionStatus id="status" startText="{!$Label.Searching}" />
+            
+            <!--ChrisM moved-->
+            <apex:outputpanel >
+				<apex:pageMessages id="msgs"></apex:pageMessages>
+			</apex:outputpanel>         
+            
+			<apex:pageBlockSection id="results" columns="1"
+				rendered="{!showResults}">
+				<apex:pageBlockTable value="{!fulfillmentItems}" var="ffItem">
+					<!--<apex:column headerValue="{!selection}"><apex:inputCheckbox value="{!ffItem.selected}"/></apex:column>-->
+					<apex:column headerValue="{!$ObjectType.Fulfillment_Order_Line_Item__c.fields.Quantity__c.Label}">
+						<apex:inputText value="{!ffItem.quantity}" size="3" />
+					</apex:column>
+					<apex:column headerValue="{!$Label.Name}"
+						value="{!ffItem.f.Name}" />
+					<apex:column headerValue="{!$ObjectType.Fulfillment_Order_Line_Item__c.fields.Type__c.Label}"
+						value="{!ffItem.f.Type__c}" />
+					<apex:column headerValue="{!$ObjectType.Case.fields.Brand__c.Label}"
+						value="{!ffItem.f.Brand__c}" />
+					<apex:column headerValue="{!$ObjectType.Case.fields.Segment__c.Label}"
+						value="{!ffItem.f.Segment__c}" />
+					<!--Replaced with below which shows Case currency in header
+						<apex:column breakBefore="false"
+						headerValue="{!$ObjectType.Fulfillment_Order_Line_Item__c.fields.Amount_Currency__c.Label}">-->
+						<apex:column breakBefore="false"
+						headerValue="{!$ObjectType.Fulfillment_Order_Line_Item__c.fields.Amount_Currency__c.Label}({!cCurrency})">
+                            
+						<apex:inputText value="{!ffItem.amount}" size="8"
+							rendered="{!ffItem.f.Type__c == 'MP' || ffItem.f.Type__c == 'CH' || ffItem.f.Type__c == 'PP' ||  ffItem.f.Type__c == 'ET' || ffItem.f.Type__c == 'MO' || ffItem.f.Type__c == 'CK'}" />
+					</apex:column>
+                    
+                    <!--local currency support-->
+					<apex:column headerValue="{!$ObjectType.Fulfillment_Order_Line_Item__c.fields.Keep_Amount__c.Label}">
+                        <apex:inputCheckbox value="{!ffItem.keepAmount}"
+							rendered="{!ffItem.f.Type__c == 'MP' || ffItem.f.Type__c == 'CH' || ffItem.f.Type__c == 'PP' ||  ffItem.f.Type__c == 'ET' || ffItem.f.Type__c == 'MO' || ffItem.f.Type__c == 'CK'}"></apex:inputCheckbox>
+                    </apex:column>
+                    
+					<apex:column headerValue="{!$ObjectType.Fulfillment_Order_Line_Item__c.fields.Description__c.Label}"
+						value="{!ffItem.f.Description__c}"
+						rendered="{!ffItem.f.Type__c != 'MI' && ffItem.f.Type__c != 'MO'}" />
+					<apex:column breakBefore="false"
+						headerValue="{!$ObjectType.Fulfillment_Order_Line_Item__c.fields.Description__c.Label}"
+						rendered="{!ffItem.f.Type__c == 'MI' || ffItem.f.Type__c == 'MO'}">
+						<apex:inputText value="{!ffItem.bankName}" size="12"
+							rendered="{!ffItem.f.Type__c == 'MI' || ffItem.f.Type__c == 'MO'}" />
+					</apex:column>
+					<apex:column breakBefore="false"
+						headerValue="{!$ObjectType.Fulfillment_Order_Line_Item__c.fields.Handling_Instructions__c.Label}">
+						<apex:inputText value="{!ffItem.bankRoutingNumber}" size="12" />
+					</apex:column>
+
+				</apex:pageBlockTable>
+                <!-- ChrisM these don't display until a succesful search is performed
+				<apex:outputpanel rendered="{!ISNULL(fulfillmentItems)}">
+					<apex:pageMessages ></apex:pageMessages>
+				</apex:outputpanel>
+				<apex:outputpanel rendered="{!showError}">
+					<apex:pageMessages ></apex:pageMessages>
+				</apex:outputpanel>
+				<apex:outputpanel rendered="{!showValidationError}">
+					<apex:pageMessages ></apex:pageMessages>
+				</apex:outputpanel>-->
+
+			</apex:pageBlockSection>
+			<apex:pageBlockSection id="results1" columns="1"
+				rendered="{!showButton}">
+				<apex:outputpanel >
+				    
+					<!-- WR355 CDOY add status="displayLoading" -->
+					 <apex:commandButton value="{!$Label.Add_Line_Items} " 
+						action="{!addNewLineItems}" rendered="{!showButton}" status="DisplayLoading" rerender="msgs" />
+
+					<apex:commandButton value="{!$Label.Save_New} " 
+						action="{!goToSaveAndNew}" rendered="{!showButton}" status="DisplayLoading" rerender="msgs"  /> 
+				</apex:outputpanel>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+
+		<!-- WR355 CDOY add ActionStatus -->
+        <apex:actionStatus id="DisplayLoading">
+            <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="z-index: 9998; background-color: #fbfbfb; height: 100%;opacity:0.65;width:100%; position: fixed;">
+                        <div class="waitingHolder" style="z-index: 9999;top: 40%; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">{!$Label.Contact_Info_Loading}...</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionStatus>
+
+	</apex:form>
+</apex:page>

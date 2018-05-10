@@ -1,0 +1,323 @@
+<apex:component controller="ctr_DPRUploadForm" layout="block" allowDML="true" language="{!lang}" id="dprComp">
+
+    <apex:attribute name="cpuid" description="unique id for case product" assignTo="{!uid}" type="String" required="true"/>
+    <apex:attribute name="piiForm" description="if true then component is being used in the PII form" assignTo="{!pii}" type="boolean" required="true"/>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+
+    <apex:outputPanel rendered="{!!pii}">
+        <apex:stylesheet value="{!URLFOR ($Resource.dprCSS)}"/>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!pii}">
+        <apex:stylesheet value="{!URLFOR ($Resource.piidprCSS)}"/>
+    </apex:outputPanel>
+
+    <noscript>
+        <style type="text/css">
+            .hide{
+                display: none;
+            }
+            .nojsblock{
+                margin-left: auto;
+                margin-right: auto;
+                justify-content: center;
+                align-items: center;
+                width: 500px;
+                border-radius: 8px;
+                border: 2px solid red;
+                padding: 10px; 
+            }
+        </style>
+        <apex:outputPanel id="noJS" layout="block" styleClass="nojsblock">
+            <apex:outputText >
+                {!$Label.Javascript_Required} <a href="http://enable-javascript.com/" target="_blank">{!$Label.Javascript_Click_Here}</a>
+            </apex:outputText>
+        </apex:outputPanel>
+    </noscript>
+        
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById("{!$Component.container}").className = "container";
+        };
+
+        var flData = '';
+        var attachmentName = '';
+        var attachmentType = '';
+        var attachment = '';
+        var fileSize = 0;
+        var flMaxSize = 4350000;// (4.3 MB)
+        var flMaxStrSize = 6000000;// (4.3 MB)
+        var chunkSize = 950000;
+        var positionIndex;
+        var doneUploading;
+        var spinnerId = '';
+        var statusCmpId = '';
+        var statusStartId = '';
+        var statusEndId = '';
+        
+        var uploadData = function(flComponentId, cmpSpinnerId, attCount, attLimit, errorCmpId, statSCmp, statECmp, statCmpId, allowExtns) {
+            statusCmpId = statCmpId;
+            statusStartId = statSCmp;
+            statusEndId = statECmp;;
+            onStartStatus(statusCmpId, statusStartId, statusEndId);
+            attErrMsgToggle(false, errorCmpId);
+            if (attCount < attLimit) {
+                spinnerId = cmpSpinnerId;
+                flData = document.getElementById(flComponentId).files[0];
+                attachmentName = flData.name;
+                attachmentType = flData.type;
+                var flBinaryData = "";
+                var flExtension = attachmentName.split('.').pop().toLowerCase();
+                var isAllowedExtn = true;
+                if (allowExtns != null && allowExtns != '' && allowExtns.indexOf(flExtension) == -1) {
+                    isAllowedExtn = false;
+                }
+                if(flData != undefined && isAllowedExtn) {
+                    console.log('FILE DATA SIZE : ' + flData.size);
+                    if(flData.size <= flMaxSize) {
+                        var flReader = new FileReader();
+                        flReader.readAsArrayBuffer(flData); //SUPPORTS IE 10 AND UP
+                        // FILE READER ONLOAD EVENT HANDLER
+                        flReader.onload = (function(readerEvt) {
+                            var flByteData = new Uint8Array(readerEvt.target.result);
+                            var flLength = flByteData.byteLength;
+            
+                            for (var i = 0; i < flLength; i++){
+                                flBinaryData += String.fromCharCode(flByteData[i]);
+                            }
+                        }); // END ONLOAD
+                        // FILE READER ONLOAD END EVENT HANDLER
+                        flReader.onloadend = (function(e) {
+                            // GET FILE CONTENTS
+                            attachment = window.btoa(flBinaryData);
+                            fileSize = attachment.length;
+                            console.log("ATTACHMENT LENGTH: " + fileSize);
+                            doneUploading = false;
+                            if(fileSize <= flMaxStrSize) {
+                                //console.log('CALL SAVE ATTACH FUNCTION ');
+                                positionIndex = 0;
+                                uploadAttachment(null);
+                            } else {
+                                onStopStatus(statusCmpId, statusStartId, statusEndId);
+                                displayErrorMessage(errorCmpId, 'filesize');
+                            }
+                        }); // END ONLOADEND
+                        // FILE READER ONERROR EVENT HANDLER
+                        flReader.onerror = (function(e) {
+                            onStopStatus(statusCmpId, statusStartId, statusEndId);
+                            displayErrorMessage(errorCmpId, 'onerror');
+                        }); // END ONERROR
+                        // FILE READER ONABORT EVENT HANDLER
+                        flReader.onabort = (function(e) {
+                            onStopStatus(statusCmpId, statusStartId, statusEndId);
+                            displayErrorMessage(errorCmpId, 'onabort');
+                        }); // END ONABORT
+                    } else {
+                        onStopStatus(statusCmpId, statusStartId, statusEndId);
+                        displayErrorMessage(errorCmpId, 'filesize');
+                    }
+                } else {
+                    onStopStatus(statusCmpId, statusStartId, statusEndId);
+                    displayErrorMessage(errorCmpId, 'extnblock');
+                }
+            } else {
+                displayErrorMessage(errorCmpId, 'attachlimit');
+                onStopStatus(statusCmpId, statusStartId, statusEndId);
+            }
+        }        
+        var uploadAttachment = function(attachmentId) {
+            var attachmentBody = "";
+            var uid = '{!uid}';
+            if(fileSize <= positionIndex + chunkSize) {
+                attachmentBody = attachment.substring(positionIndex);
+                doneUploading = true;
+            } else {
+                attachmentBody = attachment.substring(positionIndex, positionIndex + chunkSize);
+            }
+            console.log("UPLOADING " + attachmentBody.length + " CHARS OF " + fileSize);
+            ctr_DPRUploadForm.doUploadAttachment(
+                attachmentBody,
+                attachmentName,
+                attachmentType,
+                attachmentId,
+                uid,
+                function(result, event){
+                    if(event.status) {
+                        if(result != null) {
+                            if(doneUploading == true) {
+                                console.log("FILE HAS BEEN SUCCESSFULLY UPLOADED.");
+                                document.getElementById('{!$Component.hiddenAttId}').value += result + ',';
+                                saveAttach(attachmentName);
+                            } else {
+                                positionIndex += chunkSize;
+                                uploadAttachment(result);
+                                console.log("CHUNK HAS BEEN SUCCESSFULLY UPLOADED." + positionIndex);
+                            }
+                        }
+                    } else {
+                        console.log(event.message);
+                        onStopStatus(statusCmpId, statusStartId, statusEndId);
+                    }
+                  }, //end callback
+                {buffer: true, escape: true, timeout: 120000}
+            );
+        }
+        function onStartStatus(statusCmpId, start, end) {
+            document.getElementById(statusCmpId).style.display = 'block';
+            disableAttachFileBtn(start, end);
+        }
+        function onStopStatus(statusCmpId, start, end) {
+            document.getElementById(statusCmpId).style.display = 'none';
+            enableAttachFileBtn(start, end);
+        }
+        function enableAttachFileBtn(start, end) {
+            document.getElementById(start).style.display = 'none';
+            document.getElementById(end).style.display = 'block';
+        }
+        function disableAttachFileBtn(start, end) {
+            document.getElementById(start).style.display = 'block';
+            document.getElementById(end).style.display = 'none';
+        }
+        function displayErrorMessage(errorCmpId, inErr) {
+            var errorMessage = '';
+            var chgStyling = false;
+            if (inErr == 'attachlimit') {
+                errorMessage = '{!JSENCODE($Label.Too_many_attachments)}';
+                chgStyling = true;
+            } else if (inErr == 'filesize') {
+                errorMessage = '{!JSENCODE($Label.File_Limit_Exceeded)}';
+                chgStyling = true;
+            } else if (inErr == 'extnblock') {
+                errorMessage = '{!JSENCODE($Label.File_Extension_Not_Supported)}';
+                chgStyling = true;
+            } else {
+                errorMessage = 'Something went wrong, unhandled!';
+                chgStyling = true;
+            }
+            document.getElementById('{!$Component.attError}').value += errorMessage + ',';
+            console.log('ASSIGNED ERROR MESSAGE : ' + errorMessage);
+            if (chgStyling) {
+                attErrMsgToggle(chgStyling, errorCmpId, errorMessage);
+            }
+        }
+        function attErrMsgToggle(toShow, errorCmpId, errorMessage) {
+            document.getElementById(errorCmpId).innerHTML = errorMessage;
+            if (toShow) {
+                document.getElementById(errorCmpId).style.display = 'block';
+            } else {
+                document.getElementById(errorCmpId).style.display = 'none';
+            }
+        }
+
+    </script>
+
+    <apex:outputPanel id="msgs" layout="block" rendered="{!!pii}">
+        <apex:pageMessages />
+    </apex:outputPanel>
+
+    <apex:outputPanel id="submittedMsg" styleClass="container" rendered="{!!showInstructions}" layout="block">
+        <apex:outputText >{!errorMessage}</apex:outputText>
+    </apex:outputPanel>   
+    
+    <apex:outputPanel id="container" styleClass="hide" rendered="{!showInstructions}" layout="block">
+        <apex:outputPanel id="piiIntro" rendered="{!pii}" layout="block">
+            <apex:outputText >{!$Label.DPR_PII_Intro}</apex:outputText>
+            <br/>
+            <apex:outputLink value="{!cpReturnLink}" target="_blank">{!cpReturnLink}</apex:outputLink>
+            <br/><br/>
+        </apex:outputPanel>
+        <!--The instructions-->
+        <apex:outputPanel id="instructions" layout="block">
+            <apex:outputText escape="false" value="{!instructionText}"></apex:outputText>
+        </apex:outputPanel>
+        
+        <!-- ACTION FUNCTION FOR ATTACHMENT ADD -->
+        <apex:actionFunction id="saveAttach" name="saveAttach" action="{!saveAttachment}" reRender="idAttachedFilesPanel,idInputFileButton"
+                         oncomplete="onStopStatus('{!$Component.attachProgressId}', '{!$Component.idInputFileButtonStart}');">
+            <apex:param name="paramName" assignTo="{!attachmentName}" value="" />
+        </apex:actionFunction>
+
+        <!-- BLOCK FOR ATTACHED FILES -->
+        <div class="article-divider"></div>
+        <apex:outputPanel layout="block" styleClass="attachedFilesPanelContainer">
+            <apex:outputPanel id="submitError" layout="block">
+                <apex:outputText >{!submitErrorMsg}</apex:outputText>
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="block" id="idAttachedFilesPanel">
+
+                <apex:inputHidden id="hiddenAttId" value="{!srtAttachmentId}" />
+                <apex:variable value="{!0}" var="rowNum"/>
+                
+                <apex:repeat var="eachAttach" value="{!lAttachmentName}">
+                    <apex:outputPanel layout="block" styleClass="attachedFile">
+                        <apex:outputPanel layout="block" styleClass="attachedFileText">
+                            <apex:outputText value="{!eachAttach}" />
+                        </apex:outputPanel>
+                        
+                        <apex:actionStatus id="idFileAttStatus">
+                            <apex:facet name="stop">
+                                <apex:commandLink styleClass="attachedFileRemoveIcon"  action="{!removeAttachment}" reRender="idAttachedFilesPanel,idInputFileButton,msgs"
+                                        onclick="attErrMsgToggle(false, '{!$Component.idOutputTextError}', '');" status="idFileAttStatus">
+                                    <apex:image style="height:20px;width:20px;" url="{!URLFOR($Resource.GCRWidgetContent, 'contacts/svg/Remove_Product.svg')}" />
+                                    <apex:param name="remAttIndex" assignTo="{!remAttachmentIndex}" value="{!rowNum}" />
+                                </apex:commandLink>
+                                
+                            </apex:facet>
+                            <apex:facet name="start">
+                                <span id="attachProgressId1" class="fa fa-cog fa-spin fa-2x progressSpinner" style="margin-bottom:10px;" />
+                            </apex:facet>
+                        </apex:actionStatus>
+                        <apex:variable var="rowNum" value="{!rowNum + 1}" />
+
+                    </apex:outputPanel>
+                </apex:repeat>
+                <apex:outputText id="idOutputTextError" value="" styleClass="uploadErrorText" />
+                <apex:outputText value="{!$Label.We_would_like}"/><apex:outputText id="reqPhotoCount" escape="false" value=" <b>{!photoCount}</b> "/><apex:outputText value="{!$Label.Photos}"/>
+                <br/>
+                <apex:outputText value="{!$Label.uploaded_count}"/> <apex:outputText id="ulPhotoCount" escape="false" value=" <b>{!rowNum}</b> "/> <apex:outputText value="{!$Label.Photos}"/>
+
+                <!-- INPUT FILE BUTTON COMPONENT WITH STYLING -->
+                <apex:outputPanel layout="block" style="padding-top: 5px;">
+                    
+                    <apex:outputPanel id="attachProgressId" styleClass="fa fa-cog fa-spin fa-2x progressSpinner"
+                                              style="margin-bottom:10px;width:20px;margin-left:auto;margin-right:auto;display:none" />
+
+                    <apex:outputPanel id="idInputFileButtonStart" layout="block" styleClass="inputFileEnable btnStyling" style="display:none;">
+                        <apex:outputPanel layout="block" styleClass="fileUpload" style="margin-top: 3px;">{!$Label.Uploading}</apex:outputPanel>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel id="idInputFileButton" layout="block" styleClass="inputFileEnable btnStyling" rendered="{!IF(rowNum != photoCount,TRUE,FALSE)}">
+                        <apex:outputPanel layout="block" styleClass="fileUpload" style="margin-top: 3px;">
+                            <input id="idInputFile" type="file" style="overflow: hidden; width: 130px; height: 25px;" class="upload" value=""
+                                    onchange="if(document.getElementById('idInputFile').value != null && document.getElementById('idInputFile').value != '')
+                                            uploadData('idInputFile','{!$Component.attachProgressId}'
+                                            ,{!lAttachmentName.size},'{!photoCount}'
+                                            ,'{!$Component.idOutputTextError}','{!$Component.idInputFileButtonStart}'
+                                            ,'{!$Component.idInputFileButton}','{!$Component.attachProgressId}'
+                                            ,'{!$Label.DPR_Valid_File_Extensions}');"/>
+                                    
+                            <apex:outputPanel id="btnLabel" layout="block">{!$Label.Upload_File}</apex:outputPanel>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                
+                <!--SUBMIT BLOCK-->
+                <apex:actionFunction name="submitAF" action="{!submit}"/>
+                <apex:outputPanel id="submitBlock" layout="block" rendered="{!IF(rowNum == photoCount,TRUE,FALSE)}">
+                    <apex:outputText >{!$Label.Happy_to_Submit}</apex:outputText>
+                    <apex:outputPanel id="submitbtn" layout="block" styleClass="inputFileEnable btnStyling" rendered="{!!pii}" onclick="submitAF();">
+                        <apex:outputPanel layout="block" styleClass="fileUpload" style="margin-top: 3px;">  
+                            <apex:outputPanel id="submitbtnLabel" layout="block">{!$Label.Submit}</apex:outputPanel>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                <apex:inputHidden id="attError" value="{!srtAttachmentErr}" /> 
+                <apex:outputPanel ><br/></apex:outputPanel>
+                
+            </apex:outputPanel> <!--idAttachedFilesPanel-->
+        </apex:outputPanel> <!--attachedFilesPanelContainer-->
+
+    </apex:outputPanel>
+
+</apex:component>

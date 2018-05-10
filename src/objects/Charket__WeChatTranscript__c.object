@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Charket__AgentMessageCount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Agent Message Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__AgentNotifiedTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Agent Notified Time</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Charket__AverageResponseTimeAgent__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Average Response Time Agent (Seconds)</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__AverageResponseTimeFollower__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Average Response Time Follower (Seconds)</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__Body__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Body</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Charket__ChatDuration__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>(Charket__EndTime__c - Charket__StartTime__c) * 24 * 60 * 60</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Chat Duration (Seconds)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__Content__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Content</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Charket__DeliveredMethod__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Delivered Method</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Direct</fullName>
+                    <default>false</default>
+                    <label>Direct</label>
+                </value>
+                <value>
+                    <fullName>Mass</fullName>
+                    <default>false</default>
+                    <label>Mass</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Charket__EmailNotifiedTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Email Notified Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Charket__EndTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>End Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Charket__FollowerActivityCount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Charket__FollowerEventCount__c + Charket__FollowerMessageCount__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Follower Activity Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__FollowerEventCount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Follower Event Count</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__FollowerMessageCount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Follower Message Count</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__FollowerName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF( Charket__WeChatFollower__r.Charket__Alias__c != null, Charket__WeChatFollower__r.Charket__Alias__c, Charket__WeChatFollower__r.Name)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Follower Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__FollowerOpenId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>Follower Open ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__FollowerPhotoUrl__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF( BEGINS(Charket__WeChatFollower__r.Charket__WeChatProfilePhotoUrl__c, &apos;https&apos;) , Charket__WeChatFollower__r.Charket__WeChatProfilePhotoUrl__c ,&apos;https&apos; + RIGHT(Charket__WeChatFollower__r.Charket__WeChatProfilePhotoUrl__c, LEN(Charket__WeChatFollower__r.Charket__WeChatProfilePhotoUrl__c) - 4 ))</formula>
+        <label>Follower Photo URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__HasEmailNotifiedMessages__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>AND(
+  Charket__UnreadCount__c &gt; 0,
+  AND(
+     OR(
+        ISBLANK(Charket__EmailNotifiedTime__c),
+        Charket__LastFollowerMessageTime__c &gt; Charket__EmailNotifiedTime__c
+     ),
+     Charket__WeChatAgent__r.Charket__IsEmailNotificationsEnabled__c 
+  ),
+  OR(
+     OR(
+        ISBLANK(Charket__WeChatAgent__r.Charket__DNDEndTime__c),
+        ISBLANK(Charket__WeChatAgent__r.Charket__DNDStartTime__c),
+        !Charket__WeChatAgent__r.Charket__IsDoNotDisturbEnabled__c
+     ),
+     IF(
+       AND(Charket__WeChatAgent__r.Charket__DNDEndTime__c != null, Charket__WeChatAgent__r.Charket__DNDEndTime__c != null),
+       IF(
+          VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2) + &apos;.&apos; + RIGHT( Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2))
+          &gt;  VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2) + &apos;.&apos; + RIGHT( Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2)) ,
+          OR(
+              VALUE(MID(TEXT(NOW()), 12,2) + &apos;.&apos; + MID(TEXT(NOW()), 15,2)) &lt;
+                 VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2) + &apos;.&apos; + RIGHT( Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2)),
+              VALUE(MID(TEXT(NOW()), 12,2) + &apos;.&apos; + MID(TEXT(NOW()), 15,2)) &gt;
+                 VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2) + &apos;.&apos; + RIGHT( Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2))
+          ),
+          OR(
+              VALUE(MID(TEXT(NOW()), 12,2) + &apos;.&apos; + MID(TEXT(NOW()), 15,2)) &lt;
+                 VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2) + &apos;.&apos; + RIGHT( Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2)),
+              VALUE(MID(TEXT(NOW()), 12,2) + &apos;.&apos; + MID(TEXT(NOW()), 15,2)) &gt;
+                 (VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2) + &apos;.&apos; + RIGHT( Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2)) + 1)
+          )
+       ),
+       true
+     )
+  )
+)</formula>
+        <label>Has Email Notified Messages</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Charket__HasMobileNotifiedMessages__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>AND(
+  Charket__UnreadCount__c &gt; 0,
+  AND(
+     OR(
+        ISBLANK(Charket__MobileNotifiedTime__c),
+        Charket__LastFollowerMessageTime__c &gt; Charket__MobileNotifiedTime__c
+     ),
+     Charket__WeChatAgent__r.Charket__IsMobileNotificationsEnabled__c 
+  ),
+  OR(
+     OR(
+        ISBLANK(Charket__WeChatAgent__r.Charket__DNDEndTime__c),
+        ISBLANK(Charket__WeChatAgent__r.Charket__DNDStartTime__c),
+        !Charket__WeChatAgent__r.Charket__IsDoNotDisturbEnabled__c
+     ),
+     IF(
+       AND(Charket__WeChatAgent__r.Charket__DNDEndTime__c != null, Charket__WeChatAgent__r.Charket__DNDEndTime__c != null),
+       IF(
+          VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2) + &apos;.&apos; + RIGHT(
+            Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2))
+          &gt;  VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2) + &apos;.&apos; + RIGHT(
+            Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2)),
+          OR(
+              VALUE(MID(TEXT(NOW()), 12,2) + &apos;.&apos; + MID(TEXT(NOW()), 15,2)) &lt;
+              VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2) + &apos;.&apos; + RIGHT(
+                 Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2)),
+              VALUE(MID(TEXT(NOW()), 12,2) + &apos;.&apos; + MID(TEXT(NOW()), 15,2)) &gt;
+              VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2) + &apos;.&apos; + RIGHT(
+                 Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2))
+
+          ),
+          OR(
+              VALUE(MID(TEXT(NOW()), 12,2) + &apos;.&apos; + MID(TEXT(NOW()), 15,2)) &lt;
+              VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2) + &apos;.&apos; + RIGHT(
+                 Charket__WeChatAgent__r.Charket__DNDStartTime__c , 2)),
+              VALUE(MID(TEXT(NOW()), 12,2) + &apos;.&apos; + MID(TEXT(NOW()), 15,2)) &gt;
+                 (VALUE(LEFT( Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2) + &apos;.&apos; + RIGHT(
+                    Charket__WeChatAgent__r.Charket__DNDEndTime__c , 2)) + 1)
+          )
+       ),
+       true
+     )
+  )
+)</formula>
+        <label>Has Mobile Notified Messages</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Charket__HasNotifiedMessages__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>AND(
+  Charket__UnreadCount__c &gt; 0,
+  OR(
+    ISBLANK(Charket__AgentNotifiedTime__c),
+    Charket__LastFollowerMessageTime__c &gt; Charket__AgentNotifiedTime__c
+  )
+)</formula>
+        <label>Has Notified Messages</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Charket__IsActive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Charket__IsClosed__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if(ISPICKVAL(Charket__Status__c, &apos;Completed&apos;)||ISPICKVAL(Charket__Status__c, &apos;Missed&apos;)||ISPICKVAL(Charket__Status__c, &apos;Blocked&apos;), true, false)</formula>
+        <label>Closed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Charket__LastFollowerMessageTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Follower Message Time</label>
+        <summarizedField>Charket__WeChatTranscriptItem__c.CreatedDate</summarizedField>
+        <summaryFilterItems>
+            <field>Charket__WeChatTranscriptItem__c.Charket__SendBy__c</field>
+            <operation>equals</operation>
+            <value>Follower</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Charket__WeChatTranscriptItem__c.Charket__WeChatTranscript__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Charket__MaxResponseTimeAgent__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Max Response Time Agent (Seconds)</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__MaxResponseTimeFollower__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Max Response Time Follower (Seconds)</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__MobileNotifiedTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Mobile Notified Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Charket__RequestTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Request Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Charket__StartTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Charket__StartedBy__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The way the chat was started: by the agent or the follower.</description>
+        <externalId>false</externalId>
+        <label>Started By</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Agent</fullName>
+                    <default>false</default>
+                    <label>Agent</label>
+                </value>
+                <value>
+                    <fullName>Follower</fullName>
+                    <default>false</default>
+                    <label>Follower</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Charket__Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>New</fullName>
+                    <default>true</default>
+                    <label>New</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Blocked</fullName>
+                    <default>false</default>
+                    <label>Blocked</label>
+                </value>
+                <value>
+                    <fullName>Waiting</fullName>
+                    <default>false</default>
+                    <label>Waiting</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Charket__UnreadCount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Unread Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__WaitTime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Charket__StartedBy__c,&apos;Agent&apos;), null, (Charket__StartTime__c - CreatedDate) * 24 * 60 * 60)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Wait Time</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charket__WeChatAgent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WeChat Agent</label>
+        <referenceTo>Charket__WeChatAgent__c</referenceTo>
+        <relationshipLabel>WeChat Transcripts</relationshipLabel>
+        <relationshipName>WeChatTranscripts</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Charket__WeChatFollower__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WeChat Follower</label>
+        <referenceTo>Charket__WeChatFollower__c</referenceTo>
+        <relationshipLabel>WeChat Transcripts</relationshipLabel>
+        <relationshipName>WeChatTranscripts</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>WeChat Transcript</label>
+    <listViews>
+        <fullName>Charket__All</fullName>
+        <columns>NAME</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>WT-{0000000}</displayFormat>
+        <label>Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>WeChat Transcripts</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

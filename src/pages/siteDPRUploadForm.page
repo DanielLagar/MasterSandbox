@@ -1,0 +1,6 @@
+<apex:page showHeader="false" sidebar="false" cache="false">
+    <apex:form >
+    	<c:DPRUploadForm cpuid="{!$CurrentPage.parameters.uid}" piiForm="False">
+        </c:DPRUploadForm>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,274 @@
+<!-- 
+    
+    This page provides a way to search for Products and add them to the existing Case Record.
+    
+    @param: Id - The Salesforce Id of the existing Case record
+    @Author: Oleg Rikkers, Chris Southworth 
+    
+-->
+
+<apex:page standardController="Case" extensions="sf_ProductSearchSubtabController,sf_DAMImageProxyCtrl" showHeader="false" sidebar="false">
+	<!-- WR584 ADDED THE JQUERY TO THE STATIC RESOURCES -->
+    <!--<apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>--> 
+   	<apex:stylesheet value="{!URLFOR($Resource.jQuery1_10_4_CSS)}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.sf_ProductSearchSubtabCSS)}"/>   
+    <apex:includeScript value="{!URLFOR($Resource.jQuery1_11_0_min)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQuery1_10_4_UI)}"/>
+    <!--<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"/>-->
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.sf_ProductSearchSubtabJS)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.GCRWidgetContent, '/contacts/js/analyticsTracking.js')}" />
+
+    <script type="text/javascript">
+    	//ChrisM's for testing: UA-100139558-1
+    	//PG Sandbox: 'UA-66361301-1
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,"script","https://www.google-analytics.com/analytics.js","ga");
+		ga("create", {!$Setup.Global_Org_Settings__c.GA_Tracking_Code__c}, "auto");
+    </script>
+	
+	<script type="text/javascript">
+		if (!window.console) {console={log: function () {}} };
+		var caseId = '{!Case.Id}';
+		var sfPrimaryTabId = null;
+		var defaultImage = '{!URLFOR ($Resource.sf_MissingProductImage)}';
+		var freeTextDefaultImage = '{!URLFOR($Resource.sf_Icons, "Icons/FreeText_Icon_default.png")}';
+		var freeTextActiveImage = '{!URLFOR($Resource.sf_Icons, "Icons/FreeText_Icon_active.png")}';
+		var pathDividerDefault = '{!URLFOR($Resource.sf_Icons, "Icons/path_divider_default.png")}';
+		var pathDividerActive = '{!URLFOR($Resource.sf_Icons, "Icons/path_divider_active.png")}';
+		var addButtonDefault = '{!URLFOR($Resource.sf_Icons, "Icons/Add_Button_default.png")}';
+		var addButtonHover = '{!URLFOR($Resource.sf_Icons, "Icons/Add_Button_Hover.png")}';
+		var addButtonPress = '{!URLFOR($Resource.sf_Icons, "Icons/Add_Button_Press.png")}';
+		var addSmallButtonDefault = '{!URLFOR($Resource.sf_Icons, "Icons/Add_Button_small_default.png")}';
+		var addSmallButtonHover = '{!URLFOR($Resource.sf_Icons, "Icons/Add_Button_small_Hover.png")}';
+		var addSmallButtonPress = '{!URLFOR($Resource.sf_Icons, "Icons/Add_Button_small_Press.png")}';
+		var imageLoadingGif = '{!URLFOR($Resource.sf_loading_image)}';
+		var openImage = '{!URLFOR($Resource.viewImage)}';//WR544
+
+		var localProductMap = new Object(); //grab count of local products from the case (for add buttom count)
+		
+		var addedText = '{!$Label.ProductSearch_ProductAdded}';
+		var addText = '{!$Label.ProductSearch_AddProduct}';
+		var noDescription = '{!$Label.ProductSearch_NoDescription}';
+
+		sforce.console.getEnclosingPrimaryTabId (function (result) {
+			sfPrimaryTabId = result.id;
+		});
+
+
+		var getBrandstoreImage = function (url, prodId) {
+	        var imageUrl = '';
+	        console.log ('getBrandstoreImage called for ' + prodId);
+	       
+	        sf_DAMImageProxyCtrl.getDamImageUrl(url, function (result, event) {
+	            
+	            if (event.status) {
+	            	console.log ('getBrandstoreImage responded for ' + prodId);
+	                imageUrl = result;
+	                console.log ('adding remote image to ' + prodId);
+	                $('#' + prodId).attr('src', result);
+	            } else {
+	                console.log(event);
+	            }
+	        },{escape: false});
+	        return imageUrl;
+    	};
+
+    	var getDamImageThumbnailUrlInBulk = function (prodIds) {
+
+	        sf_DAMImageProxyCtrl.getDamImageThumbnailUrlInBulk(prodIds, function (result, event) {
+	            
+	            if (event.status) {
+	            	
+	                for (i = 0; i < result.length; i++) {
+	                	$('#' + result[i].Id).attr('src', result[i].Image_Url_Thumb__c);
+	                }
+	            } else {
+	                console.log(event);
+	            }
+	        },{escape: false});
+    	};
+
+		$(document).ready(function () {
+			showSearchPanel();
+			$('.resultsSection').hide();
+			$('.noResults').hide();
+			sf_ProductSearchSubtabController.getCaseProducts(caseId, function(result, event){
+				if(event.status){
+					for(var i = 0; i < result.length; i++){
+						var lpId = result[i].Local_Product__c;
+						
+						if(localProductMap[lpId] === undefined){
+							localProductMap[lpId] = 1;
+						} else {
+							var count = localProductMap[lpId];
+							count += 1;
+							localProductMap[lpId] = count;
+						}
+					}
+				}
+			});
+			
+		});
+		
+		function showRefreshNotificationOnProductCommentTab(){
+	        sforce.console.fireEvent('sf_ProductSearchNewProductAdded', caseId);
+		}
+		
+		var refreshProductSearchCounts = function (result) {
+           console.log('console product counts refreshing: ', result);
+           removeLocalProductCount(result.message);
+           productSearchAutocomplete($('[id$=productSearchField]'), $('.country').val()); 
+           $('[id$=productSearchField]').autocomplete('search');
+        };
+        sforce.console.addEventListener('sf_RefreshProductCountsEvent', refreshProductSearchCounts);
+		        
+	</script>
+	
+	<style type="text/css">
+	
+		.dividerLine{
+			width: 1px;
+			height: 28px;
+	        margin: 10px 3px;
+	        overflow: hidden;
+	        display: inline-block;
+	        vertical-align: middle;
+			background-image: url('{!URLFOR($Resource.sf_Icons, "Icons/path_divider_default.png")}');
+		}	
+		
+		#searchResults table:hover .dividerLine,
+		#searchPathResults table tr:hover .dividerLine{
+			width: 1px;
+			height: 28px;
+			background-image: url('{!URLFOR($Resource.sf_Icons, "Icons/path_divider_active.png")}');
+		}	
+		
+	</style>
+
+	<div id="SearchContainer">
+	    <apex:form id="form" onsubmit="return false;">
+			<a name="top"></a>
+	        <apex:pageMessages id="errorMessages"/>
+	        <apex:outputPanel styleClass="errorMessages"/>
+	        
+	        <apex:outputPanel layout="block" styleClass="caseNotSelected" id="caseNotSelected">
+	            Please select a Case Record to search for products.
+	        </apex:outputPanel>
+	        
+	
+	        <apex:outputPanel layout="block" styleClass="productSearchPanel" id="productSearchPanel">
+	            <apex:pageBlock mode="mainDetail" rendered="{!!ISBLANK(caseRecord.Id)}">
+	            
+	            	<apex:outputPanel styleClass="searchSection" layout="block">
+						<div id="radioSearchType">
+						    <input type="radio" id="barCode" name="productSearchType" value="barCode" checked="checked"/>
+						    <label class="tabButton" for="barCode">
+						    	<img class="tabButtonBarCodeImage" src="{!URLFOR($Resource.sf_Icons, 'Icons/products24.png')}"/>
+						    	{!$Label.ProductSearch_Option_BarCode}
+						    </label>
+						    
+						    <input type="radio" id="freeText" name="productSearchType" value="freeText" />
+						    <label class="tabButton" for="freeText">
+						    	<img class="tabButtonFreeTextImage" src="{!URLFOR($Resource.sf_Icons, 'Icons/FreeText_Icon_default.png')}"/>
+						    	{!$Label.ProductSearch_Option_FreeText}
+						    </label>
+						    
+						    <input type="radio" id="ipmsSearch" name="productSearchType" value="ipmsSearch" />
+						    <label class="tabButton" for="ipmsSearch">
+						    	<img class="tabButtonBarCodeImage" src="{!URLFOR($Resource.sf_Icons, 'Icons/products24.png')}"/>
+						    	IPMS
+						    </label>
+						</div>
+
+						<!-- <apex:inputCheckbox styleClass="gtinCheckbox" id="gtinCheckbox"/>{!$Label.ProductSearch_GTIN} -->				
+	                    <apex:outputPanel layout="block" styleClass="searchBarContainer">  
+	                        <apex:inputText id="productSearchField" label="Enter Product Name" html-placeholder="{!$Label.ProductSearch_PresearchText}"
+	                        onfocus="productSearchAutocomplete($(this), $('.country').val())" styleClass="productSearchBar"/>
+	                    </apex:outputPanel>
+	                    <br/>
+	                    <br/>
+	                    <br/>
+	                    <apex:outputPanel layout="block">
+							<apex:outputText styleClass="processingTime"/> 	                        
+	                    </apex:outputPanel>
+	                 
+	                	<apex:outputPanel layout="block" styleClass="countryField">
+	                		<apex:outputLabel value="{!$Label.ProductSearch_CountryOfPurchase}" for="country"/>
+	                    	<!-- <apex:inputField value="{!caseRecord.Country__c}" id="country" styleClass="country"/> -->
+	                    	<apex:selectList id="country" value="{!caseRecord.Country__c}" size="1" styleClass="country" onchange="productSearchAutocomplete($('[id$=productSearchField]'), $('.country').val()); $('[id$=productSearchField]').autocomplete('search');">
+							  <apex:selectOptions value="{!countries}"/>
+							</apex:selectList>
+	                    </apex:outputPanel>
+	                    
+	                    
+	                </apex:outputPanel>
+
+	                <br/>
+	                <br/>
+	                <br/>
+	                <br/>
+			        <apex:outputPanel layout="block" styleclass="noResults" id="noResults">
+			        	<div class="productNameText">
+			        		{!$Label.ProductSearch_NoResults}
+			        	</div>
+			        </apex:outputPanel>
+
+	                <apex:outputPanel id="searchResultsSection" layout="block" styleClass="resultsSection">
+	                	<div id="radioResultsType">
+	                		<input type="radio" id="pathResults" name="productResultsType" value="pathResults"/>
+						    <label for="pathResults" class="tabButton" onclick="productSearchAutocomplete($('[id$=productSearchField]'), $('.country').val()); $('[id$=productSearchField]').autocomplete('search');">
+						    	{!$Label.ProductSearch_Option_PathResults}
+						    </label>
+
+						    <input type="radio" id="productResults" name="productResultsType" value="productResults"/>
+						    <label for="productResults" class="tabButton" onclick="productSearchAutocomplete($('[id$=productSearchField]'), $('.country').val()); $('[id$=productSearchField]').autocomplete('search');">
+						    	{!$Label.ProductSearch_Option_ProductResults}
+						    </label>
+						</div>
+	                	<div class="divider-horizontal"></div>
+		                <!-- LOCAL PRODUCTS SECTION -->
+		                <apex:outputPanel layout="block" styleClass="displayedResults" id="displayedResults">
+		                	<div id="searchResults">
+								<!-- Populated through javascript by the Product Search method -->
+							</div>                         	
+			                <div id="searchPathResults">
+		                		<table>
+									<!-- Populated through javascript by the Product Search method -->		                		
+		                		</table>
+							</div>                         	
+		                </apex:outputPanel>
+		               	<br/>
+				        <br/>
+						<a href="#top" style="display: inline-block; text-decoration: none;">{!$Label.Back_To_Top}</a>
+	                </apex:outputPanel>
+	            </apex:pageBlock>
+	        </apex:outputPanel>
+	        	
+	        <apex:actionStatus id="status">
+	            <apex:facet name="start">
+	                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height: 100%;opacity:0.65;width:100%;">
+	                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+	                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+	                        <span class="waitingDescription">Loading...</span>
+	                    </div>
+	                </div>
+	            </apex:facet>
+	        </apex:actionStatus>
+			
+	        <c:sf_ProductDetailPopup />
+	    </apex:form>
+	</div>
+	<script type="text/javascript">
+		var showProductDefault = "{!$Setup.Global_Org_Settings__c.Product_Results_is_Default__c}";
+		if(showProductDefault === 'true'){
+			document.getElementById("productResults").checked = true;
+		}
+		else{
+			document.getElementById("pathResults").checked = true;
+		}
+	</script>
+</apex:page>

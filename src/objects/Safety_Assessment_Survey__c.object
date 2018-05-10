@@ -1,0 +1,2237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Holds the questions(fields) and responses(field values) for all Adverse Event surveys.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>A_Reason_for_Incomplete_Survey</fullName>
+        <description>SAS_Reason_for_Incomplete_Survey</description>
+        <displayedFields>
+            <field>Survey_Status__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Reason for Incomplete Survey</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>C_Sensitive_Data_Consent</fullName>
+        <description>SAS_Sensitive_Data_Consent</description>
+        <displayedFields>
+            <field>Sensitive_data_consent__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Sensitive Data Consent</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>E_Affected_Person_Details</fullName>
+        <description>SAS_Affected_Person_Details</description>
+        <displayedFields>
+            <field>First_Name__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Last_Name__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Relationship_to_caller__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Gender__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Age__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>age_months_or_years__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Age_range__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Affected Person</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>G_Product_Usage</fullName>
+        <description>SAS_Product_Usage</description>
+        <displayedFields>
+            <field>Still_using_product__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>When_stopped__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Amount_used__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Frequency_of_use__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Product Usage</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>I_Product_Usage_Specific_Categories_Only</fullName>
+        <description>SAS_Product_Usage_Specific_Categories_Only</description>
+        <displayedFields>
+            <field>Amount_used__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Product Usage-Specific Categories Only</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>K_Prilosec_OTC_Specific_Information</fullName>
+        <description>SAS_Prilosec_OTC_Specific_Information</description>
+        <displayedFields>
+            <field>Correct_dosage__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Did_you_get_relief__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Complete_course_taken__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Prilosec OTC Specific Information</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>M_Permission_To_Follow_Up</fullName>
+        <description>SAS_Permission_to_Follow_Up</description>
+        <displayedFields>
+            <field>Permission_to_Follow_Up__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Permission To Follow Up</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>O_Lack_of_Effect_Incorrect_Use_Misuse</fullName>
+        <description>SAS_Lack_of_Effect_Incorrect_Use_Misuse</description>
+        <displayedFields>
+            <field>Reason_for_using_product_product_quality__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Lack of Effect, Incorrect Use, Misuse</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Q_Symptoms_Experienced</fullName>
+        <description>SAS_Symptoms_Experienced</description>
+        <displayedFields>
+            <field>Adverse_event_symptoms__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Symptoms Experienced</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>R_Medical_Advice_Background</fullName>
+        <description>SAS_Medical_Advice_Background</description>
+        <displayedFields>
+            <field>Got_advice_from_HealthCare_Pro__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Advice_from_healthcare_professional__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>How_was_advice_obtained__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Treatment_recommended_or_prescribed__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Overnight_stay_in_hospital__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Hospital_visit__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Did_you_relieve_problem__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Allergies__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Medical Advice/Background</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>T_Sensitivity_Allergy_Test_Hair_Products</fullName>
+        <description>SAS_Sensitivity_Allergy_Test</description>
+        <displayedFields>
+            <field>Sensitivity_test__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Describe_test__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Where_applied__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Reaction_to_Test__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Time_between_test_and_product_use__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Sensitivity/Allergy Test Hair Products</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>U_Product_Application_Hair_Products</fullName>
+        <description>SAS_Product_Application_Hair_Color_Hair_Removal_Products</description>
+        <displayedFields>
+            <field>Condition_before_product_use__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Use_with_other_products__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Products_used_with__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Previous_similar_experiences__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Product Application Hair Products</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>V_Hair_Colorant_Only</fullName>
+        <description>SAS_Hair_Colorant_Only</description>
+        <displayedFields>
+            <field>Henna_tattoo__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Henna_reaction__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Chemical_treatments_used_before_or_after__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Which_chemical_treatments__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Hair Colorant Only</label>
+    </fieldSets>
+    <fields>
+        <fullName>Address_of_affected_person__c</fullName>
+        <description>S1Q3</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If different from contact on case</inlineHelpText>
+        <label>Address of affected person</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Adverse_event_symptoms__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Has the consumer experienced any symptom(s) as a result of the performance complaint or incorrect/misuse? If yes, complete remaining questions on &apos;Adverse Event&apos; Survey.</inlineHelpText>
+        <label>Adverse event symptoms?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Advice_from_healthcare_professional__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If yes - who did you ask (doctor, nurse, dentist, pharmacist, etc.)?</inlineHelpText>
+        <label>Advice from healthcare professional</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Age__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Either add age in free text  in the first field and select months or years in the drop down OR complete the age range field</inlineHelpText>
+        <label>Age</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Age_range__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Age Range</inlineHelpText>
+        <label>Age range</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Neonate: birth to 30 days</fullName>
+                    <default>false</default>
+                    <label>Neonate: birth to 30 days</label>
+                </value>
+                <value>
+                    <fullName>Infant: 31days to less than 2 years</fullName>
+                    <default>false</default>
+                    <label>Infant: 31days to less than 2 years</label>
+                </value>
+                <value>
+                    <fullName>Child: 2 to 5 years</fullName>
+                    <default>false</default>
+                    <label>Child: 2 to 5 years</label>
+                </value>
+                <value>
+                    <fullName>Child: 6 to 11 years</fullName>
+                    <default>false</default>
+                    <label>Child: 6 to 11 years</label>
+                </value>
+                <value>
+                    <fullName>Adolescent: 12 to 17 years</fullName>
+                    <default>false</default>
+                    <label>Adolescent: 12 to 17 years</label>
+                </value>
+                <value>
+                    <fullName>Adult: 18 to 64 years</fullName>
+                    <default>false</default>
+                    <label>Adult: 18 to 64 years</label>
+                </value>
+                <value>
+                    <fullName>Elderly 65 years and over</fullName>
+                    <default>false</default>
+                    <label>Elderly 65 years and over</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Allergies__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please list any allergies? (separate allergies with a comma e.g. hayfever, peanuts)</inlineHelpText>
+        <label>Allergies</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_used__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How much product do you use each time?</inlineHelpText>
+        <label>Amount used</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CCM_Task_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>External ID for CCM</description>
+        <externalId>true</externalId>
+        <inlineHelpText>External ID for CCM</inlineHelpText>
+        <label>CCM Task Id</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <description>This is the Case that generated this AE Survey</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please pick the case to which this survey relates to.</inlineHelpText>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipName>AE_Surveys</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Chemical_treatments_used_before_or_after__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you do any other chemical treatments or applications before or after using this product?</inlineHelpText>
+        <label>Chemical treatments used before or after</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Complete_course_taken__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you complete the 14 day course of treatment?</inlineHelpText>
+        <label>Complete course taken</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Condition_before_product_use__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How would you describe the condition of the area before you applied the product?</inlineHelpText>
+        <label>Condition before product use</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Correct_dosage__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you taken at least one tablet per day for the first four days? If No or Unknown, additional questions are not needed.</inlineHelpText>
+        <label>Correct dosage</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Date_Locked_by_GSSA__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Locked by GSSA</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Describe_test__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How did you do the test?</inlineHelpText>
+        <label>Describe test</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Did_you_get_relief__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you get relief within the first four days?</inlineHelpText>
+        <label>Did you get relief</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Did_you_relieve_problem__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you do anything to help relieve the problem? If yes, what did you do?</inlineHelpText>
+        <label>Did you relieve problem?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>First_Name__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the first name of the affected person?</inlineHelpText>
+        <label>First Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_use__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How frequently do you use the product?</inlineHelpText>
+        <label>Frequency of use</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gender__c</fullName>
+        <description>Please pick the gender of the person affected</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please pick the gender of the person affected</inlineHelpText>
+        <label>Gender</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Male</fullName>
+                    <default>false</default>
+                    <label>Male</label>
+                </value>
+                <value>
+                    <fullName>Female</fullName>
+                    <default>false</default>
+                    <label>Female</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Got_advice_from_HealthCare_Pro__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you get advice from a Health Care Professional?</inlineHelpText>
+        <label>Got advice from HealthCare Pro?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Henna_reaction__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If yes to Henna tattoo, did you have a reaction?</inlineHelpText>
+        <label>Henna reaction</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Henna_tattoo__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>Yes</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>No</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Henna_tattoo__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you ever had a temporary Henna Tattoo?</inlineHelpText>
+        <label>Henna tattoo</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Hospital_visit__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If yes, how many days were they in hospital?</inlineHelpText>
+        <label>Hospital visit</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>How_was_advice_obtained__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How did you get the advice - telephone, office visit, ER, urgent care, etc.?</inlineHelpText>
+        <label>How was advice obtained</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Symptom_10_still_present__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still having the problem?</inlineHelpText>
+        <label>Is Symptom 10 still present?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Recovered</fullName>
+                    <default>false</default>
+                    <label>Recovered</label>
+                </value>
+                <value>
+                    <fullName>Not Recovered/Resolved</fullName>
+                    <default>false</default>
+                    <label>Not Recovered/Resolved</label>
+                </value>
+                <value>
+                    <fullName>Improved</fullName>
+                    <default>false</default>
+                    <label>Improved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_Symptom_1_still_present__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still having the problem?</inlineHelpText>
+        <label>Is Symptom 1 still present?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Recovered</fullName>
+                    <default>false</default>
+                    <label>Recovered</label>
+                </value>
+                <value>
+                    <fullName>Not Recovered/Resolved</fullName>
+                    <default>false</default>
+                    <label>Not Recovered/Resolved</label>
+                </value>
+                <value>
+                    <fullName>Improved</fullName>
+                    <default>false</default>
+                    <label>Improved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_Symptom_2_still_present__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still having the problem?</inlineHelpText>
+        <label>Is Symptom 2 still present?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Recovered</fullName>
+                    <default>false</default>
+                    <label>Recovered</label>
+                </value>
+                <value>
+                    <fullName>Not Recovered/Resolved</fullName>
+                    <default>false</default>
+                    <label>Not Recovered/Resolved</label>
+                </value>
+                <value>
+                    <fullName>Improved</fullName>
+                    <default>false</default>
+                    <label>Improved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_Symptom_3_still_present__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still having the problem?</inlineHelpText>
+        <label>Is Symptom 3 still present?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Recovered</fullName>
+                    <default>false</default>
+                    <label>Recovered</label>
+                </value>
+                <value>
+                    <fullName>Not Recovered/Resolved</fullName>
+                    <default>false</default>
+                    <label>Not Recovered/Resolved</label>
+                </value>
+                <value>
+                    <fullName>Improved</fullName>
+                    <default>false</default>
+                    <label>Improved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_Symptom_4_still_present__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still having the problem?</inlineHelpText>
+        <label>Is Symptom 4 still present?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Recovered</fullName>
+                    <default>false</default>
+                    <label>Recovered</label>
+                </value>
+                <value>
+                    <fullName>Not Recovered/Resolved</fullName>
+                    <default>false</default>
+                    <label>Not Recovered/Resolved</label>
+                </value>
+                <value>
+                    <fullName>Improved</fullName>
+                    <default>false</default>
+                    <label>Improved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_Symptom_5_still_present__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still having the problem?</inlineHelpText>
+        <label>Is Symptom 5 still present?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Recovered</fullName>
+                    <default>false</default>
+                    <label>Recovered</label>
+                </value>
+                <value>
+                    <fullName>Not Recovered/Resolved</fullName>
+                    <default>false</default>
+                    <label>Not Recovered/Resolved</label>
+                </value>
+                <value>
+                    <fullName>Improved</fullName>
+                    <default>false</default>
+                    <label>Improved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_Symptom_6_still_present__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still having the problem?</inlineHelpText>
+        <label>Is Symptom 6 still present?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Recovered</fullName>
+                    <default>false</default>
+                    <label>Recovered</label>
+                </value>
+                <value>
+                    <fullName>Not Recovered/Resolved</fullName>
+                    <default>false</default>
+                    <label>Not Recovered/Resolved</label>
+                </value>
+                <value>
+                    <fullName>Improved</fullName>
+                    <default>false</default>
+                    <label>Improved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_Symptom_7_still_present__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still having the problem?</inlineHelpText>
+        <label>Is Symptom 7 still present?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Recovered</fullName>
+                    <default>false</default>
+                    <label>Recovered</label>
+                </value>
+                <value>
+                    <fullName>Not Recovered/Resolved</fullName>
+                    <default>false</default>
+                    <label>Not Recovered/Resolved</label>
+                </value>
+                <value>
+                    <fullName>Improved</fullName>
+                    <default>false</default>
+                    <label>Improved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_Symptom_8_still_present__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still having the problem?</inlineHelpText>
+        <label>Is Symptom 8 still present?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Recovered</fullName>
+                    <default>false</default>
+                    <label>Recovered</label>
+                </value>
+                <value>
+                    <fullName>Not Recovered/Resolved</fullName>
+                    <default>false</default>
+                    <label>Not Recovered/Resolved</label>
+                </value>
+                <value>
+                    <fullName>Improved</fullName>
+                    <default>false</default>
+                    <label>Improved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_Symptom_9_still_present__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still having the problem?</inlineHelpText>
+        <label>Is Symptom 9 still present?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Recovered</fullName>
+                    <default>false</default>
+                    <label>Recovered</label>
+                </value>
+                <value>
+                    <fullName>Not Recovered/Resolved</fullName>
+                    <default>false</default>
+                    <label>Not Recovered/Resolved</label>
+                </value>
+                <value>
+                    <fullName>Improved</fullName>
+                    <default>false</default>
+                    <label>Improved</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the last name of the affected person?</inlineHelpText>
+        <label>Last Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Locked_by_GSSA__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Locked by GSSA</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Medical_QR_Request_Date__c</fullName>
+        <description>The Date/Time the QR is Requested</description>
+        <externalId>false</externalId>
+        <label>Medical QR Request Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Medical_QR_Status__c</fullName>
+        <description>The status the Medical Questionnaire Request is in.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The status the Medical Questionnaire Request is in.</inlineHelpText>
+        <label>Medical QR Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Questionnaire Requested - Attempt 1</fullName>
+                    <default>false</default>
+                    <label>Questionnaire Requested - Attempt 1</label>
+                </value>
+                <value>
+                    <fullName>Questionnaire Requested - Attempt 2</fullName>
+                    <default>false</default>
+                    <label>Questionnaire Requested - Attempt 2</label>
+                </value>
+                <value>
+                    <fullName>Questionnaire Requested - Attempt 3</fullName>
+                    <default>false</default>
+                    <label>Questionnaire Requested - Attempt 3</label>
+                </value>
+                <value>
+                    <fullName>Questionnaire Received</fullName>
+                    <default>false</default>
+                    <label>Questionnaire Received</label>
+                </value>
+                <value>
+                    <fullName>Unwilling to Complete</fullName>
+                    <default>false</default>
+                    <label>Unwilling to Complete</label>
+                </value>
+                <value>
+                    <fullName>Sent by consumer but not received</fullName>
+                    <default>false</default>
+                    <label>Sent by consumer but not received</label>
+                </value>
+                <value>
+                    <fullName>Unable to Re-contact Consumer</fullName>
+                    <default>false</default>
+                    <label>Unable to Re-contact Consumer</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Metadata_Survey_Trigger__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Metadata Survey Trigger</label>
+        <referenceTo>Metadata_Survey_Trigger__c</referenceTo>
+        <relationshipName>AE_Surveys</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Symptoms__c</fullName>
+        <defaultValue>2</defaultValue>
+        <description>holds the number of symptoms that have been entered</description>
+        <externalId>false</externalId>
+        <label>Number of Symptoms</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Overnight_stay_in_hospital__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Was consumer admitted to a hospital that resulted in an overnight stay in the hospital?</inlineHelpText>
+        <label>Overnight stay in hospital?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Permission_to_Follow_Up__c</fullName>
+        <description>Used to capture if consumer is willing to have P&amp;G follow up.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Although there are no safety issues associated with the use of [xx] during pregnancy, there is a regulatory requirement for all companies to follow-up.  We will be sending you a questionnaire to gather some additional details.  Would this be ok?</inlineHelpText>
+        <label>Permission to Follow Up</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes (letter is sent along with questionnaire)</fullName>
+                    <default>false</default>
+                    <label>Yes (letter is sent along with questionnaire)</label>
+                </value>
+                <value>
+                    <fullName>No (case is closed)</fullName>
+                    <default>false</default>
+                    <label>No (case is closed)</label>
+                </value>
+                <value>
+                    <fullName>Unknown (case is closed)</fullName>
+                    <default>false</default>
+                    <label>Unknown (case is closed)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Previous_similar_experiences__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you had any similar experiences in the past?</inlineHelpText>
+        <label>Previous similar experiences</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Products_used_with__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If yes, what products?</inlineHelpText>
+        <label>Products used with</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reaction_to_Test__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did the sensitivity/allergy test show any reaction?</inlineHelpText>
+        <label>Reaction to Test</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Reason_for_using_product_product_quality__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What was your reason for using this product?</inlineHelpText>
+        <label>Reason for using product</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Relationship_to_caller__c</fullName>
+        <description>Enter the affected person&apos;s relationship to the caller.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the affected person&apos;s relationship to the caller.</inlineHelpText>
+        <label>Relationship to caller</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Self</fullName>
+                    <default>false</default>
+                    <label>Self</label>
+                </value>
+                <value>
+                    <fullName>Aunt</fullName>
+                    <default>false</default>
+                    <label>Aunt</label>
+                </value>
+                <value>
+                    <fullName>Brother</fullName>
+                    <default>false</default>
+                    <label>Brother</label>
+                </value>
+                <value>
+                    <fullName>Daughter</fullName>
+                    <default>false</default>
+                    <label>Daughter</label>
+                </value>
+                <value>
+                    <fullName>Father</fullName>
+                    <default>false</default>
+                    <label>Father</label>
+                </value>
+                <value>
+                    <fullName>Friend</fullName>
+                    <default>false</default>
+                    <label>Friend</label>
+                </value>
+                <value>
+                    <fullName>GrandDaughter</fullName>
+                    <default>false</default>
+                    <label>GrandDaughter</label>
+                </value>
+                <value>
+                    <fullName>Grandfather</fullName>
+                    <default>false</default>
+                    <label>Grandfather</label>
+                </value>
+                <value>
+                    <fullName>Grandmother</fullName>
+                    <default>false</default>
+                    <label>Grandmother</label>
+                </value>
+                <value>
+                    <fullName>Grandson</fullName>
+                    <default>false</default>
+                    <label>Grandson</label>
+                </value>
+                <value>
+                    <fullName>Husband</fullName>
+                    <default>false</default>
+                    <label>Husband</label>
+                </value>
+                <value>
+                    <fullName>Mother</fullName>
+                    <default>false</default>
+                    <label>Mother</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Sister</fullName>
+                    <default>false</default>
+                    <label>Sister</label>
+                </value>
+                <value>
+                    <fullName>Son</fullName>
+                    <default>false</default>
+                    <label>Son</label>
+                </value>
+                <value>
+                    <fullName>Uncle</fullName>
+                    <default>false</default>
+                    <label>Uncle</label>
+                </value>
+                <value>
+                    <fullName>Wife</fullName>
+                    <default>false</default>
+                    <label>Wife</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Sensitive_data_consent__c</fullName>
+        <description>S1Q1</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Do I have your permission to capture your health related data in our secure database?</inlineHelpText>
+        <label>Sensitive data consent</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>No - Does not give consent</fullName>
+                    <default>false</default>
+                    <label>No - Does not give consent</label>
+                </value>
+                <value>
+                    <fullName>Yes - Individual affected</fullName>
+                    <default>false</default>
+                    <label>Yes - Individual affected</label>
+                </value>
+                <value>
+                    <fullName>Yes - Parent of underage individual affected</fullName>
+                    <default>false</default>
+                    <label>Yes - Parent of underage individual affected</label>
+                </value>
+                <value>
+                    <fullName>Yes - Is not the individual affected</fullName>
+                    <default>false</default>
+                    <label>Yes - Is not the individual affected</label>
+                </value>
+                <value>
+                    <fullName>Email/Letter/Social Media</fullName>
+                    <default>false</default>
+                    <label>Email/Letter/Social Media</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Sensitivity_test__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you carry out the sensitivity/allergy test?</inlineHelpText>
+        <label>Sensitivity test</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Active</fullName>
+                    <default>true</default>
+                    <label>Active</label>
+                </value>
+                <value>
+                    <fullName>Cancelled</fullName>
+                    <default>false</default>
+                    <label>Cancelled</label>
+                </value>
+                <value>
+                    <fullName>Locked</fullName>
+                    <default>false</default>
+                    <label>Locked</label>
+                </value>
+                <value>
+                    <fullName>Owned by GSSA</fullName>
+                    <default>false</default>
+                    <label>Owned by GSSA</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Still_using_product__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are you still using product?</inlineHelpText>
+        <label>Still using product?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Survey_Completed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Survey Completed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Survey_Field_Set__c</fullName>
+        <externalId>false</externalId>
+        <formula>Metadata_Survey_Trigger__r.Survey_Fieldset__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Survey Field Set</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Survey_Status__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Reason for Incomplete Survey</inlineHelpText>
+        <label>Survey Status</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Consumer Refused/Hung Up</fullName>
+                    <default>false</default>
+                    <label>Consumer Refused/Hung Up</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Symptom_10_Body_Part_Affected__c</fullName>
+        <description>Please describe which parts of the body were affected?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe which parts of the body were affected?</inlineHelpText>
+        <label>Symptom 10 - Body part affected</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Symptom_1_Body_Part_Affected__c</fullName>
+        <description>Please describe which parts of the body were affected?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe which parts of the body were affected?</inlineHelpText>
+        <label>Symptom 1 - Body part affected</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Symptom_2_Body_Part_Affected__c</fullName>
+        <description>Please describe which parts of the body were affected?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe which parts of the body were affected?</inlineHelpText>
+        <label>Symptom 2 - Body Part Affected</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Symptom_3_Body_Part_Affected__c</fullName>
+        <description>Please describe which parts of the body were affected?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe which parts of the body were affected?</inlineHelpText>
+        <label>Symptom 3 - Body Part Affected</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Symptom_4_Body_Part_Affected__c</fullName>
+        <description>Please describe which parts of the body were affected?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe which parts of the body were affected?</inlineHelpText>
+        <label>Symptom 4 - Body Part Affected</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Symptom_5_Body_Part_Affected__c</fullName>
+        <description>Please describe which parts of the body were affected?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe which parts of the body were affected?</inlineHelpText>
+        <label>Symptom 5 - Body Part Affected</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Symptom_6_Body_Part_Affected__c</fullName>
+        <description>Please describe which part of the body was affected</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe which part of the body was affected</inlineHelpText>
+        <label>Symptom 6 - Body Part Affected</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Symptom_7_Body_Part_Affected__c</fullName>
+        <description>Please describe which parts of the body were affected?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe which parts of the body were affected?</inlineHelpText>
+        <label>Symptom 7 - Body part affected</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Symptom_8_Body_Part_Affected__c</fullName>
+        <description>Please describe which parts of the body were affected?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe which parts of the body were affected?</inlineHelpText>
+        <label>Symptom 8 - Body part affected</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Symptom_9_Body_Part_Affected__c</fullName>
+        <description>Please describe which parts of the body were affected?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe which parts of the body were affected?</inlineHelpText>
+        <label>Symptom 9 - Body part affected</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_between_test_and_product_use__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How long did you wait before applying the product after carrying out the sensitivity/allergy test?</inlineHelpText>
+        <label>Time between test and product use</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Treatment_recommended_or_prescribed__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Was treatment recommended or prescribed by the Health Care Professional? If yes - what type (get name and route of medications)</inlineHelpText>
+        <label>Treatment recommended or prescribed?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Use_with_other_products__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Did you use this product with any other products?</inlineHelpText>
+        <label>Use with other products</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>When_did_symptom_10_disappear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter when the symptom disappeared</inlineHelpText>
+        <label>When did symptom 10 disappear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_symptom_1_disappear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Pick when the symptom disappeared</inlineHelpText>
+        <label>When did symptom 1 disappear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_symptom_2_disappear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the time when symptom disappeared</inlineHelpText>
+        <label>When did symptom 2 disappear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_symptom_3_disappear__c</fullName>
+        <externalId>false</externalId>
+        <label>When did symptom 3 disappear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_symptom_4_disappear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>When did the Symptom disappear</inlineHelpText>
+        <label>When did symptom 4 disappear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_symptom_5_disappear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter when the symptom disappeared</inlineHelpText>
+        <label>When did symptom 5 disappear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_symptom_6_disappear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter when the symptom disappeared</inlineHelpText>
+        <label>When did symptom 6 disappear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_symptom_7_disappear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter when the symptom disappeared</inlineHelpText>
+        <label>When did symptom 7 disappear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_symptom_8_disappear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter when the symptom disappeared</inlineHelpText>
+        <label>When did symptom 8 disappear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_symptom_9_disappear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter when the symptom disappeared</inlineHelpText>
+        <label>When did symptom 9 disappear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_the_symptom_10_appear__c</fullName>
+        <description>Fill this out for each of the symptoms.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Fill this out for each of the symptoms.</inlineHelpText>
+        <label>When did the symptom 10 appear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_the_symptom_1_appear__c</fullName>
+        <description>Fill this out for each of the symptoms.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Fill this out for each of the symptoms.</inlineHelpText>
+        <label>When did the symptom 1 appear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_the_symptom_2_appear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter when this symptom first showed</inlineHelpText>
+        <label>When did the symptom 2 appear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_the_symptom_3_appear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter when the symptom appeared</inlineHelpText>
+        <label>When did the symptom 3 appear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_the_symptom_4_appear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter when the symptom appeared</inlineHelpText>
+        <label>When did the symptom 4 appear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_the_symptom_5_appear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter when the symptom appeared</inlineHelpText>
+        <label>When did the symptom 5 appear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_the_symptom_6_appear__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter when the symptom started</inlineHelpText>
+        <label>When did the symptom 6 appear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_the_symptom_7_appear__c</fullName>
+        <description>Fill this out for each of the symptoms.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Fill this out for each of the symptoms.</inlineHelpText>
+        <label>When did the symptom 7 appear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_the_symptom_8_appear__c</fullName>
+        <description>Fill this out for each of the symptoms.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Fill this out for each of the symptoms.</inlineHelpText>
+        <label>When did the symptom 8 appear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_did_the_symptom_9_appear__c</fullName>
+        <description>Fill this out for each of the symptoms.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Fill this out for each of the symptoms.</inlineHelpText>
+        <label>When did the symptom 9 appear?</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>When_stopped__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If no, when did you stop using product?</inlineHelpText>
+        <label>When stopped</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Where_applied__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Where did you apply the mixture?</inlineHelpText>
+        <label>Where applied</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Which_chemical_treatments__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Which chemical treatments?</inlineHelpText>
+        <label>Which chemical treatments</label>
+        <length>254</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>age_months_or_years__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Is the age in months or years?</inlineHelpText>
+        <label>Age: months or years?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Months</fullName>
+                    <default>false</default>
+                    <label>Months</label>
+                </value>
+                <value>
+                    <fullName>Years</fullName>
+                    <default>false</default>
+                    <label>Years</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Safety Assessment Survey</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Case__c</columns>
+        <columns>Metadata_Survey_Trigger__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Sensitive_data_consent__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>6/23/2016 12:00 AM</value>
+        </filters>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>MyView</fullName>
+        <columns>NAME</columns>
+        <columns>Case__c</columns>
+        <columns>Metadata_Survey_Trigger__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Metadata_Survey_Trigger__c</field>
+            <operation>equals</operation>
+            <value>MTN-000181</value>
+        </filters>
+        <label>MyView</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Surveys_on_Other_Issues</fullName>
+        <columns>NAME</columns>
+        <columns>Case__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Surveys on Other Issues</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Surveys_on_Packaging_Issues</fullName>
+        <columns>NAME</columns>
+        <columns>Case__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Surveys on Packaging Issues</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Surveys_on_Product_Issues</fullName>
+        <columns>NAME</columns>
+        <columns>Case__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Surveys on Product Issues</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>SAS-{0000000}</displayFormat>
+        <label>Safety Assessment Survey</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Safety Assessment Surveys</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Case__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Metadata_Survey_Trigger__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Case__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Survey_Field_Set__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>Case__c</lookupFilterFields>
+        <lookupFilterFields>Survey_Field_Set__c</lookupFilterFields>
+        <lookupFilterFields>Metadata_Survey_Trigger__c</lookupFilterFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Case__c</searchFilterFields>
+        <searchFilterFields>Metadata_Survey_Trigger__c</searchFilterFields>
+        <searchResultsAdditionalFields>Case__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>SAS_Status_Locked</fullName>
+        <active>false</active>
+        <description>Survey cannot be edited if the Status is locked</description>
+        <errorConditionFormula>ISPICKVAL(Status__c,&apos;Locked&apos;)</errorConditionFormula>
+        <errorMessage>Survey cannot be edited when the Status is in &apos;Locked&apos; state</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SAS_Survey</fullName>
+        <active>false</active>
+        <description>If case is owned by GSSA, SAS survey cannot be edited</description>
+        <errorConditionFormula>AND( 
+NOT(ISNULL(Case__r.GSSA_Ownership__c)) ,
+$Setup.Global_Org_Settings__c.System_Administrator_Profile_Id__c &lt;&gt; $Profile.Id, 
+$Profile.Name &lt;&gt; &quot;Integration User&quot; 
+)</errorConditionFormula>
+        <errorMessage>SAS Survey cannot be edited when case is owned by GSSA</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

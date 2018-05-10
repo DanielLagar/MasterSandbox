@@ -1,0 +1,18 @@
+<apex:page sidebar="false" showHeader="false" standardController="Fulfillment_Order__c" extensions="sf_FulfillmentOrderLetterEdit" >
+   <style>
+       .borderStyle{
+       margin:6px;
+       padding:20px 20px 20px 15px;
+       border-style: solid;
+       border-width: 1px;
+       }
+   </style>
+   <apex:form >
+       <div class="borderStyle">
+           <span style="font-weight:bold;">Edit Letter</span><br/><br/>
+           <apex:inputTextarea label="" value="{!editBox}" richText="true" rows="20"  /><br/>
+           <apex:commandButton value="Save" action="{!save1}" style="width:80px;" />&nbsp;&nbsp;
+           <apex:commandButton value="Cancel" action="{!cancelBtn}" style="width:80px;" />
+       </div> 
+ </apex:form>
+</apex:page>

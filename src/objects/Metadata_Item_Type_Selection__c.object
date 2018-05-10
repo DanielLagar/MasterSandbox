@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Item types available to contact center 
+(verify this description)</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Contact_Center__c</fullName>
+        <description>List of contact centers</description>
+        <externalId>false</externalId>
+        <label>Contact Center</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>AMR BR</fullName>
+                    <default>false</default>
+                    <label>AMR BR</label>
+                </value>
+                <value>
+                    <fullName>AMR DPIC</fullName>
+                    <default>false</default>
+                    <label>AMR DPIC</label>
+                </value>
+                <value>
+                    <fullName>AMR LA SY</fullName>
+                    <default>false</default>
+                    <label>AMR LA SY</label>
+                </value>
+                <value>
+                    <fullName>AMR NA</fullName>
+                    <default>false</default>
+                    <label>AMR NA</label>
+                </value>
+                <value>
+                    <fullName>AMR NA Crisis Full</fullName>
+                    <default>false</default>
+                    <label>AMR NA Crisis Full</label>
+                </value>
+                <value>
+                    <fullName>AMR NA IAMS Crisis</fullName>
+                    <default>false</default>
+                    <label>AMR NA IAMS Crisis</label>
+                </value>
+                <value>
+                    <fullName>AMR NA Petcare</fullName>
+                    <default>false</default>
+                    <label>AMR NA Petcare</label>
+                </value>
+                <value>
+                    <fullName>AMR NA PSS</fullName>
+                    <default>false</default>
+                    <label>AMR NA PSS</label>
+                </value>
+                <value>
+                    <fullName>AMR NA SY</fullName>
+                    <default>false</default>
+                    <label>AMR NA SY</label>
+                </value>
+                <value>
+                    <fullName>AMR WST</fullName>
+                    <default>false</default>
+                    <label>AMR WST</label>
+                </value>
+                <value>
+                    <fullName>China P&amp;G</fullName>
+                    <default>false</default>
+                    <label>China P&amp;G</label>
+                </value>
+                <value>
+                    <fullName>China Sykes</fullName>
+                    <default>false</default>
+                    <label>China Sykes</label>
+                </value>
+                <value>
+                    <fullName>DEM</fullName>
+                    <default>false</default>
+                    <label>DEM</label>
+                </value>
+                <value>
+                    <fullName>DEW SY Wihelmshaven</fullName>
+                    <default>false</default>
+                    <label>DEW SY Wihelmshaven</label>
+                </value>
+                <value>
+                    <fullName>EGC P&amp;G Cairo</fullName>
+                    <default>false</default>
+                    <label>EGC P&amp;G Cairo</label>
+                </value>
+                <value>
+                    <fullName>GBE SY Edinburgh</fullName>
+                    <default>false</default>
+                    <label>GBE SY Edinburgh</label>
+                </value>
+                <value>
+                    <fullName>GBG TP Promotion</fullName>
+                    <default>false</default>
+                    <label>GBG TP Promotion</label>
+                </value>
+                <value>
+                    <fullName>GBN P&amp;G Newcastle</fullName>
+                    <default>false</default>
+                    <label>GBN P&amp;G Newcastle</label>
+                </value>
+                <value>
+                    <fullName>Hong Kong</fullName>
+                    <default>false</default>
+                    <label>Hong Kong</label>
+                </value>
+                <value>
+                    <fullName>HUB SY Budapest</fullName>
+                    <default>false</default>
+                    <label>HUB SY Budapest</label>
+                </value>
+                <value>
+                    <fullName>ILT Consumer Service Israel</fullName>
+                    <default>false</default>
+                    <label>ILT Consumer Service Israel</label>
+                </value>
+                <value>
+                    <fullName>ITP SY Prato</fullName>
+                    <default>false</default>
+                    <label>ITP SY Prato</label>
+                </value>
+                <value>
+                    <fullName>Japan</fullName>
+                    <default>false</default>
+                    <label>Japan</label>
+                </value>
+                <value>
+                    <fullName>Korea</fullName>
+                    <default>false</default>
+                    <label>Korea</label>
+                </value>
+                <value>
+                    <fullName>KSJ DMS Jeddah</fullName>
+                    <default>false</default>
+                    <label>KSJ DMS Jeddah</label>
+                </value>
+                <value>
+                    <fullName>Manila</fullName>
+                    <default>false</default>
+                    <label>Manila</label>
+                </value>
+                <value>
+                    <fullName>NLT Teleperformance Tilburg</fullName>
+                    <default>false</default>
+                    <label>NLT Teleperformance Tilburg</label>
+                </value>
+                <value>
+                    <fullName>PGP</fullName>
+                    <default>false</default>
+                    <label>PGP</label>
+                </value>
+                <value>
+                    <fullName>PKK EN Karachi</fullName>
+                    <default>false</default>
+                    <label>PKK EN Karachi</label>
+                </value>
+                <value>
+                    <fullName>PLW P&amp;G  Warsaw</fullName>
+                    <default>false</default>
+                    <label>PLW P&amp;G  Warsaw</label>
+                </value>
+                <value>
+                    <fullName>ROB P&amp;G Bucharest</fullName>
+                    <default>false</default>
+                    <label>ROB P&amp;G Bucharest</label>
+                </value>
+                <value>
+                    <fullName>RUM P&amp;G Moscow</fullName>
+                    <default>false</default>
+                    <label>RUM P&amp;G Moscow</label>
+                </value>
+                <value>
+                    <fullName>SAJ Sykes Johannesburg</fullName>
+                    <default>false</default>
+                    <label>SAJ Sykes Johannesburg</label>
+                </value>
+                <value>
+                    <fullName>Taiwan</fullName>
+                    <default>false</default>
+                    <label>Taiwan</label>
+                </value>
+                <value>
+                    <fullName>TRI P&amp;G Istanbul</fullName>
+                    <default>false</default>
+                    <label>TRI P&amp;G Istanbul</label>
+                </value>
+                <value>
+                    <fullName>UKK P&amp;G Kiev</fullName>
+                    <default>false</default>
+                    <label>UKK P&amp;G Kiev</label>
+                </value>
+                <value>
+                    <fullName>中国</fullName>
+                    <default>false</default>
+                    <label>中国</label>
+                </value>
+                <value>
+                    <fullName>中文</fullName>
+                    <default>false</default>
+                    <label>中文</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Item_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Item Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>BD</fullName>
+                    <default>false</default>
+                    <label>BD</label>
+                </value>
+                <value>
+                    <fullName>CD</fullName>
+                    <default>false</default>
+                    <label>CD</label>
+                </value>
+                <value>
+                    <fullName>CH</fullName>
+                    <default>false</default>
+                    <label>CH</label>
+                </value>
+                <value>
+                    <fullName>CO</fullName>
+                    <default>false</default>
+                    <label>CO</label>
+                </value>
+                <value>
+                    <fullName>CP</fullName>
+                    <default>false</default>
+                    <label>CP</label>
+                </value>
+                <value>
+                    <fullName>CR</fullName>
+                    <default>false</default>
+                    <label>CR</label>
+                </value>
+                <value>
+                    <fullName>DC</fullName>
+                    <default>false</default>
+                    <label>DC</label>
+                </value>
+                <value>
+                    <fullName>DD</fullName>
+                    <default>false</default>
+                    <label>DD</label>
+                </value>
+                <value>
+                    <fullName>EL</fullName>
+                    <default>false</default>
+                    <label>EL</label>
+                </value>
+                <value>
+                    <fullName>ET</fullName>
+                    <default>false</default>
+                    <label>ET</label>
+                </value>
+                <value>
+                    <fullName>FL</fullName>
+                    <default>false</default>
+                    <label>FL</label>
+                </value>
+                <value>
+                    <fullName>FU</fullName>
+                    <default>false</default>
+                    <label>FU</label>
+                </value>
+                <value>
+                    <fullName>GI</fullName>
+                    <default>false</default>
+                    <label>GI</label>
+                </value>
+                <value>
+                    <fullName>MI</fullName>
+                    <default>false</default>
+                    <label>MI</label>
+                </value>
+                <value>
+                    <fullName>MM</fullName>
+                    <default>false</default>
+                    <label>MM</label>
+                </value>
+                <value>
+                    <fullName>MO</fullName>
+                    <default>false</default>
+                    <label>MO</label>
+                </value>
+                <value>
+                    <fullName>MP</fullName>
+                    <default>false</default>
+                    <label>MP</label>
+                </value>
+                <value>
+                    <fullName>PA</fullName>
+                    <default>false</default>
+                    <label>PA</label>
+                </value>
+                <value>
+                    <fullName>PI</fullName>
+                    <default>false</default>
+                    <label>PI</label>
+                </value>
+                <value>
+                    <fullName>PP</fullName>
+                    <default>false</default>
+                    <label>PP</label>
+                </value>
+                <value>
+                    <fullName>PR</fullName>
+                    <default>false</default>
+                    <label>PR</label>
+                </value>
+                <value>
+                    <fullName>RC</fullName>
+                    <default>false</default>
+                    <label>RC</label>
+                </value>
+                <value>
+                    <fullName>RE</fullName>
+                    <default>false</default>
+                    <label>RE</label>
+                </value>
+                <value>
+                    <fullName>RL</fullName>
+                    <default>false</default>
+                    <label>RL</label>
+                </value>
+                <value>
+                    <fullName>RP</fullName>
+                    <default>false</default>
+                    <label>RP</label>
+                </value>
+                <value>
+                    <fullName>SA</fullName>
+                    <default>false</default>
+                    <label>SA</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <label>Metadata Item Type Selection</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Contact_Center__c</columns>
+        <columns>Item_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>IT-{0000}</displayFormat>
+        <label>Metadata Item Type Selection Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Metadata Item Type Selections</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,43 @@
+<apex:component id="ContactUsFooterComponent" controller="sf_ContactUsFooterComponentCtrl">
+    <!--WR225 start-->
+    <!--Only display if image location is provided-->
+    <apex:outputPanel id="crmbannerpanel" rendered="{!showBanner}">
+
+	<div id="crm-banner">
+        <div class="crm-banner">
+        <div class="left">
+            	<img src="{!brand_lang_config.Signup_Image__c}" width="140" title="PG Everyday Logo"></img>
+            </div>
+            <div class="centre">
+                <div class="contacttextline1">
+                	{!brand_lang_config.Signup_Blurb__c}
+                </div>
+            </div>
+            <div class="signup">
+                <a href="{!brand_lang_config.signup_URL__c}" id="crmSignUpButton" target="_blank" tabindex="2" class="action btn" onclick="_gaq.push(['_trackEvent', 'Event_Form_Interaction', 'Event_Field_Focus', 'CRM Banner Click'])">
+					<span class="tip" title="{!brand_lang_config.Signup_Button_Label__c}">{!brand_lang_config.Signup_Button_Label__c}</span>
+              </a>                 
+            </div>
+            <br class="clear" />
+        </div>
+    </div>
+    
+	</apex:outputPanel>
+    <!--WR225 fin-->
+
+	<div id="page-footer">
+		<div id="page-footer2">
+			<div class="pull-left">
+				<a href="{!termsAndConditionsURL}" target="_blank">{!termsAndConditions}</a>
+			</div>
+			
+			<div class="pull-left ml10">
+				<a href="{!privacyURL}" target="_blank">{!privacy}</a>
+			</div>
+			<div class="pull-right copyright">
+				&copy; <script>document.write(new Date().getFullYear())</script> Procter &amp; Gamble
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</apex:component>

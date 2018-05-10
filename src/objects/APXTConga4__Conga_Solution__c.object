@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>APXTConga4__Button_Link_API_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Button/Link API Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Button_body_field__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Button Body (URL)</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Composer_Parameters__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Composer Parameters</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__CongaEmailTemplateCount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Conga Email Template Count</label>
+        <summaryForeignKey>APXTConga4__Conga_Solution_Email_Template__c.APXTConga4__Conga_Solution__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Custom_Object_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Custom Object Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Formula_Field_API_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Formula Field API Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Formula_body_field__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Formula Field Body</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Launch_C8_Formula_Button__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF( OR(APXTConga4__Sample_Record_Id__c = &quot;&quot;,  APXTConga4__Button_Link_API_Name__c = &quot;&quot;), IMAGE( &quot;/resource/APXTConga4__DisabledLaunchButton&quot; , &quot;Launch Composer&quot;), 
+
+HYPERLINK(&quot;https://&quot; &amp; MID( $Api.Enterprise_Server_URL_320, FIND(&quot;://&quot;, $Api.Enterprise_Server_URL_100)+3, FIND( &quot;.com&quot;, $Api.Enterprise_Server_URL_100 )-4) 
+&amp; &quot;servlet/servlet.Integration?lid=&quot; &amp; APXTConga4__Weblink_Id__c 
+&amp; &quot;&amp;eid=&quot; &amp; APXTConga4__Sample_Record_Id__c &amp; &quot;&amp;ic=1&quot; 
+, IMAGE( &quot;/resource/APXTConga4__ComposerLaunchButton&quot; , &quot;Launch Composer&quot;), &quot;_blank&quot; ) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Launch</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Master_Object_Type_Validator__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Master Object Type Validator</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Master_Object_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Master Object Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Sample_Record_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Sample Record Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Solution_Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Solution Description</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Solution_Weblink_Syntax__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Solution Weblink Syntax</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>APXTConga4__Weblink_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Weblink Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Conga Solution</label>
+    <listViews>
+        <fullName>APXTConga4__All</fullName>
+        <columns>NAME</columns>
+        <columns>APXTConga4__Master_Object_Type__c</columns>
+        <columns>APXTConga4__Button_Link_API_Name__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Conga Solution Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Conga Solutions</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>APXTConga4__Master_Object_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>APXTConga4__Button_Link_API_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>APXTConga4__Sample_Record_Id__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>APXTConga4__Add_Conga_Email_Template</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Add Conga Email Template</masterLabel>
+        <openType>newWindow</openType>
+        <page>APXTConga4__ComposerSolutionCETAdder</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__Add_Parameters</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Add Parameters</masterLabel>
+        <openType>newWindow</openType>
+        <page>APXTConga4__ComposerSolutionParameterAdder</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__Add_Queries</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Add Queries</masterLabel>
+        <openType>newWindow</openType>
+        <page>APXTConga4__ComposerSolutionQueryAdder</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__Add_Reports</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Add Reports</masterLabel>
+        <openType>newWindow</openType>
+        <page>APXTConga4__ComposerSolutionReportAdder</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__Add_Templates</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Add Templates</masterLabel>
+        <openType>newWindow</openType>
+        <page>APXTConga4__ComposerSolutionTemplateAdder</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__Button_Adder</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Button Adder</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/APXTConga4__ComposerSolutionButtonAdder?csRecordId={!APXTConga4__Conga_Solution__c.Id}&amp;objectType={!APXTConga4__Conga_Solution__c.APXTConga4__Master_Object_Type__c}&amp;solutionRecordName={!APXTConga4__Conga_Solution__c.Name}&amp;ButtonAPIName={!APXTConga4__Conga_Solution__c.APXTConga4__Button_Link_API_Name__c}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__CM_Launch_Button</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>CM Launch Button</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://
+{!MID( $Api.Enterprise_Server_URL_320, FIND(&quot;://&quot;, $Api.Enterprise_Server_URL_100)+3, FIND( &quot;.com&quot;, $Api.Enterprise_Server_URL_100 )-5)}
+/servlet/servlet.Integration?lid={!APXTConga4__Conga_Solution__c.APXTConga4__Weblink_Id__c}
+&amp;eid={!APXTConga4__Conga_Solution__c.APXTConga4__Sample_Record_Id__c}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>APXTConga4__Sample_Record_Selector</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Sample Record Selector</masterLabel>
+        <openType>newWindow</openType>
+        <page>APXTConga4__ComposerSolutionRecordPicker</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,164 @@
+<apex:page standardController="Fulfillment_Order__c" recordSetVar="Fulfillment Orders" tabStyle="Case" extensions="sf_FulfillmentOrderCtrl" >
+<!-- This page corresponds to FF1 in the old org -->
+<apex:form >
+
+<button type="button" id="refreshButton" style="float: right; margin-right: 10px;margin-top: 10px;" onclick="refreshPage();">{!$Label.RefreshSubtab_FulFillmentButton}</button>
+
+<apex:sectionHeader title="{!$Label.Fulfillment_FulfillmentSearch}" subtitle="{!cNum}"/>
+
+<!-- FIXME -->
+<apex:pageBlock mode="edit" id="block"  title="Select a Comment/Product Combination to associate with this Fulfillment Order">
+
+<apex:pageBlockTable value="{!comments}" var="comment"> 
+<apex:column headerValue="{!action}">
+<apex:commandLink action="{!save}" value="{!selection}" id="theCommandLink">
+<apex:param name="comment" value="{!comment.Id}"></apex:param>
+<apex:param name="fromPage" value="sf_SelectFulfillmentItems"></apex:param>
+</apex:commandLink>
+</apex:column>
+
+<!-- FIXME label here -->
+<apex:column headerValue="Comments">
+<apex:outputLabel value="{!comment.Case_Product__r.Local_Product__r.Translated_Path__c}"/> <br/>
+<!--CDOY WR339 Start-->
+<!--<apex:outputLabel value=" {!comment.Global_Comment_Path__c}"/> -->
+<!--CDOY WR339 End-->
+<apex:outputLabel value=" {!comment.Comment_Code_Path__c}"/>
+</apex:column>
+</apex:pageBlockTable>
+
+<apex:pageMessages />
+</apex:pageBlock>
+
+</apex:form>
+<script src="/soap/ajax/12.0/connection.js"></script> 
+<script src="/soap/ajax/12.0/apex.js" type="text/javascript"></script> 
+
+<!-- Used for page refresh when Case_Comment_Codes__s are added or removed -->
+<apex:includeScript value="{!$Resource.cometd}"/>
+<apex:includeScript value="{!$Resource.jquery151}"/>
+<apex:includeScript value="{!$Resource.json2}"/>
+<apex:includeScript value="{!$Resource.jquery_cometd}"/>
+
+<script type="text/javascript"> 
+	window.onload = new function()
+	{
+		try
+		{
+			sforce.connection.sessionId ='{!$Api.Session_ID}';
+			var userId = '{!$User.Id}';
+			var tContactError = "{!$Label.Fulfillment_ContactError}" != '' ? "{!$Label.Fulfillment_ContactError}" : "You must have a Primary Contact to send Fulfillment"; 
+			var tCountryError = "{!$Label.Fulfillment_CountryError}" != '' ? "{!$Label.Fulfillment_CountryError}" : "Case Country and Primary Account Country must match to create a fulfillment order" ; 
+			var tAddressMissing ="{!$Label.Fulfillment_AddressMissing}" != '' ? "{!$Label.Fulfillment_AddressMissing}" : "Contact Name, Address Line 1 and City are required to create a Fulfillment Order"; 
+			var flag = 0;
+			var caseId = "{!$CurrentPage.parameters.id}";
+			
+			var addressline = ""; 
+			var city = ""; 
+			var country = ""; 
+			var lastname = ""; 
+			var isPersonAccount = "false"; 
+			
+			var results = sforce.connection.query("Select ContactId,Country__c,Id from Case where Id='"+caseId+"'");
+			var records = results.getArray('records');
+			var caseContact =records[0].ContactId;
+			// FIXME - ask about this
+			/*
+			var consumerCountry =records[0].Country__c;
+			if(consumerCountry!=null){
+			    consumerCountry=consumerCountry.replace("-PGP",""); 
+			    consumerCountry=consumerCountry.replace("-JV",""); 
+			}    
+			*/
+			if(caseContact== null)
+			{
+				flag=1;
+				alert(tContactError);
+			}
+			else
+			{
+				// original query 
+			    //var resultCon = sforce.connection.query("Select Account.IsPersonAccount, Contact_Address_Line_1__c, Contact_City__c, LastName, Contact_Country__c from Contact where Id = '"+caseContact +"'"); 
+			    var resultCon = sforce.connection.query("Select Primary_Address_Line_1__c, Primary_City__c, LastName, Primary_Country__c from Contact where Id = '"+caseContact +"'"); 
+	
+			    recordsCon1 = resultCon.getArray('records'); 
+			    if(recordsCon1.length > 0) 
+			    { 
+				    addressline = recordsCon1[0].Primary_Address_Line_1__c; 
+				    city = recordsCon1[0].Primary_City__c; 
+				    lastname = recordsCon1[0].LastName; 
+				    country = recordsCon1[0].Primary_Country__c; 
+			    } 
+			    
+			    //FIXME - review: no ccenter?
+				//if(ccenter!='Taiwan' && ccenter!='China TCI' && ccenter!='Hong Kong' && ccenter!='China P&G'  && ccenter!='China Sykes' && ccenter!='Japan' && ccenter!='Manila' && ccenter!='Korea' ) 
+				//{ 
+				   
+				    if(caseContact !='' && (addressline ==null || city == null || lastname == null || addressline =='' || city == '' || lastname =='')) 
+				    {
+					    flag=2;
+					    alert(tAddressMissing);
+				    }
+				//}
+			
+			}
+			if(flag =='0' || flag==0) 
+			{ 
+				//if(consumerCountry !=country && (ccenter!='Taiwan'  && ccenter!='Hong Kong' && ccenter!='SPG - Salon Professional Germany' ))  
+				if(consumerCountry !=country )  
+				{
+					flag=3; 
+					alert(tCountryError);
+				}
+			} 
+			
+			if(flag == 1 || flag == 2 || flag==3) {
+			    //window.parent.location.href('/'+caseId);
+			    window.location.assign("/"+caseId);	    
+			}
+		}
+		catch(e)
+		{}
+	};
+
+	var j$ = jQuery.noConflict();
+	var caseId = "{!cId}";
+	var caseComments = '{!comments}';
+	caseComments = caseComments.replace('[', '').replace(']', '');
+	var ccArray = caseComments.split(', ');
+	
+	(function(j$){
+		j$(document).ready(function() {
+			// Connect to the CometD endpoint
+			j$.cometd.init({
+				url: window.location.protocol+'//'+window.location.hostname+'/cometd/30.0/',
+				requestHeaders: { Authorization: 'OAuth {!$Api.Session_ID}'}, appendMessageTypeToURL : false
+			});
+          
+			// Subscribe to a topic. JSON-encoded update will be returned
+			// in the callback
+			j$.cometd.subscribe('/topic/AllCaseCommentCodes', function(message) {
+				var messageType = message.data.event.type;
+				var messageCaseId = message.data.sobject.Case__c;
+				var messageCccId = message.data.sobject.Id;
+				if(messageType == 'created' && messageCaseId == caseId){
+					console.log('Fulfillment Refresh on new CCC: ' + messageType);
+					refreshPage();
+				} else if(messageType == 'deleted'){
+					for(var i = 0; i < ccArray.length; i++){
+						if(messageCccId = ccArray[i]){
+							console.log('Fulfillment Refresh on deleted CCC: ' + messageType);
+							refreshPage();
+							break;
+						}
+					}
+				}
+			});
+		});
+	})(jQuery)
+		
+	function refreshPage(){
+		window.location.reload();
+	}
+</script>
+</apex:page>

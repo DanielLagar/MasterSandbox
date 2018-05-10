@@ -1,0 +1,76 @@
+<!-- 
+#    Component for sidebar of GCR Widget
+#    
+#    @param:  brand, country
+#    @author: ACCENTURE
+#    @date:   19/05/2016
+#
+-->
+<apex:component layout="block" controller="gcr_answerController">
+    <style>
+        .ansImgDiv {
+            visibility: hidden;
+        	float: none;
+            width: 0%;
+        }
+        .ansImg {
+            visibility: hidden;
+        	height: 0%;
+            width: 0%;
+        }
+        .ansMsg {
+			text-align: center;
+    		margin: 0vh 2vh 0vh 2vh;
+        }
+        @media screen and (min-width: 768px) {
+            .ansImgDiv {
+        		/*visibility: visible;
+                float: right;
+                width: 45%;
+        		display: flex;*/
+                visibility: visible;
+                float: right;
+                height: 100%;
+                width: auto;
+                margin-right: -8%;
+                max-width: 600px;
+                min-width: 450px;
+                display: inline-flex;
+                position: static;
+                margin-top: 0;
+                min-height: auto;
+            }
+            .ansImg {
+        		visibility: visible;
+                max-height: 502px;
+                max-width: 398px;
+               	height: auto;
+            	width: auto;
+            }
+        	.ansMsg {
+        		margin: 9vh 3vh 0vh 2vh;
+        		text-align: center;
+        	}
+        	.ansMsgBlock {
+        		float: left;
+        		width: 51%;
+        		padding-top: 100px;
+        	}
+        }
+    </style>
+
+    <!-- ATTRIBUTES FOR COMPONENT -->
+    <apex:attribute name="channelContentId" assignTo="{!chlContentId}" description="Channel id for answer content" type="String" required="true" />
+
+    <apex:outputPanel rendered="{!tempBln}" />
+    <apex:outputPanel layout="block" styleClass="ansMsgBlock">
+    	<apex:outputPanel layout="block" styleClass="cmpHeaderClass">{!channelContent.ChannelHeader__c}</apex:outputPanel>
+        <apex:outputPanel layout="block" styleClass="ansMsg">
+            <c:gcr_cmpLinkSeperator strInput="{!channelContent.PageMessage__c}" strSepStart="[" strSepEnd="]"
+                                    onClick="window.open('{!channelContent.CommunityUrl__c}'); return false;" />
+        </apex:outputPanel>
+    </apex:outputPanel>
+	<apex:outputPanel layout="block" styleClass="ansImgDiv">
+    	<apex:image styleClass="ansImg" url="{!channelContent.CareHub__r.BackgroundImgLanding__c}" />
+    </apex:outputPanel>
+</apex:component>

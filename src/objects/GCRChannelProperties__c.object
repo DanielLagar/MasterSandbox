@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>This custom setting contains Channel Properties for GCR widget.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>ContentName__c</fullName>
+        <description>This field contains value of actual content name of the image/content referred in the side bar of GCR widget</description>
+        <externalId>false</externalId>
+        <label>Content Name</label>
+        <length>150</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ResourcePath__c</fullName>
+        <description>This field holds path of content in the static resource file</description>
+        <externalId>false</externalId>
+        <label>Resource Path</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StaticResourceName__c</fullName>
+        <description>This field holds name of the static resource in which content (icons etc..) has been stored</description>
+        <externalId>false</externalId>
+        <label>Static Resource Name</label>
+        <length>120</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>isActive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field indicate if channel is still active and used in the system</description>
+        <externalId>false</externalId>
+        <label>isActive</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>isNext__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field holds details of next image (pagination) for the sidebar. This field will be checked only for one record in the system.</description>
+        <externalId>false</externalId>
+        <label>isNext</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>isPrevious__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field holds details of previous image (pagination) for the sidebar. This field will be checked only for one record in the system.</description>
+        <externalId>false</externalId>
+        <label>isPrevious</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Care Hub Channel Properties</label>
+    <visibility>Public</visibility>
+</CustomObject>

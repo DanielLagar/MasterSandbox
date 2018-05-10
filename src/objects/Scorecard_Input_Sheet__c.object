@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Input sheet for vendors to enter operational measures. WR178.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>AHT_seconds__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>In seconds. Calculation method: Include talk time, hold time, and ACW</inlineHelpText>
+        <label>AHT (seconds)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Closing_Date_of_Scorecard__c</fullName>
+        <description>Date of Scorecard</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the last day of the Month associated with the scorecard results</inlineHelpText>
+        <label>Closing Date of Scorecard</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Commentary__c</fullName>
+        <description>Commentary to explain variance</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter any key points related to the scorecard results. These comments may be visible in any Scorecard related reports. Maximum of 4000 characters.</inlineHelpText>
+        <label>Commentary</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Contact_Volume_IVR__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Total number of automated, recorded informational messages heard by consumers during both operating and nonoperating hours (24 hours per day)</inlineHelpText>
+        <label>Contact Volume - IVR (#)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select a country</inlineHelpText>
+        <label>Country</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Country</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Email_Service_Level__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Calculation method: Total number of emails answered within 2 business days (contact creation date vs.contact closing date) / total number of emails</inlineHelpText>
+        <label>Email Service Level (%)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>IVR_CX_Surveys_Offered_ASIA_only__c</fullName>
+        <description>Used to determine how many IVRs were offered to calculate the response rate.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of IVR CX surveys sent via the IVR tool in ASIA</inlineHelpText>
+        <label>IVR CX Surveys Offered (ASIA only)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Location</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Locations</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Phone_Answer_Rate__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Calculation method: Total number of calls offered / Total number answered</inlineHelpText>
+        <label>Phone Answer Rate (%)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the Region associated with the
+Country</inlineHelpText>
+        <label>Region</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Region</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SMO__c</fullName>
+        <description>Select the SMO associated with the Country</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the SMO associated with the Country</inlineHelpText>
+        <label>SMO</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>SMO</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Tier_of_Service__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the Tier of Service associated with the Country (Gold, Silver or Bronze)</inlineHelpText>
+        <label>Tier of Service</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Gold</fullName>
+                    <default>false</default>
+                    <label>Gold</label>
+                </value>
+                <value>
+                    <fullName>Silver</fullName>
+                    <default>false</default>
+                    <label>Silver</label>
+                </value>
+                <value>
+                    <fullName>Bronze</fullName>
+                    <default>false</default>
+                    <label>Bronze</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Scorecard Input Sheet</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>NA</fullName>
+        <columns>SMO__c</columns>
+        <columns>NAME</columns>
+        <columns>Closing_Date_of_Scorecard__c</columns>
+        <columns>Country__c</columns>
+        <columns>Location__c</columns>
+        <columns>AHT_seconds__c</columns>
+        <columns>Email_Service_Level__c</columns>
+        <columns>Phone_Answer_Rate__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Region__c</field>
+            <operation>equals</operation>
+            <value>NA</value>
+        </filters>
+        <label>NA</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>a-{0}</displayFormat>
+        <label>Scorecard Input Sheet Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Scorecard Input Sheets</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

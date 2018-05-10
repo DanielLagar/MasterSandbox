@@ -1,0 +1,39 @@
+<!-- 
+#    Component for knowledge article view
+#    
+#    @author: ACCENTURE
+#    @date:   03/11/2016
+#
+-->
+<apex:component layout="none">
+    <!-- TODO: MOVE STYLE CLASSES IN STYLE SHEET -->
+    <style>
+    	.articleContent{
+            display: block;
+        }
+        .articleTitle {
+            margin-bottom: 25px;
+            font-size: 1.2em;
+        	font-weight: bold;
+        }
+    </style>
+    <!-- COMPONENT ATTRIBUTE -->
+    <apex:attribute name="articleTitle" type="String" description="Placeholder for article title string" required="true" />
+    <apex:attribute name="articleContent" type="Blob" description="Placeholder for article title string" required="true" />
+   <apex:attribute name="articleLinks" type="Blob" description="Placeholder for article helpful links string" required="true" />
+    
+    <!-- ARTICLE DATA -->
+    <apex:outputPanel layout="block" styleClass="articleContent">
+        <!-- ARTICLE TITLE -->
+        <apex:outputPanel layout="block" styleClass="articleTitle" >
+            <apex:outputText value="{!articleTitle}" escape="false" />
+        </apex:outputPanel>
+        <!-- ARTICLE CONTENT DATA -->
+        <apex:outputPanel layout="block">
+            <apex:outputText value="{!articleContent}" escape="false" />
+        </apex:outputPanel>
+        <!--<apex:outputPanel layout="block">
+            <apex:outputText value="{!articleLinks}" escape="false" />
+        </apex:outputPanel>-->
+    </apex:outputPanel>
+</apex:component>

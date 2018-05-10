@@ -1,0 +1,1902 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>The Fulfillment Order Line Item object has a master-detail relationship to the Fulfillment Order, and represents an individual item added to the Fulfillment Order ‘Shopping Cart’.  Fulfillment Order Line Items contain a lookup relationship to the Fulfillment Item table to associate an active item to the Line Item.  A custom search UI for fulfillment Items will run from the Fulfillment Order page layout to return available items.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Amount_Currency__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>BIC__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Agency Number</inlineHelpText>
+        <label>BIC</label>
+        <length>50</length>
+        <maskChar>X</maskChar>
+        <maskType>all</maskType>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>EncryptedText</type>
+    </fields>
+    <fields>
+        <fullName>Bank_Name__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the Bank</inlineHelpText>
+        <label>Bank Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bank_Receipt_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Bank Receipt Amount</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bank_Receipt_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Bank Receipt Date</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bank_Routing_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Bank Routing Number</label>
+        <length>50</length>
+        <maskChar>X</maskChar>
+        <maskType>all</maskType>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>EncryptedText</type>
+    </fields>
+    <fields>
+        <fullName>Bank_Shipping_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Bank Shipping Date</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bank_Shipping_Reference__c</fullName>
+        <externalId>false</externalId>
+        <label>Bank Shipping Reference</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CBU__c</fullName>
+        <description>This is the Identification that will be used with the account number for EFT&apos;s in Argentina</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used with ETs in Argentina</inlineHelpText>
+        <label>CBU</label>
+        <length>40</length>
+        <maskChar>asterisk</maskChar>
+        <maskType>all</maskType>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>EncryptedText</type>
+    </fields>
+    <fields>
+        <fullName>CLABE__c</fullName>
+        <description>This is the tax number to be used for Mexico to pay taxes, and must be included in the information provided to the banks for EFTs.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used for ETs in Mexico</inlineHelpText>
+        <label>CLABE</label>
+        <length>40</length>
+        <maskChar>asterisk</maskChar>
+        <maskType>all</maskType>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>EncryptedText</type>
+    </fields>
+    <fields>
+        <fullName>CPF__c</fullName>
+        <description>This is a personal tax id that is necessary for us to provide to the Bank in an automatic funds transfer for Brazil</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Brazil only - personal tax ID for ETs</inlineHelpText>
+        <label>CPF</label>
+        <length>20</length>
+        <maskChar>asterisk</maskChar>
+        <maskType>all</maskType>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>EncryptedText</type>
+    </fields>
+    <fields>
+        <fullName>CUIL_RUT__c</fullName>
+        <description>This is the number used for paying taxes in Argentina. This must be part of the information provided to the bank when EFT&apos;s are used to refund the consumer</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Argentina (CUIL) &amp; Chile (RUT) only - Tax ID for ETs</inlineHelpText>
+        <label>CUIL/RUT</label>
+        <length>20</length>
+        <maskChar>asterisk</maskChar>
+        <maskType>all</maskType>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>EncryptedText</type>
+    </fields>
+    <fields>
+        <fullName>Card_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Card Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Fulfillment Order Line Items</relationshipLabel>
+        <relationshipName>Fulfillment_Order_Line_Items</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Coupon_Information__c</fullName>
+        <externalId>false</externalId>
+        <label>Coupon Information</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Currency__c</fullName>
+        <externalId>false</externalId>
+        <label>Currency 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>normal approval</fullName>
+                    <default>false</default>
+                    <label>normal approval</label>
+                </value>
+                <value>
+                    <fullName>escalated approval</fullName>
+                    <default>false</default>
+                    <label>escalated approval</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>DNI__c</fullName>
+        <description>This is the personal tax id that must be provided when executing EFT&apos;s for payment to the consumer. This is for LA countries</description>
+        <externalId>false</externalId>
+        <inlineHelpText>LA Only - personal Tax ID for ETs</inlineHelpText>
+        <label>DNI</label>
+        <length>20</length>
+        <maskChar>asterisk</maskChar>
+        <maskType>all</maskType>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>EncryptedText</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Fulfillment_Item_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Fulfillment Item ID</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fulfillment_Item_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Fulfillment_Item__r.Request_Type__c)</formula>
+        <label>Fulfillment Item Request Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fulfillment_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Fulfillment Item</label>
+        <referenceTo>Fulfillment_Item__c</referenceTo>
+        <relationshipLabel>Fulfillment Order Line Items</relationshipLabel>
+        <relationshipName>Fulfillment_Order_Line_Items</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Fulfillment_Order__c</fullName>
+        <externalId>false</externalId>
+        <label>Fulfillment Order</label>
+        <referenceTo>Fulfillment_Order__c</referenceTo>
+        <relationshipLabel>Fulfillment Order Line Items</relationshipLabel>
+        <relationshipName>Fulfillment_Order_Line_Items</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Fulfillment_SKU__c</fullName>
+        <externalId>false</externalId>
+        <label>Fulfillment SKU</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Handling_Instructions__c</fullName>
+        <externalId>false</externalId>
+        <label>Handling Instructions</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Hermes_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Hermes Code</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hermes_Integration_Message__c</fullName>
+        <externalId>false</externalId>
+        <label>Hermes Integration Message</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hermes_Integration_Success__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Hermes Integration Success</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IBAN__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Account number</inlineHelpText>
+        <label>IBAN</label>
+        <length>50</length>
+        <maskChar>X</maskChar>
+        <maskType>all</maskType>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>EncryptedText</type>
+    </fields>
+    <fields>
+        <fullName>Inactive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Inactive</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Isocode__c</fullName>
+        <externalId>false</externalId>
+        <label>Isocode</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Keep_Amount__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Keep Amount</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Misc_Item_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Misc Item Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Quantity__c</fullName>
+        <externalId>false</externalId>
+        <label>Quantity</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reload_Card__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Reload Card</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Retail_Value__c</fullName>
+        <description>Hidden field used by workflows to track value of associated fulfillment items such as coupons</description>
+        <externalId>false</externalId>
+        <label>Retail Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SAP_Invoice_Number__c</fullName>
+        <description>SAP Invoice Number</description>
+        <externalId>false</externalId>
+        <label>SAP Invoice Number</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SAP_POST_REF__c</fullName>
+        <externalId>false</externalId>
+        <label>SAP POST REF</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SAP_Payment_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>SAP Payment Amount</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SAP_Payment_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>SAP Payment Date</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SAP_Payment_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>SAP Payment Number</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Shipment_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Shipment Status</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sprinter_Status__c</fullName>
+        <description>This is a read-only field. The value will be populated by external could system.</description>
+        <externalId>false</externalId>
+        <label>Sprinter Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TIPO_DE_CUENTA__c</fullName>
+        <description>This is the type of account, either checking or savings.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>LA only - Type of bank account, checking or savings</inlineHelpText>
+        <label>TIPO DE CUENTA</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Line_Amount__c</fullName>
+        <externalId>false</externalId>
+        <formula>Amount_Currency__c *  Quantity__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Line Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Monetary_Value__c</fullName>
+        <description>Total value of all cash/checks/fulfillment items on this line item.  Used in checking suspected fraud thresholds.</description>
+        <externalId>false</externalId>
+        <formula>Amount_Currency__c + Retail_Value__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Monetary Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Retail_Value__c</fullName>
+        <externalId>false</externalId>
+        <formula>Quantity__c  *  Fulfillment_Item__r.Retail_Value__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Retail Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TrackingNumber__c</fullName>
+        <externalId>false</externalId>
+        <label>TrackingNumber</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>BD</fullName>
+                    <default>false</default>
+                    <label>BD</label>
+                </value>
+                <value>
+                    <fullName>CD</fullName>
+                    <default>false</default>
+                    <label>CD</label>
+                </value>
+                <value>
+                    <fullName>CH</fullName>
+                    <default>false</default>
+                    <label>CH</label>
+                </value>
+                <value>
+                    <fullName>CO</fullName>
+                    <default>false</default>
+                    <label>CO</label>
+                </value>
+                <value>
+                    <fullName>CP</fullName>
+                    <default>false</default>
+                    <label>CP</label>
+                </value>
+                <value>
+                    <fullName>CR</fullName>
+                    <default>false</default>
+                    <label>CR</label>
+                </value>
+                <value>
+                    <fullName>DC</fullName>
+                    <default>false</default>
+                    <label>DC</label>
+                </value>
+                <value>
+                    <fullName>DD</fullName>
+                    <default>false</default>
+                    <label>DD</label>
+                </value>
+                <value>
+                    <fullName>EL</fullName>
+                    <default>false</default>
+                    <label>EL</label>
+                </value>
+                <value>
+                    <fullName>ET</fullName>
+                    <default>false</default>
+                    <label>ET</label>
+                </value>
+                <value>
+                    <fullName>FL</fullName>
+                    <default>false</default>
+                    <label>FL</label>
+                </value>
+                <value>
+                    <fullName>FU</fullName>
+                    <default>false</default>
+                    <label>FU</label>
+                </value>
+                <value>
+                    <fullName>GI</fullName>
+                    <default>false</default>
+                    <label>GI</label>
+                </value>
+                <value>
+                    <fullName>MI</fullName>
+                    <default>false</default>
+                    <label>MI</label>
+                </value>
+                <value>
+                    <fullName>MM</fullName>
+                    <default>false</default>
+                    <label>MM</label>
+                </value>
+                <value>
+                    <fullName>MO</fullName>
+                    <default>false</default>
+                    <label>MO</label>
+                </value>
+                <value>
+                    <fullName>MP</fullName>
+                    <default>false</default>
+                    <label>MP</label>
+                </value>
+                <value>
+                    <fullName>PA</fullName>
+                    <default>false</default>
+                    <label>PA</label>
+                </value>
+                <value>
+                    <fullName>PI</fullName>
+                    <default>false</default>
+                    <label>PI</label>
+                </value>
+                <value>
+                    <fullName>PP</fullName>
+                    <default>false</default>
+                    <label>PP</label>
+                </value>
+                <value>
+                    <fullName>PR</fullName>
+                    <default>false</default>
+                    <label>PR</label>
+                </value>
+                <value>
+                    <fullName>RC</fullName>
+                    <default>false</default>
+                    <label>RC</label>
+                </value>
+                <value>
+                    <fullName>RE</fullName>
+                    <default>false</default>
+                    <label>RE</label>
+                </value>
+                <value>
+                    <fullName>RL</fullName>
+                    <default>false</default>
+                    <label>RL</label>
+                </value>
+                <value>
+                    <fullName>RP</fullName>
+                    <default>false</default>
+                    <label>RP</label>
+                </value>
+                <value>
+                    <fullName>SA</fullName>
+                    <default>false</default>
+                    <label>SA</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Fulfillment Order Line Item</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CLI-{0000000000}</displayFormat>
+        <label>Fulfillment Order Line Item Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Fulfillment Order Line Items</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>PGCHRecordType</fullName>
+        <active>true</active>
+        <description>Record type used for checks</description>
+        <label>PG CH Record Type</label>
+        <picklistValues>
+            <picklist>Currency__c</picklist>
+            <values>
+                <fullName>escalated approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>normal approval</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>BD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ET</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FU</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>PGETRecordType</fullName>
+        <active>true</active>
+        <description>Record type used for electronic transfers</description>
+        <label>PG ET Record Type</label>
+        <picklistValues>
+            <picklist>Currency__c</picklist>
+            <values>
+                <fullName>escalated approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>normal approval</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>BD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ET</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FU</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>PGRecordType</fullName>
+        <active>true</active>
+        <description>Record type used for standard items (coupons, letters, etc)</description>
+        <label>P&amp;G Record Type</label>
+        <picklistValues>
+            <picklist>Currency__c</picklist>
+            <values>
+                <fullName>escalated approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>normal approval</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>BD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ET</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FU</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MO</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Amount_Currency__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>BIC__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Card_Status__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Case__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Fulfillment_Item__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Fulfillment_Item_ID__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Fulfillment_Item_Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Fulfillment_Order__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Fulfillment_SKU__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Amount_Currency__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Card_Status__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Case__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Fulfillment_Item__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Fulfillment_Item_ID__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Fulfillment_Item_Name__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Fulfillment_Order__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Fulfillment_SKU__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>Case__c</searchFilterFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Fulfillment_Item__c</searchFilterFields>
+        <searchFilterFields>Fulfillment_Item_ID__c</searchFilterFields>
+        <searchFilterFields>Fulfillment_Item_Name__c</searchFilterFields>
+        <searchFilterFields>Fulfillment_Order__c</searchFilterFields>
+        <searchFilterFields>Fulfillment_SKU__c</searchFilterFields>
+        <searchFilterFields>Card_Status__c</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>ARS_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;ARS&quot;,
+(Amount_Currency__c &gt; $User.ARS_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your ARS Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>AUD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;AUD&quot;,
+(Amount_Currency__c &gt; $User.AUD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your AUD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>BHD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;BHD&quot;,
+(Amount_Currency__c &gt; $User.BHD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your BHD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>BOB_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;BOB&quot;,
+(Amount_Currency__c &gt; $User.BOB_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your BOB Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>BRL_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;BRL&quot;,
+(Amount_Currency__c &gt; $User.BRL_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your BRL Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>BYR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;BYR&quot;,
+(Amount_Currency__c &gt; $User.BYR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your BYR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>BZD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;BZD&quot;,
+(Amount_Currency__c &gt; $User.BZD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your BZD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CAD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;CAD&quot;,
+(Amount_Currency__c &gt; $User.CAD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your CAD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CHF_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;CHF&quot;,
+(Amount_Currency__c &gt; $User.CHF_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your CHF Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CLP_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;CLP&quot;,
+(Amount_Currency__c &gt; $User.CLP_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your CLP Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CNY_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;CNY&quot;,
+(Amount_Currency__c &gt; $User.CNY_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your CNY Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>COP_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;COP&quot;,
+(Amount_Currency__c &gt; $User.COP_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your COP Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CRC_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;CRC&quot;,
+(Amount_Currency__c &gt; $User.CRC_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your CRC Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CZK_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;CZK&quot;,
+(Amount_Currency__c &gt; $User.CZK_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your CZK Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DKK_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;DKK&quot;,
+(Amount_Currency__c &gt; $User.DKK_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your DKK Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>EGP_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;EGP&quot;,
+(Amount_Currency__c &gt; $User.EGP_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your EGP Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>EUR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;EUR&quot;,
+(Amount_Currency__c &gt; $User.EUR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your EUR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Edit_New_FF_ITEM_Closed</fullName>
+        <active>true</active>
+        <description>Prevents users from editing of creating a new FF item when closed.</description>
+        <errorConditionFormula>AND
+(OR
+(AND
+(ISPICKVAL(Fulfillment_Order__r.Status__c, &quot;Closed&quot;), 
+ISNEW()), 
+ISPICKVAL(Fulfillment_Order__r.Status__c, &quot;Closed&quot;), 
+AND
+(Fulfillment_Order__r.Locked_from_Editing__c = true)), 
+NOT
+($Profile.Name=&quot;Integration User&quot;))</errorConditionFormula>
+        <errorMessage>Fulfillment Order is Closed, you can not add or edit items. Please Contact your System Administrator.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Fulfillment_Type_Equals_ET_BIC</fullName>
+        <active>true</active>
+        <description>the fields that are needed for an ET</description>
+        <errorConditionFormula>AND(ISPICKVAL( Type__c , &quot;ET&quot;),
+ISNULL( BIC__c ))</errorConditionFormula>
+        <errorMessage>Please Enter the BIC</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Fulfillment_Type_Equals_ET_Bank_Name</fullName>
+        <active>true</active>
+        <description>the fields that are needed for an ET</description>
+        <errorConditionFormula>AND(ISPICKVAL( Type__c , &quot;ET&quot;),
+ISNULL(  Bank_Name__c  ))</errorConditionFormula>
+        <errorMessage>Please Enter the Bank Name</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Fulfillment_Type_Equals_ET_Bank_Routing</fullName>
+        <active>true</active>
+        <description>the fields that are needed for an ET</description>
+        <errorConditionFormula>AND(ISPICKVAL( Type__c , &quot;ET&quot;),
+ISNULL( Bank_Routing_Number__c ))</errorConditionFormula>
+        <errorMessage>Please Enter the Bank Routing Number</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Fulfillment_Type_Equals_ET_CH_or_PP</fullName>
+        <active>true</active>
+        <description>If Fulfillment Type = &quot;ET&quot;, or &quot;CH&quot; then Quantity must not be more than 1</description>
+        <errorConditionFormula>OR(AND(ISPICKVAL( Type__c , &quot;CH&quot;),
+Quantity__c&gt;1),
+AND(ISPICKVAL( Type__c , &quot;ET&quot;),Quantity__c&gt;1),
+AND(ISPICKVAL( Type__c , &quot;PP&quot;),Quantity__c&gt;1))</errorConditionFormula>
+        <errorMessage>If Fulfillment Type = &apos;ET&apos;, &apos;PP&apos;, or &apos;CH&apos; then Quantity must not be more than 1</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Fulfillment_Type_Equals_ET_IBAN</fullName>
+        <active>true</active>
+        <description>the fields that are needed for an ET</description>
+        <errorConditionFormula>AND(ISPICKVAL( Type__c , &quot;ET&quot;),
+ISNULL( IBAN__c ))</errorConditionFormula>
+        <errorMessage>Please Enter the IBAN</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Fulfillment_Type_Equals_ET_ISOCODE</fullName>
+        <active>true</active>
+        <description>the fields that are needed for an ET</description>
+        <errorConditionFormula>AND(ISPICKVAL( Type__c , &quot;ET&quot;),
+ISNULL( Isocode__c ))</errorConditionFormula>
+        <errorMessage>Please Enter the Iscode</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>GBP_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;GBP&quot;,
+(Amount_Currency__c &gt; $User.GBP_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your GBP Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>GTQ_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;GTQ&quot;,
+(Amount_Currency__c &gt; $User.GTQ_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your GTQ Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>HKD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;HKD&quot;,
+(Amount_Currency__c &gt; $User.HKD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your HKD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>HNL_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;HNL&quot;,
+(Amount_Currency__c &gt; $User.HNL_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your HNL Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>HRK_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;HRK&quot;,
+(Amount_Currency__c &gt; $User.HRK_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your HRK Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>HUF_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;HUF&quot;,
+(Amount_Currency__c &gt; $User.HUF_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your HUF Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>IDR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;IDR&quot;,
+(Amount_Currency__c &gt; $User.IDR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your IDR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ILS_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;ILS&quot;,
+(Amount_Currency__c &gt; $User.ILS_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your ILS Amount to your approved limit or if this is correct select the Keep Amount check box above and Save</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>INR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;INR&quot;,
+(Amount_Currency__c &gt; $User.INR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your INR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ISK_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;ISK&quot;,
+(Amount_Currency__c &gt; $User.ISK_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your ISK Amount to your approved limit or if this is correct select the Keep Amount check box above and Save</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>JPY_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;JPY&quot;,
+(Amount_Currency__c &gt; $User.JPY_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your JPY Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>KES_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;KES&quot;,
+(Amount_Currency__c &gt; $User.KES_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your KES Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>KHR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;KHR&quot;,
+(Amount_Currency__c &gt; $User.KHR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your KHR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>KPW_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;KPW&quot;,
+(Amount_Currency__c &gt; $User.KPW_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your KPW Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>KRW_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;KRW&quot;,
+(Amount_Currency__c &gt; $User.KRW_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your KRW Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>KWD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;KWD&quot;,
+(Amount_Currency__c &gt; $User.KWD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your KWD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>KZT_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;KZT&quot;,
+(Amount_Currency__c &gt; $User.KZT_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your KZT Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>LAK_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;LAK&quot;,
+(Amount_Currency__c &gt; $User.LAK_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your LAK Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>LBP_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;LBP&quot;,
+(Amount_Currency__c &gt; $User.LBP_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your LBP Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>LYD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;LYD&quot;,
+(Amount_Currency__c &gt; $User.LYD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your LYD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>MAD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;MAD&quot;,
+(Amount_Currency__c &gt; $User.MAD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your MAD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>MMK_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;MMK&quot;,
+(Amount_Currency__c &gt; $User.MMK_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your MMK Amount to your approved limit or if this is correct select the Keep Amount check box above and Save</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>MXN_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;MXN&quot;,
+(Amount_Currency__c &gt; $User.MXN_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your MXN Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>MYR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;MYR&quot;,
+(Amount_Currency__c &gt; $User.MYR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your MYR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>MobilePaymentMustHaveEmailAddress</fullName>
+        <active>true</active>
+        <description>If the line item is of type mobile payment then the Case contact must have an email address</description>
+        <errorConditionFormula>ISBLANK(Case__r.Contact.Email)
+&amp;&amp;
+ISPICKVAL(Type__c,&quot;MP&quot;)</errorConditionFormula>
+        <errorMessage>The Case Contact must have an Email Address in order to select Mobile Payment</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NGN_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;NGN&quot;,
+(Amount_Currency__c &gt; $User.NGN_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your NGN Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NIO_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;NIO&quot;,
+(Amount_Currency__c &gt; $User.NIO_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your NIO Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NOK_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;NOK&quot;,
+(Amount_Currency__c &gt; $User.NOK_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your NOK Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NZD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;NZD&quot;,
+(Amount_Currency__c &gt; $User.NZD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your NZD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>OMR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;OMR&quot;,
+(Amount_Currency__c &gt; $User.OMR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your OMR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PAB_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;PAB&quot;,
+(Amount_Currency__c &gt; $User.PAB_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your PAB Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PEN_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;PEN&quot;,
+(Amount_Currency__c &gt; $User.PEN_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your PEN Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PHP_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;PHP&quot;,
+(Amount_Currency__c &gt; $User.PHP_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your PHP Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PKR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;PKR&quot;,
+(Amount_Currency__c &gt; $User.PKR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your PKR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PLN_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;PLN&quot;,
+(Amount_Currency__c &gt; $User.PLN_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your PLN Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PYG_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;PYG&quot;,
+(Amount_Currency__c &gt; $User.PYG_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your PYG Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>QAR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;QAR&quot;,
+(Amount_Currency__c &gt; $User.QAR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your QAR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RON_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;RON&quot;,
+(Amount_Currency__c &gt; $User.RON_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your RON Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RUB_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;RUB&quot;,
+(Amount_Currency__c &gt; $User.RUB_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your RUB Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SAR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;SAR&quot;,
+(Amount_Currency__c &gt; $User.SAR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your SAR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SEK_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;SEK&quot;,
+(Amount_Currency__c &gt; $User.SEK_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your SEK Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SGD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;SGD&quot;,
+(Amount_Currency__c &gt; $User.SGD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your SGD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SVC_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;SVC&quot;,
+(Amount_Currency__c &gt; $User.SVC_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your SVC Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>THB_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;THB&quot;,
+(Amount_Currency__c &gt; $User.THB_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your THB Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>TND_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;TND&quot;,
+(Amount_Currency__c &gt; $User.TND_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your TND Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>TRY_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;TRY&quot;,
+(Amount_Currency__c &gt; $User.TRY_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your TRY Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>TWD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;TWD&quot;,
+(Amount_Currency__c &gt; $User.TWD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your TWD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>UAH_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;UAH&quot;,
+(Amount_Currency__c &gt; $User.UAH_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your UAH Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>USD_Dollar_Max_Threshold</fullName>
+        <active>false</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND((Amount_Currency__c &gt; CreatedBy.Monetary_Threshold__c), Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your $ Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>USD_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;USD&quot;,
+(Amount_Currency__c &gt;  $User.USD_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your USD Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>UYU_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;UYU&quot;,
+(Amount_Currency__c &gt; $User.UYU_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your UYU Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VEF_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;VEF&quot;,
+(Amount_Currency__c &gt; $User.VEF_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your VEF Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>VND_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;VND&quot;,
+(Amount_Currency__c &gt; $User.VND_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your VND Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>YER_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;YER&quot;,
+(Amount_Currency__c &gt; $User.YER_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your YER Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ZAR_Max_Threshold_jan16</fullName>
+        <active>true</active>
+        <description>FIXME - do not know how these validation rules may change once currency decision is made</description>
+        <errorConditionFormula>AND(Fulfillment_Order__r.Case__r.Currency__c=&quot;ZAR&quot;,
+(Amount_Currency__c &gt; $User.ZAR_Monetary_Threshold__c),
+Keep_Amount__c = FALSE)</errorConditionFormula>
+        <errorMessage>You do not have the authority to send this Amount. Please change your ZAR Amount to your approved limit or if this is correct select the Keep Amount check box above and Save.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Add_New_Line_Items</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add New Line Items</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/support/console/30.0/integration.js&quot;)} 
+
+try { 
+  var FFIds=&quot;{!Fulfillment_Order__c.Id}&quot;; 
+  var tFulfillmentOrderClosedMessage =
+    &apos;{!$Label.Fulfillment_FulfillmentOrderClosedMessage}&apos; != &apos;&apos; ? 
+        &apos;{!$Label.Fulfillment_FulfillmentOrderClosedMessage}&apos; : 
+        &apos;Fulfillment Order you are trying to access is closed. Please select another.&apos;;
+
+  var caseId=&quot;{!Fulfillment_Order__c.CaseId__c}&quot;; 
+  var caseCommentCode=&quot;{!Fulfillment_Order__c.Case_Comment_CodeId__c}&quot;; 
+  var status=&quot;{!Fulfillment_Order__c.Status__c}&quot;; 
+  var promo=&quot;{!Fulfillment_Order__c.Promos_Created__c}&quot;; 
+  if(status!=&apos;Closed&apos;) 
+  { 
+    var targeturl=&quot;/apex/sf_SelectFulfillmentItems?id=&quot;+caseId+&quot;&amp;comment=&quot;+caseCommentCode+&quot;&amp;fromPage=Additems&amp;ffOrderid=&quot;+FFIds+&quot;&amp;pro=&quot;+promo; 
+    openTab(&apos;{!Fulfillment_Order__c.Name}&apos;, targeturl);
+  } 
+  else 
+  { 
+    alert(tFulfillmentOrderClosedMessage); 
+  } 
+}//end of try 
+catch(e){alert(e);}
+
+function openTab(recname, targeturl) {
+          if ( !sforce.console.isInConsole() )
+            window.parent.location.replace(targeturl);
+          else {
+              var primarytabid;
+              sforce.console.getEnclosingPrimaryTabId(function(primaryresult) {
+                  primarytabid=primaryresult.id;
+              });
+              
+              sforce.console.getEnclosingTabId(function(subtabresult) {
+                  sforce.console.openSubtab(primarytabid, targeturl, true, recname, subtabresult.id);
+              });              
+          }
+     }</url>
+    </webLinks>
+</CustomObject>

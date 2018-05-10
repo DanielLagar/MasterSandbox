@@ -1,0 +1,30 @@
+<apex:page cache="false"
+  standardStylesheets="false"
+  showHeader="false"
+  sidebar="false"
+  controller="pkb_Controller"
+  language="{!$CurrentPage.parameters.l}"
+  applyBodyTag="false"
+  applyHtmlTag="false"
+>
+
+<title>{!if(selectedBrand != '', selectedBrand, 'P&G')}</title>
+
+<!-- this empty page simply invokes the PKB site template and gives us a page to set the Site homepage to -->
+        <apex:composition template="pkb_3ct_Search_Template">
+            <apex:define name="homebody"></apex:define>
+        </apex:composition>
+
+<!--         <pre>
+ siteName: {!siteName};
+ country param : {!$CurrentPage.parameters.country}
+ language param: {!$CurrentPage.parameters.language}
+
+
+ featuredKads : {!featuredKadsDump}
+
+
+ current language: {!currentLanguageDump}
+        </pre>
+  -->
+</apex:page>
