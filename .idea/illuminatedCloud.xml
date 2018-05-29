@@ -4,7 +4,7 @@
     <option name="connections">
       <list>
         <IlluminatedCloudConnection>
-          <option name="connectionName" value="New Connection" />
+          <option name="connectionName" value="GitMaster Sandbox" />
           <option name="defaultModuleName" value="New Connection" />
           <option name="offlineSymbolTablePath" value="$PROJECT_DIR$/IlluminatedCloud/New_Connection/OfflineSymbolTable.zip" />
         </IlluminatedCloudConnection>
